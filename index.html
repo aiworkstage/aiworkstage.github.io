@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Work Stage | AI×全自動でビジネスを加速</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+    
+    /* Header */
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 100px 40px 80px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
+    .hero h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+    .hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.2rem; color: #8888aa; max-width: 600px; margin: 0 auto 40px; line-height: 1.8; }
+    .cta-btn { display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1rem; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    /* Services */
+    .services { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+    .services h2 { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+    .services .sub { text-align: center; color: #8888aa; margin-bottom: 50px; }
+    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .service-card { background: #12121e; border: 1px solid #1e1e2e; border-radius: 16px; padding: 32px; transition: border-color 0.2s, transform 0.2s; }
+    .service-card:hover { border-color: #7c6bff; transform: translateY(-4px); }
+    .service-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+    .service-card p { color: #8888aa; font-size: 0.9rem; line-height: 1.7; }
+    .service-card .price { margin-top: 16px; font-size: 0.85rem; color: #7c6bff; font-weight: 600; }
+
+    /* Flow */
+    .flow { background: #0d0d18; padding: 80px 40px; }
+    .flow h2 { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+    .flow .sub { text-align: center; color: #8888aa; margin-bottom: 50px; }
+    .flow-steps { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; max-width: 900px; margin: 0 auto; }
+    .step { text-align: center; width: 150px; }
+    .step-num { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #7c6bff, #00d4ff); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; margin: 0 auto 12px; }
+    .step p { font-size: 0.85rem; color: #a0a0c0; }
+
+    /* Contact */
+    .contact { padding: 80px 40px; max-width: 600px; margin: 0 auto; text-align: center; }
+    .contact h2 { font-size: 2rem; margin-bottom: 10px; }
+    .contact .sub { color: #8888aa; margin-bottom: 40px; }
+    form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+    input, textarea, select { background: #12121e; border: 1px solid #1e1e2e; border-radius: 10px; padding: 14px 18px; color: #e8e8f0; font-size: 0.95rem; width: 100%; outline: none; transition: border-color 0.2s; }
+    input:focus, textarea:focus, select:focus { border-color: #7c6bff; }
+    textarea { resize: vertical; min-height: 120px; }
+    button[type=submit] { padding: 16px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; border: none; border-radius: 50px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: opacity 0.2s; }
+    button[type=submit]:hover { opacity: 0.85; }
+
+    /* Footer */
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚡ AI Work Stage</div>
+  <nav>
+    <a href="#services">サービス</a>
+    <a href="#flow">依頼の流れ</a>
+    <a href="#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>AIと自動化で、<br><span>あなたの業務を革命する</span></h1>
+  <p>ホームページ制作・Excel自動化・AIエージェント構築。<br>Claude × OpenClaw を活用した最先端の全自動ソリューション。</p>
+  <a href="#contact" class="cta-btn">無料相談する →</a>
+</section>
+
+<section class="services" id="services">
+  <h2>サービス一覧</h2>
+  <p class="sub">あなたの課題に合わせた最適なAIソリューションを提供します</p>
+  <div class="service-grid">
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <h3>ホームページ制作</h3>
+      <p>高品質なWebサイトを格安・スピード納品。ランディングページから多ページサイトまで対応。SEO最適化済み。</p>
+      <p class="price">¥15,000〜 / 納期3〜7日</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Excel・スプレッドシート自動化</h3>
+      <p>手作業の繰り返し作業をVBA・GASで完全自動化。集計・帳票作成・データ処理をボタン1つで完結。</p>
+      <p class="price">¥20,000〜 / 納期5〜10日</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <h3>AIエージェント構築</h3>
+      <p>Discord Bot・LINE Bot・自動投稿システム・業務自動化エージェントをフルオーダーで開発。</p>
+      <p class="price">¥30,000〜 / 納期7〜14日</p>
+    </div>
+  </div>
+</section>
+
+<section class="flow" id="flow">
+  <h2>依頼の流れ</h2>
+  <p class="sub">お問い合わせから納品まで完全オンライン対応</p>
+  <div class="flow-steps">
+    <div class="step"><div class="step-num">1</div><p>お問い合わせ・無料相談</p></div>
+    <div class="step"><div class="step-num">2</div><p>要件ヒアリング・見積もり</p></div>
+    <div class="step"><div class="step-num">3</div><p>制作・開発</p></div>
+    <div class="step"><div class="step-num">4</div><p>確認・修正対応</p></div>
+    <div class="step"><div class="step-num">5</div><p>納品・アフターサポート</p></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>お問い合わせ</h2>
+  <p class="sub">まずはお気軽にご相談ください。24時間以内に返信します。</p>
+  <form action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID" method="POST">
+    <input type="text" name="name" placeholder="お名前" required>
+    <input type="email" name="email" placeholder="メールアドレス" required>
+    <select name="service">
+      <option value="">サービスを選択</option>
+      <option value="hp">ホームページ制作</option>
+      <option value="excel">Excel・スプレッドシート自動化</option>
+      <option value="agent">AIエージェント構築</option>
+      <option value="other">その他・相談</option>
+    </select>
+    <textarea name="message" placeholder="ご依頼内容・ご質問をお書きください"></textarea>
+    <button type="submit">送信する →</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
