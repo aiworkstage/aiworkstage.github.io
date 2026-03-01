@@ -41,10 +41,14 @@
 
 <section class="hero">
   <h1>🌐 <span>ホームページ制作</span><br>ヒアリングフォーム</h1>
-  <p>ご決済ありがとうございます。以下の項目をご記入いただき、送信してください。</p>
+  <p>以下の項目をご記入いただき、送信してください。</p>
 </section>
 
 <div class="form-wrap">
+  <div class="note">
+    <strong>📋 ヒアリング完了後、3営業日以内にお見積もりをメールでお送りします。</strong><br>
+    ご確認・ご同意いただいた後、決済リンクをご案内します。
+  </div>
   <div class="note">
     <strong>📋 ご記入のお願い</strong><br>
     できるだけ詳しくご記入いただくと、よりご希望に沿った制作が可能になります。<br>
@@ -97,6 +101,25 @@
     <div class="form-group">
       <label>掲載したいコンテンツ・素材について<span class="req">*</span></label>
       <textarea name="content_assets" placeholder="例：テキストはこちらで用意します / 写真は〇枚提供できます / ロゴはあります など" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>独自ドメインは必要ですか？</label>
+      <select name="need_domain">
+        <option value="">選択してください</option>
+        <option value="はい">はい</option>
+        <option value="いいえ">いいえ</option>
+        <option value="わからない">わからない</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>レンタルサーバーの契約はお持ちですか？</label>
+      <select name="has_server">
+        <option value="">選択してください</option>
+        <option value="はい">はい</option>
+        <option value="いいえ">いいえ</option>
+      </select>
     </div>
 
     <div class="form-group">

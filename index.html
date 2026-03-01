@@ -32,8 +32,27 @@
     .service-icon { font-size: 2.4rem; margin-bottom: 16px; }
     .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
     .service-card p { color: #8888aa; font-size: 0.9rem; line-height: 1.7; }
-    .pay-btn { display:inline-block; margin-top:12px; padding:10px 20px; background:linear-gradient(135deg,#7c6bff,#00d4ff); color:#fff; text-decoration:none; border-radius:30px; font-size:0.85rem; font-weight:700; }
-    .service-card .price { margin-top: 16px; font-size: 0.85rem; color: #7c6bff; font-weight: 600; }
+    .estimate-btn { display:inline-block; margin-top:16px; padding:10px 20px; background:linear-gradient(135deg,#7c6bff,#00d4ff); color:#fff; text-decoration:none; border-radius:30px; font-size:0.85rem; font-weight:700; }
+    .service-card .price { margin-top: 16px; font-size: 0.9rem; color: #7c6bff; font-weight: 700; }
+
+    /* 注意事項バッジ */
+    .caution-badge { margin-top: 16px; background: #1a1a2e; border: 1px solid #3a3a5e; border-radius: 10px; padding: 12px 16px; font-size: 0.82rem; color: #a0a0c0; line-height: 1.8; }
+    .caution-badge .caution-title { color: #ffcc44; font-weight: 700; margin-bottom: 4px; display: block; }
+
+    /* Affiliate Section */
+    .affiliate { background: #0d0d18; padding: 80px 40px; }
+    .affiliate h2 { text-align: center; font-size: 1.8rem; margin-bottom: 8px; }
+    .affiliate .sub { text-align: center; color: #8888aa; margin-bottom: 12px; font-size: 0.9rem; }
+    .affiliate-note { text-align: center; color: #666688; font-size: 0.78rem; margin-bottom: 40px; }
+    .affiliate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto; }
+    .affiliate-card { background: #12121e; border: 1px solid #1e1e2e; border-radius: 14px; padding: 28px; transition: border-color 0.2s, transform 0.2s; }
+    .affiliate-card:hover { border-color: #00d4ff; transform: translateY(-3px); }
+    .affiliate-card .aff-icon { font-size: 2rem; margin-bottom: 12px; }
+    .affiliate-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .affiliate-card .aff-tag { display: inline-block; background: rgba(124,107,255,0.15); color: #7c6bff; border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-weight: 600; margin-bottom: 10px; }
+    .affiliate-card p { color: #8888aa; font-size: 0.85rem; line-height: 1.6; margin-bottom: 16px; }
+    .aff-btn { display: inline-block; padding: 10px 20px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 30px; font-size: 0.82rem; font-weight: 700; transition: opacity 0.2s; }
+    .aff-btn:hover { opacity: 0.85; }
 
     /* Flow */
     .flow { background: #0d0d18; padding: 80px 40px; }
@@ -80,30 +99,83 @@
   <h2>サービス一覧</h2>
   <p class="sub">あなたの課題に合わせた最適なAIソリューションを提供します</p>
   <div class="service-grid">
+
     <div class="service-card">
       <div class="service-icon">🌐</div>
       <h3>ホームページ制作</h3>
       <p>高品質なWebサイトを格安・スピード納品。ランディングページから多ページサイトまで対応。SEO最適化済み。</p>
-      <p class="price">¥15,000〜 / 納期3〜7日</p>
-      <a href="https://buy.stripe.com/aFa5kwbsZ2u91ky26i93y03" class="pay-btn" target="_blank">今すぐ申し込む →</a>
-      <a href="hearing-hp.html" style="display:inline-block;margin-top:8px;font-size:0.8rem;color:#7c6bff;text-decoration:none;">📋 詳細ヒアリングはこちら（決済後）</a>
+      <p class="price">¥15,000〜（見積もり後確定） / 納期3〜7日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・独自ドメインは別途¥1,000〜3,000/年（オプション）<br>
+        ・サーバー費用が別途必要な場合あり<br>
+        ・SNS連携・予約システム等は別途お見積もり
+      </div>
+      <a href="hearing-hp.html" class="estimate-btn">無料見積もりを依頼する →</a>
     </div>
+
     <div class="service-card">
       <div class="service-icon">📊</div>
       <h3>Excel・スプレッドシート自動化</h3>
       <p>手作業の繰り返し作業をVBA・GASで完全自動化。集計・帳票作成・データ処理をボタン1つで完結。</p>
-      <p class="price">¥20,000〜 / 納期5〜10日</p>
-      <a href="https://buy.stripe.com/aFa9AM7cJ1q59R49yK93y04" class="pay-btn" target="_blank">今すぐ申し込む →</a>
-      <a href="hearing-excel.html" style="display:inline-block;margin-top:8px;font-size:0.8rem;color:#7c6bff;text-decoration:none;">📋 詳細ヒアリングはこちら（決済後）</a>
+      <p class="price">¥20,000〜（見積もり後確定） / 納期5〜10日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・Google Workspaceの有料プランが必要な場合あり<br>
+        ・既存ファイルの構造によっては対応不可の場合あり<br>
+        ・保守・修正は別途お見積もり
+      </div>
+      <a href="hearing-excel.html" class="estimate-btn">無料見積もりを依頼する →</a>
     </div>
+
     <div class="service-card">
       <div class="service-icon">🤖</div>
       <h3>AIエージェント構築</h3>
       <p>Discord Bot・LINE Bot・自動投稿システム・業務自動化エージェントをフルオーダーで開発。</p>
-      <p class="price">¥30,000〜 / 納期7〜14日</p>
-      <a href="https://buy.stripe.com/9B6fZa40x8Sx2oC3am93y05" class="pay-btn" target="_blank">今すぐ申し込む →</a>
-      <a href="hearing-ai.html" style="display:inline-block;margin-top:8px;font-size:0.8rem;color:#7c6bff;text-decoration:none;">📋 詳細ヒアリングはこちら（決済後）</a>
+      <p class="price">¥30,000〜（見積もり後確定） / 納期7〜14日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・X（Twitter）API連携は別途$100/月のAPI費用が必要<br>
+        ・Instagram等SNS自動化はAPI制限により対応不可の場合あり<br>
+        ・VPS・クラウドサーバーが必要な場合は別途費用あり（Xserver VPS推奨）<br>
+        ・Claude API等のAI利用料が別途かかる場合あり
+      </div>
+      <a href="hearing-ai.html" class="estimate-btn">無料見積もりを依頼する →</a>
     </div>
+
+  </div>
+</section>
+
+<section class="affiliate" id="affiliate">
+  <h2>🏗️ インフラ・ドメイン取得のご案内</h2>
+  <p class="sub">サービス利用に必要なインフラをまとめてご紹介します</p>
+  <p class="affiliate-note">※当サイトはアフィリエイト広告を掲載しています</p>
+  <div class="affiliate-grid">
+
+    <div class="affiliate-card">
+      <div class="aff-icon">🖥️</div>
+      <h3>Xserverレンタルサーバー</h3>
+      <span class="aff-tag">HP制作に推奨</span>
+      <p>国内シェアNo.1の高速・安定レンタルサーバー。WordPressも簡単設置。HP制作サービスとの組み合わせに最適です。</p>
+      <a href="https://px.a8.net/svt/ejp?a8mat=25MZ7A+2DZOQ+CO4+61JSI" class="aff-btn" target="_blank" rel="nofollow">詳しく見る →</a>
+    </div>
+
+    <div class="affiliate-card">
+      <div class="aff-icon">🌐</div>
+      <h3>Xドメイン</h3>
+      <span class="aff-tag">独自ドメイン取得</span>
+      <p>年間数百円〜の格安ドメイン取得サービス。.com/.jp/.netなど豊富なTLDを取り揃え。ビジネスに欠かせない独自ドメインをすぐに取得できます。</p>
+      <a href="https://px.a8.net/svt/ejp?a8mat=4AZ702+39ANFU+CO4+15ORS2" class="aff-btn" target="_blank" rel="nofollow">詳しく見る →</a>
+    </div>
+
+    <div class="affiliate-card">
+      <div class="aff-icon">⚡</div>
+      <h3>Xserver VPS</h3>
+      <span class="aff-tag">AIエージェント・大規模システムに推奨</span>
+      <p>AIエージェントや大規模システムの常時稼働に最適な高性能VPS。月額数百円から始められ、スペックも柔軟に変更可能です。</p>
+      <a href="https://px.a8.net/svt/ejp?a8mat=4AZ702+276WQ2+CO4+25EKCY" class="aff-btn" target="_blank" rel="nofollow">詳しく見る →</a>
+    </div>
+
   </div>
 </section>
 
@@ -111,10 +183,10 @@
   <h2>依頼の流れ</h2>
   <p class="sub">お問い合わせから納品まで完全オンライン対応</p>
   <div class="flow-steps">
-    <div class="step"><div class="step-num">1</div><p>お問い合わせ・無料相談</p></div>
-    <div class="step"><div class="step-num">2</div><p>要件ヒアリング・見積もり</p></div>
-    <div class="step"><div class="step-num">3</div><p>制作・開発</p></div>
-    <div class="step"><div class="step-num">4</div><p>確認・修正対応</p></div>
+    <div class="step"><div class="step-num">1</div><p>無料見積もり依頼</p></div>
+    <div class="step"><div class="step-num">2</div><p>ヒアリング・見積もり（3営業日以内）</p></div>
+    <div class="step"><div class="step-num">3</div><p>ご確認・決済</p></div>
+    <div class="step"><div class="step-num">4</div><p>制作・開発</p></div>
     <div class="step"><div class="step-num">5</div><p>納品・アフターサポート</p></div>
   </div>
 </section>

@@ -41,10 +41,14 @@
 
 <section class="hero">
   <h1>🤖 <span>AIエージェント構築</span><br>ヒアリングフォーム</h1>
-  <p>ご決済ありがとうございます。以下の項目をご記入いただき、送信してください。</p>
+  <p>以下の項目をご記入いただき、送信してください。</p>
 </section>
 
 <div class="form-wrap">
+  <div class="note">
+    <strong>📋 ヒアリング完了後、3営業日以内にお見積もりをメールでお送りします。</strong><br>
+    ご確認・ご同意いただいた後、決済リンクをご案内します。
+  </div>
   <div class="note">
     <strong>📋 ご記入のお願い</strong><br>
     実現したいことを具体的にご記入いただくほど、精度の高いエージェントを構築できます。<br>
@@ -94,6 +98,24 @@
         <option value="¥50,000〜¥100,000">¥50,000〜¥100,000</option>
         <option value="¥100,000〜">¥100,000〜</option>
         <option value="相談して決めたい">相談して決めたい</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>X（Twitter）との連携は必要ですか？</label>
+      <select name="need_twitter">
+        <option value="">選択してください</option>
+        <option value="はい（API費用$100/月が別途必要になります）">はい（※API費用$100/月が別途必要になります）</option>
+        <option value="いいえ">いいえ</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>VPSサーバーをお持ちですか？</label>
+      <select name="has_vps">
+        <option value="">選択してください</option>
+        <option value="はい">はい</option>
+        <option value="いいえ">いいえ</option>
       </select>
     </div>
 
