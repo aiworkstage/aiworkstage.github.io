@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI機能追加 ヒアリングフォーム | AI Work Stage</title>
+  <meta name="description" content="AI機能追加サービスのヒアリングフォーム。使いたいAI・用途・予算をお教えください。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; }
+    nav a:hover { color: #fff; }
+
+    .hero { text-align: center; padding: 70px 40px 50px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
+    .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+    .hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: #8888aa; font-size: 0.95rem; line-height: 1.8; }
+
+    .form-section { padding: 60px 40px; max-width: 700px; margin: 0 auto; }
+    .form-group { margin-bottom: 24px; }
+    label { display: block; font-size: 0.9rem; font-weight: 600; color: #c0c0d8; margin-bottom: 8px; }
+    .required { color: #ff6b6b; margin-left: 4px; }
+    input[type=text], input[type=email], input[type=url], textarea, select {
+      background: #12121e; border: 1px solid #1e1e2e; border-radius: 10px;
+      padding: 14px 18px; color: #e8e8f0; font-size: 0.95rem; width: 100%;
+      outline: none; transition: border-color 0.2s; font-family: inherit;
+    }
+    input:focus, textarea:focus, select:focus { border-color: #7c6bff; }
+    textarea { resize: vertical; min-height: 120px; }
+
+    .checkbox-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .checkbox-item { display: flex; align-items: center; gap: 10px; background: #12121e; border: 1px solid #1e1e2e; border-radius: 10px; padding: 12px 16px; cursor: pointer; transition: border-color 0.2s; }
+    .checkbox-item:hover { border-color: #7c6bff; }
+    .checkbox-item input[type=checkbox] { width: 18px; height: 18px; accent-color: #7c6bff; cursor: pointer; flex-shrink: 0; }
+    .checkbox-item span { font-size: 0.9rem; }
+
+    .submit-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; border: none; border-radius: 50px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: opacity 0.2s; margin-top: 12px; }
+    .submit-btn:hover { opacity: 0.85; }
+
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
+    footer a { color: #7c6bff; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.6rem; }
+      .form-section { padding: 40px 20px; }
+      header { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">⚡ AI Work Stage</a>
+  <nav>
+    <a href="service-ai-feature.html">← AI比較に戻る</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>🤖 <span>AI機能追加</span><br>ヒアリングフォーム</h1>
+  <p>以下の項目をご記入ください。内容を確認の上、<br>3営業日以内にご連絡いたします。</p>
+</section>
+
+<section class="form-section">
+  <form action="https://formspree.io/f/xojnzlpg" method="POST">
+    <input type="hidden" name="_subject" value="【AI機能追加】ヒアリングフォーム">
+
+    <div class="form-group">
+      <label>お名前・会社名 <span class="required">*</span></label>
+      <input type="text" name="name" placeholder="例：田中太郎 / 株式会社〇〇" required>
+    </div>
+
+    <div class="form-group">
+      <label>メールアドレス <span class="required">*</span></label>
+      <input type="email" name="email" placeholder="example@email.com" required>
+    </div>
+
+    <div class="form-group">
+      <label>使用したいAI（複数選択可）<span class="required">*</span></label>
+      <div class="checkbox-group">
+        <label class="checkbox-item">
+          <input type="checkbox" name="ai[]" value="ChatGPT" id="ai-chatgpt">
+          <span>🟢 ChatGPT</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="ai[]" value="Gemini" id="ai-gemini">
+          <span>🔵 Gemini</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="ai[]" value="Copilot" id="ai-copilot">
+          <span>🪟 Copilot</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="ai[]" value="Claude" id="ai-claude">
+          <span>🟠 Claude</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="ai[]" value="OpenClaw" id="ai-openclaw">
+          <span>⚡ OpenClaw</span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="ai[]" value="Imagen3" id="ai-nanobanana">
+          <span>🍌 Imagen 3</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>何に使いたいか <span class="required">*</span></label>
+      <textarea name="purpose" placeholder="例：ECサイトに接客AIチャットを追加したい / 自社サービスのFAQを自動回答させたい など" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>現在のサイトURL（任意）</label>
+      <input type="url" name="site_url" placeholder="https://example.com">
+    </div>
+
+    <div class="form-group">
+      <label>予算感 <span class="required">*</span></label>
+      <select name="budget" required>
+        <option value="">選択してください</option>
+        <option value="〜¥20,000">〜¥20,000</option>
+        <option value="¥20,000〜¥50,000">¥20,000〜¥50,000</option>
+        <option value="¥50,000〜¥100,000">¥50,000〜¥100,000</option>
+        <option value="¥100,000〜">¥100,000〜</option>
+        <option value="要相談">要相談</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>希望納期</label>
+      <select name="deadline">
+        <option value="">選択してください</option>
+        <option value="できるだけ早く">できるだけ早く</option>
+        <option value="1週間以内">1週間以内</option>
+        <option value="2週間以内">2週間以内</option>
+        <option value="1ヶ月以内">1ヶ月以内</option>
+        <option value="未定">未定</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>その他要望・質問</label>
+      <textarea name="other" placeholder="その他、ご要望・ご質問があればお書きください"></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">送信する →</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="index.html">← トップに戻る</a></p>
+</footer>
+
+<script>
+// URLパラメータからAIのプリセット
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const ai = params.get('ai');
+  if (!ai) return;
+  const selected = ai.split(',');
+  const map = {
+    'chatgpt': 'ai-chatgpt',
+    'gemini': 'ai-gemini',
+    'copilot': 'ai-copilot',
+    'claude': 'ai-claude',
+    'openclaw': 'ai-openclaw',
+    'nanobanana': 'ai-nanobanana'
+  };
+  selected.forEach(id => {
+    const el = document.getElementById(map[id.trim()]);
+    if (el) el.checked = true;
+  });
+})();
+</script>
+</body>
+</html>

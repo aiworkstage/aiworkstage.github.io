@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIブログ | AI Work Stage</title>
+  <meta name="description" content="AI×自動化の最新情報・活用事例・業務効率化のヒントをお届けするAI実務ラボのブログ。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+
+    .page-hero { text-align: center; padding: 70px 40px 50px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.12) 0%, transparent 60%); }
+    .page-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 12px; }
+    .page-hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .page-hero p { color: #8888aa; font-size: 1rem; }
+
+    .blog-container { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
+
+    .blog-card { background: #12121e; border: 1px solid #1e1e2e; border-radius: 16px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; }
+    .blog-card:hover { border-color: #7c6bff; transform: translateY(-4px); }
+
+    .blog-card-thumb { width: 100%; height: 180px; object-fit: cover; background: #1a1a2e; display: block; }
+    .blog-card-thumb-placeholder { width: 100%; height: 180px; background: linear-gradient(135deg, rgba(124,107,255,0.15), rgba(0,212,255,0.1)); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+
+    .blog-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .blog-card-date { font-size: 0.78rem; color: #666688; margin-bottom: 10px; }
+    .blog-card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+    .blog-card-title a { color: #e8e8f0; text-decoration: none; }
+    .blog-card-title a:hover { color: #7c6bff; }
+    .blog-card-desc { font-size: 0.88rem; color: #8888aa; line-height: 1.7; flex: 1; margin-bottom: 16px; }
+    .read-more { display: inline-block; padding: 8px 20px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 30px; font-size: 0.82rem; font-weight: 700; transition: opacity 0.2s; align-self: flex-start; }
+    .read-more:hover { opacity: 0.85; }
+
+    .loading { text-align: center; padding: 80px; color: #666688; font-size: 1rem; }
+    .error-msg { text-align: center; padding: 60px; color: #ff6688; }
+
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; margin-top: 40px; }
+    footer a { color: #7c6bff; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      nav a { margin-left: 16px; font-size: 0.82rem; }
+      .page-hero { padding: 50px 20px 36px; }
+      .page-hero h1 { font-size: 1.8rem; }
+      .blog-container { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">AI Work Stage</a>
+  <nav>
+    <a href="index.html#services">サービス</a>
+    <a href="index.html#flow">流れ</a>
+    <a href="blog.html">ブログ</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <h1>AI<span>ブログ</span></h1>
+  <p>AI×自動化の最新情報・活用事例・業務効率化のヒントをお届けします</p>
+</div>
+
+<div class="blog-container">
+  <div id="blog-grid" class="blog-grid">
+    <div class="loading">記事を読み込み中...</div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+  <p style="margin-top:10px;">
+    <a href="index.html">トップ</a> &nbsp;|&nbsp;
+    <a href="blog.html">ブログ</a> &nbsp;|&nbsp;
+    <a href="security.html">セキュリティ・プライバシーポリシー</a> &nbsp;|&nbsp;
+    <a href="terms.html">利用規約・返金ポリシー</a>
+  </p>
+</footer>
+
+<script>
+  const RSS_URL = 'https://note.com/ai_jitumu_lab/rss';
+  const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+  }
+
+  function stripHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function truncate(str, len) {
+    const text = stripHtml(str);
+    return text.length > len ? text.slice(0, len) + '…' : text;
+  }
+
+  fetch(API_URL)
+    .then(r => r.json())
+    .then(data => {
+      const grid = document.getElementById('blog-grid');
+      if (!data.items || data.items.length === 0) {
+        grid.innerHTML = '<div class="error-msg">記事が見つかりませんでした。</div>';
+        return;
+      }
+      grid.innerHTML = '';
+      data.items.forEach(item => {
+        const thumb = item.thumbnail || item.enclosure?.link || '';
+        const thumbHtml = thumb
+          ? `<img class="blog-card-thumb" src="${thumb}" alt="${item.title}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\'blog-card-thumb-placeholder\\'>📝</div>'">`
+          : `<div class="blog-card-thumb-placeholder">📝</div>`;
+        const desc = truncate(item.description || item.content || '', 100);
+        const card = document.createElement('div');
+        card.className = 'blog-card';
+        card.innerHTML = `
+          ${thumbHtml}
+          <div class="blog-card-body">
+            <div class="blog-card-date">${formatDate(item.pubDate)}</div>
+            <div class="blog-card-title"><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></div>
+            <div class="blog-card-desc">${desc}</div>
+            <a class="read-more" href="${item.link}" target="_blank" rel="noopener">続きを読む →</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    })
+    .catch(err => {
+      document.getElementById('blog-grid').innerHTML = `<div class="error-msg">記事の取得に失敗しました。<br><small>${err.message}</small></div>`;
+    });
+</script>
+</body>
+</html>

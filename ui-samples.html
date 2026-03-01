@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デザインテンプレート一覧 | AI Work Stage</title>
+  <meta name="description" content="ホームページ制作のデザインテンプレート一覧。シンプル・ビジネス・ダーク・ポップ・和風の5パターンからお選びいただけます。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; }
+    nav a:hover { color: #fff; }
+
+    .hero { text-align: center; padding: 70px 40px 50px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
+    .hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; }
+    .hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: #8888aa; font-size: 1rem; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+
+    .section { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
+    .template-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+
+    .template-card { background: #12121e; border: 1px solid #1e1e2e; border-radius: 20px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+    .template-card:hover { transform: translateY(-6px); border-color: #7c6bff; }
+    .template-preview { height: 200px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    .template-card-body { padding: 24px; }
+    .template-card-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .template-card-body p { font-size: 0.85rem; color: #8888aa; line-height: 1.6; margin-bottom: 20px; }
+    .select-btn { display: inline-block; width: 100%; text-align: center; padding: 12px 24px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 0.9rem; transition: opacity 0.2s; cursor: pointer; border: none; }
+    .select-btn:hover { opacity: 0.85; }
+
+    /* ── テンプレート1: シンプル・ミニマル型 ── */
+    .preview-minimal { background: #f9f9f9; color: #222; }
+    .preview-minimal .p-header { width: 100%; padding: 10px 20px; background: #fff; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .preview-minimal .p-logo { font-size: 0.85rem; font-weight: 300; letter-spacing: 3px; color: #333; }
+    .preview-minimal .p-nav { font-size: 0.65rem; color: #999; }
+    .preview-minimal .p-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; }
+    .preview-minimal .p-title { font-size: 1.1rem; font-weight: 300; letter-spacing: 2px; color: #333; margin-bottom: 8px; }
+    .preview-minimal .p-sub { font-size: 0.65rem; color: #aaa; letter-spacing: 1px; margin-bottom: 12px; }
+    .preview-minimal .p-btn { padding: 6px 18px; border: 1px solid #333; color: #333; font-size: 0.65rem; background: transparent; border-radius: 2px; }
+
+    /* ── テンプレート2: ビジネス・プロフェッショナル型 ── */
+    .preview-business { background: #0a1628; color: #f0e8c8; }
+    .preview-business .p-header { width: 100%; padding: 10px 20px; background: #0d1e3a; border-bottom: 1px solid #c9a84c; display: flex; justify-content: space-between; align-items: center; }
+    .preview-business .p-logo { font-size: 0.85rem; font-weight: 700; color: #c9a84c; }
+    .preview-business .p-nav { font-size: 0.65rem; color: #8899bb; }
+    .preview-business .p-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; background: linear-gradient(135deg, #0a1628, #0d2040); }
+    .preview-business .p-title { font-size: 1rem; font-weight: 700; color: #c9a84c; margin-bottom: 6px; }
+    .preview-business .p-sub { font-size: 0.65rem; color: #8899bb; margin-bottom: 12px; }
+    .preview-business .p-btn { padding: 6px 18px; background: #c9a84c; color: #0a1628; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 2px; }
+
+    /* ── テンプレート3: モダン・ダーク型（当サイト同テイスト）── */
+    .preview-dark { background: #0a0a0f; color: #e8e8f0; }
+    .preview-dark .p-header { width: 100%; padding: 10px 20px; background: #0a0a0f; border-bottom: 1px solid #1e1e2e; display: flex; justify-content: space-between; align-items: center; }
+    .preview-dark .p-logo { font-size: 0.85rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .preview-dark .p-nav { font-size: 0.65rem; color: #666688; }
+    .preview-dark .p-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.2) 0%, transparent 70%); }
+    .preview-dark .p-title { font-size: 1rem; font-weight: 800; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+    .preview-dark .p-sub { font-size: 0.65rem; color: #8888aa; margin-bottom: 12px; }
+    .preview-dark .p-btn { padding: 6px 18px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 20px; }
+
+    /* ── テンプレート4: ポップ・カラフル型 ── */
+    .preview-pop { background: #fff9f0; color: #333; }
+    .preview-pop .p-header { width: 100%; padding: 10px 20px; background: #ff6b6b; display: flex; justify-content: space-between; align-items: center; }
+    .preview-pop .p-logo { font-size: 0.85rem; font-weight: 800; color: #fff; }
+    .preview-pop .p-nav { font-size: 0.65rem; color: rgba(255,255,255,0.8); }
+    .preview-pop .p-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; background: linear-gradient(135deg, #fff9f0, #fff0f9); }
+    .preview-pop .p-title { font-size: 1rem; font-weight: 800; color: #ff6b6b; margin-bottom: 6px; }
+    .preview-pop .p-sub { font-size: 0.65rem; color: #ff9a6b; margin-bottom: 12px; }
+    .preview-pop .p-btn { padding: 6px 18px; background: linear-gradient(135deg, #ff6b6b, #ffd93d); color: #fff; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 30px; }
+
+    /* ── テンプレート5: 和風・日本的型 ── */
+    .preview-wabi { background: #f7f3ee; color: #3d2b1f; }
+    .preview-wabi .p-header { width: 100%; padding: 10px 20px; background: #f0ebe4; border-bottom: 1px solid #c4a882; display: flex; justify-content: space-between; align-items: center; }
+    .preview-wabi .p-logo { font-size: 0.85rem; font-weight: 400; letter-spacing: 4px; color: #6b4c3b; font-family: serif; }
+    .preview-wabi .p-nav { font-size: 0.65rem; color: #a08060; }
+    .preview-wabi .p-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; background: linear-gradient(135deg, #f7f3ee, #f0ece5); position: relative; }
+    .preview-wabi .p-deco { position: absolute; top: 8px; right: 16px; font-size: 1.4rem; opacity: 0.15; color: #8b6347; }
+    .preview-wabi .p-title { font-size: 1rem; font-weight: 400; color: #6b4c3b; font-family: serif; letter-spacing: 3px; margin-bottom: 6px; }
+    .preview-wabi .p-sub { font-size: 0.65rem; color: #a08060; letter-spacing: 2px; margin-bottom: 12px; font-family: serif; }
+    .preview-wabi .p-btn { padding: 6px 18px; background: transparent; border: 1px solid #8b6347; color: #6b4c3b; font-size: 0.65rem; border-radius: 2px; font-family: serif; letter-spacing: 1px; }
+
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
+    footer a { color: #7c6bff; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      header { padding: 16px 20px; }
+      .section { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">⚡ AI Work Stage</a>
+  <nav>
+    <a href="index.html#services">サービス</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>🎨 <span>デザインテンプレート一覧</span></h1>
+  <p>お好みのデザインタイプを選んでヒアリングフォームにてお知らせください。<br>もちろんご要望に合わせたカスタマイズも承ります。</p>
+</section>
+
+<section class="section">
+  <div class="template-grid">
+
+    <!-- 1. シンプル・ミニマル型 -->
+    <div class="template-card">
+      <div class="template-preview preview-minimal">
+        <div class="p-header">
+          <span class="p-logo">COMPANY</span>
+          <span class="p-nav">About · Works · Contact</span>
+        </div>
+        <div class="p-body">
+          <div class="p-title">Simple &amp; Minimal</div>
+          <div class="p-sub">余白が語る、上質なデザイン</div>
+          <div class="p-btn">VIEW MORE</div>
+        </div>
+      </div>
+      <div class="template-card-body">
+        <h3>① シンプル・ミニマル型</h3>
+        <p>余白多め・白基調・細いフォント。清潔感と上品さを重視したデザイン。ポートフォリオ・士業・クリエイター向け。</p>
+        <a href="hearing-hp.html?type=minimal" class="select-btn">このタイプを選ぶ →</a>
+      </div>
+    </div>
+
+    <!-- 2. ビジネス・プロフェッショナル型 -->
+    <div class="template-card">
+      <div class="template-preview preview-business">
+        <div class="p-header">
+          <span class="p-logo">BUSINESS PRO</span>
+          <span class="p-nav">Service · About · Contact</span>
+        </div>
+        <div class="p-body">
+          <div class="p-title">Business Professional</div>
+          <div class="p-sub">信頼と実績を前面に</div>
+          <div class="p-btn">GET STARTED</div>
+        </div>
+      </div>
+      <div class="template-card-body">
+        <h3>② ビジネス・プロフェッショナル型</h3>
+        <p>ネイビー×ゴールドで信頼感を演出。コンサル・法律事務所・金融・BtoB企業に最適。</p>
+        <a href="hearing-hp.html?type=business" class="select-btn">このタイプを選ぶ →</a>
+      </div>
+    </div>
+
+    <!-- 3. モダン・ダーク型 -->
+    <div class="template-card">
+      <div class="template-preview preview-dark">
+        <div class="p-header">
+          <span class="p-logo">⚡ AI Studio</span>
+          <span class="p-nav">Works · Blog · Contact</span>
+        </div>
+        <div class="p-body">
+          <div class="p-title">Modern Dark</div>
+          <div class="p-sub">AIと革新のビジュアル</div>
+          <div class="p-btn">EXPLORE →</div>
+        </div>
+      </div>
+      <div class="template-card-body">
+        <h3>③ モダン・ダーク型（当サイト同テイスト）</h3>
+        <p>黒・紫系グラデーション。IT・テクノロジー・ゲーム・クリエイティブ系に人気のスタイリッシュなデザイン。</p>
+        <a href="hearing-hp.html?type=dark" class="select-btn">このタイプを選ぶ →</a>
+      </div>
+    </div>
+
+    <!-- 4. ポップ・カラフル型 -->
+    <div class="template-card">
+      <div class="template-preview preview-pop">
+        <div class="p-header">
+          <span class="p-logo">🎉 POP SHOP</span>
+          <span class="p-nav">Shop · Blog · About</span>
+        </div>
+        <div class="p-body">
+          <div class="p-title">Pop &amp; Colorful!</div>
+          <div class="p-sub">元気・楽しい・明るい！</div>
+          <div class="p-btn">LET'S GO 🚀</div>
+        </div>
+      </div>
+      <div class="template-card-body">
+        <h3>④ ポップ・カラフル型</h3>
+        <p>明るい色使いで親しみやすさを演出。若者向けショップ・スクール・イベント・飲食店・子ども関連に最適。</p>
+        <a href="hearing-hp.html?type=pop" class="select-btn">このタイプを選ぶ →</a>
+      </div>
+    </div>
+
+    <!-- 5. 和風・日本的型 -->
+    <div class="template-card">
+      <div class="template-preview preview-wabi">
+        <div class="p-header">
+          <span class="p-logo">和 匠 庵</span>
+          <span class="p-nav">コンセプト · 作品 · お問合せ</span>
+        </div>
+        <div class="p-body">
+          <div class="p-deco">✿</div>
+          <div class="p-title">和 の 心</div>
+          <div class="p-sub">静 寂 と 品 格</div>
+          <div class="p-btn">詳 し く 見 る</div>
+        </div>
+      </div>
+      <div class="template-card-body">
+        <h3>⑤ 和風・日本的型</h3>
+        <p>落ち着いた和色（茶・薄桃・生成り）と繊細なデザイン。旅館・和食店・工芸・着物・伝統文化系に最適。</p>
+        <a href="hearing-hp.html?type=wabi" class="select-btn">このタイプを選ぶ →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="index.html">← トップに戻る</a></p>
+</footer>
+
+</body>
+</html>

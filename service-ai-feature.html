@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI機能追加サービス | AI Work Stage</title>
+  <meta name="description" content="既存サイトにAIチャット機能を追加。ChatGPT・Gemini・Claude・OpenClawなど対応AIを選択可能。記憶型で会話履歴を保持。¥20,000〜">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+
+    .hero { text-align: center; padding: 80px 40px 60px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
+    .hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 16px; }
+    .hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1rem; color: #8888aa; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+    .price-badge { display: inline-block; margin-top: 20px; background: rgba(124,107,255,0.15); border: 1px solid rgba(124,107,255,0.4); border-radius: 30px; padding: 10px 24px; font-size: 1rem; font-weight: 700; color: #b0a8ff; }
+
+    .section { padding: 60px 40px; max-width: 960px; margin: 0 auto; }
+    .section h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
+    .section .sub { color: #8888aa; margin-bottom: 40px; font-size: 0.9rem; }
+
+    .ai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; }
+    .ai-card { background: #12121e; border: 2px solid #1e1e2e; border-radius: 16px; padding: 28px; transition: border-color 0.2s, transform 0.2s; position: relative; }
+    .ai-card:hover { border-color: #7c6bff; transform: translateY(-4px); }
+    .ai-card.recommended { border-color: rgba(124,107,255,0.5); background: #13132a; }
+    .rec-badge { position: absolute; top: -12px; right: 20px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; }
+    .ai-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .ai-checkbox { width: 22px; height: 22px; border: 2px solid #7c6bff; border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .ai-checkbox.checked { background: linear-gradient(135deg, #7c6bff, #00d4ff); }
+    .ai-card-icon { font-size: 2rem; }
+    .ai-card h3 { font-size: 1.15rem; font-weight: 700; }
+    .ai-table { width: 100%; border-collapse: collapse; }
+    .ai-table tr { border-bottom: 1px solid #1e1e2e; }
+    .ai-table tr:last-child { border-bottom: none; }
+    .ai-table td { padding: 8px 0; font-size: 0.88rem; line-height: 1.6; }
+    .ai-table td:first-child { color: #7c6bff; font-weight: 600; width: 110px; vertical-align: top; }
+    .ai-table td:last-child { color: #c0c0d8; }
+    .warn { color: #ffcc44 !important; }
+    .ok { color: #00d4ff !important; }
+
+    .cta-section { background: #0d0d18; padding: 60px 40px; text-align: center; }
+    .cta-section h2 { font-size: 1.6rem; margin-bottom: 16px; }
+    .cta-section p { color: #8888aa; margin-bottom: 32px; font-size: 0.95rem; }
+    .cta-btn { display: inline-block; padding: 18px 48px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.05rem; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
+    footer a { color: #7c6bff; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      .ai-grid { grid-template-columns: 1fr; }
+      header { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">⚡ AI Work Stage</a>
+  <nav>
+    <a href="index.html#services">サービス</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>🤖 <span>AI機能追加サービス</span></h1>
+  <p>既存サイトにAIチャット機能を追加。記憶型で会話履歴を保持。<br>対応AIを選択可能。ビジネスに最適なAIを一緒に選びましょう。</p>
+  <div class="price-badge">¥20,000〜 / 3〜5営業日</div>
+</section>
+
+<section class="section">
+  <h2>対応AI 比較・選択</h2>
+  <p class="sub">気になるAIにチェックを入れて、ヒアリングフォームへお進みください（複数選択可）</p>
+
+  <div class="ai-grid">
+
+    <div class="ai-card" id="card-chatgpt">
+      <div class="ai-card-header">
+        <div class="ai-checkbox" id="cb-chatgpt" onclick="toggleCheck('chatgpt')"></div>
+        <div class="ai-card-icon">🟢</div>
+        <h3>ChatGPT（OpenAI）</h3>
+      </div>
+      <table class="ai-table">
+        <tr><td>無料プラン</td><td class="ok">あり</td></tr>
+        <tr><td>記憶機能</td><td class="ok">あり（無期限・蓄積型）</td></tr>
+        <tr><td>特徴</td><td>汎用性が高く最も有名。日本語対応良好</td></tr>
+        <tr><td>注意</td><td>無料版は GPT-4o mini。画像生成は有料版のみ</td></tr>
+        <tr><td>月額</td><td>¥0〜¥3,000（Plus）</td></tr>
+        <tr><td>記憶期間</td><td class="ok">無期限（削除するまで）</td></tr>
+      </table>
+    </div>
+
+    <div class="ai-card" id="card-gemini">
+      <div class="ai-card-header">
+        <div class="ai-checkbox" id="cb-gemini" onclick="toggleCheck('gemini')"></div>
+        <div class="ai-card-icon">🔵</div>
+        <h3>Gemini（Google）</h3>
+      </div>
+      <table class="ai-table">
+        <tr><td>無料プラン</td><td class="ok">あり</td></tr>
+        <tr><td>記憶機能</td><td class="warn">⚠️ 基本なし（会話ごとにリセット）</td></tr>
+        <tr><td>特徴</td><td>Google検索・Gmailと連携。画像生成（Imagen 3）対応</td></tr>
+        <tr><td>注意</td><td>記憶機能は有料版（Advanced）のみ。無料版は会話終了で忘れる</td></tr>
+        <tr><td>月額</td><td>¥0〜¥2,900（Advanced）</td></tr>
+        <tr><td>記憶期間</td><td class="warn">⚠️ セッション内のみ（無料版）</td></tr>
+      </table>
+    </div>
+
+    <div class="ai-card" id="card-copilot">
+      <div class="ai-card-header">
+        <div class="ai-checkbox" id="cb-copilot" onclick="toggleCheck('copilot')"></div>
+        <div class="ai-card-icon">🪟</div>
+        <h3>Copilot（Microsoft）</h3>
+      </div>
+      <table class="ai-table">
+        <tr><td>無料プラン</td><td class="ok">あり</td></tr>
+        <tr><td>記憶機能</td><td class="warn">⚠️ なし（会話ごとにリセット）</td></tr>
+        <tr><td>特徴</td><td>Microsoft 365との連携が強力。Word・Excel・Teams対応</td></tr>
+        <tr><td>注意</td><td>記憶機能なし。ビジネスツール連携に特化</td></tr>
+        <tr><td>月額</td><td>¥0〜¥4,497（Microsoft 365）</td></tr>
+        <tr><td>記憶期間</td><td class="warn">⚠️ セッション内のみ</td></tr>
+      </table>
+    </div>
+
+    <div class="ai-card" id="card-claude">
+      <div class="ai-card-header">
+        <div class="ai-checkbox" id="cb-claude" onclick="toggleCheck('claude')"></div>
+        <div class="ai-card-icon">🟠</div>
+        <h3>Claude（Anthropic）</h3>
+      </div>
+      <table class="ai-table">
+        <tr><td>無料プラン</td><td class="ok">あり</td></tr>
+        <tr><td>記憶機能</td><td class="ok">あり（プロジェクト機能で記憶）</td></tr>
+        <tr><td>特徴</td><td>長文・複雑な指示に強い。安全性重視。日本語対応良好</td></tr>
+        <tr><td>注意</td><td>無料版は利用回数に制限あり</td></tr>
+        <tr><td>月額</td><td>¥0〜¥2,800（Pro）</td></tr>
+        <tr><td>記憶期間</td><td class="ok">プロジェクトに保存した分は無期限</td></tr>
+      </table>
+    </div>
+
+    <div class="ai-card recommended" id="card-openclaw">
+      <div class="rec-badge">推奨 ⭐</div>
+      <div class="ai-card-header">
+        <div class="ai-checkbox" id="cb-openclaw" onclick="toggleCheck('openclaw')"></div>
+        <div class="ai-card-icon">⚡</div>
+        <h3>OpenClaw</h3>
+      </div>
+      <table class="ai-table">
+        <tr><td>無料プラン</td><td>なし（Claude API費用のみ）</td></tr>
+        <tr><td>記憶機能</td><td class="ok">あり（永続・ファイルベース）</td></tr>
+        <tr><td>特徴</td><td>自分のサーバーで動くAIエージェント。記憶・自動化・Discord連携など高度な自動化が可能</td></tr>
+        <tr><td>注意</td><td>VPS（Xserver VPS推奨）とClaude APIキーが必要</td></tr>
+        <tr><td>月額</td><td>Claude API費用のみ（¥500〜¥5,000目安）</td></tr>
+        <tr><td>記憶期間</td><td class="ok">無期限（自分のサーバーに保存）</td></tr>
+      </table>
+    </div>
+
+    <div class="ai-card" id="card-nanobanana">
+      <div class="ai-card-header">
+        <div class="ai-checkbox" id="cb-nanobanana" onclick="toggleCheck('nanobanana')"></div>
+        <div class="ai-card-icon">🍌</div>
+        <h3>Imagen 3（Google画像生成）</h3>
+      </div>
+      <table class="ai-table">
+        <tr><td>無料プラン</td><td class="ok">あり（Gemini経由）</td></tr>
+        <tr><td>記憶機能</td><td>なし（画像生成特化）</td></tr>
+        <tr><td>特徴</td><td>チャット感覚で高品質な画像を生成・編集。ロゴ・バナー・アイコン作成に最適</td></tr>
+        <tr><td>注意</td><td>チャットボットではなく画像生成ツール。記憶機能はない</td></tr>
+        <tr><td>月額</td><td>¥0（Gemini無料枠内）</td></tr>
+        <tr><td>記憶期間</td><td>なし（画像生成ツールのため）</td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>気になるAIが見つかりましたか？</h2>
+  <p>チェックを入れたAIをヒアリングフォームでお知らせください。<br>最適な構成をご提案いたします。</p>
+  <a href="hearing-ai-feature.html" class="cta-btn" id="cta-link">気になるAIにチェックを入れてヒアリングフォームへ →</a>
+</section>
+
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="index.html">← トップに戻る</a></p>
+</footer>
+
+<script>
+const checked = new Set();
+function toggleCheck(id) {
+  const cb = document.getElementById('cb-' + id);
+  if (checked.has(id)) {
+    checked.delete(id);
+    cb.classList.remove('checked');
+    cb.innerHTML = '';
+  } else {
+    checked.add(id);
+    cb.classList.add('checked');
+    cb.innerHTML = '✓';
+    cb.style.color = '#fff';
+    cb.style.fontSize = '14px';
+    cb.style.fontWeight = '700';
+    cb.style.display = 'flex';
+    cb.style.alignItems = 'center';
+    cb.style.justifyContent = 'center';
+  }
+  updateCTA();
+}
+function updateCTA() {
+  const link = document.getElementById('cta-link');
+  if (checked.size > 0) {
+    const params = Array.from(checked).join(',');
+    link.href = 'hearing-ai-feature.html?ai=' + encodeURIComponent(params);
+  } else {
+    link.href = 'hearing-ai-feature.html';
+  }
+}
+</script>
+</body>
+</html>
