@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セキュリティ・プライバシーポリシー | AI Work Stage</title>
+  <meta name="description" content="AI Work Stage のセキュリティへの取り組みおよびプライバシーポリシーをご説明します。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+
+    .page-hero { text-align: center; padding: 70px 40px 50px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.12) 0%, transparent 60%); }
+    .page-hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+    .page-hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .page-hero p { color: #8888aa; font-size: 0.9rem; }
+
+    .doc-container { max-width: 800px; margin: 0 auto; padding: 60px 40px 80px; }
+
+    .section-block { background: #12121e; border: 1px solid #1e1e2e; border-radius: 16px; padding: 36px; margin-bottom: 28px; }
+    .section-block h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .section-block h2 .icon { font-size: 1.5rem; }
+    .section-block h2 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .item { margin-bottom: 18px; }
+    .item h3 { font-size: 0.95rem; font-weight: 700; color: #b0a8ff; margin-bottom: 6px; }
+    .item p, .item ul { font-size: 0.9rem; color: #a0a0c0; line-height: 1.8; }
+    .item ul { padding-left: 20px; }
+    .item ul li { margin-bottom: 4px; }
+
+    .highlight-box { background: rgba(124,107,255,0.08); border: 1px solid rgba(124,107,255,0.25); border-radius: 10px; padding: 16px 20px; font-size: 0.88rem; color: #c0c0d8; line-height: 1.8; margin-top: 12px; }
+
+    .contact-box { text-align: center; background: #12121e; border: 1px solid #1e1e2e; border-radius: 16px; padding: 40px; }
+    .contact-box h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
+    .contact-box p { color: #8888aa; margin-bottom: 16px; font-size: 0.9rem; }
+    .contact-box a { color: #00d4ff; text-decoration: none; font-weight: 700; font-size: 1rem; }
+    .contact-box a:hover { text-decoration: underline; }
+
+    .updated { text-align: right; font-size: 0.78rem; color: #444466; margin-bottom: 30px; }
+
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
+    footer a { color: #7c6bff; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      nav a { margin-left: 16px; font-size: 0.82rem; }
+      .page-hero { padding: 50px 20px 36px; }
+      .page-hero h1 { font-size: 1.6rem; }
+      .doc-container { padding: 36px 20px 60px; }
+      .section-block { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">AI Work Stage</a>
+  <nav>
+    <a href="index.html#services">サービス</a>
+    <a href="index.html#flow">流れ</a>
+    <a href="blog.html">ブログ</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <h1><span>セキュリティ</span>・プライバシーポリシー</h1>
+  <p>最終更新：2025年3月1日</p>
+</div>
+
+<div class="doc-container">
+  <p class="updated">制定：2025年3月1日</p>
+
+  <!-- セキュリティへの取り組み -->
+  <div class="section-block">
+    <h2><span class="icon">🔒</span> <span>セキュリティへの取り組み</span></h2>
+
+    <div class="item">
+      <h3>通信の暗号化（HTTPS/SSL）</h3>
+      <p>当サービスのすべての通信はHTTPS/SSLにより暗号化されています。お客様のデータが第三者に傍受されることなく安全に送受信されます。</p>
+    </div>
+
+    <div class="item">
+      <h3>データ保管（国内VPS）</h3>
+      <p>お客様のデータは日本国内のサーバーに保管されます。</p>
+      <ul>
+        <li>Oracle Cloud Infrastructure（日本リージョン）</li>
+        <li>Xserver VPS（国内データセンター）</li>
+      </ul>
+    </div>
+
+    <div class="item">
+      <h3>APIキー・認証情報の管理</h3>
+      <p>APIキーや認証情報はサーバーの環境変数として管理し、ソースコードへの直接埋め込みは一切行いません。外部に公開されることはありません。</p>
+    </div>
+
+    <div class="item">
+      <h3>アクセス制限</h3>
+      <p>サーバーへのアクセスはIPフィルタリングおよび認証トークンにより厳格に制限しています。不正アクセスの防止に努めています。</p>
+    </div>
+  </div>
+
+  <!-- プライバシーポリシー -->
+  <div class="section-block">
+    <h2><span class="icon">👤</span> <span>個人情報の取り扱い（プライバシーポリシー）</span></h2>
+
+    <div class="item">
+      <h3>取得する情報</h3>
+      <ul>
+        <li>お名前</li>
+        <li>メールアドレス</li>
+        <li>お問い合わせ・依頼内容（フォームへの入力内容）</li>
+        <li>チャットボット利用時の会話内容</li>
+      </ul>
+    </div>
+
+    <div class="item">
+      <h3>利用目的</h3>
+      <ul>
+        <li>サービスの提供・履行</li>
+        <li>お見積もり・ご連絡のための返信</li>
+        <li>サービス改善のための分析（個人を特定しない形で実施）</li>
+      </ul>
+    </div>
+
+    <div class="item">
+      <h3>第三者提供について</h3>
+      <p>取得した個人情報は、法令に基づく開示が必要な場合を除き、第三者に提供・販売することは一切ありません。</p>
+    </div>
+
+    <div class="item">
+      <h3>AI学習への利用について</h3>
+      <div class="highlight-box">
+        お客様の入力データがAIの学習に使用されることはありません。当サービスで使用するClaude（Anthropic）のAPIは、Anthropicのデータポリシーに準拠しており、APIを通じて送信されたデータはAnthropicのモデル学習には使用されません。詳細は <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener" style="color:#00d4ff;">Anthropicプライバシーポリシー</a> をご参照ください。
+      </div>
+    </div>
+
+    <div class="item">
+      <h3>データ保管期間</h3>
+      <p>取得した個人情報は、サービス完了後1年間保管した後、適切な方法で削除します。</p>
+    </div>
+
+    <div class="item">
+      <h3>削除・開示依頼への対応</h3>
+      <p>ご自身の個人情報の開示・訂正・削除をご希望の場合は、下記お問い合わせ先までご連絡ください。合理的な範囲で対応いたします。</p>
+    </div>
+  </div>
+
+  <!-- AIとセキュリティ -->
+  <div class="section-block">
+    <h2><span class="icon">🤖</span> <span>AIとセキュリティ</span></h2>
+
+    <div class="item">
+      <h3>使用AIモデル</h3>
+      <p>当サービスでは Claude（Anthropic社）を使用しています。</p>
+    </div>
+
+    <div class="item">
+      <h3>データ処理について</h3>
+      <p>お客様の入力内容はAnthropicのAPIを経由してAI処理されます。ただし、Anthropicのポリシーにより、このデータがモデルの学習に使用されることはありません。</p>
+    </div>
+
+    <div class="item">
+      <h3>チャット履歴の保管</h3>
+      <p>チャットボットのご利用時、会話履歴は当社の国内VPSに暗号化して保管されます。アクセスはお客様ごとに発行した認証トークンによってのみ可能であり、他のお客様から閲覧されることはありません。</p>
+    </div>
+
+    <div class="item">
+      <h3>Cookieについて</h3>
+      <p>当サイトではサービス改善のためにGoogle Analytics等のアクセス解析ツールを使用する場合があります。これらのツールはCookieを使用することがありますが、個人を特定する情報は収集しません。</p>
+    </div>
+  </div>
+
+  <!-- お問い合わせ -->
+  <div class="contact-box">
+    <h2>📬 プライバシーに関するお問い合わせ</h2>
+    <p>個人情報の取り扱いに関するご質問・削除依頼はこちらへ</p>
+    <a href="mailto:aiworkstage@gmail.com">aiworkstage@gmail.com</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+  <p style="margin-top:10px;">
+    <a href="index.html">トップ</a> &nbsp;|&nbsp;
+    <a href="blog.html">ブログ</a> &nbsp;|&nbsp;
+    <a href="security.html">セキュリティ・プライバシーポリシー</a> &nbsp;|&nbsp;
+    <a href="terms.html">利用規約・返金ポリシー</a>
+  </p>
+</footer>
+
+</body>
+</html>

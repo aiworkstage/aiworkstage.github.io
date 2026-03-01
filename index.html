@@ -59,6 +59,23 @@
     .chat-badge { display: inline-block; margin-top: 8px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; color: #00d4ff; font-weight: 600; }
 
     /* Affiliate Section */
+    /* Blog Preview */
+    .blog-preview { background: #0d0d18; padding: 80px 40px; }
+    .blog-preview h2 { text-align: center; font-size: 1.8rem; margin-bottom: 10px; }
+    .blog-preview .sub { text-align: center; color: #8888aa; margin-bottom: 40px; font-size: 0.9rem; }
+    .blog-preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto; }
+    .blog-preview-card { background: #12121e; border: 1px solid #1e1e2e; border-radius: 14px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; }
+    .blog-preview-card:hover { border-color: #7c6bff; transform: translateY(-3px); }
+    .blog-preview-thumb { width: 100%; height: 150px; object-fit: cover; background: #1a1a2e; }
+    .blog-preview-thumb-ph { width: 100%; height: 150px; background: linear-gradient(135deg, rgba(124,107,255,0.15), rgba(0,212,255,0.1)); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
+    .blog-preview-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .blog-preview-date { font-size: 0.76rem; color: #666688; margin-bottom: 8px; }
+    .blog-preview-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; line-height: 1.5; flex: 1; }
+    .blog-preview-title a { color: #e8e8f0; text-decoration: none; }
+    .blog-preview-title a:hover { color: #7c6bff; }
+    .blog-preview-more { display: inline-block; margin-top: 12px; padding: 7px 16px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 30px; font-size: 0.78rem; font-weight: 700; }
+    .blog-loading { text-align: center; color: #666688; padding: 40px; grid-column: 1/-1; }
+
     .affiliate { background: #0d0d18; padding: 80px 40px; }
     .affiliate h2 { text-align: center; font-size: 1.8rem; margin-bottom: 8px; }
     .affiliate .sub { text-align: center; color: #8888aa; margin-bottom: 12px; font-size: 0.9rem; }
@@ -336,6 +353,18 @@
   </div>
 </section>
 
+<!-- Latest Blog Posts -->
+<section class="blog-preview" id="blog">
+  <h2>📝 最新ブログ記事</h2>
+  <p class="sub">AI×自動化の活用事例・最新情報をお届けします</p>
+  <div id="index-blog-grid" class="blog-preview-grid">
+    <p class="blog-loading">記事を読み込み中...</p>
+  </div>
+  <div style="text-align:center; margin-top:36px;">
+    <a href="blog.html" class="cta-btn">ブログ一覧を見る →</a>
+  </div>
+</section>
+
 <section class="affiliate" id="affiliate">
   <h2>🏗️ インフラ・ドメイン取得のご案内</h2>
   <p class="sub">サービス利用に必要なインフラをまとめてご紹介します</p>
@@ -415,6 +444,10 @@
     <a href="ui-samples.html" style="color:#7c6bff;text-decoration:none;">デザインサンプル</a>
     　|　
     <a href="service-ai-feature.html" style="color:#7c6bff;text-decoration:none;">AI機能比較</a>
+    　|　
+    <a href="blog.html" style="color:#7c6bff;text-decoration:none;">ブログ</a>
+    　|　
+    <a href="security.html" style="color:#7c6bff;text-decoration:none;">セキュリティ・プライバシーポリシー</a>
   </p>
 </footer>
 
@@ -429,6 +462,56 @@
   "priceRange": "¥500〜",
   "serviceType": ["Web制作", "AI自動化", "業務効率化"]
 }
+</script>
+
+<script>
+(function() {
+  const RSS_URL = 'https://note.com/ai_jitumu_lab/rss';
+  const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(RSS_URL);
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return '';
+    return d.getFullYear() + '年' + (d.getMonth()+1) + '月' + d.getDate() + '日';
+  }
+
+  function stripHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  fetch(API_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      const grid = document.getElementById('index-blog-grid');
+      if (!data.items || data.items.length === 0) {
+        grid.innerHTML = '<p class="blog-loading">記事が見つかりませんでした。</p>';
+        return;
+      }
+      grid.innerHTML = '';
+      const items = data.items.slice(0, 3);
+      items.forEach(function(item) {
+        const thumb = item.thumbnail || (item.enclosure && item.enclosure.link) || '';
+        const thumbHtml = thumb
+          ? '<img class="blog-preview-thumb" src="' + thumb + '" alt="" loading="lazy">'
+          : '<div class="blog-preview-thumb-ph">📝</div>';
+        const card = document.createElement('div');
+        card.className = 'blog-preview-card';
+        card.innerHTML = thumbHtml +
+          '<div class="blog-preview-body">' +
+            '<div class="blog-preview-date">' + formatDate(item.pubDate) + '</div>' +
+            '<div class="blog-preview-title"><a href="' + item.link + '" target="_blank" rel="noopener">' + item.title + '</a></div>' +
+            '<a class="blog-preview-more" href="' + item.link + '" target="_blank" rel="noopener">続きを読む →</a>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+    })
+    .catch(function() {
+      var grid = document.getElementById('index-blog-grid');
+      if (grid) grid.innerHTML = '<p class="blog-loading">記事の取得に失敗しました。</p>';
+    });
+})();
 </script>
 </body>
 </html>
