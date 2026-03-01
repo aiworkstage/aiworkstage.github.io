@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <radialGradient id="bg-iris" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0a1a20"/>
+      <stop offset="100%" stop-color="#050a10"/>
+    </radialGradient>
+    <linearGradient id="hair-iris" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6eb4"/>
+      <stop offset="25%" stop-color="#ffcc00"/>
+      <stop offset="50%" stop-color="#00e676"/>
+      <stop offset="75%" stop-color="#40c4ff"/>
+      <stop offset="100%" stop-color="#b388ff"/>
+    </linearGradient>
+    <linearGradient id="dress-iris" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6eb4"/>
+      <stop offset="50%" stop-color="#7c4dff"/>
+      <stop offset="100%" stop-color="#40c4ff"/>
+    </linearGradient>
+    <clipPath id="circle-iris">
+      <circle cx="75" cy="75" r="73"/>
+    </clipPath>
+  </defs>
+  <!-- Background -->
+  <circle cx="75" cy="75" r="73" fill="url(#bg-iris)"/>
+  <circle cx="75" cy="75" r="73" fill="none" stroke="url(#hair-iris)" stroke-width="2"/>
+  <!-- Rainbow arc background -->
+  <path d="M15 95 Q75 20 135 95" stroke="#ff6eb4" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M20 100 Q75 28 130 100" stroke="#ffcc00" stroke-width="2" fill="none" opacity="0.25"/>
+  <path d="M25 105 Q75 36 125 105" stroke="#00e676" stroke-width="2" fill="none" opacity="0.2"/>
+  <path d="M30 110 Q75 44 120 110" stroke="#40c4ff" stroke-width="2" fill="none" opacity="0.25"/>
+  <!-- Body -->
+  <ellipse cx="75" cy="118" rx="33" ry="23" fill="url(#dress-iris)" opacity="0.9" clip-path="url(#circle-iris)"/>
+  <!-- Neck -->
+  <rect x="68" y="98" width="14" height="16" rx="5" fill="#f0d8e8"/>
+  <!-- Face -->
+  <ellipse cx="75" cy="82" rx="25" ry="28" fill="#f8e8f0"/>
+  <!-- Hair - rainbow, voluminous -->
+  <ellipse cx="75" cy="64" rx="29" ry="22" fill="url(#hair-iris)"/>
+  <!-- Side hair flowing -->
+  <path d="M46 68 Q36 82 38 108" stroke="#ff6eb4" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.9"/>
+  <path d="M104 68 Q114 82 112 108" stroke="#b388ff" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.9"/>
+  <!-- Extra rainbow strands -->
+  <path d="M43 72 Q33 88 36 110" stroke="#ffcc00" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <path d="M107 72 Q117 88 114 110" stroke="#40c4ff" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Eyes - big bright -->
+  <ellipse cx="64" cy="83" rx="6" ry="5.5" fill="#1a0a2e"/>
+  <ellipse cx="86" cy="83" rx="6" ry="5.5" fill="#1a0a2e"/>
+  <!-- Colored irises -->
+  <ellipse cx="64" cy="83" rx="4" ry="4" fill="#7c4dff"/>
+  <ellipse cx="86" cy="83" rx="4" ry="4" fill="#40c4ff"/>
+  <circle cx="65.5" cy="81.5" r="1.5" fill="#fff" opacity="0.95"/>
+  <circle cx="87.5" cy="81.5" r="1.5" fill="#fff" opacity="0.95"/>
+  <!-- Gentle eyebrows -->
+  <path d="M58 77 Q64 75 70 77" stroke="#d060a0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M80 77 Q86 75 92 77" stroke="#6040c0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <path d="M73 90 Q75 93 77 90" stroke="#d0a8c0" stroke-width="1" fill="none"/>
+  <!-- Big smile -->
+  <path d="M66 97 Q75 104 84 97" stroke="#e06090" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Blush - prominent -->
+  <ellipse cx="56" cy="92" rx="8" ry="5" fill="#ff8cb4" opacity="0.4"/>
+  <ellipse cx="94" cy="92" rx="8" ry="5" fill="#ff8cb4" opacity="0.4"/>
+  <!-- Wing feather motifs -->
+  <path d="M15 75 Q25 65 30 78 Q25 72 15 75" fill="#40c4ff" opacity="0.6"/>
+  <path d="M18 82 Q28 70 33 84 Q28 78 18 82" fill="#b388ff" opacity="0.5"/>
+  <path d="M135 75 Q125 65 120 78 Q125 72 135 75" fill="#ff6eb4" opacity="0.6"/>
+  <path d="M132 82 Q122 70 117 84 Q122 78 132 82" fill="#ffcc00" opacity="0.5"/>
+  <!-- Star sparkles -->
+  <circle cx="30" cy="30" r="2" fill="#ffcc00" opacity="0.8"/>
+  <circle cx="120" cy="28" r="2" fill="#ff6eb4" opacity="0.8"/>
+  <circle cx="25" cy="120" r="1.5" fill="#40c4ff" opacity="0.7"/>
+  <circle cx="125" cy="118" r="1.5" fill="#b388ff" opacity="0.7"/>
+</svg>

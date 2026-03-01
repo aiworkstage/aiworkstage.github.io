@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <radialGradient id="bg-altea" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1a3e"/>
+      <stop offset="100%" stop-color="#0a0a1f"/>
+    </radialGradient>
+    <linearGradient id="hair-altea" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0e0f8"/>
+      <stop offset="100%" stop-color="#a0a8d8"/>
+    </linearGradient>
+    <linearGradient id="dress-altea" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c6bff"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+    <clipPath id="circle-altea">
+      <circle cx="75" cy="75" r="73"/>
+    </clipPath>
+  </defs>
+  <!-- Background -->
+  <circle cx="75" cy="75" r="73" fill="url(#bg-altea)"/>
+  <circle cx="75" cy="75" r="73" fill="none" stroke="url(#dress-altea)" stroke-width="2"/>
+  <!-- Stars background -->
+  <circle cx="20" cy="25" r="1.5" fill="#a0c8ff" opacity="0.8"/>
+  <circle cx="130" cy="30" r="1" fill="#c0d8ff" opacity="0.7"/>
+  <circle cx="35" cy="110" r="1" fill="#a0c8ff" opacity="0.6"/>
+  <circle cx="120" cy="115" r="1.5" fill="#c0d8ff" opacity="0.8"/>
+  <circle cx="15" cy="70" r="1" fill="#a0c8ff" opacity="0.5"/>
+  <circle cx="135" cy="75" r="1" fill="#c0d8ff" opacity="0.6"/>
+  <!-- Body/dress -->
+  <ellipse cx="75" cy="118" rx="32" ry="22" fill="url(#dress-altea)" opacity="0.9" clip-path="url(#circle-altea)"/>
+  <!-- Neck -->
+  <rect x="68" y="98" width="14" height="16" rx="5" fill="#d8c8e8"/>
+  <!-- Face -->
+  <ellipse cx="75" cy="82" rx="26" ry="28" fill="#e8d8f0"/>
+  <!-- Hair - back -->
+  <ellipse cx="75" cy="68" rx="28" ry="22" fill="url(#hair-altea)"/>
+  <!-- Hair sides -->
+  <ellipse cx="49" cy="80" rx="10" ry="18" fill="url(#hair-altea)"/>
+  <ellipse cx="101" cy="80" rx="10" ry="18" fill="url(#hair-altea)"/>
+  <!-- Hair strands -->
+  <path d="M47 72 Q38 90 42 108" stroke="#c0c8e8" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M103 72 Q112 90 108 108" stroke="#c0c8e8" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Face detail -->
+  <!-- Eyes -->
+  <ellipse cx="65" cy="83" rx="5" ry="4" fill="#2a2a5e"/>
+  <ellipse cx="85" cy="83" rx="5" ry="4" fill="#2a2a5e"/>
+  <circle cx="66.5" cy="82" r="1.5" fill="#fff" opacity="0.9"/>
+  <circle cx="86.5" cy="82" r="1.5" fill="#fff" opacity="0.9"/>
+  <!-- Eyelashes -->
+  <path d="M60 80 Q62 78 65 79" stroke="#1a1a3e" stroke-width="1" fill="none"/>
+  <path d="M80 80 Q82 78 85 79" stroke="#1a1a3e" stroke-width="1" fill="none"/>
+  <!-- Nose -->
+  <path d="M73 89 Q75 91 77 89" stroke="#c0a8d0" stroke-width="1" fill="none"/>
+  <!-- Mouth -->
+  <path d="M68 96 Q75 101 82 96" stroke="#d08898" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Blush -->
+  <ellipse cx="59" cy="91" rx="7" ry="4" fill="#ffb0c0" opacity="0.3"/>
+  <ellipse cx="91" cy="91" rx="7" ry="4" fill="#ffb0c0" opacity="0.3"/>
+  <!-- Star crown/accessory -->
+  <polygon points="75,42 77,48 83,48 78,52 80,58 75,54 70,58 72,52 67,48 73,48" fill="#7c6bff" opacity="0.9"/>
+  <polygon points="75,44 76.5,48 80.5,48 77.5,51 78.5,55 75,52.5 71.5,55 72.5,51 69.5,48 73.5,48" fill="#c0b8ff"/>
+  <!-- Small stars -->
+  <polygon points="40,50 41,53 44,53 42,55 43,58 40,56 37,58 38,55 36,53 39,53" fill="#00d4ff" opacity="0.7" transform="scale(0.6) translate(28,30)"/>
+  <polygon points="110,50 111,53 114,53 112,55 113,58 110,56 107,58 108,55 106,53 109,53" fill="#7c6bff" opacity="0.7" transform="scale(0.6) translate(68,30)"/>
+</svg>

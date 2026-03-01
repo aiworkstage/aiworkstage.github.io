@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <radialGradient id="bg-kairos" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e0a00"/>
+      <stop offset="100%" stop-color="#0f0800"/>
+    </radialGradient>
+    <linearGradient id="accent-kairos" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#cc2200"/>
+    </linearGradient>
+    <linearGradient id="hair-kairos" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cc3300"/>
+      <stop offset="100%" stop-color="#880000"/>
+    </linearGradient>
+    <clipPath id="circle-kairos">
+      <circle cx="75" cy="75" r="73"/>
+    </clipPath>
+  </defs>
+  <!-- Background -->
+  <circle cx="75" cy="75" r="73" fill="url(#bg-kairos)"/>
+  <circle cx="75" cy="75" r="73" fill="none" stroke="url(#accent-kairos)" stroke-width="2"/>
+  <!-- Background pattern - diagonal lines for dynamism -->
+  <line x1="0" y1="30" x2="30" y2="0" stroke="#ffd700" stroke-width="0.5" opacity="0.2"/>
+  <line x1="0" y1="60" x2="60" y2="0" stroke="#ffd700" stroke-width="0.5" opacity="0.15"/>
+  <line x1="120" y1="150" x2="150" y2="120" stroke="#cc2200" stroke-width="0.5" opacity="0.2"/>
+  <!-- Body/suit -->
+  <ellipse cx="75" cy="118" rx="32" ry="22" fill="#1a0800" opacity="0.95" clip-path="url(#circle-kairos)"/>
+  <!-- Gold collar/tie -->
+  <polygon points="75,100 69,115 75,112 81,115" fill="#ffd700" opacity="0.9" clip-path="url(#circle-kairos)"/>
+  <!-- Neck -->
+  <rect x="69" y="98" width="12" height="16" rx="4" fill="#d0b898"/>
+  <!-- Face -->
+  <ellipse cx="75" cy="82" rx="25" ry="27" fill="#d8b890"/>
+  <!-- Hair - back -->
+  <ellipse cx="75" cy="65" rx="27" ry="20" fill="url(#hair-kairos)"/>
+  <!-- Hair - swept back dynamic style -->
+  <path d="M48 70 Q40 55 55 45 Q65 38 75 42 Q85 38 95 45 Q110 55 102 70" fill="url(#hair-kairos)"/>
+  <!-- Sharp swept hair strands -->
+  <path d="M48 68 Q35 55 45 38 Q52 30 62 35" stroke="#aa2200" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M102 68 Q115 55 105 38 Q98 30 88 35" stroke="#aa2200" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Eyes - sharp/intense -->
+  <ellipse cx="64" cy="82" rx="5.5" ry="4" fill="#1a0800"/>
+  <ellipse cx="86" cy="82" rx="5.5" ry="4" fill="#1a0800"/>
+  <!-- Gold iris -->
+  <ellipse cx="64" cy="82" rx="3" ry="3" fill="#cc6600"/>
+  <ellipse cx="86" cy="82" rx="3" ry="3" fill="#cc6600"/>
+  <circle cx="65" cy="81" r="1.2" fill="#fff" opacity="0.9"/>
+  <circle cx="87" cy="81" r="1.2" fill="#fff" opacity="0.9"/>
+  <!-- Sharp eyebrows -->
+  <path d="M58 76 Q64 73 70 75" stroke="#880000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M80 75 Q86 73 92 76" stroke="#880000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <path d="M73 89 Q75 92 77 89" stroke="#b08060" stroke-width="1.2" fill="none"/>
+  <!-- Mouth - slight confident smirk -->
+  <path d="M68 97 Q75 100 82 97" stroke="#c07050" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M79 97 Q82 96 83 97" stroke="#c07050" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- Gold earring -->
+  <circle cx="49" cy="87" r="3" fill="#ffd700" opacity="0.9"/>
+  <!-- Hourglass/clock symbol (Kairos = right moment) -->
+  <g transform="translate(105,28) scale(0.9)">
+    <rect x="-10" y="-12" width="20" height="24" rx="3" fill="none" stroke="#ffd700" stroke-width="1.5" opacity="0.8"/>
+    <polygon points="0,-10 8,2 -8,2" fill="#ffd700" opacity="0.6"/>
+    <polygon points="0,10 8,-2 -8,-2" fill="#cc2200" opacity="0.6"/>
+    <line x1="-10" y1="-2" x2="10" y2="-2" stroke="#ffd700" stroke-width="1" opacity="0.8"/>
+    <line x1="-10" y1="2" x2="10" y2="2" stroke="#ffd700" stroke-width="1" opacity="0.8"/>
+  </g>
+  <!-- Small gold coins/sparks -->
+  <circle cx="22" cy="35" r="4" fill="#ffd700" opacity="0.5"/>
+  <circle cx="22" cy="35" r="2" fill="#ffaa00" opacity="0.7"/>
+  <circle cx="28" cy="110" r="3" fill="#ffd700" opacity="0.4"/>
+</svg>
