@@ -18,14 +18,26 @@
     .hero { text-align: center; padding: 100px 40px 80px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
     .hero h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
     .hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 1.2rem; color: #8888aa; max-width: 600px; margin: 0 auto 40px; line-height: 1.8; }
+    .hero .sub-copy { font-size: 1.1rem; color: #c0c0d8; max-width: 500px; margin: 0 auto 16px; font-weight: 600; }
+    .hero p { font-size: 1.1rem; color: #8888aa; max-width: 600px; margin: 0 auto 32px; line-height: 1.8; }
+    .hero-badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .hero-badge { background: rgba(124,107,255,0.15); border: 1px solid rgba(124,107,255,0.4); border-radius: 30px; padding: 8px 18px; font-size: 0.88rem; font-weight: 700; color: #b0a8ff; }
     .cta-btn { display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1rem; transition: opacity 0.2s; }
     .cta-btn:hover { opacity: 0.85; }
 
+    /* Why cheap section */
+    .why-cheap { background: #0d0d18; padding: 60px 40px; text-align: center; }
+    .why-cheap h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 20px; }
+    .why-cheap-box { max-width: 700px; margin: 0 auto; background: #12121e; border: 1px solid #2a2a3e; border-radius: 20px; padding: 36px; }
+    .why-cheap-box .icon { font-size: 3rem; margin-bottom: 16px; }
+    .why-cheap-box h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .why-cheap-box p { color: #c0c0d8; line-height: 1.8; font-size: 0.95rem; }
+
     /* Services */
-    .services { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+    .services { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     .services h2 { text-align: center; font-size: 2rem; margin-bottom: 10px; }
     .services .sub { text-align: center; color: #8888aa; margin-bottom: 50px; }
+    .service-section-title { font-size: 1.2rem; font-weight: 700; color: #7c6bff; margin: 40px 0 20px; border-left: 3px solid #7c6bff; padding-left: 12px; }
     .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
     .service-card { background: #12121e; border: 1px solid #1e1e2e; border-radius: 16px; padding: 32px; transition: border-color 0.2s, transform 0.2s; }
     .service-card:hover { border-color: #7c6bff; transform: translateY(-4px); }
@@ -34,10 +46,9 @@
     .service-card p { color: #8888aa; font-size: 0.9rem; line-height: 1.7; }
     .estimate-btn { display:inline-block; margin-top:16px; padding:10px 20px; background:linear-gradient(135deg,#7c6bff,#00d4ff); color:#fff; text-decoration:none; border-radius:30px; font-size:0.85rem; font-weight:700; }
     .service-card .price { margin-top: 16px; font-size: 0.9rem; color: #7c6bff; font-weight: 700; }
-
-    /* 注意事項バッジ */
     .caution-badge { margin-top: 16px; background: #1a1a2e; border: 1px solid #3a3a5e; border-radius: 10px; padding: 12px 16px; font-size: 0.82rem; color: #a0a0c0; line-height: 1.8; }
     .caution-badge .caution-title { color: #ffcc44; font-weight: 700; margin-bottom: 4px; display: block; }
+    .chat-badge { display: inline-block; margin-top: 8px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; color: #00d4ff; font-weight: 600; }
 
     /* Affiliate Section */
     .affiliate { background: #0d0d18; padding: 80px 40px; }
@@ -76,6 +87,12 @@
 
     /* Footer */
     footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      header { padding: 16px 20px; }
+      .services, .contact { padding: 60px 20px; }
+    }
   </style>
 </head>
 <body>
@@ -91,26 +108,44 @@
 
 <section class="hero">
   <h1>AIと自動化で、<br><span>あなたの業務を革命する</span></h1>
+  <p class="sub-copy">全工程AIが担当。人間なし。だから安い・早い。</p>
   <p>ホームページ制作・Excel自動化・AIエージェント構築。<br>Claude × OpenClaw を活用した最先端の全自動ソリューション。</p>
+  <div class="hero-badges">
+    <span class="hero-badge">⚡ 業界最速納期</span>
+    <span class="hero-badge">🤖 AI専任担当</span>
+    <span class="hero-badge">💬 専用チャット完備</span>
+  </div>
   <a href="#contact" class="cta-btn">無料相談する →</a>
+</section>
+
+<section class="why-cheap">
+  <h2>なぜ安くて早いのか？</h2>
+  <div class="why-cheap-box">
+    <div class="icon">🤖</div>
+    <h3>AIが全工程担当</h3>
+    <p>デザイン・コーディング・テスト・納品まで全てAIが実行。<br>人件費ゼロだから、この価格が実現できます。</p>
+  </div>
 </section>
 
 <section class="services" id="services">
   <h2>サービス一覧</h2>
   <p class="sub">あなたの課題に合わせた最適なAIソリューションを提供します</p>
+
+  <div class="service-section-title">🔥 主力サービス</div>
   <div class="service-grid">
 
     <div class="service-card">
       <div class="service-icon">🌐</div>
       <h3>ホームページ制作</h3>
       <p>高品質なWebサイトを格安・スピード納品。ランディングページから多ページサイトまで対応。SEO最適化済み。</p>
-      <p class="price">¥15,000〜（見積もり後確定） / 納期3〜7日</p>
+      <p class="price">¥15,000〜（見積もり後確定） / 納期1〜3営業日</p>
       <div class="caution-badge">
         <span class="caution-title">⚠️ 注意事項</span>
         ・独自ドメインは別途¥1,000〜3,000/年（オプション）<br>
         ・サーバー費用が別途必要な場合あり<br>
         ・SNS連携・予約システム等は別途お見積もり
       </div>
+      <div><span class="chat-badge">💬 専用チャットボット付き</span></div>
       <a href="hearing-hp.html" class="estimate-btn">無料見積もりを依頼する →</a>
     </div>
 
@@ -118,13 +153,14 @@
       <div class="service-icon">📊</div>
       <h3>Excel・スプレッドシート自動化</h3>
       <p>手作業の繰り返し作業をVBA・GASで完全自動化。集計・帳票作成・データ処理をボタン1つで完結。</p>
-      <p class="price">¥20,000〜（見積もり後確定） / 納期5〜10日</p>
+      <p class="price">¥20,000〜（見積もり後確定） / 納期2〜4営業日</p>
       <div class="caution-badge">
         <span class="caution-title">⚠️ 注意事項</span>
         ・Google Workspaceの有料プランが必要な場合あり<br>
         ・既存ファイルの構造によっては対応不可の場合あり<br>
         ・保守・修正は別途お見積もり
       </div>
+      <div><span class="chat-badge">💬 専用チャットボット付き</span></div>
       <a href="hearing-excel.html" class="estimate-btn">無料見積もりを依頼する →</a>
     </div>
 
@@ -132,7 +168,7 @@
       <div class="service-icon">🤖</div>
       <h3>AIエージェント構築</h3>
       <p>Discord Bot・LINE Bot・自動投稿システム・業務自動化エージェントをフルオーダーで開発。</p>
-      <p class="price">¥30,000〜（見積もり後確定） / 納期7〜14日</p>
+      <p class="price">¥30,000〜（見積もり後確定） / 納期3〜7営業日</p>
       <div class="caution-badge">
         <span class="caution-title">⚠️ 注意事項</span>
         ・X（Twitter）API連携は別途$100/月のAPI費用が必要<br>
@@ -140,7 +176,98 @@
         ・VPS・クラウドサーバーが必要な場合は別途費用あり（Xserver VPS推奨）<br>
         ・Claude API等のAI利用料が別途かかる場合あり
       </div>
+      <div><span class="chat-badge">💬 専用チャットボット付き</span></div>
       <a href="hearing-ai.html" class="estimate-btn">無料見積もりを依頼する →</a>
+    </div>
+
+  </div>
+
+  <div class="service-section-title">✨ 新サービス</div>
+  <div class="service-grid">
+
+    <div class="service-card">
+      <div class="service-icon">📄</div>
+      <h3>LP（ランディングページ）制作</h3>
+      <p>集客・販売に特化したLP。CVR最大化を意識した構成でコンバージョンを高めます。</p>
+      <p class="price">¥10,000〜 / 納期1〜2営業日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・独自ドメイン・サーバーは別途必要
+      </div>
+      <a href="hearing-lp.html" class="estimate-btn">無料見積もりを依頼する →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">✍️</div>
+      <h3>SEOブログ記事作成</h3>
+      <p>キーワード選定からSEO最適化まで。継続依頼で割引あり。検索上位を狙った記事を量産します。</p>
+      <p class="price">¥3,000〜/記事 / 納期1〜2営業日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・公開環境（WordPress等）はお客様側で用意
+      </div>
+      <a href="hearing-blog.html" class="estimate-btn">無料見積もりを依頼する →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🎙️</div>
+      <h3>議事録・文章自動化</h3>
+      <p>音声・テキストから議事録自動生成。定型文書の自動化で事務作業を大幅削減します。</p>
+      <p class="price">¥15,000〜 / 納期2〜4営業日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・音声品質によっては精度が下がる場合あり
+      </div>
+      <a href="hearing-minutes.html" class="estimate-btn">無料見積もりを依頼する →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">💚</div>
+      <h3>LINE公式アカウント構築</h3>
+      <p>自動応答・顧客管理・配信機能をAIで構築。LINE活用でリピーター獲得を自動化します。</p>
+      <p class="price">¥20,000〜 / 納期3〜5営業日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・LINE公式アカウントの月額費用（¥0〜¥15,000）が別途必要
+      </div>
+      <a href="hearing-line.html" class="estimate-btn">無料見積もりを依頼する →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3>Notion構築・自動化</h3>
+      <p>業務管理・ナレッジベース・自動化をNotionで構築。チームの生産性を最大化します。</p>
+      <p class="price">¥15,000〜 / 納期2〜4営業日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・チームで使う場合はNotionの有料プランが必要な場合あり
+      </div>
+      <a href="hearing-notion.html" class="estimate-btn">無料見積もりを依頼する →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>画像・ロゴ・アイコン生成</h3>
+      <p>ご要望をヒアリングしてAIが生成。ロゴ・バナー・アイコン・背景画像など幅広く対応します。</p>
+      <p class="price">¥8,000〜 / 納期1〜2営業日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・著作権はお客様に帰属。商用利用可。<br>
+        ・AI生成物のため完全なオリジナリティは保証できない場合あり
+      </div>
+      <a href="hearing-image.html" class="estimate-btn">無料見積もりを依頼する →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">💬</div>
+      <h3>専用AIチャットボット構築</h3>
+      <p>記憶型AIチャットボット。Webページに埋め込み可能。会話履歴を永続保存。入金後サポートチャットとしても利用可能。</p>
+      <p class="price">¥5,000〜 / 納期1〜2営業日</p>
+      <div class="caution-badge">
+        <span class="caution-title">⚠️ 注意事項</span>
+        ・Claude API利用料が別途かかる場合あり
+      </div>
+      <a href="hearing-chatbot.html" class="estimate-btn">無料見積もりを依頼する →</a>
     </div>
 
   </div>
@@ -187,7 +314,7 @@
     <div class="step"><div class="step-num">2</div><p>ヒアリング・見積もり（3営業日以内）</p></div>
     <div class="step"><div class="step-num">3</div><p>ご確認・決済</p></div>
     <div class="step"><div class="step-num">4</div><p>制作・開発</p></div>
-    <div class="step"><div class="step-num">5</div><p>納品・アフターサポート</p></div>
+    <div class="step"><div class="step-num">5</div><p>専用チャットで進捗確認・納品</p></div>
   </div>
 </section>
 
@@ -202,6 +329,13 @@
       <option value="hp">ホームページ制作</option>
       <option value="excel">Excel・スプレッドシート自動化</option>
       <option value="agent">AIエージェント構築</option>
+      <option value="lp">LP（ランディングページ）制作</option>
+      <option value="blog">SEOブログ記事作成</option>
+      <option value="minutes">議事録・文章自動化</option>
+      <option value="line">LINE公式アカウント構築</option>
+      <option value="notion">Notion構築・自動化</option>
+      <option value="image">画像・ロゴ・アイコン生成</option>
+      <option value="chatbot">専用AIチャットボット構築</option>
       <option value="other">その他・相談</option>
     </select>
     <textarea name="message" placeholder="ご依頼内容・ご質問をお書きください"></textarea>

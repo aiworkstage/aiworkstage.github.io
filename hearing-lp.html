@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LP（ランディングページ）制作 ヒアリングフォーム | AI Work Stage</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+    .hero { text-align: center; padding: 60px 40px 40px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
+    .hero .icon { font-size: 3rem; margin-bottom: 12px; }
+    .hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .hero p { color: #8888aa; font-size: 0.95rem; }
+    .form-wrap { max-width: 640px; margin: 0 auto; padding: 40px; }
+    .note-box { background: #12121e; border: 1px solid #2a2a3e; border-radius: 12px; padding: 20px; margin-bottom: 32px; color: #c0c0d8; font-size: 0.9rem; line-height: 1.7; }
+    .note-box strong { color: #7c6bff; }
+    form { display: flex; flex-direction: column; gap: 16px; }
+    label { font-size: 0.88rem; color: #a0a0c0; margin-bottom: 4px; display: block; }
+    input, textarea, select { background: #12121e; border: 1px solid #1e1e2e; border-radius: 10px; padding: 14px 18px; color: #e8e8f0; font-size: 0.95rem; width: 100%; outline: none; transition: border-color 0.2s; font-family: inherit; }
+    input:focus, textarea:focus { border-color: #7c6bff; }
+    textarea { resize: vertical; min-height: 100px; }
+    button[type=submit] { padding: 16px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; border: none; border-radius: 50px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: opacity 0.2s; margin-top: 8px; }
+    button[type=submit]:hover { opacity: 0.85; }
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; margin-top: 40px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">⚡ AI Work Stage</div>
+  <nav>
+    <a href="index.html">トップへ戻る</a>
+  </nav>
+</header>
+<section class="hero">
+  <div class="icon">📄</div>
+  <h1>LP（ランディングページ）制作<br>ヒアリングフォーム</h1>
+  <p>ご要望をお聞かせください。3営業日以内に見積もりをお送りします。</p>
+</section>
+<div class="form-wrap">
+  <div class="note-box">
+    <strong>📋 このフォームについて</strong><br>
+    ご記入いただいた内容をもとに、AIが最適なご提案と見積もりを作成します。<br>
+    <strong>3営業日以内</strong>にメールにてご連絡いたします。お急ぎの場合はお問い合わせフォームからご連絡ください。
+  </div>
+  <form action="https://formspree.io/f/xojnzlpg" method="POST">
+    <input type="hidden" name="service" value="LP（ランディングページ）制作">
+    <div><label>会社名・屋号（任意）</label><input type="text" name="company" placeholder="会社名・屋号（任意）"></div>
+    <div><label>お名前 <span style="color:#ff6b6b">*</span></label><input type="text" name="name" placeholder="お名前" required></div>
+    <div><label>メールアドレス <span style="color:#ff6b6b">*</span></label><input type="email" name="email" placeholder="メールアドレス" required></div>
+    <div><label>販売する商品・サービス名 <span style="color:#ff6b6b">*</span></label><input type="text" name="product" placeholder="販売する商品・サービス名" required></div>
+    <div><label>ターゲット層（例：30代女性・中小企業経営者）</label><input type="text" name="target" placeholder="ターゲット層（例：30代女性・中小企業経営者）"></div>
+    <div><label>LPの目的（例：問い合わせ獲得・商品販売）</label><input type="text" name="goal" placeholder="LPの目的（例：問い合わせ獲得・商品販売）"></div>
+    <div><label>ご予算の目安</label><input type="text" name="budget" placeholder="ご予算の目安"></div>
+    <div><label>参考にしたいサイトURL・雰囲気</label><textarea name="reference" placeholder="参考にしたいサイトURL・雰囲気"></textarea></div>
+    <div><label>その他ご要望・補足</label><textarea name="message" placeholder="その他ご要望・補足"></textarea></div>
+    <button type="submit">送信する（無料・返信3営業日以内）→</button>
+  </form>
+</div>
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="index.html" style="color:#7c6bff;text-decoration:none;">トップページへ戻る</a></p>
+</footer>
+</body>
+</html>
