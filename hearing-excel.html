@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ヒアリングフォーム｜Excel自動化 | AI Work Stage</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+    .hero { text-align: center; padding: 60px 40px 40px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
+    .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+    .hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: #8888aa; font-size: 1rem; }
+    .form-wrap { max-width: 640px; margin: 0 auto; padding: 40px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 0.9rem; color: #a0a0c0; margin-bottom: 6px; }
+    label span.req { color: #7c6bff; margin-left: 4px; }
+    input, textarea, select { background: #12121e; border: 1px solid #1e1e2e; border-radius: 10px; padding: 14px 18px; color: #e8e8f0; font-size: 0.95rem; width: 100%; outline: none; transition: border-color 0.2s; }
+    input:focus, textarea:focus, select:focus { border-color: #7c6bff; }
+    textarea { resize: vertical; min-height: 100px; }
+    select option { background: #12121e; }
+    button[type=submit] { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; border: none; border-radius: 50px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: opacity 0.2s; margin-top: 10px; }
+    button[type=submit]:hover { opacity: 0.85; }
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; margin-top: 60px; }
+    .note { background: #12121e; border: 1px solid #1e1e2e; border-radius: 10px; padding: 16px 20px; margin-bottom: 30px; font-size: 0.88rem; color: #8888aa; line-height: 1.7; }
+    .note strong { color: #7c6bff; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚡ AI Work Stage</div>
+  <nav>
+    <a href="index.html">トップへ戻る</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>📊 <span>Excel・スプレッドシート自動化</span><br>ヒアリングフォーム</h1>
+  <p>ご決済ありがとうございます。以下の項目をご記入いただき、送信してください。</p>
+</section>
+
+<div class="form-wrap">
+  <div class="note">
+    <strong>📋 ご記入のお願い</strong><br>
+    現状の作業フローをできるだけ具体的にご記入ください。<br>
+    回答後、24時間以内に担当AIエージェントより次のご連絡をお送りします。
+  </div>
+
+  <form action="https://formspree.io/f/xojnzlpg" method="POST">
+    <input type="hidden" name="_subject" value="【ヒアリング】Excel・スプレッドシート自動化">
+    <input type="hidden" name="service_type" value="Excel自動化">
+
+    <div class="form-group">
+      <label>お名前・会社名<span class="req">*</span></label>
+      <input type="text" name="name" placeholder="例：山田太郎 / 株式会社サンプル" required>
+    </div>
+
+    <div class="form-group">
+      <label>メールアドレス<span class="req">*</span></label>
+      <input type="email" name="email" placeholder="example@mail.com" required>
+    </div>
+
+    <div class="form-group">
+      <label>現在どんな作業をExcel/スプレッドシートでしているか<span class="req">*</span></label>
+      <textarea name="current_work" placeholder="例：毎月末に売上データを集計して報告書を作成している。コピペ作業が多く1〜2時間かかる。" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>自動化したい具体的な作業内容<span class="req">*</span></label>
+      <textarea name="automation_task" placeholder="例：複数シートのデータを自動集計してグラフ付きのレポートを出力したい" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>使用しているツール<span class="req">*</span></label>
+      <select name="tool" required>
+        <option value="">選択してください</option>
+        <option value="Excel（Windows）">Excel（Windows）</option>
+        <option value="Excel（Mac）">Excel（Mac）</option>
+        <option value="Google スプレッドシート">Google スプレッドシート</option>
+        <option value="ExcelとGoogleスプレッドシート両方">ExcelとGoogleスプレッドシート両方</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>サンプルファイルの有無</label>
+      <select name="sample_file">
+        <option value="">選択してください</option>
+        <option value="あり（後でメール添付します）">あり（後でメール添付します）</option>
+        <option value="あり（URLで共有できます）">あり（URLで共有できます）</option>
+        <option value="なし（ゼロから作成をお願いしたい）">なし（ゼロから作成をお願いしたい）</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>希望納期<span class="req">*</span></label>
+      <input type="text" name="deadline" placeholder="例：2週間以内 / 3月末まで / なるべく早く" required>
+    </div>
+
+    <div class="form-group">
+      <label>その他ご要望・ご質問</label>
+      <textarea name="remarks" placeholder="何でもお気軽にどうぞ"></textarea>
+    </div>
+
+    <button type="submit">送信する →</button>
+  </form>
+</div>
+
+<footer>
+  <p>© 2025 AI Work Stage. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="terms.html" style="color:#7c6bff;text-decoration:none;">利用規約・返金ポリシー</a></p>
+</footer>
+
+</body>
+</html>
