@@ -28,6 +28,16 @@
     .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #6366f1, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     nav a { color: #4a5568; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
     nav a:hover { color: #6366f1; }
+    .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: #4a5568; border-radius: 2px; transition: all 0.3s; }
+    .nav-menu { display: flex; align-items: center; }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-menu { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e2e8f0; padding: 16px 24px; gap: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+      .nav-menu.open { display: flex; }
+      .nav-menu a { margin-left: 0; padding: 12px 0; border-bottom: 1px solid #f0f4ff; font-size: 1rem; }
+      .nav-menu a:last-child { border-bottom: none; margin-top: 8px; text-align: center; }
+    }
 
     /* Hero */
     .hero { text-align: center; padding: 100px 40px 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00d4ff 100%); }
@@ -146,9 +156,12 @@ footer { text-align:center; padding:30px 30px 40px; background:linear-gradient(1
 </head>
 <body>
 
-<header>
+<header style="position:relative;">
   <div class="logo">⚡ AI Work Stage</div>
-  <nav>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav-menu" id="navMenu">
     <a href="#services">サービス</a>
     <a href="#flow">依頼の流れ</a>
     <a href="about.html">チームについて</a>
@@ -158,6 +171,12 @@ footer { text-align:center; padding:30px 30px 40px; background:linear-gradient(1
     <a href="uranai.html" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff!important;padding:8px 18px;border-radius:50px;font-weight:700;">🔑 会員ログイン</a>
   </nav>
 </header>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  hamburger.addEventListener('click', () => navMenu.classList.toggle('open'));
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+</script>
 
 <section class="hero">
   <h1>AIと自動化で、<br><span>あなたの業務を革命する</span></h1>
