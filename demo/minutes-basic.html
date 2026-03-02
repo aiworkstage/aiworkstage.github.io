@@ -3,86 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>議事録自動化 デモ - ベーシック | 株式会社サクラビジネス</title>
+<title>議事録・文章自動化 ベーシックプラン デモ｜株式会社サクラビジネス</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.doc{max-width:800px;margin:24px auto;background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.1);overflow:hidden;}
-.doc-header{background:#1a1a2e;color:#fff;padding:24px 32px;}
-.doc-header h1{font-size:1.4rem;font-weight:700;margin-bottom:8px;}
-.doc-meta{display:flex;gap:20px;font-size:0.82rem;color:#aaa;flex-wrap:wrap;}
-.doc-meta span{display:flex;align-items:center;gap:4px;}
-.ai-badge{background:#7c6bff;color:#fff;border-radius:20px;padding:2px 10px;font-size:0.72rem;margin-left:8px;}
-.doc-body{padding:32px;}
-.section{margin-bottom:24px;}
-.section h2{font-size:0.95rem;font-weight:700;color:#7c6bff;border-bottom:2px solid #7c6bff22;padding-bottom:6px;margin-bottom:12px;}
-.section p{font-size:0.88rem;line-height:1.8;color:#444;}
-.item-list{list-style:none;}
-.item-list li{padding:6px 0;font-size:0.88rem;border-bottom:1px solid #f0f0f0;display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
-.item-list li::before{content:"•";color:#7c6bff;font-weight:700;margin-top:1px;}
-.highlight-box{background:#f7f5ff;border-left:3px solid #7c6bff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;}
-.highlight-box p{font-size:0.85rem;color:#444;}
-.ai-note{background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:10px 14px;font-size:0.8rem;color:#856404;margin-bottom:16px;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#f8fafd;color:#333}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn 0.5s ease}
+
+.demo-header{background:#1a56db;color:#fff;padding:14px 20px;text-align:center}
+.demo-header h1{font-size:18px;font-weight:bold}
+.demo-header p{font-size:12px;opacity:.85;margin-top:4px}
+.back-link{display:inline-block;color:rgba(255,255,255,.85);font-size:12px;margin-bottom:6px;text-decoration:none}
+
+.container{max-width:900px;margin:0 auto;padding:20px 16px}
+.panel{background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:16px}
+.panel h2{font-size:15px;font-weight:bold;color:#1a56db;border-bottom:2px solid #bfdbfe;padding-bottom:8px;margin-bottom:14px}
+.panel h3{font-size:14px;font-weight:bold;color:#1e40af;margin-bottom:10px}
+.badge{display:inline-block;background:#eff6ff;color:#1a56db;border:1px solid #bfdbfe;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:bold}
+
+/* アップロードエリア */
+.upload-area{border:2px dashed #93c5fd;border-radius:10px;padding:32px;text-align:center;background:#f0f7ff;margin-bottom:14px}
+.upload-icon{font-size:40px;margin-bottom:10px}
+.upload-text{font-size:14px;color:#1a56db;font-weight:bold;margin-bottom:4px}
+.upload-sub{font-size:12px;color:#93a8c4}
+.file-input{display:none}
+.upload-btn{display:inline-block;margin-top:12px;background:#1a56db;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:13px;cursor:pointer}
+.upload-btn:hover{background:#1648c0}
+
+/* プログレスバー */
+.progress-wrap{margin-bottom:14px;display:none}
+.progress-label{font-size:12px;color:#1a56db;margin-bottom:6px;display:flex;justify-content:space-between}
+.progress-track{background:#e0eaff;border-radius:6px;height:12px;overflow:hidden}
+.progress-bar{background:#1a56db;height:100%;border-radius:6px;width:0%;transition:width .1s linear}
+
+/* 議事録出力 */
+.minutes-output{display:none;background:#fff;border:1px solid #bfdbfe;border-radius:10px;padding:20px}
+.minutes-header{border-bottom:2px solid #1a56db;padding-bottom:12px;margin-bottom:16px}
+.minutes-title{font-size:16px;font-weight:bold;color:#1e3a8a;margin-bottom:6px}
+.minutes-meta{display:flex;gap:16px;font-size:12px;color:#666;flex-wrap:wrap}
+.section-title{font-size:13px;font-weight:bold;color:#1a56db;margin-bottom:6px;margin-top:14px;display:flex;align-items:center;gap:6px}
+.section-title:first-of-type{margin-top:0}
+.section-content{font-size:12px;color:#333;line-height:1.8;padding-left:16px}
+.section-content li{margin-bottom:4px}
+.action-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.action-table th{background:#eff6ff;color:#1a56db;padding:7px 10px;text-align:left;font-size:11px;border-bottom:1px solid #bfdbfe}
+.action-table td{padding:7px 10px;border-bottom:1px solid #f0f4ff}
+
+/* 各種バッジ・ボタン */
+.output-footer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #e0eaff}
+.dl-btn{background:#1a56db;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.dl-btn:hover{background:#1648c0}
+.ai-badge{background:#eff6ff;color:#1a56db;border:1px solid #bfdbfe;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:bold}
+.time-badge{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:bold}
+
+/* 変換ボタン */
+.convert-btn{background:#1a56db;color:#fff;border:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.convert-btn:hover{background:#1648c0}
+.convert-btn:disabled{background:#93c5fd;cursor:not-allowed}
+
+.file-selected{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:12px;color:#1a56db;margin-bottom:14px;display:none;align-items:center;gap:8px}
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-minutes.html">← サービス詳細に戻る</a></div>
-<div class="doc">
-  <div class="doc-header">
-    <h1>📝 定例会議 議事録 <span class="ai-badge">🤖 AI自動生成</span></h1>
-    <div class="doc-meta">
-      <span>📅 2026年3月4日（水）</span>
-      <span>🕐 14:00〜15:00</span>
-      <span>📍 第1会議室</span>
-      <span>✍️ 自動文字起こし</span>
-    </div>
-  </div>
-  <div class="doc-body">
-    <div class="ai-note">🤖 この議事録はAIが音声を文字起こしし、自動整形・要約したものです。所要時間：約30秒</div>
+<div class="demo-header">
+  <a class="back-link" href="../index.html">← サービス一覧に戻る</a>
+  <h1>🎙️ 議事録・文章自動化 ベーシックプラン</h1>
+  <p>1時間以内の音声/会議・議事録生成・要点まとめ・Word納品・最短30分｜株式会社サクラビジネス</p>
+</div>
 
-    <div class="section">
-      <h2>👥 参加者</h2>
-      <ul class="item-list">
-        <li>山田 太郎（進行）</li>
-        <li>鈴木 花子（営業部）</li>
-        <li>佐藤 次郎（開発部）</li>
-        <li>田中 三郎（財務部）</li>
-      </ul>
+<div class="container fade-in">
+  <!-- アップロード -->
+  <div class="panel">
+    <h2>📂 音声ファイル → 議事録 変換シミュレーター</h2>
+    <div class="upload-area">
+      <div class="upload-icon">🎙️</div>
+      <div class="upload-text">音声ファイルをアップロード</div>
+      <div class="upload-sub">対応形式: MP3 / MP4 / WAV / M4A（1時間以内）</div>
+      <input type="file" class="file-input" id="fileInput" accept="audio/*,video/*" onchange="fileSelected(this)">
+      <button class="upload-btn" onclick="document.getElementById('fileInput').click()">📁 ファイルを選択</button>
     </div>
 
-    <div class="section">
-      <h2>📋 議題・内容</h2>
-      <div class="highlight-box">
-        <p><strong>① Q1売上報告</strong><br>鈴木より、Q1の売上は目標比112%達成と報告。特にEC経由の新規顧客獲得が好調。前月比で新規30%増加。</p>
+    <div class="file-selected" id="fileSelected">
+      <span>🎵</span><span id="fileName">meeting_20260302.mp3</span><span style="color:#999;font-size:10px">（デモ用サンプルファイル）</span>
+    </div>
+
+    <button class="convert-btn" id="convertBtn" onclick="startConvert()">🤖 AI変換開始</button>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-label"><span>🤖 AIが音声を解析・議事録に変換中...</span><span id="progressPct">0%</span></div>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+    </div>
+
+    <div class="minutes-output" id="minutesOutput">
+      <div class="minutes-header">
+        <div class="minutes-title">📋 週次定例会議 議事録</div>
+        <div class="minutes-meta">
+          <span>📅 2026年3月2日（月）</span>
+          <span>🕐 10:00〜10:52（52分）</span>
+          <span>👥 参加者：4名</span>
+          <span>📍 会議室A / Zoom</span>
+        </div>
       </div>
-      <div class="highlight-box">
-        <p><strong>② 新規サービス開発進捗</strong><br>佐藤より開発状況を共有。β版リリースは3月末を予定。テスター募集を来週開始予定。</p>
-      </div>
-      <div class="highlight-box">
-        <p><strong>③ 経費精算システム変更について</strong><br>田中より、4月よりクラウド会計への移行を提案。詳細資料を来週共有予定。</p>
-      </div>
-    </div>
 
-    <div class="section">
-      <h2>✅ 決定事項</h2>
-      <ul class="item-list">
-        <li>β版テスター募集を3月11日（水）より開始</li>
-        <li>経費精算システム移行は4月1日より実施</li>
-        <li>次回定例は3月11日（水）14時〜</li>
-      </ul>
-    </div>
+      <div class="section-title">👥 参加者</div>
+      <div class="section-content">山田 太郎（司会）、鈴木 花子、佐藤 次郎、田中 三郎</div>
 
-    <div class="section">
-      <h2>📌 次回まで</h2>
-      <ul class="item-list">
-        <li>佐藤：テスター募集告知文を作成・配布</li>
-        <li>田中：クラウド会計移行手順書を共有</li>
-        <li>鈴木：来月のプロモーション計画を提出</li>
-      </ul>
+      <div class="section-title">📌 議題</div>
+      <div class="section-content">
+        <ol>
+          <li>3月キャンペーン施策について</li>
+          <li>ホームページリニューアル進捗報告</li>
+          <li>来月の予算配分について</li>
+        </ol>
+      </div>
+
+      <div class="section-title">✅ 決定事項</div>
+      <div class="section-content">
+        <ul>
+          <li>LINEを活用した春キャンペーンを3月10日から開始（予算：50万円以内）</li>
+          <li>HPリニューアルは3月10日公開予定でスケジュール維持</li>
+          <li>来月予算は現状維持とし、詳細は次回会議で確定</li>
+        </ul>
+      </div>
+
+      <div class="section-title">📋 アクションアイテム</div>
+      <table class="action-table">
+        <thead><tr><th>担当者</th><th>タスク</th><th>期限</th></tr></thead>
+        <tbody>
+          <tr><td>鈴木 花子</td><td>キャンペーン用バナー画像作成</td><td>3/5（金）</td></tr>
+          <tr><td>佐藤 次郎</td><td>LINEメッセージ文章作成</td><td>3/5（金）</td></tr>
+          <tr><td>山田 太郎</td><td>HP公開前の最終確認</td><td>3/9（月）</td></tr>
+          <tr><td>田中 三郎</td><td>来月予算案の草案作成</td><td>3/9（月）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">📅 次回会議</div>
+      <div class="section-content">2026年3月9日（月）10:00〜 会議室A</div>
+
+      <div class="output-footer">
+        <button class="dl-btn" onclick="alert('※実際の納品物はメールで送付します\n\nWord形式（.docx）でお客様指定のメールアドレスに\n最短30分以内に送付いたします。')">📄 Word形式でダウンロード</button>
+        <span class="ai-badge">✅ AI校正済み　日本語構文チェック完了</span>
+        <span class="time-badge">⚡ 変換時間：約12秒（人間の作業：約30分）</span>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+function fileSelected(input) {
+  const name = input.files[0]?.name || 'meeting_20260302.mp3';
+  document.getElementById('fileName').textContent = name;
+  document.getElementById('fileSelected').style.display = 'flex';
+}
+
+function startConvert() {
+  // デモ用: ファイル未選択でもデモ動作
+  document.getElementById('fileSelected').style.display = 'flex';
+  const btn = document.getElementById('convertBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 変換中...';
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('minutesOutput').style.display = 'none';
+
+  let pct = 0;
+  const bar = document.getElementById('progressBar');
+  const pctEl = document.getElementById('progressPct');
+  const iv = setInterval(()=>{
+    pct += Math.random() * 8 + 4;
+    if (pct >= 100) {
+      pct = 100;
+      clearInterval(iv);
+      bar.style.width = '100%';
+      pctEl.textContent = '100%';
+      setTimeout(()=>{
+        document.getElementById('progressWrap').style.display = 'none';
+        document.getElementById('minutesOutput').style.display = 'block';
+        btn.textContent = '✅ 変換完了（再変換）';
+        btn.disabled = false;
+      }, 400);
+    }
+    bar.style.width = pct + '%';
+    pctEl.textContent = Math.floor(pct) + '%';
+  }, 120);
+}
+</script>
 </body>
 </html>

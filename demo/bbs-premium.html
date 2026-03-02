@@ -3,147 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>掲示板・コメント デモ - プレミアム | 株式会社サクラビジネス</title>
+<title>コミュニティフォーラム【プレミアムプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0e1a;font-family:'Helvetica Neue',Arial,sans-serif;color:#e0e0f0;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
-.sidebar{background:#0d0d1a;border-right:1px solid #2a2a3e;padding:16px;}
-.sidebar h4{font-size:0.72rem;color:#555;text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px;}
-.nav-item{padding:7px 10px;border-radius:6px;font-size:0.83rem;cursor:pointer;color:#c0c0d8;display:flex;align-items:center;gap:8px;}
-.nav-item:hover,.nav-item.active{background:#1a1a2e;color:#fff;}
-.nav-badge{background:#ff3b30;color:#fff;border-radius:10px;padding:1px 6px;font-size:0.68rem;margin-left:auto;}
-.main{padding:20px 24px;}
-.main-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
-.main-header h1{font-size:1.1rem;font-weight:700;}
-.search-bar{background:#12121e;border:1px solid #2a2a3e;border-radius:8px;padding:8px 12px;color:#fff;font-size:0.85rem;outline:none;flex:1;min-width:150px;}
-.search-bar:focus{border-color:#7c6bff;}
-.filter-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
-.filter-tab{background:#12121e;border:1px solid #2a2a3e;border-radius:20px;padding:5px 12px;font-size:0.78rem;cursor:pointer;color:#8888aa;}
-.filter-tab.active{background:#7c6bff;color:#fff;border-color:#7c6bff;}
-.post{background:#12121e;border:1px solid #2a2a3e;border-radius:10px;padding:14px;margin-bottom:10px;}
-.post-header{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
-.user-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;}
-.user-meta{flex:1;}
-.user-name{font-size:0.85rem;font-weight:700;}
-.user-badge{border-radius:10px;padding:1px 7px;font-size:0.68rem;font-weight:700;margin-left:6px;}
-.badge-admin{background:#7c6bff;color:#fff;}
-.badge-member{background:#2a2a3e;color:#8888aa;}
-.badge-banned{background:#ff3b30;color:#fff;}
-.post-time{font-size:0.72rem;color:#555;margin-top:2px;}
-.post-text{font-size:0.85rem;line-height:1.7;color:#c0c0d8;margin-bottom:10px;}
-.post-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
-.action-btn{font-size:0.78rem;color:#555;cursor:pointer;display:flex;align-items:center;gap:4px;border:1px solid #2a2a3e;border-radius:6px;padding:4px 10px;}
-.action-btn:hover{border-color:#7c6bff;color:#7c6bff;}
-.action-btn.danger:hover{border-color:#ff3b30;color:#ff3b30;}
-.mod-tag{background:#ff3b3022;color:#ff3b30;border-radius:6px;padding:2px 8px;font-size:0.72rem;font-weight:700;}
-.admin-panel{background:#12121e;border:1px solid #7c6bff44;border-radius:10px;padding:16px;margin-bottom:14px;}
-.admin-panel h3{font-size:0.88rem;color:#7c6bff;margin-bottom:12px;}
-.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.admin-stat{background:#0a0e1a;border-radius:8px;padding:10px;text-align:center;}
-.admin-stat .num{font-size:1.3rem;font-weight:800;color:#7c6bff;}
-.admin-stat .label{font-size:0.7rem;color:#555;}
-.report-queue{background:#ff3b3011;border:1px solid #ff3b3044;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:0.82rem;display:flex;align-items:center;justify-content:space-between;}
-.handle-btn{background:#ff3b30;color:#fff;border:none;border-radius:6px;padding:4px 12px;font-size:0.78rem;cursor:pointer;}
-@media(max-width:700px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}.admin-stats{grid-template-columns:repeat(2,1fr);}}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #fff8f4; min-height: 100vh; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* ヘッダー */
+  .header { background: linear-gradient(135deg, #c2410c, #ea580c, #f97316); padding: 16px 24px; }
+  .header-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-icon { font-size: 30px; }
+  .brand-name { font-size: 22px; font-weight: 800; color: #fff; }
+  .brand-sub { font-size: 11px; color: rgba(255,255,255,0.8); }
+  .plan-tag { background: rgba(255,255,255,0.2); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 700; margin-left: 8px; }
+  .header-nav { display: flex; gap: 8px; align-items: center; }
+  .nav-btn { background: rgba(255,255,255,0.15); color: #fff; border: none; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .nav-btn.active, .nav-btn:hover { background: rgba(255,255,255,0.3); }
+
+  .page-body { max-width: 900px; margin: 0 auto; padding: 24px 16px; animation: fadeIn 0.5s ease; }
+
+  /* セクション見出し */
+  .section-header { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; color: #c2410c; margin-bottom: 14px; }
+
+  /* 投稿カード */
+  .post-card { background: #fff; border-radius: 14px; padding: 18px; margin-bottom: 12px; border: 1.5px solid #fed7aa; box-shadow: 0 2px 8px rgba(234,88,12,0.06); }
+  .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #f97316, #ea580c); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .post-meta { flex: 1; }
+  .post-author { font-size: 14px; font-weight: 700; color: #333; display: flex; align-items: center; gap: 6px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+  .badge-new { background: #dcfce7; color: #16a34a; }
+  .badge-member { background: #dbeafe; color: #1d4ed8; }
+  .badge-veteran { background: #fef9c3; color: #d97706; }
+  .badge-admin { background: #fee2e2; color: #dc2626; }
+  .badge-pinned { background: #f5d0fe; color: #9333ea; }
+  .post-date { font-size: 11px; color: #aaa; margin-top: 2px; }
+  .post-text { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 12px; }
+
+  /* リアクション */
+  .reactions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .reaction-btn { display: flex; align-items: center; gap: 4px; padding: 5px 12px; border-radius: 20px; border: 1.5px solid #fed7aa; background: #fff; cursor: pointer; font-size: 14px; color: #555; transition: background 0.15s, border-color 0.15s; }
+  .reaction-btn:hover, .reaction-btn.active { background: #fff7ed; border-color: #f97316; }
+  .reaction-count { font-size: 13px; font-weight: 700; color: #ea580c; }
+
+  /* 画像投稿エリア */
+  .img-upload-area { border: 2px dashed #fed7aa; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 12px; cursor: pointer; background: #fff7ed; transition: background 0.2s; }
+  .img-upload-area:hover { background: #ffedd5; }
+  .img-upload-text { font-size: 13px; color: #888; }
+  .img-preview { display: none; margin-top: 10px; }
+  .img-preview img { max-width: 100%; border-radius: 8px; max-height: 150px; object-fit: cover; }
+
+  /* タブ（フォーラム/管理） */
+  .main-tabs { display: flex; gap: 0; margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1.5px solid #fed7aa; }
+  .main-tab { flex: 1; padding: 10px; text-align: center; font-size: 14px; font-weight: 700; cursor: pointer; background: #fff; color: #ea580c; border: none; transition: background 0.15s; }
+  .main-tab.active { background: #ea580c; color: #fff; }
+
+  /* 管理画面 */
+  .admin-panel { display: none; }
+  .admin-panel.show { display: block; }
+  .admin-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .admin-tab { padding: 7px 16px; border-radius: 8px; border: 1.5px solid #fed7aa; background: #fff; color: #ea580c; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .admin-tab.active { background: #ea580c; color: #fff; border-color: #ea580c; }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; border-radius: 12px; overflow: hidden; }
+  .admin-table th { background: #ea580c; color: #fff; padding: 10px 12px; font-weight: 700; text-align: left; }
+  .admin-table td { padding: 10px 12px; border-bottom: 1px solid #fff7ed; }
+  .admin-table tr:last-child td { border-bottom: none; }
+  .status-active { color: #16a34a; font-weight: 700; }
+  .status-banned { color: #dc2626; font-weight: 700; }
+  .action-link { color: #ea580c; cursor: pointer; font-weight: 600; text-decoration: underline; font-size: 12px; margin-right: 8px; }
+  .role-select { padding: 4px 8px; border-radius: 6px; border: 1px solid #fed7aa; font-size: 12px; }
+
+  /* フォーラムコンテンツ */
+  .forum-view { display: block; }
+  .forum-view.hide { display: none; }
+
+  /* 新規投稿フォーム */
+  .new-post-card { background: #fff; border-radius: 14px; padding: 18px; margin-bottom: 16px; border: 1.5px solid #fed7aa; }
+  .new-post-card h3 { font-size: 15px; font-weight: 700; color: #ea580c; margin-bottom: 12px; }
+  .np-textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1.5px solid #fed7aa; font-size: 14px; outline: none; resize: vertical; min-height: 70px; font-family: inherit; }
+  .np-textarea:focus { border-color: #ea580c; }
+  .np-footer { display: flex; align-items: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .np-submit { padding: 9px 20px; border-radius: 10px; border: none; background: linear-gradient(135deg, #ea580c, #f97316); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-bbs.html">← サービス詳細に戻る</a></div>
-<div class="layout">
-  <div class="sidebar">
-    <div style="font-size:0.95rem;font-weight:700;color:#7c6bff;margin-bottom:14px;">🛡️ 管理パネル</div>
-    <h4>掲示板</h4>
-    <div class="nav-item active">💬 全投稿</div>
-    <div class="nav-item">🔥 人気スレッド</div>
-    <div class="nav-item">🆕 新着</div>
-    <h4>モデレーション</h4>
-    <div class="nav-item">⚠️ 通報キュー<span class="nav-badge">3</span></div>
-    <div class="nav-item">🚫 非表示投稿</div>
-    <div class="nav-item">👤 ユーザー管理</div>
-    <div class="nav-item">🔒 BAN管理</div>
-    <h4>設定</h4>
-    <div class="nav-item">⚙️ 掲示板設定</div>
-    <div class="nav-item">📧 通知設定</div>
-    <div class="nav-item">📊 アナリティクス</div>
-  </div>
-  <div class="main">
-    <div class="main-header">
-      <h1>💬 コミュニティ掲示板（管理者ビュー）</h1>
-      <input class="search-bar" type="text" placeholder="🔍 投稿・ユーザーを検索...">
-    </div>
-
-    <div class="admin-panel">
-      <h3>📊 モデレーション ダッシュボード</h3>
-      <div class="admin-stats">
-        <div class="admin-stat"><div class="num">247</div><div class="label">総投稿数</div></div>
-        <div class="admin-stat"><div class="num" style="color:#ff3b30;">3</div><div class="label">通報待ち</div></div>
-        <div class="admin-stat"><div class="num" style="color:#f9a825;">5</div><div class="label">非表示中</div></div>
-        <div class="admin-stat"><div class="num" style="color:#28c840;">98%</div><div class="label">安全率</div></div>
-      </div>
-      <div class="report-queue">
-        <span>⚠️ 「匿名ユーザー」の投稿が3件通報されています</span>
-        <button class="handle-btn" onclick="alert('通報キューを開きました')">対応する</button>
+<div class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">🔥</div>
+      <div>
+        <div class="brand-name">AI Work Stage コミュニティ <span class="plan-tag">プレミアム</span></div>
+        <div class="brand-sub">高機能コミュニティフォーラム</div>
       </div>
     </div>
-
-    <div class="filter-tabs">
-      <div class="filter-tab active">全て</div>
-      <div class="filter-tab">⚠️ 通報あり</div>
-      <div class="filter-tab">👤 ログイン済み</div>
-      <div class="filter-tab">🚫 BAN済み</div>
-    </div>
-
-    <div class="post">
-      <div class="post-header">
-        <div class="user-avatar" style="background:#7c6bff;">田</div>
-        <div class="user-meta">
-          <div class="user-name">田中 美咲<span class="user-badge badge-member">会員</span></div>
-          <div class="post-time">2026年3月4日 14:23 | IP: 192.168.x.x</div>
-        </div>
-      </div>
-      <div class="post-text">先日体験会に参加しました。AI議事録のサービスが素晴らしかったです！導入費用はどのくらいかかりますか？ぜひ詳しく教えてください。</div>
-      <div class="post-actions">
-        <span class="action-btn" onclick="alert('返信しました')">↩️ 返信</span>
-        <span class="action-btn" onclick="alert('投稿を非表示にしました')">🚫 非表示</span>
-        <span class="action-btn danger" onclick="alert('ユーザーをBANしました')">🔒 BAN</span>
-        <span class="action-btn" onclick="alert('投稿を削除しました')">🗑️ 削除</span>
-      </div>
-    </div>
-
-    <div class="post" style="border-color:#ff3b3044;">
-      <div class="post-header">
-        <div class="user-avatar" style="background:#555;">匿</div>
-        <div class="user-meta">
-          <div class="user-name">匿名ユーザー<span class="user-badge badge-member">未認証</span> <span class="mod-tag">⚠️ 通報 x2</span></div>
-          <div class="post-time">2026年3月4日 12:05 | IP: 203.x.x.x</div>
-        </div>
-      </div>
-      <div class="post-text" style="color:#ff9999;">【スパム疑い】他社サービスの宣伝リンクが含まれています。自動フィルターが検知しました。</div>
-      <div class="post-actions">
-        <span class="action-btn" onclick="alert('投稿を承認しました')">✅ 承認</span>
-        <span class="action-btn danger" onclick="alert('投稿を削除し、ユーザーをBANしました')">🔒 BAN＋削除</span>
-        <span class="action-btn" onclick="alert('通報を却下しました')">❌ 通報却下</span>
-      </div>
-    </div>
-
-    <div class="post">
-      <div class="post-header">
-        <div class="user-avatar" style="background:#28c840;">運</div>
-        <div class="user-meta">
-          <div class="user-name">サクラビジネス運営<span class="user-badge badge-admin">管理者</span></div>
-          <div class="post-time">2026年3月4日 10:00</div>
-        </div>
-      </div>
-      <div class="post-text">📢 3月のキャンペーンのお知らせです。新規ご契約のお客様に初月30%OFFを実施中！詳しくはお問い合わせください。</div>
-      <div class="post-actions">
-        <span class="action-btn" onclick="alert('固定投稿に設定しました')">📌 固定</span>
-        <span class="action-btn" onclick="alert('編集モードへ')">✏️ 編集</span>
-      </div>
+    <div class="header-nav">
+      <button class="nav-btn active" onclick="switchMain('forum', this)">💬 フォーラム</button>
+      <button class="nav-btn" onclick="switchMain('admin', this)">⚙️ 管理画面</button>
     </div>
   </div>
 </div>
+
+<div class="page-body">
+  <div class="main-tabs">
+    <button class="main-tab active" onclick="switchMain('forum', this)">💬 フォーラム</button>
+    <button class="main-tab" onclick="switchMain('admin', this)">⚙️ 会員管理・管理画面</button>
+  </div>
+
+  <!-- フォーラムビュー -->
+  <div class="forum-view" id="forum-view">
+
+    <!-- 新規投稿フォーム -->
+    <div class="new-post-card">
+      <h3>✍️ 新しい投稿</h3>
+      <textarea class="np-textarea" id="new-post-text" placeholder="コミュニティに投稿する..."></textarea>
+      <div class="np-footer">
+        <div class="img-upload-area" style="flex:1;min-width:200px;padding:10px;" onclick="document.getElementById('img-file').click()">
+          <input type="file" id="img-file" accept="image/*" style="display:none" onchange="previewImg(event)">
+          <span class="img-upload-text">📎 画像を添付（クリックして選択）</span>
+          <div class="img-preview" id="img-preview"><img id="preview-img" src="" alt="プレビュー"></div>
+        </div>
+        <button class="np-submit" onclick="submitPost()">投稿する →</button>
+      </div>
+    </div>
+
+    <!-- 固定投稿 -->
+    <div class="section-header">📌 固定投稿</div>
+    <div class="post-card">
+      <div class="post-header">
+        <div class="avatar" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);">👑</div>
+        <div class="post-meta">
+          <div class="post-author">AI Work Stage 運営 <span class="badge badge-admin">管理者</span> <span class="badge badge-pinned">📌 固定</span></div>
+          <div class="post-date">2025/03/01 09:00</div>
+        </div>
+      </div>
+      <div class="post-text">🎉 コミュニティへようこそ！ここではサービスに関する質問、情報共有、雑談などをお楽しみいただけます。ルールを守って楽しくご利用ください。</div>
+      <div class="reactions">
+        <button class="reaction-btn active" onclick="react(this)"><span>👍</span><span class="reaction-count">42</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>❤️</span><span class="reaction-count">28</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>😂</span><span class="reaction-count">5</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>😮</span><span class="reaction-count">3</span></button>
+      </div>
+    </div>
+
+    <!-- 人気投稿 -->
+    <div class="section-header">🔥 人気投稿</div>
+    <div class="post-card" id="hot1">
+      <div class="post-header">
+        <div class="avatar">🌟</div>
+        <div class="post-meta">
+          <div class="post-author">山田 太郎 <span class="badge badge-veteran">ベテラン</span></div>
+          <div class="post-date">2025/03/01 15:30</div>
+        </div>
+      </div>
+      <div class="post-text">SNSリンクページを導入して1ヶ月。Instagramへの流入が2.3倍になりました！デザインもシンプルで使いやすく、お客様からも好評です。おすすめです🙌</div>
+      <div class="reactions">
+        <button class="reaction-btn" onclick="react(this)"><span>👍</span><span class="reaction-count">31</span></button>
+        <button class="reaction-btn active" onclick="react(this)"><span>❤️</span><span class="reaction-count">19</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>😂</span><span class="reaction-count">2</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>😮</span><span class="reaction-count">8</span></button>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-header">
+        <div class="avatar" style="background:linear-gradient(135deg,#9333ea,#6b21a8);">💎</div>
+        <div class="post-meta">
+          <div class="post-author">田中 花子 <span class="badge badge-member">メンバー</span></div>
+          <div class="post-date">2025/03/02 08:45</div>
+        </div>
+      </div>
+      <div class="post-text">HP診断のプレミアムプランを利用しました。スコアが58点→91点に大幅改善！速度が上がってからお問い合わせ件数が増えた気がします。ありがとうございました！</div>
+      <div class="reactions">
+        <button class="reaction-btn" onclick="react(this)"><span>👍</span><span class="reaction-count">24</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>❤️</span><span class="reaction-count">15</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>😂</span><span class="reaction-count">1</span></button>
+        <button class="reaction-btn" onclick="react(this)"><span>😮</span><span class="reaction-count">11</span></button>
+      </div>
+    </div>
+
+    <!-- 新着 -->
+    <div class="section-header">🆕 新着投稿</div>
+    <div id="new-posts">
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar" style="background:linear-gradient(135deg,#16a34a,#4ade80);">🌱</div>
+          <div class="post-meta">
+            <div class="post-author">鈴木 一郎 <span class="badge badge-new">新人</span></div>
+            <div class="post-date">2025/03/02 10:00</div>
+          </div>
+        </div>
+        <div class="post-text">はじめまして！先日掲示板設置を依頼して、今日から運用開始しました。コミュニティが賑わうといいなと思っています😊</div>
+        <div class="reactions">
+          <button class="reaction-btn" onclick="react(this)"><span>👍</span><span class="reaction-count">7</span></button>
+          <button class="reaction-btn" onclick="react(this)"><span>❤️</span><span class="reaction-count">4</span></button>
+          <button class="reaction-btn" onclick="react(this)"><span>😂</span><span class="reaction-count">0</span></button>
+          <button class="reaction-btn" onclick="react(this)"><span>😮</span><span class="reaction-count">1</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 管理画面ビュー -->
+  <div class="admin-panel" id="admin-view">
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('members', this)">👥 会員一覧</button>
+      <button class="admin-tab" onclick="switchAdminTab('roles', this)">🔑 権限設定</button>
+      <button class="admin-tab" onclick="switchAdminTab('ban', this)">🚫 BAN管理</button>
+    </div>
+
+    <div id="tab-members">
+      <table class="admin-table">
+        <thead><tr><th>ユーザー名</th><th>バッジ</th><th>投稿数</th><th>登録日</th><th>ステータス</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td>山田 太郎</td><td><span class="badge badge-veteran">ベテラン</span></td><td>87</td><td>2024/01/15</td><td class="status-active">✅ 有効</td><td><span class="action-link" onclick="alert('メッセージ送信（デモ）')">メッセージ</span><span class="action-link" onclick="alert('権限変更（デモ）')">権限変更</span></td></tr>
+          <tr><td>田中 花子</td><td><span class="badge badge-member">メンバー</span></td><td>34</td><td>2024/06/20</td><td class="status-active">✅ 有効</td><td><span class="action-link" onclick="alert('メッセージ送信（デモ）')">メッセージ</span><span class="action-link" onclick="alert('権限変更（デモ）')">権限変更</span></td></tr>
+          <tr><td>鈴木 一郎</td><td><span class="badge badge-new">新人</span></td><td>3</td><td>2025/03/01</td><td class="status-active">✅ 有効</td><td><span class="action-link" onclick="alert('メッセージ送信（デモ）')">メッセージ</span><span class="action-link" onclick="alert('権限変更（デモ）')">権限変更</span></td></tr>
+          <tr><td>問題ユーザー</td><td><span class="badge badge-new">新人</span></td><td>1</td><td>2025/02/28</td><td class="status-banned">🚫 BAN済み</td><td><span class="action-link" onclick="alert('BAN解除（デモ）')">BAN解除</span></td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:#aaa;margin-top:10px;">💡 投稿数に応じてバッジが自動付与されます（新人:0〜9件 / メンバー:10〜49件 / ベテラン:50件以上）</div>
+    </div>
+
+    <div id="tab-roles" style="display:none">
+      <div class="post-card">
+        <div style="font-size:14px;font-weight:700;color:#ea580c;margin-bottom:14px;">🔑 権限レベル設定</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#fff7ed;border-radius:10px;"><span style="flex:1;font-weight:600;">👑 管理者</span><span style="color:#555;">投稿・削除・BAN・権限変更 すべて可能</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#fff7ed;border-radius:10px;"><span style="flex:1;font-weight:600;">🛡️ モデレーター</span><span style="color:#555;">投稿・削除・非表示・警告 可能</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#fff7ed;border-radius:10px;"><span style="flex:1;font-weight:600;">✅ メンバー</span><span style="color:#555;">投稿・コメント・リアクション 可能</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#fff7ed;border-radius:10px;"><span style="flex:1;font-weight:600;">👁️ 閲覧のみ</span><span style="color:#555;">読み取り専用（投稿不可）</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-ban" style="display:none">
+      <table class="admin-table">
+        <thead><tr><th>ユーザー名</th><th>BAN理由</th><th>BAN日</th><th>期間</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td>問題ユーザー</td><td>スパム投稿・規約違反</td><td>2025/02/28</td><td>永久BAN</td><td><span class="action-link" onclick="alert('BAN解除（デモ）')">BAN解除</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px;font-size:13px;color:#aaa;">現在BANされているユーザー: 1名</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchMain(target, btn) {
+  document.getElementById('forum-view').style.display = target==='forum' ? 'block' : 'none';
+  document.getElementById('admin-view').classList.toggle('show', target==='admin');
+  document.querySelectorAll('.main-tab, .nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+}
+function switchAdminTab(tab, btn) {
+  ['members','roles','ban'].forEach(function(t){ document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none'; });
+  document.querySelectorAll('.admin-tab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+}
+function react(btn) {
+  btn.classList.toggle('active');
+  var span = btn.querySelector('.reaction-count');
+  var n = parseInt(span.textContent);
+  span.textContent = btn.classList.contains('active') ? n+1 : n-1;
+}
+function previewImg(e) {
+  var file = e.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    document.getElementById('preview-img').src = ev.target.result;
+    document.getElementById('img-preview').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+function submitPost() {
+  var text = document.getElementById('new-post-text').value.trim();
+  if(!text) { alert('投稿内容を入力してください'); return; }
+  var now = new Date();
+  var dateStr = now.getFullYear()+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  var hasImg = document.getElementById('preview-img').src && document.getElementById('img-preview').style.display==='block';
+  var imgHtml = hasImg ? '<img src="'+document.getElementById('preview-img').src+'" style="max-width:100%;border-radius:8px;max-height:150px;object-fit:cover;margin-top:8px;">' : '';
+  var html = '<div class="post-card" style="animation:fadeIn 0.5s ease;">' +
+    '<div class="post-header"><div class="avatar" style="background:linear-gradient(135deg,#ea580c,#f97316);">😊</div>' +
+    '<div class="post-meta"><div class="post-author">あなた <span class="badge badge-new">新人</span></div><div class="post-date">'+dateStr+'</div></div></div>' +
+    '<div class="post-text">'+escHtml(text).replace(/\n/g,'<br>')+imgHtml+'</div>' +
+    '<div class="reactions">' +
+    '<button class="reaction-btn" onclick="react(this)"><span>👍</span><span class="reaction-count">0</span></button>' +
+    '<button class="reaction-btn" onclick="react(this)"><span>❤️</span><span class="reaction-count">0</span></button>' +
+    '<button class="reaction-btn" onclick="react(this)"><span>😂</span><span class="reaction-count">0</span></button>' +
+    '<button class="reaction-btn" onclick="react(this)"><span>😮</span><span class="reaction-count">0</span></button>' +
+    '</div></div>';
+  document.getElementById('new-posts').insertAdjacentHTML('afterbegin', html);
+  document.getElementById('new-post-text').value = '';
+  document.getElementById('img-preview').style.display = 'none';
+  document.getElementById('img-file').value = '';
+}
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
 </body>
 </html>
