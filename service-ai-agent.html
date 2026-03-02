@@ -210,43 +210,55 @@ footer { text-align:center; padding:30px 30px 40px; background:linear-gradient(1
   <section>
     <h2>💰 料金プラン</h2>
     <div class="pricing-grid">
-      <div class="price-card ">
-          
-          <div class="plan-name">ベーシック</div>
-          <div class="plan-price">¥15,000〜<span>/件</span></div>
-          <ul><li>単一業務自動化</li>
-<li><span class="tooltip" data-tip="異なるシステム同士を連携させる仕組み。例：フォーム送信→Slackに自動通知">API連携</span>（1サービス）</li>
-<li>実行レポート機能</li>
-<li>操作マニュアル</li>
-<li>納品：最短2日</li></ul>
-<a href="demo/ai-agent-basic.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
 
-        </div>
-<div class="price-card featured">
-          <div class="badge">人気</div><br>
-          <div class="plan-name">スタンダード</div>
-          <div class="plan-price">¥30,000〜<span>/件</span></div>
-          <ul><li style="color:#6366f1;font-weight:700;">✨ ベーシックに加えて：</li><li>複数業務連携自動化</li>
-<li><span class="tooltip" data-tip="異なるシステム同士を連携させる仕組み。例：フォーム送信→Slackに自動通知">API連携</span>（3サービスまで）</li>
-<li>エラー通知機能</li>
-<li>ダッシュボード</li>
-<li>1ヶ月保守サポート</li></ul>
-<a href="demo/ai-agent-standard.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+      <!-- ベーシック -->
+      <div style="background:linear-gradient(145deg,#1a1000,#2d1e00);border:1px solid #b8860b;border-radius:20px;padding:32px 24px;text-align:center;box-shadow:0 4px 20px rgba(184,134,11,0.15);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(212,175,55,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(184,134,11,0.15)'">
+        <div style="font-size:0.85rem;font-weight:800;color:#b8860b;letter-spacing:0.1em;margin-bottom:8px;">BASIC</div>
+        <div style="font-size:1rem;font-weight:700;color:#ffd700;margin-bottom:12px;">ベーシック</div>
+        <div style="font-size:2rem;font-weight:800;color:#ffd700;margin-bottom:16px;">¥30,000〜<span style="font-size:0.9rem;color:#d4b896;">/件</span></div>
+        <ul style="list-style:none;text-align:left;font-size:0.88rem;color:#d4b896;line-height:2.2;margin-bottom:16px;">
+          <li>✦ 単一業務自動化</li>
+          <li>✦ API連携（1サービス）</li>
+          <li>✦ 実行レポート機能</li>
+          <li>✦ 操作マニュアル</li>
+          <li>✦ 納品：最短2日</li>
+        </ul>
+        <a href="demo/ai-agent-basic.html" target="_blank" style="display:block;margin-top:8px;background:linear-gradient(135deg,#b8860b,#ffd700);color:#1a0a00;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:800;">🖥️ デモサイトを見る →</a>
+      </div>
 
-        </div>
-<div class="price-card " style="background: linear-gradient(145deg, #0a0a0f, #1a1205); border: 1px solid #b8860b; box-shadow: 0 8px 32px rgba(184,134,11,0.2);">
-          
-          <div style="text-align:center;font-size:1.5rem;margin-bottom:8px;">💎</div>
-          <div class="plan-name">プレミアム</div>
-          <div class="plan-price" style="color:#d4a017;">¥60,000〜<span>/件</span></div>
-          <ul><li style="color:#6366f1;font-weight:700;">💎 スタンダードに加えて：</li><li>複雑なワークフロー自動化</li>
-<li>無制限<span class="tooltip" data-tip="異なるシステム同士を連携させる仕組み。例：フォーム送信→Slackに自動通知">API連携</span></li>
-<li>AI判断・分岐処理</li>
-<li>カスタムUI</li>
-<li>3ヶ月保守サポート</li></ul>
-<a href="demo/ai-agent-premium.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+      <!-- スタンダード -->
+      <div style="background:linear-gradient(145deg,#1a1000,#2d1e00);border:2px solid #ffd700;border-radius:20px;padding:32px 24px;text-align:center;box-shadow:0 8px 32px rgba(255,215,0,0.25);transition:transform 0.2s,box-shadow 0.2s;position:relative;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(255,215,0,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(255,215,0,0.25)'">
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#d4af37,#ffd700);color:#1a0a00;font-size:0.75rem;font-weight:800;padding:4px 16px;border-radius:20px;white-space:nowrap;">⭐ 人気No.1</div>
+        <div style="font-size:0.85rem;font-weight:800;color:#ffd700;letter-spacing:0.1em;margin-bottom:8px;">STANDARD</div>
+        <div style="font-size:1rem;font-weight:700;color:#ffd700;margin-bottom:12px;">スタンダード</div>
+        <div style="font-size:2rem;font-weight:800;color:#ffd700;margin-bottom:16px;">¥50,000〜<span style="font-size:0.9rem;color:#d4b896;">/件</span></div>
+        <ul style="list-style:none;text-align:left;font-size:0.88rem;color:#d4b896;line-height:2.2;margin-bottom:16px;">
+          <li style="color:#ffd700;font-weight:700;">✨ ベーシックに加えて：</li>
+          <li>✦ 複数業務連携自動化</li>
+          <li>✦ API連携（3サービスまで）</li>
+          <li>✦ エラー通知機能</li>
+          <li>✦ ダッシュボード</li>
+          <li>✦ 1ヶ月保守サポート</li>
+        </ul>
+        <a href="demo/ai-agent-standard.html" target="_blank" style="display:block;margin-top:8px;background:linear-gradient(135deg,#b8860b,#ffd700);color:#1a0a00;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:800;">🖥️ デモサイトを見る →</a>
+      </div>
 
-        </div>
+      <!-- プレミアム -->
+      <div style="background:linear-gradient(145deg,#0a0800,#1a1200);border:1px solid #d4af37;border-radius:20px;padding:32px 24px;text-align:center;box-shadow:0 4px 20px rgba(212,175,55,0.2);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(212,175,55,0.35)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(212,175,55,0.2)'">
+        <div style="text-align:center;font-size:1.4rem;margin-bottom:4px;">💎</div>
+        <div style="font-size:0.85rem;font-weight:800;color:#d4af37;letter-spacing:0.1em;margin-bottom:8px;">PREMIUM</div>
+        <div style="font-size:1rem;font-weight:700;color:#ffd700;margin-bottom:12px;">プレミアム</div>
+        <div style="font-size:2rem;font-weight:800;color:#ffd700;margin-bottom:16px;">¥70,000〜<span style="font-size:0.9rem;color:#d4b896;">/件</span></div>
+        <ul style="list-style:none;text-align:left;font-size:0.88rem;color:#d4b896;line-height:2.2;margin-bottom:16px;">
+          <li style="color:#ffd700;font-weight:700;">💎 スタンダードに加えて：</li>
+          <li>✦ 複雑なワークフロー自動化</li>
+          <li>✦ 無制限API連携</li>
+          <li>✦ AI判断・分岐処理</li>
+          <li>✦ カスタムUI</li>
+          <li>✦ 3ヶ月保守サポート</li>
+        </ul>
+        <a href="demo/ai-agent-premium.html" target="_blank" style="display:block;margin-top:8px;background:linear-gradient(135deg,#b8860b,#ffd700);color:#1a0a00;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:800;">🖥️ デモサイトを見る →</a>
+      </div>
 
     </div>
   </section>
