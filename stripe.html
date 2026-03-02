@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stripe決済について | AI Work Stage</title>
+  <meta name="description" content="AI Work StageはStripeによる安全な決済システムを採用。カード情報の管理・返金ポリシー・お支払いの流れをわかりやすく説明します。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f8faff; color: #1a202c; line-height: 1.7; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; background: #f8faff; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #6366f1, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #64748b; text-decoration: none; margin-left: 24px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #1a202c; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #635bff, #0a2540);
+      color: #fff;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 12px; }
+    .hero .sub { font-size: 1.15rem; opacity: 0.85; margin-bottom: 24px; }
+    .hero .what-stripe {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 14px;
+      padding: 20px 32px;
+      max-width: 640px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      text-align: left;
+    }
+    .hero .what-stripe strong { display: block; margin-bottom: 6px; font-size: 1rem; }
+
+    /* Container */
+    .container { max-width: 960px; margin: 0 auto; padding: 60px 24px; }
+    section { margin-bottom: 64px; }
+    h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 28px; color: #1a202c; }
+
+    /* Safety Cards */
+    .safety-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .safety-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .safety-card:hover { border-color: #6366f1; transform: translateY(-4px); }
+    .safety-card .card-icon { font-size: 3rem; display: block; margin-bottom: 14px; }
+    .safety-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: #1a202c; }
+    .safety-card p { font-size: 0.88rem; color: #4a5568; line-height: 1.7; }
+
+    /* Flow */
+    .flow-wrap {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 36px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+    .flow-step-box {
+      background: #f8faff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px 12px;
+      text-align: center;
+      min-width: 120px;
+      max-width: 140px;
+      flex-shrink: 0;
+    }
+    .flow-step-box .step-icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+    .flow-step-box .step-title { font-size: 0.85rem; font-weight: 700; color: #1a202c; margin-bottom: 4px; }
+    .flow-step-box .step-desc { font-size: 0.75rem; color: #64748b; line-height: 1.5; }
+    .flow-arrow { font-size: 1.8rem; color: #6366f1; flex-shrink: 0; }
+
+    /* Refund Box */
+    .refund-box {
+      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+      border: 2px solid #6ee7b7;
+      border-radius: 20px;
+      padding: 40px 36px;
+    }
+    .refund-box h2 { color: #065f46; margin-bottom: 20px; }
+    .refund-box .refund-policy ul {
+      list-style: none;
+      color: #065f46;
+      font-size: 0.95rem;
+      line-height: 2.2;
+      margin-bottom: 28px;
+    }
+    .refund-box .refund-policy ul li::before { content: "✅ "; }
+    .refund-box .refund-steps-title { font-size: 1rem; font-weight: 700; color: #065f46; margin-bottom: 14px; }
+    .refund-steps { display: flex; flex-direction: column; gap: 10px; }
+    .refund-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .refund-step .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #10b981; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .refund-step p { font-size: 0.9rem; color: #065f46; line-height: 1.6; }
+
+    /* FAQ Accordion */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 24px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1a202c;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    .faq-item summary::before { content: "Q"; color: #6366f1; font-size: 1rem; font-weight: 900; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: "▼"; margin-left: auto; color: #6366f1; font-size: 0.75rem; transition: transform 0.2s; }
+    .faq-item[open] summary::after { transform: rotate(180deg); }
+    .faq-answer {
+      padding: 0 24px 20px 24px;
+      font-size: 0.9rem;
+      color: #4a5568;
+      line-height: 1.7;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 16px;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 60px 24px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.12) 0%, transparent 65%);
+      border-radius: 20px;
+    }
+    .cta-section h2 { margin-bottom: 12px; }
+    .cta-section p { color: #64748b; margin-bottom: 28px; font-size: 1rem; }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 48px;
+      background: linear-gradient(135deg, #6366f1, #00d4ff);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #e2e8f0; }
+    footer a { color: #6366f1; text-decoration: none; }
+
+    @media (max-width: 700px) {
+      header { padding: 16px; flex-direction: column; gap: 12px; }
+      nav a { margin-left: 12px; font-size: 0.8rem; }
+      .hero h1 { font-size: 1.9rem; }
+      .safety-grid { grid-template-columns: 1fr; }
+      .flow-wrap { flex-direction: column; align-items: stretch; }
+      .flow-step-box { max-width: 100%; }
+      .flow-arrow { transform: rotate(90deg); align-self: center; }
+      .refund-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">⚡ AI Work Stage</a>
+  <nav>
+    <a href="index.html">ホーム</a>
+    <a href="index.html#services">サービス</a>
+    <a href="about.html">チームについて</a>
+    <a href="blog.html">ブログ</a>
+    <a href="uranai.html">AI占い</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>💳 Stripe決済について</h1>
+  <p class="sub">安全・簡単・透明な決済システムです</p>
+  <div class="what-stripe">
+    <strong>🌐 Stripeとは？</strong>
+    世界140か国以上で使われているオンライン決済サービスです。クレジットカード情報はStripeが直接管理するため、AI Work Stageにはカード番号が一切届きません。
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 安全性 -->
+  <section>
+    <h2>🛡️ Stripeの安全性</h2>
+    <div class="safety-grid">
+      <div class="safety-card">
+        <span class="card-icon">🔒</span>
+        <h3>カード情報は暗号化</h3>
+        <p>お客様のクレジットカード情報はすべて暗号化され、Stripeのサーバーで管理。私たちには一切見えません。</p>
+      </div>
+      <div class="safety-card">
+        <span class="card-icon">🌍</span>
+        <h3>世界基準のセキュリティ</h3>
+        <p>PCI DSS Level 1（最高水準）準拠。AmazonやPayPalと同じセキュリティ規格です。</p>
+      </div>
+      <div class="safety-card">
+        <span class="card-icon">✅</span>
+        <h3>不正検知AI搭載</h3>
+        <p>Stripeの独自AIが不正利用を自動で検知・防止します。安心してご利用いただけます。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- お支払いの流れ -->
+  <section>
+    <h2>💡 お支払いの流れ</h2>
+    <div class="flow-wrap">
+      <div class="flow-step-box">
+        <span class="step-icon">📋</span>
+        <div class="step-title">見積もり確認</div>
+        <div class="step-desc">AI Work Stageから見積書メールが届きます</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step-box">
+        <span class="step-icon">💳</span>
+        <div class="step-title">決済リンクをクリック</div>
+        <div class="step-desc">メール内のStripe決済リンクをタップ</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step-box">
+        <span class="step-icon">🔐</span>
+        <div class="step-title">カード情報入力</div>
+        <div class="step-desc">Stripeのセキュアな画面でカード入力</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step-box">
+        <span class="step-icon">✅</span>
+        <div class="step-title">決済完了メール</div>
+        <div class="step-desc">Stripeから自動で領収書メールが届きます</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step-box">
+        <span class="step-icon">🚀</span>
+        <div class="step-title">制作開始</div>
+        <div class="step-desc">入金確認後すぐに制作を開始します</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 返金ポリシー -->
+  <section>
+    <div class="refund-box">
+      <h2>💚 返金は最速3〜5営業日で完了します</h2>
+      <div class="refund-policy">
+        <ul>
+          <li>制作開始前のキャンセル：<strong>全額返金</strong>（手数料なし）</li>
+          <li>制作開始後のキャンセル：<strong>未作業分を返金</strong></li>
+          <li>納品物に重大な問題がある場合：<strong>全額返金または再制作</strong></li>
+          <li>返金申請から<strong>3〜5営業日以内</strong>にカードへ反映</li>
+          <li><strong>返金手続きはメール1本でOK</strong>。面倒な書類・手続き一切なし</li>
+        </ul>
+      </div>
+      <div class="refund-steps-title">📬 返金申請方法（4ステップ）</div>
+      <div class="refund-steps">
+        <div class="refund-step">
+          <div class="step-num">1</div>
+          <p><code>info@aiworkstage.com</code> へ「返金希望」と件名でメール</p>
+        </div>
+        <div class="refund-step">
+          <div class="step-num">2</div>
+          <p>お名前・注文内容・理由を簡単に記載（1〜2行でOK）</p>
+        </div>
+        <div class="refund-step">
+          <div class="step-num">3</div>
+          <p>24時間以内に確認・処理開始</p>
+        </div>
+        <div class="refund-step">
+          <div class="step-num">4</div>
+          <p>3〜5営業日でカードに返金反映</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- よくある質問 -->
+  <section>
+    <h2>❓ よくある質問</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>どのカードが使えますか？</summary>
+        <div class="faq-answer">VISA・Mastercard・JCB・American Express・ダイナースなど主要カードすべてに対応しています。</div>
+      </details>
+      <details class="faq-item">
+        <summary>分割払いはできますか？</summary>
+        <div class="faq-answer">カード会社の分割払い機能をご利用いただけます。詳しくはご利用のカード会社にお問い合わせください。</div>
+      </details>
+      <details class="faq-item">
+        <summary>領収書はもらえますか？</summary>
+        <div class="faq-answer">決済完了後、Stripeから自動で領収書メールが届きます。PDF形式でダウンロードも可能です。</div>
+      </details>
+      <details class="faq-item">
+        <summary>カード情報は保存されますか？</summary>
+        <div class="faq-answer">AI Work Stageにはカード情報は一切保存されません。すべてStripeのセキュアなサーバーで管理されます。</div>
+      </details>
+      <details class="faq-item">
+        <summary>海外カードは使えますか？</summary>
+        <div class="faq-answer">海外発行カードもご利用いただけます。Stripeは世界140か国以上の決済に対応しています。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>🙋 ご不明な点はお気軽にどうぞ</h2>
+    <p>決済・返金に関するご質問は、いつでもお気軽にご連絡ください。</p>
+    <a href="index.html#contact" class="cta-btn">お問い合わせ</a>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2025 AI Work Stage | <a href="terms.html">利用規約</a> | <a href="security.html">プライバシーポリシー</a></p>
+  <p>お問い合わせ: info@aiworkstage.com</p>
+</footer>
+
+</body>
+</html>
