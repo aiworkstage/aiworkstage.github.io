@@ -3,120 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>議事録自動化 デモ - スタンダード | 株式会社サクラビジネス</title>
+<title>議事録・文章自動化 スタンダードプラン デモ｜株式会社サクラビジネス</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#f0f0f8;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.container{max-width:900px;margin:24px auto;padding:0 16px;}
-.doc-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
-.doc-nav-item{background:#fff;border:1px solid #ddd;border-radius:20px;padding:6px 14px;font-size:0.8rem;cursor:pointer;color:#555;}
-.doc-nav-item.active{background:#7c6bff;color:#fff;border-color:#7c6bff;}
-.doc{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);overflow:hidden;}
-.doc-header{background:linear-gradient(135deg,#1a1a2e,#2d2b55);color:#fff;padding:28px 32px;}
-.doc-header h1{font-size:1.3rem;font-weight:700;margin-bottom:10px;}
-.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:0.82rem;color:#ccc;}
-.meta-item{display:flex;align-items:center;gap:6px;}
-.badges{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
-.badge{border-radius:20px;padding:3px 10px;font-size:0.72rem;font-weight:700;}
-.badge.ai{background:#7c6bff;}
-.badge.done{background:#28c840;}
-.badge.shared{background:#f9a825;color:#333;}
-.doc-body{padding:28px 32px;}
-.summary-box{background:linear-gradient(135deg,#f7f5ff,#ede8ff);border-radius:8px;padding:16px;margin-bottom:24px;}
-.summary-box h3{font-size:0.85rem;color:#7c6bff;font-weight:700;margin-bottom:8px;}
-.summary-box p{font-size:0.85rem;line-height:1.7;color:#444;}
-.section{margin-bottom:24px;}
-.section h2{font-size:0.95rem;font-weight:700;color:#333;border-left:3px solid #7c6bff;padding-left:10px;margin-bottom:12px;}
-table{width:100%;border-collapse:collapse;font-size:0.82rem;}
-th{background:#f7f7f5;padding:8px 12px;text-align:left;color:#666;font-weight:600;}
-td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top;}
-.action-table td:last-child{font-weight:700;color:#7c6bff;}
-.decision-list{list-style:none;}
-.decision-list li{padding:8px 0;border-bottom:1px dashed #eee;font-size:0.85rem;display:flex;gap:8px;}
-.decision-list li::before{content:"✓";color:#28c840;font-weight:700;}
-.issue-list{list-style:none;}
-.issue-list li{padding:8px 10px;background:#fff9e6;border-radius:6px;font-size:0.82rem;margin-bottom:6px;border-left:3px solid #ffc107;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#f8fafd;color:#333}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn 0.5s ease}
+
+.demo-header{background:#1a56db;color:#fff;padding:14px 20px;text-align:center}
+.demo-header h1{font-size:18px;font-weight:bold}
+.demo-header p{font-size:12px;opacity:.85;margin-top:4px}
+.back-link{display:inline-block;color:rgba(255,255,255,.85);font-size:12px;margin-bottom:6px;text-decoration:none}
+
+.container{max-width:1000px;margin:0 auto;padding:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:#fff;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:14px}
+.panel h2{font-size:15px;font-weight:bold;color:#1a56db;border-bottom:2px solid #bfdbfe;padding-bottom:7px;margin-bottom:12px}
+.badge{display:inline-block;background:#eff6ff;color:#1a56db;border:1px solid #bfdbfe;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:bold}
+.priority-badge{background:#1a56db;color:#fff;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:bold}
+
+/* 利用状況 */
+.usage-bar-wrap{margin-bottom:4px}
+.usage-bar-track{background:#e0eaff;border-radius:6px;height:14px;overflow:hidden;margin-bottom:4px}
+.usage-bar-fill{background:#1a56db;height:100%;border-radius:6px}
+.usage-text{font-size:12px;color:#1a56db;font-weight:bold}
+.usage-sub{font-size:11px;color:#999}
+
+/* 文書種類タブ */
+.doc-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.doc-tab{padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;border:1px solid #bfdbfe;color:#1a56db;background:#fff}
+.doc-tab.active{background:#1a56db;color:#fff;border-color:#1a56db}
+
+/* テンプレートカード */
+.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tpl-card{border:1px solid #e0e8ff;border-radius:8px;padding:12px;text-align:center}
+.tpl-card:hover{border-color:#1a56db;box-shadow:0 2px 6px rgba(26,86,219,.1)}
+.tpl-icon{font-size:28px;margin-bottom:6px}
+.tpl-name{font-size:12px;font-weight:bold;color:#1e3a8a;margin-bottom:4px}
+.tpl-desc{font-size:10px;color:#999;margin-bottom:8px}
+.preview-btn{background:#eff6ff;color:#1a56db;border:1px solid #bfdbfe;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;width:100%}
+.preview-btn:hover{background:#dbeafe}
+
+/* フォーマット選択 */
+.format-list{display:flex;flex-direction:column;gap:8px}
+.format-item{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #e0e8ff;border-radius:8px;cursor:pointer}
+.format-item:hover{border-color:#1a56db;background:#f0f7ff}
+.format-item input[type=checkbox]{width:16px;height:16px;accent-color:#1a56db;cursor:pointer}
+.format-name{font-size:13px;font-weight:bold;flex:1}
+.format-icon{font-size:20px}
+.format-sub{font-size:10px;color:#999}
+.dl-all-btn{background:#1a56db;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;cursor:pointer;width:100%;margin-top:10px;font-weight:bold}
+.dl-all-btn:hover{background:#1648c0}
+
+/* 納品履歴 */
+.history-table{width:100%;border-collapse:collapse;font-size:12px}
+.history-table th{background:#eff6ff;color:#1a56db;padding:8px 10px;text-align:left;font-size:11px;border-bottom:1px solid #bfdbfe}
+.history-table td{padding:8px 10px;border-bottom:1px solid #f0f4ff}
+.history-table tr:hover td{background:#f8faff}
+.format-tag{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 6px;font-size:10px;margin:1px}
+
+/* プレビューオーバーレイ */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:#fff;border-radius:10px;padding:24px;width:480px;max-width:90vw;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.modal-close{float:right;background:none;border:none;font-size:18px;cursor:pointer;color:#999}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:12px;color:#1e3a8a}
+.tpl-preview{background:#f8fafd;border:1px solid #bfdbfe;border-radius:8px;padding:14px;font-size:12px;line-height:2;color:#333}
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-minutes.html">← サービス詳細に戻る</a></div>
-<div class="container">
-  <div class="doc-nav">
-    <div class="doc-nav-item active">📄 本日の議事録</div>
-    <div class="doc-nav-item">📁 過去の記録</div>
-    <div class="doc-nav-item">✅ アクションアイテム</div>
-    <div class="doc-nav-item">📊 分析</div>
-  </div>
-  <div class="doc">
-    <div class="doc-header">
-      <h1>📋 週次営業会議 議事録</h1>
-      <div class="meta-grid">
-        <div class="meta-item">📅 2026年3月4日（水）</div>
-        <div class="meta-item">🕐 10:00〜11:30（90分）</div>
-        <div class="meta-item">📍 オンライン（Zoom）</div>
-        <div class="meta-item">👥 参加者: 6名</div>
+<div class="demo-header">
+  <a class="back-link" href="../index.html">← サービス一覧に戻る</a>
+  <h1>🎙️ 議事録・文章自動化 スタンダードプラン</h1>
+  <p>月10件まで・各種定型文書対応・テンプレート作成・優先対応・複数フォーマット納品｜株式会社サクラビジネス</p>
+</div>
+
+<div class="container fade-in">
+  <!-- 利用状況 -->
+  <div class="panel">
+    <h2>📊 今月の利用状況</h2>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px">
+        <div class="usage-text">5 / 10件 使用済み</div>
+        <div style="margin:6px 0">
+          <div class="usage-bar-track"><div class="usage-bar-fill" style="width:50%"></div></div>
+        </div>
+        <div class="usage-sub">残り5件 ・ リセット日: 2026年4月1日</div>
       </div>
-      <div class="badges">
-        <span class="badge ai">🤖 AI要約済み</span>
-        <span class="badge done">✓ 承認済み</span>
-        <span class="badge shared">📤 全員に共有済み</span>
+      <div style="text-align:center">
+        <span class="priority-badge">⚡ 優先処理 最短30分以内に納品</span>
       </div>
     </div>
-    <div class="doc-body">
-      <div class="summary-box">
-        <h3>🤖 AI要約（30秒でわかるポイント）</h3>
-        <p>今週の主なトピックは①Q1実績確認、②春季キャンペーン承認、③人員体制変更の3点。売上はQ1目標を達成。4月より春季キャンペーンを開始することが承認された。新規採用については4月上旬に候補者面接を予定。主要アクションは各担当に割当済み。</p>
-      </div>
+  </div>
 
-      <div class="section">
-        <h2>👥 参加者</h2>
-        <table>
-          <thead><tr><th>氏名</th><th>部署</th><th>役割</th><th>出欠</th></tr></thead>
-          <tbody>
-            <tr><td>山田 太郎</td><td>代表</td><td>進行・決裁</td><td>✅</td></tr>
-            <tr><td>鈴木 花子</td><td>営業部長</td><td>発表</td><td>✅</td></tr>
-            <tr><td>佐藤 次郎</td><td>開発部長</td><td>参加</td><td>✅</td></tr>
-            <tr><td>田中 三郎</td><td>財務部長</td><td>参加</td><td>✅</td></tr>
-            <tr><td>加藤 恵子</td><td>マーケティング</td><td>参加</td><td>✅</td></tr>
-            <tr><td>木村 健一</td><td>営業</td><td>参加</td><td>⚠️ 途中退席</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <!-- 文書種類タブ + テンプレート -->
+  <div class="panel">
+    <h2>📄 文書種類・テンプレート</h2>
+    <div class="doc-tabs">
+      <div class="doc-tab active" onclick="swDoc('minutes',this)">📋 議事録</div>
+      <div class="doc-tab" onclick="swDoc('report',this)">📊 報告書</div>
+      <div class="doc-tab" onclick="swDoc('proposal',this)">💡 提案書</div>
+      <div class="doc-tab" onclick="swDoc('contract',this)">📜 契約書</div>
+      <div class="doc-tab" onclick="swDoc('estimate',this)">💰 見積書</div>
+    </div>
 
-      <div class="section">
-        <h2>📋 議題・決定事項</h2>
-        <ul class="decision-list">
-          <li>Q1売上 目標比112%達成を確認。全員で共有</li>
-          <li>春季キャンペーン（4/1〜4/30）を承認。予算¥500,000</li>
-          <li>エンジニア新規採用を承認。4月上旬に面接開始</li>
-          <li>月次レポートのフォーマットをAI自動生成に移行</li>
-        </ul>
-      </div>
+    <div id="tpl-minutes" class="tpl-grid">
+      <div class="tpl-card"><div class="tpl-icon">📋</div><div class="tpl-name">週次定例議事録</div><div class="tpl-desc">日時・参加者・議題・決定事項・ToDo</div><button class="preview-btn" onclick="showPreview('週次定例議事録','【日時】\n【参加者】\n【議題】\n【決定事項】\n【アクションアイテム】\n【次回会議日時】')">👁 プレビュー</button></div>
+      <div class="tpl-card"><div class="tpl-icon">🤝</div><div class="tpl-name">商談・打ち合わせ</div><div class="tpl-desc">目的・合意事項・次回アクション</div><button class="preview-btn" onclick="showPreview('商談・打ち合わせ議事録','【商談相手】\n【日時・場所】\n【目的】\n【合意事項】\n【次回アクション】\n【フォロー期限】')">👁 プレビュー</button></div>
+      <div class="tpl-card"><div class="tpl-icon">🔧</div><div class="tpl-name">プロジェクト定例</div><div class="tpl-desc">進捗・課題・リスク・次週タスク</div><button class="preview-btn" onclick="showPreview('プロジェクト定例議事録','【プロジェクト名】\n【進捗状況】\n【課題・リスク】\n【今週の成果】\n【来週のタスク】')">👁 プレビュー</button></div>
+    </div>
+    <div id="tpl-report" class="tpl-grid" style="display:none">
+      <div class="tpl-card"><div class="tpl-icon">📊</div><div class="tpl-name">月次業績報告書</div><div class="tpl-desc">売上・コスト・KPI・来月方針</div><button class="preview-btn" onclick="showPreview('月次業績報告書','【報告期間】\n【売上実績】\n【コスト】\n【KPI達成状況】\n【来月の方針】')">👁 プレビュー</button></div>
+      <div class="tpl-card"><div class="tpl-icon">📈</div><div class="tpl-name">営業週報</div><div class="tpl-desc">訪問件数・商談状況・受注予測</div><button class="preview-btn" onclick="showPreview('営業週報','【週次目標】\n【訪問件数】\n【商談状況】\n【受注予測】\n【来週の活動計画】')">👁 プレビュー</button></div>
+    </div>
+    <div id="tpl-proposal" class="tpl-grid" style="display:none">
+      <div class="tpl-card"><div class="tpl-icon">💡</div><div class="tpl-name">新規事業提案書</div><div class="tpl-desc">課題・提案内容・効果・予算</div><button class="preview-btn" onclick="showPreview('新規事業提案書','【課題・背景】\n【提案内容】\n【期待効果】\n【スケジュール】\n【必要予算】')">👁 プレビュー</button></div>
+    </div>
+    <div id="tpl-contract" class="tpl-grid" style="display:none">
+      <div class="tpl-card"><div class="tpl-icon">📜</div><div class="tpl-name">業務委託契約書</div><div class="tpl-desc">委託内容・報酬・期間・秘密保持</div><button class="preview-btn" onclick="showPreview('業務委託契約書','【委託業務の内容】\n【委託報酬】\n【契約期間】\n【秘密保持義務】\n【契約解除条件】')">👁 プレビュー</button></div>
+    </div>
+    <div id="tpl-estimate" class="tpl-grid" style="display:none">
+      <div class="tpl-card"><div class="tpl-icon">💰</div><div class="tpl-name">標準見積書</div><div class="tpl-desc">品目・数量・単価・合計・有効期限</div><button class="preview-btn" onclick="showPreview('標準見積書','【品目】\n【数量】\n【単価】\n【小計・消費税・合計】\n【見積有効期限】\n【備考】')">👁 プレビュー</button></div>
+    </div>
+  </div>
 
-      <div class="section">
-        <h2>⚠️ 懸案事項</h2>
-        <ul class="issue-list">
-          <li>競合他社Aの値下げ対応策を次回会議までに検討が必要</li>
-          <li>在庫管理システムの更新が3週間遅延中。原因調査中</li>
-        </ul>
+  <div class="grid-2">
+    <!-- フォーマット選択 -->
+    <div class="panel">
+      <h2>📦 納品フォーマット選択</h2>
+      <div class="format-list">
+        <label class="format-item"><input type="checkbox" checked><span class="format-icon">📝</span><div><div class="format-name">Word（.docx）</div><div class="format-sub">編集可能・印刷向け</div></div></label>
+        <label class="format-item"><input type="checkbox" checked><span class="format-icon">📄</span><div><div class="format-name">PDF</div><div class="format-sub">閲覧・共有向け・改ざん防止</div></div></label>
+        <label class="format-item"><input type="checkbox"><span class="format-icon">📊</span><div><div class="format-name">Google Docs</div><div class="format-sub">オンライン共同編集向け</div></div></label>
       </div>
+      <button class="dl-all-btn" onclick="alert('✅ 選択したフォーマットで納品します\n\n※実際の納品物はメールで送付します\n優先処理のため最短30分以内にお届けします。')">この形式で納品を依頼する</button>
+    </div>
 
-      <div class="section">
-        <h2>✅ アクションアイテム</h2>
-        <table class="action-table">
-          <thead><tr><th>タスク</th><th>担当者</th><th>期限</th><th>状況</th></tr></thead>
-          <tbody>
-            <tr><td>春季キャンペーン詳細計画書作成</td><td>加藤 恵子</td><td>3/11</td><td>未着手</td></tr>
-            <tr><td>競合価格分析レポート提出</td><td>鈴木 花子</td><td>3/11</td><td>進行中</td></tr>
-            <tr><td>採用媒体選定・掲載依頼</td><td>山田 太郎</td><td>3/8</td><td>未着手</td></tr>
-            <tr><td>在庫システム遅延原因報告</td><td>佐藤 次郎</td><td>3/7</td><td>調査中</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- 納品履歴 -->
+    <div class="panel">
+      <h2>📁 最近の納品履歴</h2>
+      <table class="history-table">
+        <thead><tr><th>ファイル名</th><th>納品日</th><th>フォーマット</th></tr></thead>
+        <tbody>
+          <tr><td>週次定例_0302.docx</td><td>3/2</td><td><span class="format-tag">Word</span><span class="format-tag">PDF</span></td></tr>
+          <tr><td>商談_田中商事_0228.docx</td><td>2/28</td><td><span class="format-tag">Word</span></td></tr>
+          <tr><td>月次報告_2月.pdf</td><td>2/28</td><td><span class="format-tag">PDF</span></td></tr>
+          <tr><td>提案書_春キャンペーン.docx</td><td>2/25</td><td><span class="format-tag">Word</span><span class="format-tag">PDF</span></td></tr>
+          <tr><td>週次定例_0223.docx</td><td>2/23</td><td><span class="format-tag">Word</span><span class="format-tag">GDocs</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<!-- プレビューモーダル -->
+<div class="overlay" id="previewModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('previewModal').classList.remove('show')">✕</button>
+    <h3 id="modalTitle">テンプレートプレビュー</h3>
+    <div class="tpl-preview" id="modalContent"></div>
+    <div style="margin-top:12px;font-size:11px;color:#999">※ 実際の納品物はお客様の音声・内容に合わせて自動生成されます</div>
+  </div>
+</div>
+
+<script>
+function swDoc(name, el) {
+  document.querySelectorAll('.doc-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['minutes','report','proposal','contract','estimate'].forEach(v=>{
+    const d = document.getElementById('tpl-'+v);
+    if(d) d.style.display = v===name ? 'grid' : 'none';
+  });
+}
+function showPreview(title, content) {
+  document.getElementById('modalTitle').textContent = '📄 '+title;
+  document.getElementById('modalContent').style.whiteSpace = 'pre-line';
+  document.getElementById('modalContent').textContent = content;
+  document.getElementById('previewModal').classList.add('show');
+}
+</script>
 </body>
 </html>

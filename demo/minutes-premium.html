@@ -3,129 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>議事録自動化 デモ - プレミアム | 株式会社サクラビジネス</title>
+<title>議事録・文章自動化 プレミアムプラン デモ｜株式会社サクラビジネス</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0e1a;font-family:'Helvetica Neue',Arial,sans-serif;color:#e0e0f0;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.container{max-width:900px;margin:0 auto;padding:24px 16px;}
-h1{font-size:1.4rem;font-weight:700;margin-bottom:4px;}
-.subtitle{color:#8888aa;font-size:0.85rem;margin-bottom:20px;}
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-.stat{background:#12121e;border:1px solid #2a2a3e;border-radius:10px;padding:14px;text-align:center;}
-.stat .num{font-size:1.6rem;font-weight:800;color:#7c6bff;}
-.stat .label{font-size:0.72rem;color:#8888aa;}
-.card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:20px;margin-bottom:16px;}
-.card h3{font-size:0.9rem;color:#7c6bff;margin-bottom:14px;border-bottom:1px solid #2a2a3e;padding-bottom:8px;}
-.report-list{display:flex;flex-direction:column;gap:10px;}
-.report-item{background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;}
-.report-item:hover{border-color:#7c6bff;}
-.report-icon{font-size:2rem;}
-.report-info h4{font-size:0.88rem;}
-.report-info p{font-size:0.75rem;color:#8888aa;margin-top:2px;}
-.report-tag{margin-left:auto;border-radius:20px;padding:3px 10px;font-size:0.72rem;font-weight:700;}
-.tag-done{background:#28c840;color:#fff;}
-.tag-gen{background:#7c6bff;color:#fff;}
-.task-auto-list{display:flex;flex-direction:column;gap:8px;}
-.task-auto-item{background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;padding:12px;display:flex;gap:12px;align-items:center;}
-.assignee{background:#7c6bff22;color:#7c6bff;border-radius:20px;padding:2px 10px;font-size:0.78rem;margin-left:auto;white-space:nowrap;}
-.task-title{font-size:0.85rem;}
-.task-source{font-size:0.72rem;color:#8888aa;margin-top:2px;}
-.ai-insight{background:linear-gradient(135deg,#7c6bff11,#0a0e1a);border:1px solid #7c6bff44;border-radius:8px;padding:14px;font-size:0.83rem;line-height:1.7;color:#c0c0d8;}
-.ai-insight strong{color:#7c6bff;}
-@media(max-width:600px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#f8fafd;color:#333}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn 0.5s ease}
+
+.demo-header{background:#1a56db;color:#fff;padding:14px 20px;text-align:center}
+.demo-header h1{font-size:18px;font-weight:bold}
+.demo-header p{font-size:12px;opacity:.85;margin-top:4px}
+.back-link{display:inline-block;color:rgba(255,255,255,.85);font-size:12px;margin-bottom:6px;text-decoration:none}
+
+.container{max-width:1050px;margin:0 auto;padding:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:#fff;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:14px}
+.panel h2{font-size:15px;font-weight:bold;color:#1a56db;border-bottom:2px solid #bfdbfe;padding-bottom:7px;margin-bottom:12px}
+.badge{display:inline-block;background:#eff6ff;color:#1a56db;border:1px solid #bfdbfe;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:bold}
+
+/* AIエージェントステータス */
+.agent-card{background:linear-gradient(135deg,#1e3a8a,#1a56db);color:#fff;border-radius:12px;padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.agent-icon{font-size:48px}
+.agent-info{flex:1}
+.agent-name{font-size:18px;font-weight:bold;margin-bottom:4px}
+.agent-status{font-size:13px;opacity:.9}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.status-dot.online{background:#4ade80}
+.status-dot.processing{background:#fbbf24}
+.status-dot.standby{background:#93c5fd}
+.agent-count{text-align:center}
+.agent-count .num{font-size:32px;font-weight:bold}
+.agent-count .lbl{font-size:11px;opacity:.8}
+
+/* API連携 */
+.api-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
+.api-card{border:1px solid #e0e8ff;border-radius:8px;padding:12px;text-align:center}
+.api-icon{font-size:28px;margin-bottom:6px}
+.api-name{font-size:12px;font-weight:bold;color:#1e3a8a;margin-bottom:4px}
+.api-status{font-size:10px;padding:2px 8px;border-radius:10px;display:inline-block}
+.api-status.connected{background:#d1fae5;color:#065f46}
+.api-status.setup{background:#fff3cd;color:#92400e}
+.api-toggle{background:#1a56db;color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;margin-top:6px;width:100%}
+
+/* フォーマットエディタ */
+.editor-preview{border:1px solid #e0e8ff;border-radius:8px;overflow:hidden;margin-bottom:10px}
+.editor-header{background:#1a56db;color:#fff;padding:8px 12px;font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.editor-logo{display:flex;align-items:center;gap:8px}
+.editor-logo-box{width:24px;height:24px;background:rgba(255,255,255,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.editor-body{padding:14px}
+.editor-field{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.editor-field label{font-size:11px;color:#666;width:80px;flex-shrink:0}
+.editor-field input{flex:1;border:1px solid #bfdbfe;border-radius:6px;padding:5px 10px;font-size:12px;outline:none;color:#333}
+.editor-field input:focus{border-color:#1a56db}
+.doc-preview{background:#f8fafd;border:1px solid #e0e8ff;border-radius:6px;padding:12px;font-size:12px;color:#333;line-height:1.8}
+.doc-preview .doc-header{text-align:center;border-bottom:2px solid #1a56db;padding-bottom:8px;margin-bottom:8px}
+.doc-preview .doc-title{font-size:14px;font-weight:bold;color:#1e3a8a}
+.doc-preview .doc-sub{font-size:10px;color:#666;margin-top:2px}
+
+/* パイプライン */
+.pipeline{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pipe-step{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;font-size:11px;text-align:center;min-width:90px}
+.pipe-step .pipe-icon{font-size:20px;margin-bottom:3px}
+.pipe-step .pipe-label{color:#1e3a8a;font-weight:bold}
+.pipe-arrow{color:#93c5fd;font-size:18px;flex-shrink:0}
+
+/* コスト計算機 */
+.calc-area{display:flex;flex-direction:column;gap:10px}
+.calc-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.calc-label{font-size:13px;color:#333;width:140px;flex-shrink:0}
+.calc-input{border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;font-size:16px;width:100px;outline:none;text-align:center;font-weight:bold;color:#1e3a8a}
+.calc-input:focus{border-color:#1a56db}
+.calc-unit{font-size:12px;color:#666}
+.calc-result{background:#eff6ff;border-radius:10px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.calc-result-item{text-align:center}
+.calc-result-num{font-size:22px;font-weight:bold;color:#1a56db}
+.calc-result-label{font-size:11px;color:#666;margin-top:2px}
+.calc-btn{background:#1a56db;color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:13px;cursor:pointer}
+.calc-btn:hover{background:#1648c0}
+.unlimited-badge{background:#1a56db;color:#fff;border-radius:8px;padding:6px 16px;font-size:20px;font-weight:bold;text-align:center;letter-spacing:2px}
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-minutes.html">← サービス詳細に戻る</a></div>
-<div class="container">
-  <h1>📊 月次レポート自動生成システム</h1>
-  <div class="subtitle">株式会社サクラビジネス | プレミアムプラン | AIで全自動化</div>
+<div class="demo-header">
+  <a class="back-link" href="../index.html">← サービス一覧に戻る</a>
+  <h1>🎙️ 議事録・文章自動化 プレミアムプラン</h1>
+  <p>無制限対応・カスタム文書フォーマット・自動化システム構築・API連携・専任AIエージェント｜株式会社サクラビジネス</p>
+</div>
 
-  <div class="stat-grid">
-    <div class="stat"><div class="num">48</div><div class="label">今月の会議数</div></div>
-    <div class="stat"><div class="num">96h</div><div class="label">節約できた時間</div></div>
-    <div class="stat"><div class="num">124</div><div class="label">自動生成タスク</div></div>
-    <div class="stat"><div class="num">99%</div><div class="label">文字起こし精度</div></div>
+<div class="container fade-in">
+  <!-- AIエージェント -->
+  <div class="agent-card">
+    <div class="agent-icon">🤖</div>
+    <div class="agent-info">
+      <div class="agent-name">専任AIエージェント「文書管理AI」</div>
+      <div class="agent-status" id="agentStatus"><span class="status-dot online" id="statusDot"></span><span id="statusText">オンライン｜待機中</span></div>
+      <div style="font-size:11px;opacity:.7;margin-top:4px">24時間365日稼働 ・ 専用サーバー割り当て済み</div>
+    </div>
+    <div class="agent-count">
+      <div class="num">∞</div>
+      <div class="lbl">今月の処理件数<br>（制限なし）</div>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>📄 自動生成レポート一覧</h3>
-    <div class="report-list">
-      <div class="report-item">
-        <div class="report-icon">📊</div>
-        <div class="report-info">
-          <h4>2026年2月 月次経営レポート</h4>
-          <p>売上・タスク・会議要約・KPI一覧 | 24ページ | PDF</p>
-        </div>
-        <span class="report-tag tag-done">✓ 配信済み</span>
+  <!-- API連携 -->
+  <div class="panel">
+    <h2>🔗 会議ツール API連携設定</h2>
+    <div class="api-grid">
+      <div class="api-card">
+        <div class="api-icon">📹</div>
+        <div class="api-name">Zoom</div>
+        <div><span class="api-status connected">✅ 接続済み</span></div>
+        <button class="api-toggle" onclick="alert('Zoom API: 接続済み\n会議終了後、自動で録音を取得します')">設定確認</button>
       </div>
-      <div class="report-item">
-        <div class="report-icon">📋</div>
-        <div class="report-info">
-          <h4>2026年2月 営業部月次サマリー</h4>
-          <p>商談数・成約率・新規顧客・目標達成率 | 8ページ</p>
-        </div>
-        <span class="report-tag tag-done">✓ 配信済み</span>
+      <div class="api-card">
+        <div class="api-icon">💼</div>
+        <div class="api-name">Microsoft Teams</div>
+        <div><span class="api-status connected">✅ 接続済み</span></div>
+        <button class="api-toggle" onclick="alert('Teams API: 接続済み\n会議録画を自動取得します')">設定確認</button>
       </div>
-      <div class="report-item">
-        <div class="report-icon">🤖</div>
-        <div class="report-info">
-          <h4>2026年3月 月次レポート</h4>
-          <p>自動生成中... | 3月31日 23:59に自動配信予定</p>
+      <div class="api-card">
+        <div class="api-icon">🎥</div>
+        <div class="api-name">Google Meet</div>
+        <div><span class="api-status setup">⚙️ 設定中</span></div>
+        <button class="api-toggle" onclick="alert('Google Meet API: 設定中\nOAuth認証を完了してください')">認証する</button>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#999;background:#f8fafd;border-radius:8px;padding:10px">
+      ✅ 接続済みのツールは会議終了後、自動的に録音を取得してAI変換→メール送信まで全自動で実行されます
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- カスタムフォーマットエディタ -->
+    <div class="panel">
+      <h2>🎨 カスタム文書フォーマット設定</h2>
+      <div class="editor-area">
+        <div style="font-size:12px;color:#666;margin-bottom:10px">会社のブランドに合わせた文書テンプレートを設定します</div>
+        <div class="editor-field">
+          <label>会社名</label>
+          <input type="text" value="株式会社サクラビジネス" id="companyName" oninput="updatePreview()">
         </div>
-        <span class="report-tag tag-gen">🤖 生成中</span>
+        <div class="editor-field">
+          <label>ヘッダー色</label>
+          <input type="color" value="#1a56db" id="headerColor" style="width:60px;height:32px;padding:2px;cursor:pointer" oninput="updateHeaderColor()">
+          <span style="font-size:11px;color:#999">文書ヘッダーの色</span>
+        </div>
+        <div class="editor-field">
+          <label>フッターテキスト</label>
+          <input type="text" value="〒150-0001 東京都渋谷区神宮前1-1-1" id="footerText" oninput="updatePreview()">
+        </div>
+        <div style="font-size:11px;color:#1a56db;margin-bottom:8px;font-weight:bold">▼ プレビュー</div>
+        <div class="editor-preview">
+          <div class="editor-header" id="editorHeader">
+            <div class="editor-logo"><div class="editor-logo-box">🌸</div><span id="previewCompany">株式会社サクラビジネス</span></div>
+            <span style="font-size:10px;opacity:.8">議事録</span>
+          </div>
+          <div class="editor-body">
+            <div class="doc-preview">
+              <div class="doc-header"><div class="doc-title">週次定例会議 議事録</div><div class="doc-sub" id="previewFooter">〒150-0001 東京都渋谷区神宮前1-1-1</div></div>
+              <div style="font-size:11px;color:#666">📅 日時：2026年3月2日(月) 10:00〜10:52<br>👥 参加者：山田太郎、鈴木花子、他2名</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- コスト計算機 -->
+    <div class="panel">
+      <h2>💰 コスト削減計算機</h2>
+      <div class="calc-area">
+        <div class="calc-row">
+          <span class="calc-label">月の会議数</span>
+          <input type="number" class="calc-input" id="meetingCount" value="20" min="1" max="200">
+          <span class="calc-unit">回 / 月</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">1会議あたりの時間</span>
+          <input type="number" class="calc-input" id="meetingTime" value="60" min="10" max="180">
+          <span class="calc-unit">分</span>
+        </div>
+        <div class="calc-row">
+          <span class="calc-label">議事録作成者の時給</span>
+          <input type="number" class="calc-input" id="hourlyRate" value="2000" min="500" max="10000" step="100">
+          <span class="calc-unit">円</span>
+        </div>
+        <button class="calc-btn" onclick="calcSaving()">🧮 節約効果を計算する</button>
+        <div class="calc-result" id="calcResult" style="display:none">
+          <div class="calc-result-item"><div class="calc-result-num" id="savedHours">-</div><div class="calc-result-label">⏰ 月の節約時間</div></div>
+          <div class="calc-result-item"><div class="calc-result-num" id="savedCost">-</div><div class="calc-result-label">💰 月の節約コスト</div></div>
+          <div class="calc-result-item"><div class="calc-result-num" id="savedHoursYear">-</div><div class="calc-result-label">⏰ 年間節約時間</div></div>
+          <div class="calc-result-item"><div class="calc-result-num" id="savedCostYear">-</div><div class="calc-result-label">💰 年間節約コスト</div></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="card">
-    <h3>✅ AIが会議から自動割当したタスク（今週）</h3>
-    <div class="task-auto-list">
-      <div class="task-auto-item">
-        <div style="font-size:1.2rem;">📧</div>
-        <div>
-          <div class="task-title">春季キャンペーン詳細計画書作成</div>
-          <div class="task-source">📍 週次営業会議（3/4）より自動抽出 | 期限: 3/11</div>
-        </div>
-        <div class="assignee">加藤 恵子</div>
-      </div>
-      <div class="task-auto-item">
-        <div style="font-size:1.2rem;">🔍</div>
-        <div>
-          <div class="task-title">競合価格分析レポート提出</div>
-          <div class="task-source">📍 週次営業会議（3/4）より自動抽出 | 期限: 3/11</div>
-        </div>
-        <div class="assignee">鈴木 花子</div>
-      </div>
-      <div class="task-auto-item">
-        <div style="font-size:1.2rem;">💻</div>
-        <div>
-          <div class="task-title">在庫システム遅延原因調査報告</div>
-          <div class="task-source">📍 開発MTG（3/3）より自動抽出 | 期限: 3/7</div>
-        </div>
-        <div class="assignee">佐藤 次郎</div>
-      </div>
-      <div class="task-auto-item">
-        <div style="font-size:1.2rem;">👤</div>
-        <div>
-          <div class="task-title">採用媒体選定・掲載依頼</div>
-          <div class="task-source">📍 週次営業会議（3/4）より自動抽出 | 期限: 3/8</div>
-        </div>
-        <div class="assignee">山田 太郎</div>
-      </div>
+  <!-- 自動化パイプライン -->
+  <div class="panel">
+    <h2>⚡ 自動化パイプライン（全自動フロー）</h2>
+    <div style="font-size:12px;color:#666;margin-bottom:12px">会議が終了してから議事録がNotionに保存されるまで、すべて自動実行されます</div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-icon">🎥</div><div class="pipe-label">会議終了</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">🎙️</div><div class="pipe-label">自動録音<br>取得</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">🤖</div><div class="pipe-label">AI変換<br>（文字起こし）</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">✍️</div><div class="pipe-label">議事録<br>自動生成</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">📧</div><div class="pipe-label">自動メール<br>送信</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-icon">📝</div><div class="pipe-label">Notionに<br>自動保存</div></div>
     </div>
-  </div>
-
-  <div class="card">
-    <h3>🤖 AIインサイト（今月の傾向分析）</h3>
-    <div class="ai-insight">
-      📈 <strong>会議の効率化が進んでいます：</strong>先月比で平均会議時間が12分短縮（62分→50分）。AIによる事前アジェンダ自動作成の効果と考えられます。<br><br>
-      ⚠️ <strong>注意点：</strong>「在庫」「遅延」というキーワードが今月の会議で8回登場しています。在庫管理システムの課題が継続している可能性があります。<br><br>
-      ✅ <strong>アクションアイテムの達成率：</strong>今月は78%（先月65%から改善）。期限前リマインダー機能が効果を発揮しています。
+    <div style="margin-top:12px;background:#eff6ff;border-radius:8px;padding:10px;font-size:11px;color:#1a56db">
+      ⚡ 会議終了から議事録配信まで<strong>平均約3分</strong>で完了。人手による作業は一切不要です。
     </div>
   </div>
 </div>
+
+<script>
+// AIエージェントステータス（1秒ごとに変化）
+const statuses = [
+  {text:'オンライン｜待機中', dotClass:'online'},
+  {text:'オンライン｜処理中（会議音声 解析）', dotClass:'processing'},
+  {text:'オンライン｜待機中', dotClass:'online'},
+];
+let si = 0;
+setInterval(()=>{
+  si = (si+1) % statuses.length;
+  const s = statuses[si];
+  document.getElementById('statusText').textContent = s.text;
+  const dot = document.getElementById('statusDot');
+  dot.className = 'status-dot ' + s.dotClass;
+}, 1000);
+
+function updatePreview() {
+  document.getElementById('previewCompany').textContent = document.getElementById('companyName').value || '会社名';
+  document.getElementById('previewFooter').textContent = document.getElementById('footerText').value;
+}
+function updateHeaderColor() {
+  document.getElementById('editorHeader').style.background = document.getElementById('headerColor').value;
+}
+
+function calcSaving() {
+  const meetings = parseInt(document.getElementById('meetingCount').value)||20;
+  const mins = parseInt(document.getElementById('meetingTime').value)||60;
+  const rate = parseInt(document.getElementById('hourlyRate').value)||2000;
+  // 議事録作成時間 = 会議時間の50%として計算
+  const hoursPerMeeting = (mins * 0.5) / 60;
+  const totalHours = Math.round(meetings * hoursPerMeeting * 10) / 10;
+  const totalCost = Math.round(totalHours * rate);
+  document.getElementById('savedHours').textContent = totalHours + 'h';
+  document.getElementById('savedCost').textContent = '¥' + totalCost.toLocaleString();
+  document.getElementById('savedHoursYear').textContent = Math.round(totalHours*12*10)/10 + 'h';
+  document.getElementById('savedCostYear').textContent = '¥' + (totalCost*12).toLocaleString();
+  document.getElementById('calcResult').style.display = 'grid';
+}
+</script>
 </body>
 </html>

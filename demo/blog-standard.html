@@ -1,75 +1,263 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>【2025年完全版】中小企業がAIで売上を上げる10の戦略 | 株式会社サクラビジネス</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【2026年最新版】チャットボット導入完全ガイド：選び方から費用・運用まで徹底解説 | サクラビジネスブログ</title>
+<meta name="description" content="チャットボット導入を検討する企業向けに、種類・費用・選び方・運用のコツを2026年最新情報で徹底解説。FAQ型からAI会話型まで比較し、失敗しない導入ステップを紹介します。">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:system-ui,sans-serif;background:#f8f9fa;color:#333;line-height:1.8;}
-.demo-banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.demo-banner a{color:#fff;}
-header{background:#0a0e1a;color:#fff;padding:16px 40px;}
-.wrap{max-width:900px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 280px;gap:32px;margin-top:48px;}
-.article h1{font-size:1.9rem;font-weight:800;color:#1a1a2e;margin-bottom:12px;line-height:1.4;}
-.meta{color:#888;font-size:0.82rem;margin-bottom:16px;}
-.toc{background:#f0efff;border-left:3px solid #7c6bff;border-radius:8px;padding:20px;margin:24px 0;}
-.toc h3{color:#7c6bff;margin-bottom:12px;font-size:0.95rem;}
-.toc ol{padding-left:20px;font-size:0.88rem;}
-.toc li{margin-bottom:6px;color:#444;}
-h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px;padding-left:12px;border-left:3px solid #7c6bff;color:#1a1a2e;}
-p{color:#444;margin-bottom:16px;font-size:0.95rem;}
-.internal-link{color:#7c6bff;text-decoration:none;border-bottom:1px solid #7c6bff22;}
-.sidebar{position:sticky;top:24px;height:fit-content;}
-.sidebar-card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
-.sidebar-card h3{font-size:0.9rem;color:#1a1a2e;margin-bottom:12px;}
-.cta-box{background:#0a0e1a;color:#fff;border-radius:12px;padding:28px;text-align:center;margin-top:40px;}
-.cta-btn{display:inline-block;background:#7c6bff;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:12px;font-size:0.9rem;}
-@media(max-width:700px){.wrap{grid-template-columns:1fr;}}
-</style></head>
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#fff; color:#111827; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; line-height:1.85; }
+  a { color:#2563eb; }
+  .site-header { background:#fff; border-bottom:1px solid #e5e7eb; padding:14px 0; }
+  .site-header .inner { max-width:1100px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+  .logo { font-size:18px; font-weight:700; }
+  .logo span { color:#7c3aed; }
+  .nav a { margin-left:20px; font-size:13px; color:#6b7280; }
+  .layout { display:grid; grid-template-columns:1fr 280px; gap:40px; max-width:1100px; margin:32px auto; padding:0 20px; }
+  .article { animation:fadeIn .5s ease both; }
+  .cat { display:inline-block; background:#ede9fe; color:#6d28d9; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:700; margin-bottom:12px; }
+  .article h1 { font-size:26px; font-weight:700; line-height:1.4; margin-bottom:12px; }
+  .meta { display:flex; gap:16px; font-size:12px; color:#9ca3af; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
+  .char-badge { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; padding:3px 10px; font-size:12px; color:#15803d; font-weight:600; }
+  /* SEO Score */
+  .seo-score-bar { display:flex; align-items:center; gap:10px; margin-left:auto; }
+  .score-label { font-size:12px; color:#374151; font-weight:600; }
+  .score-gauge { width:120px; height:8px; background:#e5e7eb; border-radius:4px; overflow:hidden; }
+  .score-fill { height:100%; background:linear-gradient(90deg,#10b981,#059669); width:95%; border-radius:4px; }
+  .score-num { font-size:13px; font-weight:700; color:#059669; }
+
+  /* Eyecatch options */
+  .eyecatch-section { margin-bottom:24px; }
+  .eyecatch-label { font-size:12px; color:#6b7280; margin-bottom:8px; }
+  .eyecatch-options { display:flex; gap:10px; flex-wrap:wrap; }
+  .eyecatch-opt { flex:1; min-width:180px; height:120px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:32px; cursor:pointer; border:2px solid transparent; transition:border-color .2s; position:relative; }
+  .eyecatch-opt.sel { border-color:#6d28d9; }
+  .eyecatch-opt .opt-label { position:absolute; bottom:6px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:8px; background:rgba(255,255,255,.85); color:#374151; }
+  .eyecatch-main { width:100%; height:180px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:52px; margin-bottom:24px; transition:background .4s; }
+
+  .article h2 { font-size:19px; font-weight:700; color:#6d28d9; border-left:4px solid #7c3aed; padding-left:12px; margin:32px 0 12px; }
+  .article h3 { font-size:15px; font-weight:700; color:#374151; margin:20px 0 8px; }
+  .article p { margin-bottom:14px; font-size:15px; color:#374151; }
+  .article ul, .article ol { padding-left:22px; margin-bottom:14px; }
+  .article li { font-size:15px; color:#374151; margin-bottom:6px; }
+  .info-box { background:#f5f3ff; border:1px solid #ddd6fe; border-radius:8px; padding:16px; margin:20px 0; }
+  .info-box p { margin:0; font-size:14px; color:#5b21b6; }
+  .warn-box { background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:14px; margin:16px 0; }
+  .warn-box p { margin:0; font-size:14px; color:#c2410c; }
+
+  /* Comparison Table */
+  .comp-table { width:100%; border-collapse:collapse; font-size:13px; margin:16px 0; }
+  .comp-table th { background:#6d28d9; color:#fff; padding:10px; text-align:center; }
+  .comp-table td { padding:9px 10px; border:1px solid #e5e7eb; text-align:center; color:#374151; }
+  .comp-table tr:nth-child(even) td { background:#faf5ff; }
+  .comp-table .good { color:#059669; font-weight:700; }
+  .comp-table .bad { color:#dc2626; }
+
+  /* Internal link tooltip */
+  .int-link { position:relative; border-bottom:2px dashed #7c3aed; cursor:help; color:#7c3aed; font-weight:600; }
+  .int-link::after { content:'← 内部リンク設定済み'; position:absolute; bottom:calc(100% + 6px); left:0; background:#1e1b4b; color:#fff; font-size:10px; padding:4px 8px; border-radius:4px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .2s; }
+  .int-link:hover::after { opacity:1; }
+
+  /* HTML source */
+  .html-source { background:#1e293b; border-radius:8px; padding:16px; margin-top:32px; }
+  .html-source h3 { font-size:13px; font-weight:700; color:#94a3b8; margin-bottom:10px; }
+  .html-source pre { font-family:'Courier New',monospace; font-size:11px; color:#86efac; white-space:pre-wrap; line-height:1.7; }
+
+  /* Sidebar */
+  .sidebar { animation:fadeIn .5s ease .1s both; }
+  .sw { background:#f9fafb; border:1px solid #e5e7eb; border-radius:10px; padding:16px; margin-bottom:20px; }
+  .sw h3 { font-size:13px; font-weight:700; color:#374151; margin-bottom:12px; }
+  .toc-list { list-style:none; padding:0; }
+  .toc-list li { padding:6px 0; border-bottom:1px solid #e5e7eb; font-size:12px; }
+  .toc-list li:last-child { border:none; }
+  .toc-list a { color:#6d28d9; }
+  .plan-box { background:linear-gradient(135deg,#ede9fe,#f5f3ff); border:1.5px solid #ddd6fe; border-radius:10px; padding:16px; text-align:center; }
+  .plan-price { font-size:22px; font-weight:700; color:#6d28d9; }
+  .plan-btn { display:block; background:#6d28d9; color:#fff; padding:10px; border-radius:8px; font-size:13px; font-weight:700; margin-top:12px; text-decoration:none; }
+
+  @media(max-width:700px){ .layout{grid-template-columns:1fr;} }
+</style>
+</head>
 <body>
-<div class="demo-banner">🎨 これはデモサイトです | <a href="../service-blog.html">← サービス詳細に戻る</a></div>
-<header><div style="font-weight:800;">🌸 株式会社サクラビジネス ブログ</div></header>
-<div class="wrap">
-  <article class="article">
-    <span style="background:#7c6bff22;color:#7c6bff;padding:3px 10px;border-radius:20px;font-size:0.78rem;">AI活用 / 業務効率化</span>
-    <h1>【2025年完全版】中小企業がAIで売上を上げる10の戦略</h1>
-    <div class="meta">2025年3月1日 | 読了時間: 約8分 | AI生成・AI日本語校正済み</div>
-    <p>AIの民主化が進む今、大企業だけでなく中小企業こそAIを活用すべき時代です。本記事では、実際に効果が実証された10の戦略を詳しく解説します。</p>
-    <div class="toc">
-      <h3>📋 目次</h3>
-      <ol>
-        <li>顧客対応の自動化で売上機会を最大化</li>
-        <li>AIによるパーソナライズドマーケティング</li>
-        <li>在庫最適化で利益率向上</li>
-        <li>AIコンテンツで集客コスト削減</li>
-        <li>予測分析で先手を打つ</li>
-      </ol>
+<div class="site-header">
+  <div class="inner">
+    <div class="logo">🌸 サクラ<span>ビジネス</span>ブログ</div>
+    <nav class="nav"><a href="#">トップ</a><a href="#">AI活用</a><a href="#">事例紹介</a></nav>
+  </div>
+</div>
+
+<div class="layout">
+  <main class="article">
+    <span class="cat">チャットボット</span>
+    <h1>【2026年最新版】チャットボット導入完全ガイド：選び方から費用・運用まで徹底解説</h1>
+    <div class="meta">
+      <span>📅 2026年3月2日</span>
+      <span>✍️ サクラビジネス編集部</span>
+      <span>⏱️ 読了時間：約12分</span>
+      <span class="char-badge">📝 約3,600文字</span>
+      <div class="seo-score-bar">
+        <span class="score-label">SEOスコア</span>
+        <div class="score-gauge"><div class="score-fill"></div></div>
+        <span class="score-num">95/100</span>
+      </div>
     </div>
-    <h2>1. 顧客対応の自動化で売上機会を最大化</h2>
-    <p>24時間対応のAIチャットボット導入により、夜間・休日の問い合わせ機会損失をゼロに。実際に導入した企業では売上が平均23%向上しています。</p>
-    <h2>2. AIによるパーソナライズドマーケティング</h2>
-    <p>顧客データをAIが分析し、最適なタイミングで最適な提案を自動配信。<a href="#" class="internal-link">メール自動化の詳細はこちら</a>をご覧ください。</p>
-    <h2>3. 在庫最適化で利益率向上</h2>
-    <p>AIによる需要予測で過剰在庫・欠品を防止。在庫コストを平均30%削減できます。</p>
-    <div class="cta-box">
-      <h3>🚀 あなたのビジネスにAIを導入しませんか？</h3>
-      <p style="color:#aaa;font-size:0.88rem;margin-top:8px;">無料相談・見積もり受付中</p>
-      <a href="https://aiworkstage.com" class="cta-btn">無料で相談する →</a>
+
+    <!-- Eyecatch selector -->
+    <div class="eyecatch-section">
+      <div class="eyecatch-label">🖼️ アイキャッチ提案（3パターン）— クリックして選択</div>
+      <div class="eyecatch-options">
+        <div class="eyecatch-opt sel" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)" onclick="selectEye(this,'linear-gradient(135deg,#ede9fe,#ddd6fe)','💬')"><div class="opt-label">パターンA：パープル</div></div>
+        <div class="eyecatch-opt" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)" onclick="selectEye(this,'linear-gradient(135deg,#dbeafe,#bfdbfe)','🤖')"><div class="opt-label">パターンB：ブルー</div></div>
+        <div class="eyecatch-opt" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0)" onclick="selectEye(this,'linear-gradient(135deg,#dcfce7,#bbf7d0)','🚀')"><div class="opt-label">パターンC：グリーン</div></div>
+      </div>
     </div>
-  </article>
+    <div class="eyecatch-main" id="eyecatchMain" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">💬</div>
+
+    <p>「チャットボットを導入したいが、どれを選べばいいかわからない」——そんなご相談を毎月多数いただいています。本記事では、2026年時点での最新チャットボット事情を踏まえ、<a class="int-link" href="chatbot-basic.html" title="ベーシックプランの詳細">FAQ型から高度なAI会話型</a>まで、費用・選び方・失敗しない導入ステップを網羅的に解説します。</p>
+
+    <h2>チャットボットとは？2026年時点での最新定義</h2>
+    <p>チャットボットとは、テキスト（または音声）で自動的に会話を行うプログラムの総称です。黎明期の単純なルールベース型から、今日のLLM（大規模言語モデル）ベースの高度なAI会話型まで、技術は急速に進化しています。</p>
+    <p>2026年現在、特に注目されているのは「RAG（検索拡張生成）型チャットボット」です。社内ドキュメントや製品マニュアルをAIに読み込ませ、自社に特化した回答ができるため、FAQ型では対応できなかった複雑な質問にも自動で答えられます。</p>
+
+    <h2>チャットボットの種類と比較</h2>
+    <table class="comp-table">
+      <thead><tr><th>種類</th><th>仕組み</th><th>費用目安</th><th>対応範囲</th><th>導入難易度</th></tr></thead>
+      <tbody>
+        <tr><td><strong>FAQ型</strong></td><td>質問→定型回答</td><td class="good">¥5,000〜/月</td><td>50問程度</td><td class="good">★☆☆</td></tr>
+        <tr><td><strong>AI会話型</strong></td><td>NLP・機械学習</td><td>¥15,000〜/月</td><td>無制限</td><td>★★☆</td></tr>
+        <tr><td><strong>RAG型</strong></td><td>LLM＋社内DB</td><td>¥30,000〜/月</td><td>ドキュメント全体</td><td>★★★</td></tr>
+        <tr><td><strong>ルールベース</strong></td><td>フロー制御</td><td class="good">¥3,000〜/月</td><td>決まった手順のみ</td><td class="good">★☆☆</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <p>💡 <strong>選び方の目安：</strong>問い合わせの80%が「営業時間・料金・キャンセル」など定型なら<a class="int-link" href="chatbot-basic.html">FAQ型</a>で十分。複雑な個別対応が必要なら<a class="int-link" href="chatbot-standard.html">AI会話型</a>を検討してください。</p>
+    </div>
+
+    <h2>チャットボット導入の費用相場（2026年版）</h2>
+    <p>導入費用は「初期費用」と「月額費用」の2軸で考える必要があります。以下が2026年時点での相場観です。</p>
+    <h3>初期費用</h3>
+    <ul>
+      <li><strong>FAQ型：</strong>¥0〜¥50,000（テンプレート活用で低コスト）</li>
+      <li><strong>AI会話型：</strong>¥50,000〜¥300,000（設定・学習データ整備含む）</li>
+      <li><strong>フルカスタム：</strong>¥300,000〜¥1,000,000以上</li>
+    </ul>
+    <h3>月額費用</h3>
+    <ul>
+      <li><strong>SaaSツール活用：</strong>¥3,000〜¥30,000/月</li>
+      <li><strong>API利用料（GPT等）：</strong>会話量に応じた従量課金</li>
+      <li><strong>保守・改善対応：</strong>¥10,000〜¥50,000/月</li>
+    </ul>
+    <p>サクラビジネスのベーシックプランであれば、初期費用込みで<strong>¥50,000〜</strong>からチャットボットの導入が可能です。</p>
+
+    <h2>失敗しないチャットボット選び：5つのチェックポイント</h2>
+    <ol>
+      <li><strong>対応できる質問数と学習のしやすさ</strong>——管理画面から非エンジニアが更新できるかを必ず確認</li>
+      <li><strong>スマートフォン対応（レスポンシブ）</strong>——モバイルユーザーが60%以上を占める現在、必須条件</li>
+      <li><strong>有人対応への引き継ぎ機能</strong>——AIが答えられない質問を担当者にスムーズに繋げられるか</li>
+      <li><strong>分析ダッシュボードの充実度</strong>——会話ログ・解決率・満足度が可視化されるか</li>
+      <li><strong>外部システムとの連携</strong>——CRM・メール・Slackと連携できるかで業務効率が大きく変わる</li>
+    </ol>
+
+    <div class="warn-box">
+      <p>⚠️ <strong>よくある失敗：</strong>「とりあえず安いから」という理由でFAQ型を選び、複雑な問い合わせに対応できず顧客満足度が低下するケースが多発しています。導入前に自社の問い合わせタイプを必ず分析してください。</p>
+    </div>
+
+    <h2>チャットボット導入の4ステップ</h2>
+    <p>サクラビジネスがご支援する際の標準的な導入フローをご紹介します。</p>
+    <h3>STEP 1：現状分析（1週間）</h3>
+    <p>過去3ヶ月の問い合わせログを分析し、頻出質問TOP20を抽出します。これがFAQデータの土台になります。</p>
+    <h3>STEP 2：ツール選定・設計（1〜2週間）</h3>
+    <p>問い合わせタイプと予算に合わせて最適なプランを選定。会話フローのワイヤーフレームを作成します。</p>
+    <h3>STEP 3：構築・テスト（1〜2週間）</h3>
+    <p>FAQデータの入力・AI学習・UIカスタマイズを行い、社内テストと修正を繰り返します。</p>
+    <h3>STEP 4：公開・運用開始</h3>
+    <p>本番環境に公開後、最初の1ヶ月は週次でログを確認し、回答精度を改善します。スタンダードプラン以上では、この保守フェーズも弊社がサポートします。</p>
+
+    <h2>導入事例：EC事業者A社の場合</h2>
+    <p>月間問い合わせ数500件のEC事業者A社では、AIチャットボット導入後わずか2ヶ月で問い合わせの<strong>71%を自動解決</strong>。担当者の対応時間が月80時間→23時間に削減され、顧客満足度スコアは4.1→4.6に向上しました。初期投資は¥150,000でしたが、人件費削減効果（月約¥180,000相当）により<strong>初月から投資回収</strong>を実現しています。</p>
+
+    <h2>まとめ：まず「現状分析」から始めよう</h2>
+    <p>チャットボット導入の成否は「事前準備」で8割が決まります。問い合わせログの分析、自社に合ったプランの選定、そして継続的な改善——この3つを正しく実行すれば、チャットボットは確実に業務効率を向上させます。サクラビジネスでは<a class="int-link" href="chatbot-basic.html">ベーシック（¥5,000〜）</a>から<a class="int-link" href="chatbot-premium.html">プレミアム（¥30,000〜）</a>まで、貴社の規模・予算に合わせたプランをご用意しています。まずは無料相談から始めませんか？</p>
+
+    <!-- HTML Source -->
+    <div class="html-source">
+      <h3>📄 HTML納品形式サンプル（構造化マークアップ）</h3>
+      <pre>&lt;!-- 記事スキーマ：構造化データ --&gt;
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "チャットボット導入完全ガイド",
+  "datePublished": "2026-03-02",
+  "author": {"@type":"Organization","name":"株式会社サクラビジネス"}
+}
+&lt;/script&gt;
+
+&lt;!-- H2見出しにIDを付与（目次リンク対応） --&gt;
+&lt;h2 id="sec-1"&gt;チャットボットとは？&lt;/h2&gt;
+
+&lt;!-- 内部リンク設定済み --&gt;
+&lt;a href="/chatbot-basic/"&gt;ベーシックプランの詳細&lt;/a&gt;  &lt;!-- ← 内部リンク設定済み --&gt;</pre>
+    </div>
+  </main>
+
   <aside class="sidebar">
-    <div class="sidebar-card">
-      <h3>📬 無料メルマガ登録</h3>
-      <input type="email" placeholder="メールアドレス" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:0.85rem;margin-bottom:8px;">
-      <button style="width:100%;background:#7c6bff;color:#fff;border:none;padding:10px;border-radius:6px;cursor:pointer;font-size:0.85rem;">登録する</button>
+    <div class="plan-box">
+      <h3>📝 ブログ スタンダードプラン</h3>
+      <div class="plan-price">¥15,000〜</div>
+      <ul style="text-align:left;font-size:12px;color:#374151;margin:10px 0;padding-left:16px;">
+        <li>3,000〜5,000文字</li>
+        <li>高度なSEO最適化</li>
+        <li>アイキャッチ提案</li>
+        <li>HTML形式納品</li>
+        <li>内部リンク設定</li>
+      </ul>
+      <a href="#" class="plan-btn">無料相談する</a>
     </div>
-    <div class="sidebar-card">
-      <h3>🔥 人気記事</h3>
-      <ul style="list-style:none;font-size:0.85rem;">
-        <li style="padding:8px 0;border-bottom:1px solid #eee;color:#444;">ChatGPTで仕事を10倍速にする方法</li>
-        <li style="padding:8px 0;border-bottom:1px solid #eee;color:#444;">AI導入コストを月¥5,000に抑える秘訣</li>
-        <li style="padding:8px 0;color:#444;">2025年おすすめAIツール完全比較</li>
+    <div class="sw">
+      <h3>📋 目次</h3>
+      <ul class="toc-list">
+        <li><a href="#">チャットボットとは？</a></li>
+        <li><a href="#">種類と比較</a></li>
+        <li><a href="#">費用相場</a></li>
+        <li><a href="#">選び方5つのポイント</a></li>
+        <li><a href="#">導入4ステップ</a></li>
+        <li><a href="#">導入事例</a></li>
+        <li><a href="#">まとめ</a></li>
+      </ul>
+    </div>
+    <div class="sw">
+      <h3>🔍 SEOスコア</h3>
+      <div style="text-align:center;margin-bottom:8px;">
+        <div style="font-size:36px;font-weight:700;color:#059669">95</div>
+        <div style="font-size:12px;color:#6b7280">/ 100点</div>
+      </div>
+      <div style="background:#e5e7eb;border-radius:4px;height:8px;overflow:hidden;">
+        <div style="width:95%;height:100%;background:linear-gradient(90deg,#10b981,#059669);border-radius:4px;"></div>
+      </div>
+      <ul style="font-size:11px;color:#374151;margin-top:10px;padding-left:16px;">
+        <li>✅ キーワード密度：適切</li>
+        <li>✅ 見出し構造：最適</li>
+        <li>✅ 内部リンク：設定済み</li>
+        <li>✅ メタ情報：最適化済み</li>
+        <li>✅ 文字数：3,600文字</li>
       </ul>
     </div>
   </aside>
 </div>
-</body></html>
+
+<script>
+const eyes = document.querySelectorAll('.eyecatch-opt');
+function selectEye(el, bg, icon) {
+  eyes.forEach(e => e.classList.remove('sel'));
+  el.classList.add('sel');
+  const main = document.getElementById('eyecatchMain');
+  main.style.background = bg;
+  main.textContent = icon;
+}
+</script>
+</body>
+</html>
