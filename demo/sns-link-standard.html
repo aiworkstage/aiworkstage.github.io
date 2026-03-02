@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNSリンクページ デモ - スタンダード | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:linear-gradient(135deg,#0a0e1a 0%,#1a0a2e 50%,#0a1a0e 100%);font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.card{max-width:420px;width:100%;text-align:center;}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:16px;}
+.avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#7c6bff,#ff6b9d);display:flex;align-items:center;justify-content:center;font-size:2.8rem;border:4px solid rgba(255,255,255,0.15);}
+.verified{position:absolute;bottom:4px;right:4px;background:#7c6bff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;}
+.name{font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.handle{font-size:0.85rem;color:#8888aa;margin-bottom:8px;}
+.bio{font-size:0.85rem;color:#c0c0d8;margin-bottom:16px;line-height:1.6;}
+.social-stats{display:flex;justify-content:center;gap:24px;margin-bottom:24px;}
+.stat-item{text-align:center;}
+.stat-num{font-size:1.1rem;font-weight:800;color:#7c6bff;}
+.stat-label{font-size:0.72rem;color:#8888aa;}
+.link-btn{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:14px;padding:14px 20px;margin-bottom:10px;text-decoration:none;color:#fff;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.link-btn:hover{background:rgba(124,107,255,0.2);border-color:#7c6bff;transform:translateY(-2px);}
+.link-icon{font-size:1.3rem;width:28px;text-align:center;}
+.link-text{flex:1;text-align:left;}
+.link-arrow{color:#8888aa;font-size:0.8rem;}
+.footer{font-size:0.72rem;color:#555;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-sns-link.html">← サービス詳細に戻る</a></div>
+<div class="page">
+  <div class="card">
+    <div class="avatar-wrap">
+      <div class="avatar">🌸</div>
+      <div class="verified">✓</div>
+    </div>
+    <div class="name">株式会社サクラビジネス</div>
+    <div class="handle">@sakura_business</div>
+    <div class="bio">ビジネスの花を咲かせるIT×マーケティング支援 🌸<br>HP制作 / LINE構築 / Notion / AI自動化</div>
+    <div class="social-stats">
+      <div class="stat-item"><div class="stat-num">2,847</div><div class="stat-label">フォロワー</div></div>
+      <div class="stat-item"><div class="stat-num">184</div><div class="stat-label">投稿</div></div>
+      <div class="stat-item"><div class="stat-num">97%</div><div class="stat-label">満足度</div></div>
+    </div>
+    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">🌐</span><span class="link-text">公式ウェブサイト</span><span class="link-arrow">›</span></a>
+    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">📸</span><span class="link-text">Instagram</span><span class="link-arrow">›</span></a>
+    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">🐦</span><span class="link-text">X (Twitter)</span><span class="link-arrow">›</span></a>
+    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">💬</span><span class="link-text">LINE公式アカウント</span><span class="link-arrow">›</span></a>
+    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">📹</span><span class="link-text">YouTube</span><span class="link-arrow">›</span></a>
+    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">📧</span><span class="link-text">お問い合わせ</span><span class="link-arrow">›</span></a>
+    <div class="footer">🌸 Powered by AI Work Stage</div>
+  </div>
+</div>
+</body>
+</html>

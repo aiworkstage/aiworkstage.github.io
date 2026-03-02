@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINE公式アカウント デモ - スタンダード | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#06c755;font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.phone{max-width:390px;margin:20px auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.header{background:#00b900;color:#fff;padding:16px;display:flex;align-items:center;gap:12px;}
+.avatar{width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.header-info h3{font-size:1rem;font-weight:700;}
+.tabs{display:flex;background:#f8f8f8;border-bottom:1px solid #ddd;}
+.tab{flex:1;padding:10px;text-align:center;font-size:0.82rem;color:#888;cursor:pointer;border-bottom:2px solid transparent;}
+.tab.active{color:#00b900;border-bottom:2px solid #00b900;font-weight:700;}
+.chat-area{padding:16px;background:#e5e5e5;min-height:350px;display:flex;flex-direction:column;gap:12px;}
+.msg-bubble{max-width:75%;padding:12px 14px;border-radius:16px;font-size:0.88rem;line-height:1.5;}
+.msg-left{background:#fff;border-radius:4px 16px 16px 16px;align-self:flex-start;}
+.msg-right{background:#00b900;color:#fff;border-radius:16px 16px 4px 16px;align-self:flex-end;}
+.sender{font-size:0.72rem;color:#888;margin-bottom:4px;}
+.coupon{background:linear-gradient(135deg,#ff6b6b,#ee0979);color:#fff;margin:8px 16px;border-radius:12px;padding:16px;text-align:center;}
+.coupon h3{font-size:1.1rem;font-weight:800;margin-bottom:4px;}
+.coupon p{font-size:0.8rem;opacity:0.9;}
+.coupon .code{background:rgba(255,255,255,0.2);border-radius:8px;padding:8px;margin-top:10px;font-size:1.2rem;font-weight:700;letter-spacing:4px;}
+.rich-menu{background:#f8f8f8;padding:12px;}
+.rich-menu h4{text-align:center;font-size:0.8rem;color:#555;margin-bottom:8px;}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.menu-btn{background:#00b900;color:#fff;border:none;padding:14px 8px;font-size:0.78rem;font-weight:700;cursor:pointer;border-radius:4px;}
+.menu-btn:hover{background:#009900;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-line.html">← サービス詳細に戻る</a></div>
+<div style="text-align:center;padding:12px;color:#fff;font-size:0.85rem;font-weight:700;">【スタンダードプラン】LINE公式アカウント構築デモ</div>
+<div class="phone">
+  <div class="header">
+    <div class="avatar">🌸</div>
+    <div class="header-info">
+      <h3>株式会社サクラビジネス</h3>
+      <p>公式アカウント ✓ 認証済み</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab active">💬 チャット</div>
+    <div class="tab">🎫 クーポン</div>
+    <div class="tab">📅 予約</div>
+  </div>
+  <div class="chat-area">
+    <div>
+      <div class="sender">サクラビジネス</div>
+      <div class="msg-bubble msg-left">🌸 新商品入荷のお知らせです！<br>今週末限定で特別クーポンをプレゼント🎁<br>下の「クーポン」タブをチェック！</div>
+    </div>
+    <div style="align-self:flex-end;">
+      <div class="msg-bubble msg-right">予約したいのですが</div>
+    </div>
+    <div>
+      <div class="sender">サクラビジネス</div>
+      <div class="msg-bubble msg-left">
+        📅 ご予約はこちらから受け付けております！<br><br>「予約」タブをタップ、または以下から日時をお選びください：<br>・平日 10:00〜17:00<br>・土曜 10:00〜15:00
+      </div>
+    </div>
+  </div>
+  <div class="coupon">
+    <h3>🎫 期間限定クーポン</h3>
+    <p>初回ご利用のお客様限定</p>
+    <div style="font-size:1.4rem;font-weight:800;margin:6px 0;">10% OFF</div>
+    <div class="code">SAKURA10</div>
+    <p style="font-size:0.72rem;margin-top:6px;">有効期限：2026年3月31日</p>
+  </div>
+  <div class="rich-menu">
+    <h4>📋 メニュー</h4>
+    <div class="menu-grid">
+      <button class="menu-btn" onclick="alert('お問い合わせ')">📞 問い合わせ</button>
+      <button class="menu-btn" onclick="alert('予約ページへ')">📅 予約する</button>
+      <button class="menu-btn" onclick="alert('クーポン一覧へ')">🎫 クーポン</button>
+      <button class="menu-btn" onclick="alert('メニュー一覧へ')">📋 メニュー</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

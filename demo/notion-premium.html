@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notion構築 デモ - プレミアム | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0e1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#e0e0f0;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.sidebar{position:fixed;left:0;top:36px;width:220px;height:100%;background:#0d0d1a;border-right:1px solid #2a2a3e;padding:16px;overflow-y:auto;}
+.sidebar h4{font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;margin-top:14px;}
+.nav-item{padding:6px 10px;border-radius:6px;font-size:0.83rem;cursor:pointer;display:flex;align-items:center;gap:8px;color:#c0c0d8;}
+.nav-item:hover,.nav-item.active{background:#1a1a2e;color:#fff;}
+.main{margin-left:220px;padding:28px 32px;}
+h1{font-size:1.6rem;font-weight:700;margin-bottom:4px;}
+.portal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.portal-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:16px;text-align:center;}
+.portal-card .num{font-size:1.8rem;font-weight:800;color:#7c6bff;}
+.portal-card .label{font-size:0.75rem;color:#8888aa;margin-top:4px;}
+.portal-card .trend{font-size:0.72rem;color:#28c840;margin-top:2px;}
+.dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.dept-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:16px;}
+.dept-card h3{font-size:0.88rem;color:#7c6bff;margin-bottom:10px;}
+.dept-item{display:flex;justify-content:space-between;font-size:0.8rem;padding:4px 0;border-bottom:1px solid #1e1e30;color:#c0c0d8;}
+.flow-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:20px;margin-bottom:24px;}
+.flow-card h3{font-size:0.95rem;color:#7c6bff;margin-bottom:16px;}
+.automation-list{display:flex;flex-direction:column;gap:10px;}
+.auto-item{background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;padding:12px;display:flex;align-items:center;gap:12px;}
+.auto-icon{font-size:1.4rem;}
+.auto-info h4{font-size:0.85rem;color:#e0e0f0;}
+.auto-info p{font-size:0.75rem;color:#8888aa;margin-top:2px;}
+.auto-status{margin-left:auto;background:#28c840;color:#fff;border-radius:20px;padding:3px 10px;font-size:0.72rem;font-weight:700;}
+.auto-status.off{background:#555;}
+@media(max-width:768px){.sidebar{display:none;}.main{margin-left:0;padding:16px;}.portal-grid{grid-template-columns:repeat(2,1fr);}.dept-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-notion.html">← サービス詳細に戻る</a></div>
+<div class="sidebar">
+  <div style="font-size:1rem;font-weight:700;color:#7c6bff;margin-bottom:16px;">🌸 サクラビジネス</div>
+  <h4>ホーム</h4>
+  <div class="nav-item active">🏠 全社ポータル</div>
+  <div class="nav-item">📊 ダッシュボード</div>
+  <h4>部門</h4>
+  <div class="nav-item">💼 営業部</div>
+  <div class="nav-item">💻 開発部</div>
+  <div class="nav-item">🎨 デザイン部</div>
+  <div class="nav-item">📦 物流部</div>
+  <div class="nav-item">💰 財務部</div>
+  <h4>自動化</h4>
+  <div class="nav-item">⚡ オートメーション</div>
+  <div class="nav-item">📧 通知設定</div>
+  <div class="nav-item">🔗 外部連携</div>
+</div>
+<div class="main">
+  <h1>🏠 全社ポータル</h1>
+  <div style="color:#8888aa;font-size:0.85rem;margin-bottom:20px;">株式会社サクラビジネス | 全部門統合ダッシュボード</div>
+
+  <div class="portal-grid">
+    <div class="portal-card"><div class="num">¥12.4M</div><div class="label">今月売上</div><div class="trend">↑ +18%</div></div>
+    <div class="portal-card"><div class="num">48</div><div class="label">アクティブタスク</div><div class="trend">↓ -5件</div></div>
+    <div class="portal-card"><div class="num">32</div><div class="label">従業員数</div><div class="trend">+ 2名（今月）</div></div>
+    <div class="portal-card"><div class="num">97%</div><div class="label">顧客満足度</div><div class="trend">↑ +2%</div></div>
+  </div>
+
+  <div class="dept-grid">
+    <div class="dept-card">
+      <h3>💼 営業部</h3>
+      <div class="dept-item"><span>今月商談数</span><span>24件</span></div>
+      <div class="dept-item"><span>成約率</span><span>58%</span></div>
+      <div class="dept-item"><span>パイプライン</span><span>¥3.2M</span></div>
+      <div class="dept-item"><span>新規顧客</span><span>7社</span></div>
+    </div>
+    <div class="dept-card">
+      <h3>💻 開発部</h3>
+      <div class="dept-item"><span>進行プロジェクト</span><span>5件</span></div>
+      <div class="dept-item"><span>完了タスク</span><span>83件</span></div>
+      <div class="dept-item"><span>バグ対応</span><span>2件</span></div>
+      <div class="dept-item"><span>スプリント</span><span>第3週</span></div>
+    </div>
+    <div class="dept-card">
+      <h3>📦 物流部</h3>
+      <div class="dept-item"><span>在庫アイテム</span><span>247SKU</span></div>
+      <div class="dept-item"><span>今月出荷</span><span>1,284件</span></div>
+      <div class="dept-item"><span>返品率</span><span>0.8%</span></div>
+      <div class="dept-item"><span>欠品アラート</span><span>3品目</span></div>
+    </div>
+  </div>
+
+  <div class="flow-card">
+    <h3>⚡ 自動化フロー（アクティブ）</h3>
+    <div class="automation-list">
+      <div class="auto-item">
+        <div class="auto-icon">📧</div>
+        <div class="auto-info">
+          <h4>新規問い合わせ → 担当者自動割当</h4>
+          <p>フォーム送信 → Notionタスク生成 → Slack通知 → メール返信</p>
+        </div>
+        <div class="auto-status">稼働中</div>
+      </div>
+      <div class="auto-item">
+        <div class="auto-icon">📊</div>
+        <div class="auto-info">
+          <h4>月次レポート自動生成</h4>
+          <p>毎月1日 → 各部門DBを集計 → PDF作成 → 役員にメール配信</p>
+        </div>
+        <div class="auto-status">稼働中</div>
+      </div>
+      <div class="auto-item">
+        <div class="auto-icon">⏰</div>
+        <div class="auto-info">
+          <h4>期限切れタスク → リマインダー通知</h4>
+          <p>毎朝9時 → 期限超過タスクを検知 → 担当者・マネージャーに通知</p>
+        </div>
+        <div class="auto-status">稼働中</div>
+      </div>
+      <div class="auto-item">
+        <div class="auto-icon">🔗</div>
+        <div class="auto-info">
+          <h4>Google Calendar 双方向同期</h4>
+          <p>NotionカレンダーDB ↔ Google Calendar をリアルタイム同期</p>
+        </div>
+        <div class="auto-status off">準備中</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

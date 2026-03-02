@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掲示板・コメント デモ - ベーシック | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.container{max-width:700px;margin:24px auto;padding:0 16px;}
+.page-title{font-size:1.2rem;font-weight:700;margin-bottom:6px;}
+.page-sub{font-size:0.85rem;color:#888;margin-bottom:20px;}
+.comment-form{background:#fff;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.comment-form h3{font-size:0.92rem;font-weight:700;margin-bottom:12px;}
+.form-group{margin-bottom:10px;}
+.form-group label{font-size:0.8rem;color:#888;display:block;margin-bottom:4px;}
+.form-group input,.form-group textarea{width:100%;border:1px solid #ddd;border-radius:8px;padding:10px 12px;font-size:0.88rem;font-family:inherit;outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group textarea:focus{border-color:#7c6bff;}
+.form-group textarea{min-height:80px;resize:vertical;}
+.submit-btn{background:#7c6bff;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-weight:700;cursor:pointer;font-size:0.9rem;}
+.submit-btn:hover{background:#6a5bef;}
+.comments-list{display:flex;flex-direction:column;gap:12px;}
+.comment{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.comment-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.avatar{width:36px;height:36px;border-radius:50%;background:#7c6bff22;display:flex;align-items:center;justify-content:center;font-weight:700;color:#7c6bff;font-size:0.9rem;}
+.comment-meta .author{font-size:0.88rem;font-weight:700;}
+.comment-meta .time{font-size:0.75rem;color:#aaa;}
+.comment-text{font-size:0.88rem;line-height:1.7;color:#444;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-bbs.html">← サービス詳細に戻る</a></div>
+<div class="container">
+  <div class="page-title">💬 お客様の声・コメント欄</div>
+  <div class="page-sub">株式会社サクラビジネス | ベーシックプラン デモ</div>
+
+  <div class="comment-form">
+    <h3>✏️ コメントを投稿する</h3>
+    <div class="form-group"><label>お名前</label><input type="text" id="nameInput" placeholder="山田 太郎"></div>
+    <div class="form-group"><label>コメント</label><textarea id="commentInput" placeholder="ご感想・ご意見をお聞かせください"></textarea></div>
+    <button class="submit-btn" onclick="postComment()">投稿する 📝</button>
+  </div>
+
+  <div class="comments-list" id="commentsList">
+    <div class="comment">
+      <div class="comment-header">
+        <div class="avatar">田</div>
+        <div class="comment-meta"><div class="author">田中 美咲</div><div class="time">2026年3月4日 14:23</div></div>
+      </div>
+      <div class="comment-text">サービスをご利用してとても満足しています！対応が丁寧で、想像以上の仕上がりでした。また機会があればよろしくお願いします😊</div>
+    </div>
+    <div class="comment">
+      <div class="comment-header">
+        <div class="avatar">鈴</div>
+        <div class="comment-meta"><div class="author">鈴木 一郎</div><div class="time">2026年3月3日 09:15</div></div>
+      </div>
+      <div class="comment-text">LINEアカウントの構築をお願いしました。思っていたよりスピーディに対応いただけて助かりました。友だち登録数が増えています！</div>
+    </div>
+    <div class="comment">
+      <div class="comment-header">
+        <div class="avatar">佐</div>
+        <div class="comment-meta"><div class="author">佐々木 健</div><div class="time">2026年3月1日 16:42</div></div>
+      </div>
+      <div class="comment-text">Notion構築のサポートありがとうございました。チームの業務効率が上がって、毎週の報告作業が半分以下になりました。</div>
+    </div>
+  </div>
+</div>
+<script>
+function postComment() {
+  const name = document.getElementById('nameInput').value.trim() || '匿名';
+  const text = document.getElementById('commentInput').value.trim();
+  if (!text) { alert('コメントを入力してください'); return; }
+  const now = new Date();
+  const timeStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const comment = document.createElement('div');
+  comment.className = 'comment';
+  comment.style.borderLeft = '3px solid #7c6bff';
+  comment.innerHTML = `
+    <div class="comment-header">
+      <div class="avatar" style="background:#7c6bff;color:#fff;">${name[0]}</div>
+      <div class="comment-meta"><div class="author">${name} <span style="background:#7c6bff;color:#fff;border-radius:10px;padding:1px 6px;font-size:0.7rem;">NEW</span></div><div class="time">${timeStr}</div></div>
+    </div>
+    <div class="comment-text">${text}</div>`;
+  document.getElementById('commentsList').prepend(comment);
+  document.getElementById('nameInput').value = '';
+  document.getElementById('commentInput').value = '';
+}
+</script>
+</body>
+</html>

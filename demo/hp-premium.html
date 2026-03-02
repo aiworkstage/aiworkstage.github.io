@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社サクラビジネス | Premium</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; overflow-x:hidden; }
+#particles { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+canvas { display:block; }
+header { background:rgba(10,14,26,0.9); backdrop-filter:blur(12px); position:sticky; top:0; z-index:200; padding:14px 60px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #2a2a3e; }
+@media(max-width:768px){ header { padding:14px 16px; } .hero-inner h2 { font-size:2rem !important; } .grid-3,.grid-4,.staff-grid { grid-template-columns:1fr !important; } }
+header h1 { font-size:1.3rem; color:#fff; }
+header h1 span { color:#7c6bff; }
+nav a { color:#aaa; text-decoration:none; margin-left:20px; font-size:0.88rem; transition:color 0.2s; }
+nav a:hover { color:#7c6bff; }
+.btn { background:linear-gradient(135deg,#7c6bff,#a78bfa); color:#fff; padding:14px 36px; border-radius:8px; text-decoration:none; font-weight:700; display:inline-block; transition:transform 0.2s,box-shadow 0.2s; border:none; cursor:pointer; font-size:1rem; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(124,107,255,0.5); }
+.btn-outline { background:transparent; border:2px solid #7c6bff; color:#7c6bff; margin-left:12px; }
+.hero { min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:60px 20px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%,rgba(124,107,255,0.25) 0%,transparent 65%); }
+.hero-video-bg { position:absolute; inset:0; background:linear-gradient(135deg,#0a0e1a 0%,#1a0a2e 50%,#0a1a2e 100%); animation:heroBg 8s ease-in-out infinite alternate; }
+@keyframes heroBg { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+.hero-inner { position:relative; z-index:2; }
+.hero-inner .tag { background:rgba(124,107,255,0.2); color:#a78bfa; padding:6px 18px; border-radius:20px; font-size:0.85rem; margin-bottom:20px; display:inline-block; border:1px solid rgba(124,107,255,0.3); }
+.hero-inner h2 { font-size:3.5rem; font-weight:900; color:#fff; line-height:1.2; margin-bottom:20px; }
+.hero-inner h2 .accent { color:#7c6bff; display:block; }
+.hero-inner p { font-size:1.1rem; color:#aaa; max-width:580px; margin:0 auto 36px; line-height:1.7; }
+section { padding:100px 20px; position:relative; z-index:1; }
+.container { max-width:1100px; margin:0 auto; }
+h2.section-title { font-size:2rem; text-align:center; margin-bottom:60px; color:#fff; }
+h2.section-title span { color:#7c6bff; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+.card { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:32px 24px; transition:border-color 0.3s,transform 0.3s; }
+.card:hover { border-color:#7c6bff; transform:translateY(-6px); }
+.card .icon { font-size:2.5rem; margin-bottom:16px; }
+.card h3 { color:#fff; font-size:1.05rem; margin-bottom:12px; }
+.card p { color:#888; font-size:0.88rem; line-height:1.7; }
+/* Counter */
+.counter-section { background:linear-gradient(135deg,#12121e,#0d0d25); padding:80px 20px; }
+.counter-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center; }
+@media(max-width:600px){ .counter-grid { grid-template-columns:repeat(2,1fr); } }
+.counter-num { font-size:3rem; font-weight:900; color:#7c6bff; line-height:1; }
+.counter-label { color:#888; font-size:0.85rem; margin-top:8px; }
+/* Blog */
+.blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media(max-width:768px){ .blog-grid { grid-template-columns:1fr; } }
+.blog-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; overflow:hidden; transition:transform 0.2s; }
+.blog-card:hover { transform:translateY(-4px); }
+.blog-img { height:140px; background:linear-gradient(135deg,#1a1a3e,#2a1a5e); display:flex; align-items:center; justify-content:center; font-size:2.5rem; }
+.blog-body { padding:16px; }
+.blog-tag { background:#7c6bff22; color:#a78bfa; font-size:0.75rem; padding:2px 10px; border-radius:10px; }
+.blog-title { color:#fff; font-size:0.95rem; margin:8px 0; line-height:1.4; }
+.blog-date { color:#666; font-size:0.8rem; }
+/* Staff */
+.staff-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.staff-card { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:24px; text-align:center; }
+.staff-avatar { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,#7c6bff,#a78bfa); margin:0 auto 16px; display:flex; align-items:center; justify-content:center; font-size:2rem; }
+.staff-name { color:#fff; font-weight:700; margin-bottom:4px; }
+.staff-role { color:#7c6bff; font-size:0.85rem; margin-bottom:12px; }
+.staff-bio { color:#888; font-size:0.85rem; line-height:1.6; }
+/* SNS */
+.sns-bar { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.sns-btn { padding:10px 24px; border-radius:8px; color:#fff; text-decoration:none; font-weight:700; font-size:0.9rem; transition:transform 0.2s; }
+.sns-btn:hover { transform:scale(1.05); }
+.sns-line { background:#06c755; }
+.sns-x { background:#1a1a1a; border:1px solid #333; }
+.sns-ig { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+.sns-fb { background:#1877f2; }
+/* Form */
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:700px; margin:0 auto; }
+@media(max-width:600px){ .form-grid { grid-template-columns:1fr; } }
+.form-field { background:#12121e; border:1px solid #2a2a3e; color:#fff; padding:12px 16px; border-radius:8px; font-size:0.95rem; }
+.form-field:focus { outline:none; border-color:#7c6bff; }
+.form-full { grid-column:1/-1; }
+footer { background:#060810; color:#555; padding:60px 20px 30px; font-size:0.85rem; }
+.footer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:40px; max-width:1000px; margin:0 auto 40px; }
+@media(max-width:600px){ .footer-grid { grid-template-columns:1fr; } }
+.footer-col h4 { color:#fff; margin-bottom:16px; }
+.footer-col a { display:block; color:#666; text-decoration:none; margin-bottom:8px; font-size:0.85rem; transition:color 0.2s; }
+.footer-col a:hover { color:#7c6bff; }
+.footer-bottom { text-align:center; padding-top:30px; border-top:1px solid #1a1a2e; }
+</style>
+</head>
+<body>
+<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;position:relative;z-index:300;">🎨 これはデモサイトです | <a href="../service-hp.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<canvas id="particles"></canvas>
+<header>
+  <h1>🌸 サクラ<span>ビジネス</span></h1>
+  <nav>
+    <a href="#services">サービス</a>
+    <a href="#blog">ブログ</a>
+    <a href="#staff">スタッフ</a>
+    <a href="#results">実績</a>
+    <a href="#reserve">予約</a>
+  </nav>
+</header>
+<div class="hero">
+  <div class="hero-video-bg"></div>
+  <div class="hero-inner">
+    <div class="tag">✨ AI × DX × 経営支援</div>
+    <h2>ビジネスの未来を<br><span class="accent">私たちと共に創る</span></h2>
+    <p>株式会社サクラビジネスは、最先端のAI技術と豊富な経営経験で、あなたの会社の可能性を最大限に引き出します。</p>
+    <a href="#reserve" class="btn">無料相談を予約する</a>
+    <a href="#services" class="btn btn-outline">サービスを見る</a>
+  </div>
+</div>
+<section id="services">
+  <div class="container">
+    <h2 class="section-title">💼 <span>サービス</span>一覧</h2>
+    <div class="grid-3">
+      <div class="card"><div class="icon">🏢</div><h3>経営コンサルティング</h3><p>現状分析・戦略立案・実行支援まで、経営のすべてをサポートします。</p></div>
+      <div class="card"><div class="icon">🤖</div><h3>AI・DX導入支援</h3><p>最新AIツールの選定から社員研修まで、デジタル変革を完全伴走。</p></div>
+      <div class="card"><div class="icon">📈</div><h3>Webマーケティング</h3><p>SEO・SNS・広告運用を統合した戦略で集客と売上を最大化。</p></div>
+      <div class="card"><div class="icon">💰</div><h3>財務・資金調達支援</h3><p>補助金申請から融資サポートまで、資金面の課題を解決。</p></div>
+      <div class="card"><div class="icon">👥</div><h3>人材採用・育成</h3><p>採用戦略の設計から研修プログラムの構築まで対応。</p></div>
+      <div class="card"><div class="icon">🔐</div><h3>セキュリティ対策</h3><p>サイバーセキュリティの診断・対策・教育を提供。</p></div>
+    </div>
+  </div>
+</section>
+<section class="counter-section" id="results">
+  <div class="container">
+    <h2 class="section-title">📊 <span>支援実績</span></h2>
+    <div class="counter-grid">
+      <div><div class="counter-num" data-target="500">0</div><div class="counter-label">支援企業数</div></div>
+      <div><div class="counter-num" data-target="98">0</div><div class="counter-label">顧客満足度 %</div></div>
+      <div><div class="counter-num" data-target="12">0</div><div class="counter-label">平均継続年数</div></div>
+      <div><div class="counter-num" data-target="250">0</div><div class="counter-label">平均売上改善 %</div></div>
+    </div>
+  </div>
+</section>
+<section id="blog">
+  <div class="container">
+    <h2 class="section-title">📝 最新<span>ブログ</span></h2>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-img">🤖</div>
+        <div class="blog-body">
+          <span class="blog-tag">AI活用</span>
+          <div class="blog-title">中小企業がAIを導入する前に知るべき5つのポイント</div>
+          <div class="blog-date">2024.12.01</div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img">📊</div>
+        <div class="blog-body">
+          <span class="blog-tag">経営</span>
+          <div class="blog-title">2025年の経営トレンド：DXと人材確保の両立</div>
+          <div class="blog-date">2024.11.20</div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img">💹</div>
+        <div class="blog-body">
+          <span class="blog-tag">補助金</span>
+          <div class="blog-title">IT導入補助金2024：対象経費と申請の流れを解説</div>
+          <div class="blog-date">2024.11.05</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="staff" style="background:#0d0d20;">
+  <div class="container">
+    <h2 class="section-title">👥 <span>スタッフ</span>紹介</h2>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <div class="staff-avatar">👨‍💼</div>
+        <div class="staff-name">山田 太郎</div>
+        <div class="staff-role">代表取締役CEO</div>
+        <div class="staff-bio">元大手コンサルファーム出身。10年の経営支援経験を持ち、300社以上の業績改善を実現。</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">👩‍💻</div>
+        <div class="staff-name">佐藤 花子</div>
+        <div class="staff-role">CTO / AI戦略担当</div>
+        <div class="staff-bio">AIエンジニア出身。最新のAI技術を中小企業向けにわかりやすく実装することが得意。</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">👨‍🎨</div>
+        <div class="staff-name">鈴木 一郎</div>
+        <div class="staff-role">クリエイティブディレクター</div>
+        <div class="staff-bio">ブランディングとWebデザインのスペシャリスト。数々のリブランディング事例を手がけた。</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container" style="text-align:center;">
+    <h2 class="section-title">📱 <span>SNS・公式LINE</span></h2>
+    <p style="color:#888;margin-bottom:32px;">最新情報はSNSでも配信中！お気軽にフォロー・友達追加してください。</p>
+    <div class="sns-bar">
+      <a href="#" class="sns-btn sns-line">💬 LINE公式</a>
+      <a href="#" class="sns-btn sns-x">𝕏 Twitter/X</a>
+      <a href="#" class="sns-btn sns-ig">📸 Instagram</a>
+      <a href="#" class="sns-btn sns-fb">👍 Facebook</a>
+    </div>
+  </div>
+</section>
+<section id="reserve" style="background:#0d0d20;">
+  <div class="container">
+    <h2 class="section-title">📅 無料<span>相談予約</span></h2>
+    <div class="form-grid">
+      <input class="form-field" type="text" placeholder="お名前 *">
+      <input class="form-field" type="email" placeholder="メールアドレス *">
+      <input class="form-field" type="tel" placeholder="電話番号">
+      <input class="form-field" type="text" placeholder="会社名">
+      <input class="form-field form-full" type="text" placeholder="ご希望日時（例：12/10 14:00〜）">
+      <textarea class="form-field form-full" rows="4" placeholder="ご相談内容 *"></textarea>
+      <div class="form-full" style="text-align:center;"><a href="#" class="btn">予約を確定する</a></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>🌸 株式会社サクラビジネス</h4>
+      <p style="color:#555;font-size:0.85rem;line-height:1.7;">AI × DX × 経営支援で<br>中小企業の成長をサポート</p>
+    </div>
+    <div class="footer-col">
+      <h4>サービス</h4>
+      <a href="#">経営コンサルティング</a>
+      <a href="#">AI・DX導入支援</a>
+      <a href="#">Webマーケティング</a>
+      <a href="#">財務・資金調達</a>
+    </div>
+    <div class="footer-col">
+      <h4>お問い合わせ</h4>
+      <p style="color:#555;font-size:0.85rem;">〒100-0001 東京都千代田区丸の内1-1-1</p>
+      <p style="color:#555;font-size:0.85rem;margin-top:8px;">TEL: 03-0000-0000</p>
+      <p style="color:#555;font-size:0.85rem;margin-top:8px;">受付：平日9:00〜18:00</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 株式会社サクラビジネス All Rights Reserved.</p>
+  </div>
+</footer>
+<script>
+// Particle animation
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const particles = Array.from({length:60},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,r:Math.random()*2+1,a:Math.random()}));
+function drawParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(124,107,255,${p.a*0.5})`;
+    ctx.fill();
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>canvas.width)p.vx*=-1;
+    if(p.y<0||p.y>canvas.height)p.vy*=-1;
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+// Counter animation
+const counters = document.querySelectorAll('.counter-num');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const target=+e.target.dataset.target;
+      let current=0;
+      const step=target/60;
+      const timer=setInterval(()=>{
+        current+=step;
+        if(current>=target){current=target;clearInterval(timer);}
+        e.target.textContent=Math.floor(current)+(target===98?'%':target===250?'%':target===12?'年':'+');
+      },20);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+counters.forEach(c=>observer.observe(c));
+</script>
+</body>
+</html>

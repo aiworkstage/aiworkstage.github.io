@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notion構築 デモ - ベーシック | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#37352f;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.notion-page{max-width:900px;margin:0 auto;padding:40px 24px;}
+.page-icon{font-size:3rem;margin-bottom:8px;}
+h1{font-size:2rem;font-weight:700;margin-bottom:24px;}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+.btn{background:#f0f0f0;border:none;border-radius:6px;padding:6px 12px;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:4px;}
+.btn:hover{background:#e0e0e0;}
+.btn.primary{background:#7c6bff;color:#fff;}
+.btn.primary:hover{background:#6a5bef;}
+table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+thead tr{border-bottom:1px solid #e0e0e0;}
+th{text-align:left;padding:8px 12px;color:#888;font-size:0.8rem;font-weight:600;}
+td{padding:10px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle;}
+tr:hover td{background:#f7f7f5;}
+.status{display:inline-block;border-radius:12px;padding:2px 10px;font-size:0.78rem;font-weight:600;}
+.status.todo{background:#f0f0f0;color:#666;}
+.status.doing{background:#fff0d4;color:#c77700;}
+.status.done{background:#d4ffd4;color:#0a7a0a;}
+.priority{display:inline-block;border-radius:4px;padding:2px 8px;font-size:0.75rem;font-weight:600;}
+.priority.high{background:#ffe0e0;color:#cc0000;}
+.priority.mid{background:#fff0d4;color:#c77700;}
+.priority.low{background:#e0f0ff;color:#0066cc;}
+.add-row{color:#aaa;font-size:0.85rem;padding:10px 12px;cursor:pointer;}
+.add-row:hover{color:#555;background:#f7f7f5;}
+.prop-bar{display:flex;gap:16px;margin-bottom:20px;font-size:0.82rem;color:#888;flex-wrap:wrap;}
+.prop-item{display:flex;align-items:center;gap:4px;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-notion.html">← サービス詳細に戻る</a></div>
+<div class="notion-page">
+  <div class="page-icon">✅</div>
+  <h1>タスク管理DB</h1>
+  <div class="prop-bar">
+    <div class="prop-item">🏢 株式会社サクラビジネス</div>
+    <div class="prop-item">📅 2026年3月</div>
+    <div class="prop-item">👤 作成: 山田 太郎</div>
+  </div>
+  <div class="toolbar">
+    <button class="btn">🔍 フィルター</button>
+    <button class="btn">↕️ 並べ替え</button>
+    <button class="btn">👁️ ビュー</button>
+    <button class="btn primary" onclick="alert('新しいタスクを追加しました！')">＋ 新規タスク</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>タスク名</th>
+        <th>担当者</th>
+        <th>期限</th>
+        <th>優先度</th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🌐 ホームページ更新</td>
+        <td>山田 太郎</td>
+        <td>3/10</td>
+        <td><span class="priority high">高</span></td>
+        <td><span class="status doing">進行中</span></td>
+      </tr>
+      <tr>
+        <td>📊 月次報告書作成</td>
+        <td>鈴木 花子</td>
+        <td>3/15</td>
+        <td><span class="priority high">高</span></td>
+        <td><span class="status todo">未着手</span></td>
+      </tr>
+      <tr>
+        <td>📧 メルマガ配信</td>
+        <td>佐藤 次郎</td>
+        <td>3/12</td>
+        <td><span class="priority mid">中</span></td>
+        <td><span class="status doing">進行中</span></td>
+      </tr>
+      <tr>
+        <td>🤝 新規取引先ミーティング</td>
+        <td>山田 太郎</td>
+        <td>3/8</td>
+        <td><span class="priority high">高</span></td>
+        <td><span class="status done">完了</span></td>
+      </tr>
+      <tr>
+        <td>📦 在庫確認・発注</td>
+        <td>田中 三郎</td>
+        <td>3/20</td>
+        <td><span class="priority low">低</span></td>
+        <td><span class="status todo">未着手</span></td>
+      </tr>
+      <tr>
+        <td>🎨 SNS投稿コンテンツ作成</td>
+        <td>鈴木 花子</td>
+        <td>3/11</td>
+        <td><span class="priority mid">中</span></td>
+        <td><span class="status done">完了</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="add-row" onclick="alert('新しい行を追加')">＋ 新しいページ</div>
+  <div style="margin-top:20px;font-size:0.8rem;color:#aaa;">6件のタスク | 完了: 2件 | 進行中: 2件 | 未着手: 2件</div>
+</div>
+</body>
+</html>

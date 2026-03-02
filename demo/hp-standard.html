@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社サクラビジネス | 経営・DX支援</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; }
+header { background:rgba(10,14,26,0.95); backdrop-filter:blur(8px); position:sticky; top:0; z-index:100; padding:16px 60px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #2a2a3e; }
+header h1 { font-size:1.3rem; color:#fff; }
+nav a { color:#aaa; text-decoration:none; margin-left:24px; font-size:0.9rem; transition:color 0.2s; }
+nav a:hover { color:#7c6bff; }
+.hero { min-height:90vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:60px 20px; background:radial-gradient(ellipse at 50% 30%, rgba(124,107,255,0.2) 0%, transparent 60%); }
+.hero-inner h2 { font-size:3rem; font-weight:900; color:#fff; line-height:1.2; margin-bottom:20px; }
+.hero-inner h2 span { color:#7c6bff; }
+.hero-inner p { font-size:1.1rem; color:#aaa; max-width:560px; margin:0 auto 32px; }
+.btn { background:#7c6bff; color:#fff; padding:14px 36px; border-radius:8px; text-decoration:none; font-weight:700; display:inline-block; transition:transform 0.2s, box-shadow 0.2s; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(124,107,255,0.4); }
+.btn-outline { background:transparent; border:2px solid #7c6bff; color:#7c6bff; margin-left:12px; }
+section { padding:80px 20px; }
+.container { max-width:1000px; margin:0 auto; }
+h2.section-title { font-size:1.8rem; text-align:center; margin-bottom:48px; color:#fff; }
+h2.section-title span { color:#7c6bff; }
+.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+@media(max-width:768px){ .services-grid { grid-template-columns:1fr; } header { padding:16px 20px; } .hero-inner h2 { font-size:2rem; } }
+.service-card { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:32px 24px; text-align:center; transition:border-color 0.2s, transform 0.2s; }
+.service-card:hover { border-color:#7c6bff; transform:translateY(-4px); }
+.service-card .icon { font-size:2.5rem; margin-bottom:16px; }
+.service-card h3 { color:#fff; font-size:1.1rem; margin-bottom:12px; }
+.service-card p { color:#888; font-size:0.9rem; line-height:1.6; }
+.results { background:#0d0d20; padding:80px 20px; }
+.results-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center; }
+@media(max-width:600px){ .results-grid { grid-template-columns:repeat(2,1fr); } }
+.result-num { font-size:2.5rem; font-weight:900; color:#7c6bff; }
+.result-label { color:#888; font-size:0.85rem; margin-top:4px; }
+.faq { max-width:700px; margin:0 auto; }
+.faq-item { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px 24px; margin-bottom:12px; }
+.faq-item .q { font-weight:700; color:#fff; margin-bottom:8px; }
+.faq-item .a { color:#888; font-size:0.9rem; line-height:1.6; }
+.contact-form { max-width:560px; margin:0 auto; }
+.contact-form input, .contact-form textarea { width:100%; background:#12121e; border:1px solid #2a2a3e; color:#fff; padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:0.95rem; }
+.contact-form input:focus, .contact-form textarea:focus { outline:none; border-color:#7c6bff; }
+footer { background:#060810; color:#555; text-align:center; padding:40px 20px; font-size:0.85rem; }
+footer a { color:#7c6bff; text-decoration:none; }
+</style>
+</head>
+<body>
+<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-hp.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<header>
+  <h1>🌸 株式会社サクラビジネス</h1>
+  <nav>
+    <a href="#services">サービス</a>
+    <a href="#results">実績</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">お問い合わせ</a>
+  </nav>
+</header>
+<div class="hero">
+  <div class="hero-inner">
+    <h2>あなたのビジネスを<br><span>AI × DX</span>で加速する</h2>
+    <p>株式会社サクラビジネスは、最新技術を活用した経営支援で中小企業の成長を力強くサポートします。</p>
+    <a href="#contact" class="btn">無料相談を予約する</a>
+    <a href="#services" class="btn btn-outline">サービスを見る</a>
+  </div>
+</div>
+<section id="services">
+  <div class="container">
+    <h2 class="section-title">💼 <span>サービス</span>一覧</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">🏢</div>
+        <h3>経営コンサルティング</h3>
+        <p>現状分析から戦略立案まで、経営課題を根本から解決する包括的サポート。</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🤖</div>
+        <h3>AI・DX導入支援</h3>
+        <p>業務効率化のためのAIツール選定・導入・定着まで一気通貫で対応。</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">📈</div>
+        <h3>Webマーケティング</h3>
+        <p>SEO・SNS・広告を組み合わせた集客戦略で売上アップを実現。</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="results" id="results">
+  <div class="container">
+    <h2 class="section-title">📊 <span>支援実績</span></h2>
+    <div class="results-grid">
+      <div><div class="result-num">300+</div><div class="result-label">支援企業数</div></div>
+      <div><div class="result-num">98%</div><div class="result-label">顧客満足度</div></div>
+      <div><div class="result-num">5年</div><div class="result-label">平均取引継続</div></div>
+      <div><div class="result-num">2.5倍</div><div class="result-label">平均売上改善率</div></div>
+    </div>
+  </div>
+</section>
+<section id="faq">
+  <div class="container">
+    <h2 class="section-title">❓ よくある<span>質問</span></h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="q">Q. 費用はどのくらいかかりますか？</div>
+        <div class="a">A. プランによって異なりますが、月額3万円〜からご利用いただけます。まずは無料相談でご要望をお聞きします。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">Q. 契約期間の縛りはありますか？</div>
+        <div class="a">A. 最短1ヶ月からご利用可能です。長期契約の場合は割引プランもご用意しています。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">Q. どんな業種でも対応できますか？</div>
+        <div class="a">A. 製造業・小売・サービス業・医療など幅広い業種に対応実績があります。</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="contact" style="background:#0d0d20;">
+  <div class="container">
+    <h2 class="section-title">📩 <span>お問い合わせ</span></h2>
+    <div class="contact-form">
+      <input type="text" placeholder="お名前 *">
+      <input type="email" placeholder="メールアドレス *">
+      <input type="tel" placeholder="電話番号">
+      <textarea rows="5" placeholder="お問い合わせ内容 *"></textarea>
+      <a href="#" class="btn" style="display:block;text-align:center;">送信する</a>
+    </div>
+  </div>
+</section>
+<footer>
+  <p>🌸 株式会社サクラビジネス</p>
+  <p style="margin-top:8px;">〒100-0001 東京都千代田区丸の内1-1-1 | TEL: 03-0000-0000 | <a href="#">プライバシーポリシー</a></p>
+  <p style="margin-top:8px;">© 2024 株式会社サクラビジネス All Rights Reserved.</p>
+</footer>
+</body>
+</html>

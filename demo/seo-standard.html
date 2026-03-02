@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>キーワード分析レポート | 株式会社サクラビジネス</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; }
+.container { max-width:960px; margin:0 auto; padding:40px 20px; }
+.page-title { color:#fff; font-size:1.8rem; margin-bottom:8px; }
+.page-sub { color:#888; font-size:0.9rem; margin-bottom:40px; }
+.card { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:28px; margin-bottom:28px; }
+.card h2 { color:#fff; font-size:1.1rem; margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+.card h2 span { font-size:1.3rem; }
+table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+th { background:#0a0e1a; color:#7c6bff; font-weight:700; padding:10px 14px; text-align:left; border-bottom:2px solid #2a2a3e; }
+td { padding:10px 14px; border-bottom:1px solid #1a1a2e; color:#c0c0d8; }
+tr:last-child td { border-bottom:none; }
+.badge { display:inline-block; padding:3px 10px; border-radius:10px; font-size:0.75rem; font-weight:700; }
+.badge-high { background:#1a3a1a; color:#4caf50; }
+.badge-mid { background:#2a2a1a; color:#ffc107; }
+.badge-low { background:#3a1a1a; color:#f44336; }
+.rank-up { color:#4caf50; }
+.rank-down { color:#f44336; }
+.rank-same { color:#888; }
+/* Bar chart */
+.bar-wrap { margin-top:8px; }
+.bar-item { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.bar-label { width:200px; font-size:0.85rem; color:#c0c0d8; flex-shrink:0; }
+.bar-track { flex:1; background:#1a1a2e; border-radius:4px; height:20px; overflow:hidden; }
+.bar-fill { height:100%; background:linear-gradient(90deg,#7c6bff,#a78bfa); border-radius:4px; transition:width 1s; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
+.bar-fill span { font-size:0.75rem; color:#fff; font-weight:700; }
+/* Proposal */
+.proposal-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+@media(max-width:600px){ .proposal-grid { grid-template-columns:1fr; } }
+.proposal-item { background:#0a0e1a; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
+.proposal-priority { font-size:0.75rem; font-weight:700; margin-bottom:8px; }
+.proposal-item h3 { color:#fff; font-size:0.95rem; margin-bottom:8px; }
+.proposal-item p { color:#888; font-size:0.85rem; line-height:1.6; }
+.proposal-effect { margin-top:12px; color:#7c6bff; font-size:0.8rem; font-weight:700; }
+</style>
+</head>
+<body>
+<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-seo.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<div class="container">
+  <div class="page-title">📊 キーワード分析レポート＋改善提案書</div>
+  <div class="page-sub">株式会社サクラビジネス / 2024年12月 / スタンダードプラン</div>
+
+  <div class="card">
+    <h2><span>🎯</span>ターゲットキーワード順位状況</h2>
+    <table>
+      <tr><th>キーワード</th><th>月間検索数</th><th>現在順位</th><th>前月比</th><th>難易度</th></tr>
+      <tr><td>経営コンサルティング 東京</td><td>1,900</td><td>14位</td><td><span class="rank-up">↑3</span></td><td><span class="badge badge-high">高</span></td></tr>
+      <tr><td>中小企業 AI導入</td><td>880</td><td>8位</td><td><span class="rank-up">↑5</span></td><td><span class="badge badge-mid">中</span></td></tr>
+      <tr><td>DXコンサル 中小企業</td><td>590</td><td>21位</td><td><span class="rank-down">↓2</span></td><td><span class="badge badge-high">高</span></td></tr>
+      <tr><td>経営支援 無料相談</td><td>480</td><td>6位</td><td><span class="rank-same">→</span></td><td><span class="badge badge-mid">中</span></td></tr>
+      <tr><td>IT補助金 申請 代行</td><td>320</td><td>3位</td><td><span class="rank-up">↑7</span></td><td><span class="badge badge-low">低</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span>📈</span>流入キーワード分布（月間）</h2>
+    <div class="bar-wrap">
+      <div class="bar-item"><div class="bar-label">IT補助金 申請 代行</div><div class="bar-track"><div class="bar-fill" style="width:85%"><span>1,240</span></div></div></div>
+      <div class="bar-item"><div class="bar-label">中小企業 AI導入</div><div class="bar-track"><div class="bar-fill" style="width:65%"><span>950</span></div></div></div>
+      <div class="bar-item"><div class="bar-label">経営支援 無料相談</div><div class="bar-track"><div class="bar-fill" style="width:55%"><span>810</span></div></div></div>
+      <div class="bar-item"><div class="bar-label">経営コンサル 費用</div><div class="bar-track"><div class="bar-fill" style="width:40%"><span>590</span></div></div></div>
+      <div class="bar-item"><div class="bar-label">その他（ロングテール）</div><div class="bar-track"><div class="bar-fill" style="width:30%"><span>440</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span>💡</span>改善提案</h2>
+    <div class="proposal-grid">
+      <div class="proposal-item">
+        <div class="proposal-priority" style="color:#f44336;">🔴 優先度：高</div>
+        <h3>トップページのH1キーワード最適化</h3>
+        <p>「経営コンサルティング 東京」をH1に自然に組み込み、検索意図に合ったコンテンツへ改修する。</p>
+        <div class="proposal-effect">期待効果：1ヶ月でトップ10入り</div>
+      </div>
+      <div class="proposal-item">
+        <div class="proposal-priority" style="color:#f44336;">🔴 優先度：高</div>
+        <h3>サービスページの構造化データ実装</h3>
+        <p>Service・FAQ・Organization スキーマを実装し、リッチスニペット表示を狙う。</p>
+        <div class="proposal-effect">期待効果：CTR 20〜40%改善</div>
+      </div>
+      <div class="proposal-item">
+        <div class="proposal-priority" style="color:#ffc107;">🟡 優先度：中</div>
+        <h3>ロングテールコンテンツの追加</h3>
+        <p>「DX補助金 東京 中小企業 2024」などの具体的キーワードで記事を月3本追加。</p>
+        <div class="proposal-effect">期待効果：3ヶ月で流入+30%</div>
+      </div>
+      <div class="proposal-item">
+        <div class="proposal-priority" style="color:#ffc107;">🟡 優先度：中</div>
+        <h3>被リンク獲得施策</h3>
+        <p>業界メディアへのプレスリリース配信とゲスト記事投稿で被リンクを増やす。</p>
+        <div class="proposal-effect">期待効果：DA +5〜10pt改善</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

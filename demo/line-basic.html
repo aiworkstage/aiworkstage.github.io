@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINE公式アカウント デモ - ベーシック | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#06c755;font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.phone{max-width:390px;margin:20px auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);min-height:700px;}
+.header{background:#00b900;color:#fff;padding:16px;display:flex;align-items:center;gap:12px;}
+.avatar{width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.header-info h3{font-size:1rem;font-weight:700;}
+.header-info p{font-size:0.75rem;opacity:0.85;}
+.chat-area{padding:16px;background:#e5e5e5;min-height:480px;display:flex;flex-direction:column;gap:12px;}
+.msg-bubble{max-width:75%;padding:12px 14px;border-radius:16px;font-size:0.88rem;line-height:1.5;}
+.msg-left{background:#fff;border-radius:4px 16px 16px 16px;align-self:flex-start;}
+.msg-right{background:#00b900;color:#fff;border-radius:16px 16px 4px 16px;align-self:flex-end;}
+.sender{font-size:0.72rem;color:#888;margin-bottom:4px;}
+.rich-menu{background:#fff;margin:0;padding:16px;}
+.rich-menu h4{text-align:center;font-size:0.85rem;color:#444;margin-bottom:12px;}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.menu-btn{background:#00b900;color:#fff;border:none;padding:18px;font-size:0.85rem;font-weight:700;cursor:pointer;border-radius:4px;transition:background 0.2s;}
+.menu-btn:hover{background:#009900;}
+.notice{background:#fffde7;border-left:3px solid #f9a825;padding:10px 14px;margin:12px;border-radius:4px;font-size:0.8rem;color:#555;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-line.html">← サービス詳細に戻る</a></div>
+<div style="text-align:center;padding:12px;color:#fff;font-size:0.85rem;font-weight:700;">【ベーシックプラン】LINE公式アカウント構築デモ</div>
+<div class="phone">
+  <div class="header">
+    <div class="avatar">🌸</div>
+    <div class="header-info">
+      <h3>株式会社サクラビジネス</h3>
+      <p>公式アカウント</p>
+    </div>
+  </div>
+  <div class="chat-area">
+    <div>
+      <div class="sender">サクラビジネス</div>
+      <div class="msg-bubble msg-left">
+        🌸 こんにちは！<br>株式会社サクラビジネス 公式LINEへようこそ！<br><br>友だち追加ありがとうございます😊<br>下のメニューからお気軽にお問い合わせください。
+      </div>
+    </div>
+    <div style="align-self:flex-end;">
+      <div class="msg-bubble msg-right">営業時間を教えてください</div>
+    </div>
+    <div>
+      <div class="sender">サクラビジネス</div>
+      <div class="msg-bubble msg-left">
+        🕐 営業時間のご案内<br><br>平日：9:00〜18:00<br>土曜：10:00〜16:00<br>日祝：定休日<br><br>お問い合わせはお気軽に！
+      </div>
+    </div>
+    <div class="notice">💡 自動応答メッセージのデモ表示です</div>
+  </div>
+  <div class="rich-menu">
+    <h4>📋 メニュー</h4>
+    <div class="menu-grid">
+      <button class="menu-btn" onclick="alert('お問い合わせページに移動します')">📞 お問い合わせ</button>
+      <button class="menu-btn" onclick="alert('アクセス情報を表示します')">📍 アクセス</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

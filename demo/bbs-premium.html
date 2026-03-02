@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掲示板・コメント デモ - プレミアム | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0e1a;font-family:'Helvetica Neue',Arial,sans-serif;color:#e0e0f0;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+.sidebar{background:#0d0d1a;border-right:1px solid #2a2a3e;padding:16px;}
+.sidebar h4{font-size:0.72rem;color:#555;text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px;}
+.nav-item{padding:7px 10px;border-radius:6px;font-size:0.83rem;cursor:pointer;color:#c0c0d8;display:flex;align-items:center;gap:8px;}
+.nav-item:hover,.nav-item.active{background:#1a1a2e;color:#fff;}
+.nav-badge{background:#ff3b30;color:#fff;border-radius:10px;padding:1px 6px;font-size:0.68rem;margin-left:auto;}
+.main{padding:20px 24px;}
+.main-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.main-header h1{font-size:1.1rem;font-weight:700;}
+.search-bar{background:#12121e;border:1px solid #2a2a3e;border-radius:8px;padding:8px 12px;color:#fff;font-size:0.85rem;outline:none;flex:1;min-width:150px;}
+.search-bar:focus{border-color:#7c6bff;}
+.filter-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.filter-tab{background:#12121e;border:1px solid #2a2a3e;border-radius:20px;padding:5px 12px;font-size:0.78rem;cursor:pointer;color:#8888aa;}
+.filter-tab.active{background:#7c6bff;color:#fff;border-color:#7c6bff;}
+.post{background:#12121e;border:1px solid #2a2a3e;border-radius:10px;padding:14px;margin-bottom:10px;}
+.post-header{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.user-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;}
+.user-meta{flex:1;}
+.user-name{font-size:0.85rem;font-weight:700;}
+.user-badge{border-radius:10px;padding:1px 7px;font-size:0.68rem;font-weight:700;margin-left:6px;}
+.badge-admin{background:#7c6bff;color:#fff;}
+.badge-member{background:#2a2a3e;color:#8888aa;}
+.badge-banned{background:#ff3b30;color:#fff;}
+.post-time{font-size:0.72rem;color:#555;margin-top:2px;}
+.post-text{font-size:0.85rem;line-height:1.7;color:#c0c0d8;margin-bottom:10px;}
+.post-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.action-btn{font-size:0.78rem;color:#555;cursor:pointer;display:flex;align-items:center;gap:4px;border:1px solid #2a2a3e;border-radius:6px;padding:4px 10px;}
+.action-btn:hover{border-color:#7c6bff;color:#7c6bff;}
+.action-btn.danger:hover{border-color:#ff3b30;color:#ff3b30;}
+.mod-tag{background:#ff3b3022;color:#ff3b30;border-radius:6px;padding:2px 8px;font-size:0.72rem;font-weight:700;}
+.admin-panel{background:#12121e;border:1px solid #7c6bff44;border-radius:10px;padding:16px;margin-bottom:14px;}
+.admin-panel h3{font-size:0.88rem;color:#7c6bff;margin-bottom:12px;}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.admin-stat{background:#0a0e1a;border-radius:8px;padding:10px;text-align:center;}
+.admin-stat .num{font-size:1.3rem;font-weight:800;color:#7c6bff;}
+.admin-stat .label{font-size:0.7rem;color:#555;}
+.report-queue{background:#ff3b3011;border:1px solid #ff3b3044;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:0.82rem;display:flex;align-items:center;justify-content:space-between;}
+.handle-btn{background:#ff3b30;color:#fff;border:none;border-radius:6px;padding:4px 12px;font-size:0.78rem;cursor:pointer;}
+@media(max-width:700px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}.admin-stats{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-bbs.html">← サービス詳細に戻る</a></div>
+<div class="layout">
+  <div class="sidebar">
+    <div style="font-size:0.95rem;font-weight:700;color:#7c6bff;margin-bottom:14px;">🛡️ 管理パネル</div>
+    <h4>掲示板</h4>
+    <div class="nav-item active">💬 全投稿</div>
+    <div class="nav-item">🔥 人気スレッド</div>
+    <div class="nav-item">🆕 新着</div>
+    <h4>モデレーション</h4>
+    <div class="nav-item">⚠️ 通報キュー<span class="nav-badge">3</span></div>
+    <div class="nav-item">🚫 非表示投稿</div>
+    <div class="nav-item">👤 ユーザー管理</div>
+    <div class="nav-item">🔒 BAN管理</div>
+    <h4>設定</h4>
+    <div class="nav-item">⚙️ 掲示板設定</div>
+    <div class="nav-item">📧 通知設定</div>
+    <div class="nav-item">📊 アナリティクス</div>
+  </div>
+  <div class="main">
+    <div class="main-header">
+      <h1>💬 コミュニティ掲示板（管理者ビュー）</h1>
+      <input class="search-bar" type="text" placeholder="🔍 投稿・ユーザーを検索...">
+    </div>
+
+    <div class="admin-panel">
+      <h3>📊 モデレーション ダッシュボード</h3>
+      <div class="admin-stats">
+        <div class="admin-stat"><div class="num">247</div><div class="label">総投稿数</div></div>
+        <div class="admin-stat"><div class="num" style="color:#ff3b30;">3</div><div class="label">通報待ち</div></div>
+        <div class="admin-stat"><div class="num" style="color:#f9a825;">5</div><div class="label">非表示中</div></div>
+        <div class="admin-stat"><div class="num" style="color:#28c840;">98%</div><div class="label">安全率</div></div>
+      </div>
+      <div class="report-queue">
+        <span>⚠️ 「匿名ユーザー」の投稿が3件通報されています</span>
+        <button class="handle-btn" onclick="alert('通報キューを開きました')">対応する</button>
+      </div>
+    </div>
+
+    <div class="filter-tabs">
+      <div class="filter-tab active">全て</div>
+      <div class="filter-tab">⚠️ 通報あり</div>
+      <div class="filter-tab">👤 ログイン済み</div>
+      <div class="filter-tab">🚫 BAN済み</div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="user-avatar" style="background:#7c6bff;">田</div>
+        <div class="user-meta">
+          <div class="user-name">田中 美咲<span class="user-badge badge-member">会員</span></div>
+          <div class="post-time">2026年3月4日 14:23 | IP: 192.168.x.x</div>
+        </div>
+      </div>
+      <div class="post-text">先日体験会に参加しました。AI議事録のサービスが素晴らしかったです！導入費用はどのくらいかかりますか？ぜひ詳しく教えてください。</div>
+      <div class="post-actions">
+        <span class="action-btn" onclick="alert('返信しました')">↩️ 返信</span>
+        <span class="action-btn" onclick="alert('投稿を非表示にしました')">🚫 非表示</span>
+        <span class="action-btn danger" onclick="alert('ユーザーをBANしました')">🔒 BAN</span>
+        <span class="action-btn" onclick="alert('投稿を削除しました')">🗑️ 削除</span>
+      </div>
+    </div>
+
+    <div class="post" style="border-color:#ff3b3044;">
+      <div class="post-header">
+        <div class="user-avatar" style="background:#555;">匿</div>
+        <div class="user-meta">
+          <div class="user-name">匿名ユーザー<span class="user-badge badge-member">未認証</span> <span class="mod-tag">⚠️ 通報 x2</span></div>
+          <div class="post-time">2026年3月4日 12:05 | IP: 203.x.x.x</div>
+        </div>
+      </div>
+      <div class="post-text" style="color:#ff9999;">【スパム疑い】他社サービスの宣伝リンクが含まれています。自動フィルターが検知しました。</div>
+      <div class="post-actions">
+        <span class="action-btn" onclick="alert('投稿を承認しました')">✅ 承認</span>
+        <span class="action-btn danger" onclick="alert('投稿を削除し、ユーザーをBANしました')">🔒 BAN＋削除</span>
+        <span class="action-btn" onclick="alert('通報を却下しました')">❌ 通報却下</span>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="user-avatar" style="background:#28c840;">運</div>
+        <div class="user-meta">
+          <div class="user-name">サクラビジネス運営<span class="user-badge badge-admin">管理者</span></div>
+          <div class="post-time">2026年3月4日 10:00</div>
+        </div>
+      </div>
+      <div class="post-text">📢 3月のキャンペーンのお知らせです。新規ご契約のお客様に初月30%OFFを実施中！詳しくはお問い合わせください。</div>
+      <div class="post-actions">
+        <span class="action-btn" onclick="alert('固定投稿に設定しました')">📌 固定</span>
+        <span class="action-btn" onclick="alert('編集モードへ')">✏️ 編集</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

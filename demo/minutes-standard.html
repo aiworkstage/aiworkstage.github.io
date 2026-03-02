@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>議事録自動化 デモ - スタンダード | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f0f0f8;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.container{max-width:900px;margin:24px auto;padding:0 16px;}
+.doc-nav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.doc-nav-item{background:#fff;border:1px solid #ddd;border-radius:20px;padding:6px 14px;font-size:0.8rem;cursor:pointer;color:#555;}
+.doc-nav-item.active{background:#7c6bff;color:#fff;border-color:#7c6bff;}
+.doc{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);overflow:hidden;}
+.doc-header{background:linear-gradient(135deg,#1a1a2e,#2d2b55);color:#fff;padding:28px 32px;}
+.doc-header h1{font-size:1.3rem;font-weight:700;margin-bottom:10px;}
+.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:0.82rem;color:#ccc;}
+.meta-item{display:flex;align-items:center;gap:6px;}
+.badges{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+.badge{border-radius:20px;padding:3px 10px;font-size:0.72rem;font-weight:700;}
+.badge.ai{background:#7c6bff;}
+.badge.done{background:#28c840;}
+.badge.shared{background:#f9a825;color:#333;}
+.doc-body{padding:28px 32px;}
+.summary-box{background:linear-gradient(135deg,#f7f5ff,#ede8ff);border-radius:8px;padding:16px;margin-bottom:24px;}
+.summary-box h3{font-size:0.85rem;color:#7c6bff;font-weight:700;margin-bottom:8px;}
+.summary-box p{font-size:0.85rem;line-height:1.7;color:#444;}
+.section{margin-bottom:24px;}
+.section h2{font-size:0.95rem;font-weight:700;color:#333;border-left:3px solid #7c6bff;padding-left:10px;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+th{background:#f7f7f5;padding:8px 12px;text-align:left;color:#666;font-weight:600;}
+td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top;}
+.action-table td:last-child{font-weight:700;color:#7c6bff;}
+.decision-list{list-style:none;}
+.decision-list li{padding:8px 0;border-bottom:1px dashed #eee;font-size:0.85rem;display:flex;gap:8px;}
+.decision-list li::before{content:"✓";color:#28c840;font-weight:700;}
+.issue-list{list-style:none;}
+.issue-list li{padding:8px 10px;background:#fff9e6;border-radius:6px;font-size:0.82rem;margin-bottom:6px;border-left:3px solid #ffc107;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-minutes.html">← サービス詳細に戻る</a></div>
+<div class="container">
+  <div class="doc-nav">
+    <div class="doc-nav-item active">📄 本日の議事録</div>
+    <div class="doc-nav-item">📁 過去の記録</div>
+    <div class="doc-nav-item">✅ アクションアイテム</div>
+    <div class="doc-nav-item">📊 分析</div>
+  </div>
+  <div class="doc">
+    <div class="doc-header">
+      <h1>📋 週次営業会議 議事録</h1>
+      <div class="meta-grid">
+        <div class="meta-item">📅 2026年3月4日（水）</div>
+        <div class="meta-item">🕐 10:00〜11:30（90分）</div>
+        <div class="meta-item">📍 オンライン（Zoom）</div>
+        <div class="meta-item">👥 参加者: 6名</div>
+      </div>
+      <div class="badges">
+        <span class="badge ai">🤖 AI要約済み</span>
+        <span class="badge done">✓ 承認済み</span>
+        <span class="badge shared">📤 全員に共有済み</span>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="summary-box">
+        <h3>🤖 AI要約（30秒でわかるポイント）</h3>
+        <p>今週の主なトピックは①Q1実績確認、②春季キャンペーン承認、③人員体制変更の3点。売上はQ1目標を達成。4月より春季キャンペーンを開始することが承認された。新規採用については4月上旬に候補者面接を予定。主要アクションは各担当に割当済み。</p>
+      </div>
+
+      <div class="section">
+        <h2>👥 参加者</h2>
+        <table>
+          <thead><tr><th>氏名</th><th>部署</th><th>役割</th><th>出欠</th></tr></thead>
+          <tbody>
+            <tr><td>山田 太郎</td><td>代表</td><td>進行・決裁</td><td>✅</td></tr>
+            <tr><td>鈴木 花子</td><td>営業部長</td><td>発表</td><td>✅</td></tr>
+            <tr><td>佐藤 次郎</td><td>開発部長</td><td>参加</td><td>✅</td></tr>
+            <tr><td>田中 三郎</td><td>財務部長</td><td>参加</td><td>✅</td></tr>
+            <tr><td>加藤 恵子</td><td>マーケティング</td><td>参加</td><td>✅</td></tr>
+            <tr><td>木村 健一</td><td>営業</td><td>参加</td><td>⚠️ 途中退席</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>📋 議題・決定事項</h2>
+        <ul class="decision-list">
+          <li>Q1売上 目標比112%達成を確認。全員で共有</li>
+          <li>春季キャンペーン（4/1〜4/30）を承認。予算¥500,000</li>
+          <li>エンジニア新規採用を承認。4月上旬に面接開始</li>
+          <li>月次レポートのフォーマットをAI自動生成に移行</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>⚠️ 懸案事項</h2>
+        <ul class="issue-list">
+          <li>競合他社Aの値下げ対応策を次回会議までに検討が必要</li>
+          <li>在庫管理システムの更新が3週間遅延中。原因調査中</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>✅ アクションアイテム</h2>
+        <table class="action-table">
+          <thead><tr><th>タスク</th><th>担当者</th><th>期限</th><th>状況</th></tr></thead>
+          <tbody>
+            <tr><td>春季キャンペーン詳細計画書作成</td><td>加藤 恵子</td><td>3/11</td><td>未着手</td></tr>
+            <tr><td>競合価格分析レポート提出</td><td>鈴木 花子</td><td>3/11</td><td>進行中</td></tr>
+            <tr><td>採用媒体選定・掲載依頼</td><td>山田 太郎</td><td>3/8</td><td>未着手</td></tr>
+            <tr><td>在庫システム遅延原因報告</td><td>佐藤 次郎</td><td>3/7</td><td>調査中</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>議事録自動化 デモ - ベーシック | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.doc{max-width:800px;margin:24px auto;background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.1);overflow:hidden;}
+.doc-header{background:#1a1a2e;color:#fff;padding:24px 32px;}
+.doc-header h1{font-size:1.4rem;font-weight:700;margin-bottom:8px;}
+.doc-meta{display:flex;gap:20px;font-size:0.82rem;color:#aaa;flex-wrap:wrap;}
+.doc-meta span{display:flex;align-items:center;gap:4px;}
+.ai-badge{background:#7c6bff;color:#fff;border-radius:20px;padding:2px 10px;font-size:0.72rem;margin-left:8px;}
+.doc-body{padding:32px;}
+.section{margin-bottom:24px;}
+.section h2{font-size:0.95rem;font-weight:700;color:#7c6bff;border-bottom:2px solid #7c6bff22;padding-bottom:6px;margin-bottom:12px;}
+.section p{font-size:0.88rem;line-height:1.8;color:#444;}
+.item-list{list-style:none;}
+.item-list li{padding:6px 0;font-size:0.88rem;border-bottom:1px solid #f0f0f0;display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.item-list li::before{content:"•";color:#7c6bff;font-weight:700;margin-top:1px;}
+.highlight-box{background:#f7f5ff;border-left:3px solid #7c6bff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;}
+.highlight-box p{font-size:0.85rem;color:#444;}
+.ai-note{background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:10px 14px;font-size:0.8rem;color:#856404;margin-bottom:16px;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-minutes.html">← サービス詳細に戻る</a></div>
+<div class="doc">
+  <div class="doc-header">
+    <h1>📝 定例会議 議事録 <span class="ai-badge">🤖 AI自動生成</span></h1>
+    <div class="doc-meta">
+      <span>📅 2026年3月4日（水）</span>
+      <span>🕐 14:00〜15:00</span>
+      <span>📍 第1会議室</span>
+      <span>✍️ 自動文字起こし</span>
+    </div>
+  </div>
+  <div class="doc-body">
+    <div class="ai-note">🤖 この議事録はAIが音声を文字起こしし、自動整形・要約したものです。所要時間：約30秒</div>
+
+    <div class="section">
+      <h2>👥 参加者</h2>
+      <ul class="item-list">
+        <li>山田 太郎（進行）</li>
+        <li>鈴木 花子（営業部）</li>
+        <li>佐藤 次郎（開発部）</li>
+        <li>田中 三郎（財務部）</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📋 議題・内容</h2>
+      <div class="highlight-box">
+        <p><strong>① Q1売上報告</strong><br>鈴木より、Q1の売上は目標比112%達成と報告。特にEC経由の新規顧客獲得が好調。前月比で新規30%増加。</p>
+      </div>
+      <div class="highlight-box">
+        <p><strong>② 新規サービス開発進捗</strong><br>佐藤より開発状況を共有。β版リリースは3月末を予定。テスター募集を来週開始予定。</p>
+      </div>
+      <div class="highlight-box">
+        <p><strong>③ 経費精算システム変更について</strong><br>田中より、4月よりクラウド会計への移行を提案。詳細資料を来週共有予定。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>✅ 決定事項</h2>
+      <ul class="item-list">
+        <li>β版テスター募集を3月11日（水）より開始</li>
+        <li>経費精算システム移行は4月1日より実施</li>
+        <li>次回定例は3月11日（水）14時〜</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📌 次回まで</h2>
+      <ul class="item-list">
+        <li>佐藤：テスター募集告知文を作成・配布</li>
+        <li>田中：クラウド会計移行手順書を共有</li>
+        <li>鈴木：来月のプロモーション計画を提出</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

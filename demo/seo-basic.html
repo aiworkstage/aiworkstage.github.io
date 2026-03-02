@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO診断レポート | 株式会社サクラビジネス</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; }
+.container { max-width:900px; margin:0 auto; padding:40px 20px; }
+.report-header { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:32px; margin-bottom:32px; }
+.report-header h1 { font-size:1.6rem; color:#fff; margin-bottom:8px; }
+.report-header p { color:#888; font-size:0.9rem; }
+.report-meta { display:flex; gap:24px; margin-top:20px; flex-wrap:wrap; }
+.meta-item { background:#0a0e1a; border-radius:8px; padding:12px 20px; }
+.meta-label { color:#888; font-size:0.75rem; margin-bottom:4px; }
+.meta-value { color:#7c6bff; font-weight:700; }
+.score-box { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:32px; margin-bottom:32px; text-align:center; }
+.score-circle { width:120px; height:120px; border-radius:50%; background:conic-gradient(#7c6bff 0% 62%, #2a2a3e 62% 100%); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; position:relative; }
+.score-inner { width:90px; height:90px; background:#12121e; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:900; color:#7c6bff; }
+.score-label { color:#888; font-size:0.9rem; }
+.checks { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:24px; margin-bottom:24px; }
+.checks h2 { color:#fff; font-size:1.1rem; margin-bottom:20px; border-bottom:1px solid #2a2a3e; padding-bottom:12px; }
+.check-item { display:flex; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid #1a1a2e; }
+.check-item:last-child { border-bottom:none; }
+.check-status { flex-shrink:0; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; }
+.ok { background:#1a3a1a; color:#4caf50; }
+.warn { background:#3a2a1a; color:#ff9800; }
+.ng { background:#3a1a1a; color:#f44336; }
+.check-name { flex:1; font-size:0.9rem; color:#c0c0d8; }
+.check-detail { font-size:0.8rem; color:#666; text-align:right; }
+</style>
+</head>
+<body>
+<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-seo.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<div class="container">
+  <div class="report-header">
+    <h1>🔍 SEO診断レポート</h1>
+    <p>株式会社サクラビジネス — sakurabusiness.co.jp</p>
+    <div class="report-meta">
+      <div class="meta-item"><div class="meta-label">診断日</div><div class="meta-value">2024年12月01日</div></div>
+      <div class="meta-item"><div class="meta-label">対象URL</div><div class="meta-value">sakurabusiness.co.jp</div></div>
+      <div class="meta-item"><div class="meta-label">プラン</div><div class="meta-value">ベーシック診断</div></div>
+      <div class="meta-item"><div class="meta-label">担当者</div><div class="meta-value">山田 太郎</div></div>
+    </div>
+  </div>
+  <div class="score-box">
+    <div class="score-circle"><div class="score-inner">62</div></div>
+    <div class="score-label">総合SEOスコア（100点満点）</div>
+    <p style="color:#ff9800;margin-top:12px;font-size:0.9rem;">⚠️ 要改善：いくつかの重要な問題が見つかりました</p>
+  </div>
+  <div class="checks">
+    <h2>✅ メタ情報チェック</h2>
+    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">titleタグ</div><div class="check-detail">設定済・適切な文字数</div></div>
+    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">meta description</div><div class="check-detail">設定済（120文字）</div></div>
+    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">OGP設定</div><div class="check-detail">og:imageが未設定</div></div>
+    <div class="check-item"><div class="check-status ng">✗</div><div class="check-name">canonical設定</div><div class="check-detail">未設定・重複リスクあり</div></div>
+  </div>
+  <div class="checks">
+    <h2>🏗️ 構造チェック</h2>
+    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">H1タグ</div><div class="check-detail">1つ存在・適切</div></div>
+    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">H2〜H6の階層</div><div class="check-detail">一部スキップあり</div></div>
+    <div class="check-item"><div class="check-status ng">✗</div><div class="check-name">構造化データ</div><div class="check-detail">未実装</div></div>
+    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">内部リンク</div><div class="check-detail">適切に設置済</div></div>
+  </div>
+  <div class="checks">
+    <h2>⚡ パフォーマンスチェック</h2>
+    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">モバイルフレンドリー</div><div class="check-detail">対応済</div></div>
+    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">ページ速度（PC）</div><div class="check-detail">LCP 3.2秒（要改善）</div></div>
+    <div class="check-item"><div class="check-status ng">✗</div><div class="check-name">画像最適化</div><div class="check-detail">非圧縮画像が12枚</div></div>
+    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">HTTPS対応</div><div class="check-detail">SSL証明書有効</div></div>
+  </div>
+  <div class="checks">
+    <h2>🔗 被リンクチェック</h2>
+    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">被リンク数</div><div class="check-detail">12件（業界平均以下）</div></div>
+    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">スパムリンク</div><div class="check-detail">検出なし</div></div>
+    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">ドメインオーソリティ</div><div class="check-detail">DA 18（要強化）</div></div>
+  </div>
+</div>
+</body>
+</html>

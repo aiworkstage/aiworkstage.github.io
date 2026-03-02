@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINE公式アカウント デモ - プレミアム | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0e1a;font-family:'Helvetica Neue',Arial,sans-serif;color:#e0e0f0;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.container{max-width:900px;margin:20px auto;padding:0 16px;}
+h1{text-align:center;font-size:1.2rem;color:#7c6bff;padding:16px 0;}
+.dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+.stat-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:16px;text-align:center;}
+.stat-num{font-size:2rem;font-weight:800;color:#7c6bff;}
+.stat-label{font-size:0.78rem;color:#8888aa;margin-top:4px;}
+.stat-change{font-size:0.72rem;color:#28c840;margin-top:2px;}
+.section{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:20px;margin-bottom:16px;}
+.section h3{font-size:0.95rem;color:#7c6bff;margin-bottom:14px;border-bottom:1px solid #2a2a3e;padding-bottom:8px;}
+.segment-list{display:flex;flex-direction:column;gap:8px;}
+.segment-item{display:flex;align-items:center;justify-content:space-between;background:#0a0e1a;border-radius:8px;padding:10px 14px;}
+.segment-tag{background:#7c6bff22;color:#7c6bff;border-radius:20px;padding:2px 10px;font-size:0.78rem;}
+.segment-count{font-size:0.85rem;color:#c0c0d8;}
+.send-btn{background:#00b900;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:0.78rem;cursor:pointer;}
+.flow-steps{display:flex;gap:0;overflow-x:auto;padding-bottom:8px;}
+.flow-step{min-width:120px;background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;padding:12px;text-align:center;font-size:0.78rem;position:relative;margin-right:24px;}
+.flow-step::after{content:'→';position:absolute;right:-18px;top:50%;transform:translateY(-50%);color:#7c6bff;font-size:1rem;}
+.flow-step:last-child::after{display:none;}
+.flow-step .step-icon{font-size:1.4rem;margin-bottom:4px;}
+.bar-chart{display:flex;flex-direction:column;gap:8px;}
+.bar-row{display:flex;align-items:center;gap:10px;font-size:0.8rem;}
+.bar-label{width:80px;color:#8888aa;text-align:right;}
+.bar-track{flex:1;background:#2a2a3e;border-radius:4px;height:20px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-size:0.72rem;color:#fff;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-line.html">← サービス詳細に戻る</a></div>
+<div class="container">
+  <h1>📊 LINE公式アカウント 管理ダッシュボード【プレミアムプラン】</h1>
+  <div style="text-align:center;font-size:0.8rem;color:#8888aa;margin-bottom:16px;">株式会社サクラビジネス | 2026年3月 レポート</div>
+
+  <div class="dashboard-grid">
+    <div class="stat-card">
+      <div class="stat-num">2,847</div>
+      <div class="stat-label">👥 友だち数</div>
+      <div class="stat-change">↑ +128 (今月)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">68%</div>
+      <div class="stat-label">📩 メッセージ開封率</div>
+      <div class="stat-change">↑ +5% vs 先月</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">¥248K</div>
+      <div class="stat-label">💰 LINE経由売上</div>
+      <div class="stat-change">↑ +32% vs 先月</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>🎯 セグメント配信</h3>
+    <div class="segment-list">
+      <div class="segment-item">
+        <div><div class="segment-tag">VIP顧客</div><div style="font-size:0.75rem;color:#8888aa;margin-top:4px;">月5万円以上購入</div></div>
+        <div class="segment-count">148名</div>
+        <button class="send-btn" onclick="alert('VIP向けメッセージを配信しました！')">配信する</button>
+      </div>
+      <div class="segment-item">
+        <div><div class="segment-tag">休眠顧客</div><div style="font-size:0.75rem;color:#8888aa;margin-top:4px;">3ヶ月以上未購入</div></div>
+        <div class="segment-count">392名</div>
+        <button class="send-btn" onclick="alert('再来店クーポンを配信しました！')">配信する</button>
+      </div>
+      <div class="segment-item">
+        <div><div class="segment-tag">新規登録</div><div style="font-size:0.75rem;color:#8888aa;margin-top:4px;">登録7日以内</div></div>
+        <div class="segment-count">76名</div>
+        <button class="send-btn" onclick="alert('ウェルカムキャンペーンを配信しました！')">配信する</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>🛒 購入フロー（シナリオ配信）</h3>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="step-icon">👋</div>友だち追加</div>
+      <div class="flow-step"><div class="step-icon">🎁</div>ウェルカム<br>クーポン</div>
+      <div class="flow-step"><div class="step-icon">📦</div>商品紹介<br>(3日後)</div>
+      <div class="flow-step"><div class="step-icon">⏰</div>リマインダー<br>(7日後)</div>
+      <div class="flow-step"><div class="step-icon">💳</div>購入完了</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>📈 曜日別メッセージ開封率</h3>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">月</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:#7c6bff;">72%</div></div></div>
+      <div class="bar-row"><div class="bar-label">火</div><div class="bar-track"><div class="bar-fill" style="width:68%;background:#7c6bff;">68%</div></div></div>
+      <div class="bar-row"><div class="bar-label">水</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:#00b900;">75%</div></div></div>
+      <div class="bar-row"><div class="bar-label">木</div><div class="bar-track"><div class="bar-fill" style="width:70%;background:#7c6bff;">70%</div></div></div>
+      <div class="bar-row"><div class="bar-label">金</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:#ff6b6b;">82%</div></div></div>
+      <div class="bar-row"><div class="bar-label">土</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:#7c6bff;">65%</div></div></div>
+      <div class="bar-row"><div class="bar-label">日</div><div class="bar-track"><div class="bar-fill" style="width:60%;background:#7c6bff;">60%</div></div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【残り3席】売上革命プログラム | 株式会社サクラビジネス</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#fff; color:#333; }
+.demo-banner { background:#7c6bff; color:#fff; padding:8px; text-align:center; font-size:0.85rem; }
+.demo-banner a { color:#fff; }
+/* Timer bar */
+.timer-bar { background:#1a0a2e; color:#fff; padding:12px 20px; text-align:center; }
+.timer-bar p { font-size:0.9rem; margin-bottom:8px; color:#ffd700; font-weight:700; }
+.timer-digits { display:flex; justify-content:center; gap:12px; }
+.timer-block { background:rgba(255,255,255,0.1); border-radius:8px; padding:10px 16px; text-align:center; }
+.timer-num { font-size:2rem; font-weight:900; color:#ff4d4d; line-height:1; }
+.timer-label { font-size:0.7rem; color:#aaa; }
+.hero { background:linear-gradient(160deg,#0a001a 0%,#1a0a3e 50%,#0a1030 100%); color:#fff; padding:100px 20px 80px; text-align:center; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%,rgba(255,77,0,0.2),transparent 70%); }
+.hero-inner { position:relative; z-index:2; }
+.hero .limited { background:linear-gradient(135deg,#ff4d4d,#ff8c00); color:#fff; padding:8px 20px; border-radius:20px; font-size:0.9rem; font-weight:700; display:inline-block; margin-bottom:24px; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+.hero h1 { font-size:2.5rem; font-weight:900; line-height:1.3; margin-bottom:24px; }
+.hero h1 .gold { color:#ffd700; }
+.hero h1 .big { font-size:3.2rem; }
+.hero-sub { font-size:1rem; color:#ccc; max-width:580px; margin:0 auto 36px; line-height:1.8; }
+.cta-btn { background:linear-gradient(135deg,#ff4d4d,#ff8c00); color:#fff; padding:18px 52px; border-radius:50px; font-size:1.2rem; font-weight:900; display:inline-block; text-decoration:none; box-shadow:0 10px 30px rgba(255,80,0,0.5); animation:glow 2s ease-in-out infinite alternate; }
+@keyframes glow { from{box-shadow:0 8px 20px rgba(255,80,0,0.4)} to{box-shadow:0 12px 40px rgba(255,80,0,0.7)} }
+.remaining { color:#ff8c00; font-weight:700; font-size:1rem; margin-top:16px; }
+/* Video area */
+.video-section { background:#0a0e1a; padding:80px 20px; }
+.video-wrap { max-width:720px; margin:0 auto; }
+.video-placeholder { background:linear-gradient(135deg,#1a1a3e,#2a1a5e); border-radius:16px; aspect-ratio:16/9; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; border:2px solid rgba(124,107,255,0.3); transition:border-color 0.3s; }
+.video-placeholder:hover { border-color:#7c6bff; }
+.play-btn { width:80px; height:80px; background:rgba(124,107,255,0.8); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.5rem; margin-bottom:16px; }
+.video-placeholder p { color:#aaa; font-size:0.9rem; }
+section { padding:80px 20px; }
+.container { max-width:960px; margin:0 auto; }
+h2.sec-title { text-align:center; font-size:1.8rem; margin-bottom:12px; }
+.sec-sub { text-align:center; color:#888; margin-bottom:48px; font-size:0.95rem; }
+/* Steps */
+.steps { max-width:700px; margin:0 auto; }
+.step { display:flex; gap:20px; margin-bottom:32px; align-items:flex-start; }
+.step-num { flex-shrink:0; width:48px; height:48px; background:linear-gradient(135deg,#7c6bff,#a78bfa); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:1.2rem; }
+.step-content h3 { color:#1a0a2e; font-size:1.05rem; margin-bottom:8px; }
+.step-content p { color:#555; font-size:0.9rem; line-height:1.6; }
+/* Popup-style CTA (sticky) */
+.sticky-cta { position:fixed; bottom:0; left:0; right:0; background:linear-gradient(135deg,#ff4d4d,#ff8c00); color:#fff; padding:16px 20px; text-align:center; z-index:1000; transform:translateY(100%); transition:transform 0.4s; }
+.sticky-cta.show { transform:translateY(0); }
+.sticky-cta p { font-size:0.9rem; margin-bottom:8px; }
+.sticky-cta a { background:#fff; color:#ff4d4d; padding:10px 32px; border-radius:50px; font-weight:900; text-decoration:none; font-size:0.95rem; display:inline-block; }
+/* Testimonials */
+.test-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media(max-width:768px){ .test-grid { grid-template-columns:1fr; } .hero h1 { font-size:1.8rem; } .hero h1 .big { font-size:2.2rem; } }
+.test-card { background:#f8f4ff; border-radius:16px; padding:24px; border-left:4px solid #7c6bff; }
+.test-stars { color:#ffc800; margin-bottom:8px; }
+.test-text { color:#444; font-size:0.88rem; line-height:1.7; margin-bottom:12px; }
+.test-name { font-weight:700; font-size:0.88rem; }
+.test-company { color:#888; font-size:0.8rem; }
+/* Price */
+.price-box { max-width:480px; margin:0 auto; background:linear-gradient(135deg,#f8f4ff,#fff); border:3px solid #7c6bff; border-radius:20px; padding:40px; text-align:center; }
+.price-cross { font-size:1.3rem; color:#aaa; text-decoration:line-through; }
+.price-main { font-size:3.5rem; font-weight:900; color:#7c6bff; margin:8px 0; }
+.price-note { color:#888; font-size:0.85rem; }
+.price-features { list-style:none; margin:24px 0; text-align:left; }
+.price-features li { padding:8px 0; border-bottom:1px solid #e8e0ff; font-size:0.9rem; }
+.price-features li::before { content:'✅ '; }
+footer { background:#0d0d1a; color:#666; text-align:center; padding:32px 20px 80px; font-size:0.8rem; }
+footer a { color:#7c6bff; }
+</style>
+</head>
+<body>
+<div class="demo-banner">🎨 これはデモサイトです | <a href="../service-lp.html">← サービス詳細に戻る</a></div>
+<div class="timer-bar">
+  <p>🔥 キャンペーン終了まで残り</p>
+  <div class="timer-digits">
+    <div class="timer-block"><div class="timer-num" id="hours">23</div><div class="timer-label">時間</div></div>
+    <div class="timer-block"><div class="timer-num" id="mins">59</div><div class="timer-label">分</div></div>
+    <div class="timer-block"><div class="timer-num" id="secs">59</div><div class="timer-label">秒</div></div>
+  </div>
+</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="limited">🔥 残り3席限定</div>
+    <h1>たった<span class="big"><span class="gold">90日</span>で</span><br>売上が変わる経営革命</h1>
+    <p class="hero-sub">500社が証明したAI経営支援プログラム。業界最高水準のサポートで、あなたのビジネスを次のステージへ引き上げます。</p>
+    <a href="#price" class="cta-btn">今すぐ無料相談する（残3席）</a>
+    <div class="remaining">⚠️ 今月の無料相談枠：残り3名</div>
+  </div>
+</div>
+<section class="video-section">
+  <div class="video-wrap">
+    <h2 class="sec-title" style="color:#fff;margin-bottom:24px;">📹 代表からのメッセージ</h2>
+    <div class="video-placeholder" onclick="this.innerHTML='<p style=\'color:#aaa;font-size:1rem;\'>▶ 動画再生中（デモ）</p>'">
+      <div class="play-btn">▶</div>
+      <p>▶ 動画を再生する（3分）</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <h2 class="sec-title">📋 3ステップで成果を実現</h2>
+    <p class="sec-sub">複雑なことは一切なし。プロが全部サポートします。</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>無料相談（30分）</h3>
+          <p>現状の課題をヒアリング。最適なプランと期待できる成果をご提案します。費用は一切かかりません。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>カスタマイズ戦略立案</h3>
+          <p>あなたの業種・規模・課題に合わせた完全オーダーメイドの経営改善プランを作成します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>実行・改善サイクル</h3>
+          <p>月次レポートと定期ミーティングで常に最適化。90日で確実な成果をお届けします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="background:#f8f4ff;">
+  <div class="container">
+    <h2 class="sec-title">💬 お客様の声</h2>
+    <p class="sec-sub">導入企業500社の生の声をご紹介</p>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">「3ヶ月で売上が2.8倍！AIで業務が半分になり、空いた時間で新事業を立ち上げられました。」</div>
+        <div class="test-name">田中 誠一</div><div class="test-company">株式会社タナカフーズ 代表</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">「採用も経費も削らず利益率が15%改善。経営が見える化されて判断が早くなりました。」</div>
+        <div class="test-name">鈴木 美咲</div><div class="test-company">ミサキ美容クリニック 院長</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">「補助金申請からSEO対策まで全部お任せ。6ヶ月で月商300万円アップを達成できました。」</div>
+        <div class="test-name">佐々木 浩二</div><div class="test-company">ホウジサービス株式会社 社長</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="price">
+  <div class="container">
+    <h2 class="sec-title">💰 料金プラン</h2>
+    <p class="sec-sub">今なら初月50%OFF！この機会をお見逃しなく</p>
+    <div class="price-box">
+      <div class="price-cross">通常 ¥198,000/月</div>
+      <div class="price-main">¥99,000<span style="font-size:1rem;color:#888;">/月</span></div>
+      <div class="price-note">※ 初月限定50%OFF・2ヶ月目以降は通常料金</div>
+      <ul class="price-features">
+        <li>専任コンサルタント対応</li>
+        <li>月次経営レポート提供</li>
+        <li>AIツール導入・研修</li>
+        <li>Webマーケティング施策</li>
+        <li>補助金申請サポート</li>
+        <li>24時間チャットサポート</li>
+      </ul>
+      <a href="#" class="cta-btn" style="display:block;text-align:center;font-size:1rem;">今すぐ申し込む（残3席）</a>
+    </div>
+  </div>
+</section>
+<footer>© 2024 株式会社サクラビジネス | <a href="#">プライバシーポリシー</a> | <a href="#">特定商取引法</a><br>※成果には個人差があります。記載の実績は典型的な成果を示すものではありません。</footer>
+<div class="sticky-cta" id="stickyCta">
+  <p>🔥 キャンペーン終了まであとわずか！残り3席</p>
+  <a href="#price">今すぐ申し込む</a>
+</div>
+<script>
+// Timer countdown
+function updateTimer(){
+  const now=new Date();
+  const end=new Date(now);
+  end.setHours(23,59,59,0);
+  let diff=Math.floor((end-now)/1000);
+  if(diff<0)diff=0;
+  const h=Math.floor(diff/3600);
+  const m=Math.floor((diff%3600)/60);
+  const s=diff%60;
+  document.getElementById('hours').textContent=String(h).padStart(2,'0');
+  document.getElementById('mins').textContent=String(m).padStart(2,'0');
+  document.getElementById('secs').textContent=String(s).padStart(2,'0');
+}
+setInterval(updateTimer,1000);
+updateTimer();
+// Sticky CTA show after scroll
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>400) document.getElementById('stickyCta').classList.add('show');
+  else document.getElementById('stickyCta').classList.remove('show');
+});
+</script>
+</body>
+</html>

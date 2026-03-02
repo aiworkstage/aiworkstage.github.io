@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>既存HP診断 デモ - スタンダード | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f0f4f8;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.container{max-width:900px;margin:24px auto;padding:0 16px;}
+.report-header{background:linear-gradient(135deg,#1a1a2e,#2d2b55);color:#fff;border-radius:12px;padding:28px 32px;margin-bottom:16px;}
+.report-header h1{font-size:1.3rem;font-weight:700;margin-bottom:6px;}
+.score-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;}
+.score-card{background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.score-card .cat{font-size:0.72rem;color:#888;margin-bottom:6px;}
+.score-card .val{font-size:1.5rem;font-weight:800;}
+.score-card .bar{height:4px;border-radius:2px;margin-top:6px;}
+.good{color:#28c840;} .warn{color:#f9a825;} .bad{color:#ff3b30;}
+.bar-good{background:#28c840;} .bar-warn{background:#f9a825;} .bar-bad{background:#ff3b30;}
+.card{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.card h3{font-size:0.92rem;font-weight:700;margin-bottom:14px;border-left:3px solid #7c6bff;padding-left:10px;}
+.issue-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;}
+.issue-item:last-child{border-bottom:none;}
+.issue-sev{width:8px;border-radius:4px;flex-shrink:0;align-self:stretch;min-height:20px;}
+.sev-high{background:#ff3b30;} .sev-mid{background:#f9a825;} .sev-low{background:#28c840;}
+.issue-info h4{font-size:0.85rem;font-weight:700;margin-bottom:4px;}
+.issue-info p{font-size:0.78rem;color:#888;line-height:1.5;}
+.improvement{background:#f7f5ff;border-radius:8px;padding:12px 14px;margin-top:6px;font-size:0.8rem;color:#555;}
+.improvement::before{content:'💡 改善案: ';font-weight:700;color:#7c6bff;}
+.action-plan{list-style:none;}
+.action-plan li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start;font-size:0.85rem;}
+.action-plan li .step{background:#7c6bff;color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0;}
+@media(max-width:600px){.score-grid{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-hp-check.html">← サービス詳細に戻る</a></div>
+<div class="container">
+  <div class="report-header">
+    <h1>🔍 ウェブサイト詳細診断レポート</h1>
+    <p style="color:#aaa;font-size:0.85rem;">株式会社サクラビジネス様 | 診断日: 2026年3月4日 | スタンダードプラン</p>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:14px;">
+      <div style="font-size:3rem;font-weight:800;color:#f9a825;">52</div>
+      <div>
+        <div style="font-size:0.85rem;color:#ccc;">総合スコア / 100点</div>
+        <div style="font-size:0.8rem;color:#f9a825;font-weight:700;">⚠️ 要改善 — 業界平均: 68点</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="score-grid">
+    <div class="score-card"><div class="cat">表示速度</div><div class="val warn">58</div><div class="bar bar-warn" style="width:58%"></div></div>
+    <div class="score-card"><div class="cat">モバイル</div><div class="val bad">35</div><div class="bar bar-bad" style="width:35%"></div></div>
+    <div class="score-card"><div class="cat">SEO</div><div class="val warn">62</div><div class="bar bar-warn" style="width:62%"></div></div>
+    <div class="score-card"><div class="cat">セキュリティ</div><div class="val good">80</div><div class="bar bar-good" style="width:80%"></div></div>
+    <div class="score-card"><div class="cat">UX/UI</div><div class="val bad">45</div><div class="bar bar-bad" style="width:45%"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>🚨 重要な問題点（優先順）</h3>
+    <div class="issue-item">
+      <div class="issue-sev sev-high"></div>
+      <div class="issue-info">
+        <h4>スマートフォン表示の崩れ（高）</h4>
+        <p>トップページ・サービスページ・お問い合わせページで表示崩れを確認。スマホユーザーの約60%が離脱している可能性があります。</p>
+        <div class="improvement">レスポンシブCSSを追加し、モバイルファーストで再設計することを推奨します。</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-sev sev-high"></div>
+      <div class="issue-info">
+        <h4>ページ読み込み速度（高）</h4>
+        <p>平均4.2秒（目標3秒以内）。未圧縮画像（合計8.2MB）が主な原因。Core Web VitalsがNG判定。</p>
+        <div class="improvement">WebP変換・遅延読み込み・CDN導入により2秒以内が達成可能です。</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-sev sev-mid"></div>
+      <div class="issue-info">
+        <h4>SEO基本設定の不備（中）</h4>
+        <p>4ページでmeta descriptionが未設定。h1タグの重複2件、alt属性の欠落14件。</p>
+        <div class="improvement">各ページに固有のmeta descriptionを設定し、画像にalt属性を追加してください。</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-sev sev-mid"></div>
+      <div class="issue-info">
+        <h4>問い合わせフォームの不備（中）</h4>
+        <p>確認画面・完了画面が未実装。reCAPTCHA未設定のためスパムリスクがあります。</p>
+        <div class="improvement">フォームを再構築し、自動返信メール・reCAPTCHA v3を実装します。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📋 改善ロードマップ（優先順）</h3>
+    <ul class="action-plan">
+      <li><div class="step">1</div><div><strong>即日対応：</strong>画像圧縮・WebP変換（速度改善、コスト低・効果大）</div></li>
+      <li><div class="step">2</div><div><strong>1週間以内：</strong>モバイル対応CSSの修正・レスポンシブ対応</div></li>
+      <li><div class="step">3</div><div><strong>2週間以内：</strong>SEOメタ情報の整備・alt属性追加</div></li>
+      <li><div class="step">4</div><div><strong>1ヶ月以内：</strong>フォーム再構築・自動返信設定・スパム対策</div></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

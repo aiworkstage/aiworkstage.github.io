@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掲示板・コメント デモ - スタンダード | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f0f4f8;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.container{max-width:760px;margin:24px auto;padding:0 16px;}
+h1{font-size:1.2rem;font-weight:700;margin-bottom:4px;}
+.sub{font-size:0.85rem;color:#888;margin-bottom:16px;}
+.thread-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.thread-tab{background:#fff;border:1px solid #ddd;border-radius:20px;padding:6px 14px;font-size:0.82rem;cursor:pointer;color:#555;}
+.thread-tab.active{background:#7c6bff;color:#fff;border-color:#7c6bff;}
+.thread{background:#fff;border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.thread-header{padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:flex-start;cursor:pointer;}
+.thread-header:hover{background:#fafafa;}
+.thread-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:0.9rem;flex-shrink:0;}
+.thread-meta{flex:1;}
+.thread-title{font-size:0.92rem;font-weight:700;margin-bottom:3px;}
+.thread-preview{font-size:0.8rem;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.thread-stats{display:flex;gap:10px;font-size:0.75rem;color:#aaa;margin-top:4px;align-items:center;}
+.reply-count{background:#f0f0f0;border-radius:10px;padding:2px 8px;color:#555;}
+.like-btn{cursor:pointer;display:flex;align-items:center;gap:3px;}
+.like-btn:hover{color:#ff6b9d;}
+.thread-body{padding:0;}
+.comment{padding:12px 16px;border-bottom:1px solid #f8f8f8;display:flex;gap:10px;}
+.comment:last-child{border-bottom:none;}
+.comment-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#fff;flex-shrink:0;}
+.comment-body{flex:1;}
+.comment-author{font-size:0.82rem;font-weight:700;color:#333;}
+.comment-time{font-size:0.72rem;color:#aaa;margin-left:6px;}
+.comment-text{font-size:0.85rem;color:#555;line-height:1.6;margin-top:3px;}
+.comment-actions{display:flex;gap:12px;margin-top:6px;}
+.action-btn{font-size:0.75rem;color:#aaa;cursor:pointer;display:flex;align-items:center;gap:3px;}
+.action-btn:hover{color:#7c6bff;}
+.reply-form{padding:12px 16px;background:#f8f9ff;border-top:1px solid #eee;display:flex;gap:8px;}
+.reply-form input{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 14px;font-size:0.85rem;outline:none;}
+.reply-form input:focus{border-color:#7c6bff;}
+.reply-form button{background:#7c6bff;color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-bbs.html">← サービス詳細に戻る</a></div>
+<div class="container">
+  <h1>💬 コミュニティ掲示板</h1>
+  <div class="sub">株式会社サクラビジネス | スタンダードプラン デモ</div>
+  <div class="thread-tabs">
+    <div class="thread-tab active">🔥 人気</div>
+    <div class="thread-tab">🆕 新着</div>
+    <div class="thread-tab">📢 お知らせ</div>
+    <div class="thread-tab">❓ 質問</div>
+  </div>
+
+  <div class="thread" id="thread1">
+    <div class="thread-header" onclick="toggleThread('thread1')">
+      <div class="thread-avatar" style="background:#7c6bff;">田</div>
+      <div class="thread-meta">
+        <div class="thread-title">📢 新サービス「AI議事録」についての質問です</div>
+        <div class="thread-preview">先日体験会に参加しました。Zoom録音から自動で要約してくれて...</div>
+        <div class="thread-stats">
+          <span class="reply-count">💬 3件</span>
+          <span class="like-btn" onclick="like(this,event)">❤️ <span>12</span></span>
+          <span>田中 美咲 · 3時間前</span>
+        </div>
+      </div>
+    </div>
+    <div class="thread-body" id="thread1-body" style="display:none;">
+      <div class="comment">
+        <div class="comment-avatar" style="background:#7c6bff;">田</div>
+        <div class="comment-body">
+          <div><span class="comment-author">田中 美咲</span><span class="comment-time">3時間前</span></div>
+          <div class="comment-text">先日体験会に参加しました。Zoom録音から自動で要約してくれて感動しました！導入費用はどのくらいかかりますか？</div>
+          <div class="comment-actions">
+            <span class="action-btn" onclick="like(this,event)">❤️ <span>5</span></span>
+            <span class="action-btn">↩️ 返信</span>
+          </div>
+        </div>
+      </div>
+      <div class="comment" style="margin-left:32px;background:#fafafa;">
+        <div class="comment-avatar" style="background:#28c840;">公</div>
+        <div class="comment-body">
+          <div><span class="comment-author">運営 サクラビジネス</span><span class="comment-time">2時間前</span></div>
+          <div class="comment-text">ご質問ありがとうございます！料金はプランにより異なりますが、ベーシックプランは月額¥5,000〜となっております。詳細はお気軽にDMください😊</div>
+          <div class="comment-actions">
+            <span class="action-btn" onclick="like(this,event)">❤️ <span>8</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="comment">
+        <div class="comment-avatar" style="background:#f9a825;">鈴</div>
+        <div class="comment-body">
+          <div><span class="comment-author">鈴木 健二</span><span class="comment-time">1時間前</span></div>
+          <div class="comment-text">私も使っています！特に英語会議の日本語翻訳＋要約が神機能でした✨</div>
+          <div class="comment-actions">
+            <span class="action-btn" onclick="like(this,event)">❤️ <span>3</span></span>
+            <span class="action-btn">↩️ 返信</span>
+          </div>
+        </div>
+      </div>
+      <div class="reply-form">
+        <input type="text" placeholder="返信を入力..." id="reply1">
+        <button onclick="postReply('thread1','reply1')">送信</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="thread" id="thread2">
+    <div class="thread-header" onclick="toggleThread('thread2')">
+      <div class="thread-avatar" style="background:#ff6b9d;">佐</div>
+      <div class="thread-meta">
+        <div class="thread-title">✨ Notion導入してみました！Before/After報告</div>
+        <div class="thread-preview">2週間前に構築をお願いして、今日で2週間経ちます。結論から言うと...</div>
+        <div class="thread-stats">
+          <span class="reply-count">💬 1件</span>
+          <span class="like-btn" onclick="like(this,event)">❤️ <span>24</span></span>
+          <span>佐藤 次郎 · 昨日</span>
+        </div>
+      </div>
+    </div>
+    <div class="thread-body" id="thread2-body" style="display:none;">
+      <div class="comment">
+        <div class="comment-avatar" style="background:#ff6b9d;">佐</div>
+        <div class="comment-body">
+          <div><span class="comment-author">佐藤 次郎</span><span class="comment-time">昨日</span></div>
+          <div class="comment-text">2週間前に構築をお願いして、今日で2週間経ちます。結論から言うと、毎週3時間かかっていた週次報告が30分になりました！チーム全員が使いこなせています。</div>
+          <div class="comment-actions">
+            <span class="action-btn" onclick="like(this,event)">❤️ <span>10</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="reply-form">
+        <input type="text" placeholder="返信を入力..." id="reply2">
+        <button onclick="postReply('thread2','reply2')">送信</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function toggleThread(id) {
+  const body = document.getElementById(id + '-body');
+  body.style.display = body.style.display === 'none' ? 'block' : 'none';
+}
+function like(el, e) {
+  e.stopPropagation();
+  const span = el.querySelector('span');
+  span.textContent = parseInt(span.textContent) + 1;
+  el.style.color = '#ff6b9d';
+}
+function postReply(threadId, inputId) {
+  const input = document.getElementById(inputId);
+  const text = input.value.trim();
+  if (!text) return;
+  const comment = document.createElement('div');
+  comment.className = 'comment';
+  comment.innerHTML = `
+    <div class="comment-avatar" style="background:#7c6bff;">あ</div>
+    <div class="comment-body">
+      <div><span class="comment-author">あなた</span><span class="comment-time">たった今</span></div>
+      <div class="comment-text">${text}</div>
+      <div class="comment-actions"><span class="action-btn" onclick="like(this,event)">❤️ <span>0</span></span></div>
+    </div>`;
+  const body = document.getElementById(threadId + '-body');
+  body.insertBefore(comment, body.lastElementChild);
+  input.value = '';
+}
+</script>
+</body>
+</html>

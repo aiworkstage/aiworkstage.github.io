@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>既存HP診断 デモ - ベーシック | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f0f4f8;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
+.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.banner a{color:#fff;}
+.container{max-width:800px;margin:24px auto;padding:0 16px;}
+.report-header{background:#1a1a2e;color:#fff;border-radius:12px 12px 0 0;padding:28px 32px;}
+.report-header h1{font-size:1.3rem;font-weight:700;margin-bottom:8px;}
+.report-header p{font-size:0.85rem;color:#aaa;}
+.score-circle-wrap{display:flex;justify-content:center;padding:28px;background:#fff;border-bottom:1px solid #eee;}
+.score-circle{width:120px;height:120px;border-radius:50%;background:conic-gradient(#f9a825 0% 52%,#eee 52%);display:flex;align-items:center;justify-content:center;position:relative;}
+.score-inner{width:90px;height:90px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-num{font-size:1.8rem;font-weight:800;color:#f9a825;}
+.score-label{font-size:0.65rem;color:#888;}
+.checks{background:#fff;border-radius:0 0 12px 12px;padding:24px 32px;}
+.check-item{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #f0f0f0;}
+.check-item:last-child{border-bottom:none;}
+.check-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.check-icon.ok{background:#d4ffd4;}
+.check-icon.warn{background:#fff0d4;}
+.check-icon.fail{background:#ffe0e0;}
+.check-info h3{font-size:0.9rem;font-weight:700;margin-bottom:4px;}
+.check-info p{font-size:0.8rem;color:#888;line-height:1.5;}
+.check-badge{margin-left:auto;border-radius:20px;padding:4px 12px;font-size:0.75rem;font-weight:700;flex-shrink:0;}
+.badge-ok{background:#d4ffd4;color:#0a7a0a;}
+.badge-warn{background:#fff0d4;color:#c77700;}
+.badge-fail{background:#ffe0e0;color:#cc0000;}
+.summary{background:#f7f5ff;border:1px solid #7c6bff22;border-radius:8px;padding:16px;margin-top:20px;}
+.summary h3{font-size:0.88rem;color:#7c6bff;margin-bottom:8px;}
+.summary p{font-size:0.82rem;color:#555;line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="banner">🎨 これはデモサイトです | <a href="../service-hp-check.html">← サービス詳細に戻る</a></div>
+<div class="container">
+  <div class="report-header">
+    <h1>🔍 ウェブサイト基本診断レポート</h1>
+    <p>株式会社サクラビジネス様 | 診断日: 2026年3月4日 | ベーシックプラン</p>
+  </div>
+  <div class="score-circle-wrap">
+    <div>
+      <div style="text-align:center;margin-bottom:12px;font-size:0.85rem;color:#888;">総合スコア</div>
+      <div class="score-circle">
+        <div class="score-inner">
+          <div class="score-num">52</div>
+          <div class="score-label">/ 100点</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:8px;font-size:0.8rem;color:#f9a825;font-weight:700;">要改善</div>
+    </div>
+  </div>
+  <div class="checks">
+    <div class="check-item">
+      <div class="check-icon ok">✓</div>
+      <div class="check-info">
+        <h3>SSL証明書（HTTPS）</h3>
+        <p>セキュリティ証明書が正しく設定されています。安全な通信が確認できます。</p>
+      </div>
+      <span class="check-badge badge-ok">OK</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon warn">⚠</div>
+      <div class="check-info">
+        <h3>表示速度</h3>
+        <p>ページ読み込みに4.2秒かかっています。目標は3秒以内。画像の最適化が必要です。</p>
+      </div>
+      <span class="check-badge badge-warn">要改善</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon fail">✗</div>
+      <div class="check-info">
+        <h3>スマホ対応（レスポンシブ）</h3>
+        <p>スマートフォンでの表示崩れが複数箇所で確認されました。モバイル最適化が必要です。</p>
+      </div>
+      <span class="check-badge badge-fail">NG</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon warn">⚠</div>
+      <div class="check-info">
+        <h3>SEO基本設定</h3>
+        <p>メタディスクリプションが一部ページで未設定。titleタグの重複あり。</p>
+      </div>
+      <span class="check-badge badge-warn">要改善</span>
+    </div>
+    <div class="check-item">
+      <div class="check-icon fail">✗</div>
+      <div class="check-info">
+        <h3>問い合わせフォーム</h3>
+        <p>フォームの送信後に確認画面がありません。スパム対策も未実施です。</p>
+      </div>
+      <span class="check-badge badge-fail">NG</span>
+    </div>
+    <div class="summary">
+      <h3>📋 診断まとめ</h3>
+      <p>主な問題点はスマホ対応の不備と問い合わせフォームの不備です。これらを改善するだけで、問い合わせ件数が大幅に増加する可能性があります。スタンダードプラン以上では詳細な改善提案書を提供いたします。</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

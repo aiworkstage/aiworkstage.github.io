@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIエージェント管理ダッシュボード | 株式会社サクラビジネス</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; min-height:100vh; }
+.top-bar { background:#12121e; border-bottom:1px solid #2a2a3e; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
+.top-bar h1 { font-size:1rem; color:#fff; }
+.top-bar .status { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#4caf50; }
+.top-bar .status::before { content:''; width:8px; height:8px; background:#4caf50; border-radius:50%; display:inline-block; }
+.layout { display:grid; grid-template-columns:200px 1fr; min-height:calc(100vh - 100px); }
+@media(max-width:768px){ .layout { grid-template-columns:1fr; } .sidebar-nav { display:none; } }
+.sidebar-nav { background:#0d0d20; border-right:1px solid #2a2a3e; padding:20px 0; }
+.nav-item { padding:12px 20px; display:flex; align-items:center; gap:10px; color:#888; font-size:0.88rem; cursor:pointer; transition:background 0.2s; }
+.nav-item:hover { background:#1a1a3e; color:#fff; }
+.nav-item.active { background:rgba(124,107,255,0.15); color:#a78bfa; border-right:3px solid #7c6bff; }
+.nav-item .icon { font-size:1rem; }
+.main { padding:24px; overflow:auto; }
+/* KPI cards */
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+@media(max-width:900px){ .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+.kpi-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
+.kpi-label { color:#888; font-size:0.78rem; margin-bottom:8px; }
+.kpi-value { font-size:1.8rem; font-weight:900; color:#fff; }
+.kpi-change { font-size:0.78rem; margin-top:6px; }
+.up { color:#4caf50; } .down { color:#f44336; }
+/* Charts */
+.charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+@media(max-width:700px){ .charts-grid { grid-template-columns:1fr; } }
+.chart-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
+.chart-card h3 { color:#fff; font-size:0.9rem; margin-bottom:16px; }
+.mini-bar-wrap { display:flex; align-items:flex-end; gap:6px; height:100px; }
+.mini-bar { flex:1; border-radius:4px 4px 0 0; background:linear-gradient(0deg,#7c6bff,#a78bfa); position:relative; }
+.mini-bar::after { content:attr(data-label); position:absolute; bottom:-18px; left:50%; transform:translateX(-50%); font-size:0.65rem; color:#666; white-space:nowrap; }
+.donut-wrap { position:relative; width:100px; height:100px; margin:0 auto; }
+.donut { width:100%; height:100%; border-radius:50%; background:conic-gradient(#7c6bff 0% 94%, #2a2a3e 94% 100%); }
+.donut-inner { position:absolute; inset:15%; background:#12121e; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+.donut-num { font-size:1.2rem; font-weight:900; color:#7c6bff; }
+.donut-sub { font-size:0.65rem; color:#888; }
+/* Conversation history */
+.history-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; margin-bottom:16px; }
+.history-card h3 { color:#fff; font-size:0.9rem; margin-bottom:16px; }
+.conv-item { display:flex; justify-content:space-between; align-items:flex-start; padding:12px 0; border-bottom:1px solid #1a1a2e; }
+.conv-item:last-child { border-bottom:none; }
+.conv-meta { display:flex; gap:10px; align-items:center; }
+.conv-avatar { width:32px; height:32px; background:linear-gradient(135deg,#2a2a5e,#3a3a7e); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.9rem; }
+.conv-user { color:#fff; font-size:0.85rem; font-weight:700; }
+.conv-preview { color:#888; font-size:0.8rem; margin-top:2px; }
+.conv-status { font-size:0.75rem; padding:3px 10px; border-radius:10px; }
+.status-resolved { background:#1a3a1a; color:#4caf50; }
+.status-pending { background:#3a2a1a; color:#ff9800; }
+/* Settings panel */
+.settings-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
+.settings-card h3 { color:#fff; font-size:0.9rem; margin-bottom:16px; }
+.setting-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #1a1a2e; }
+.setting-row:last-child { border-bottom:none; }
+.setting-label { color:#c0c0d8; font-size:0.88rem; }
+.setting-desc { color:#666; font-size:0.78rem; margin-top:2px; }
+.toggle { width:44px; height:24px; background:#2a2a3e; border-radius:12px; position:relative; cursor:pointer; transition:background 0.3s; }
+.toggle.on { background:#7c6bff; }
+.toggle::after { content:''; position:absolute; top:3px; left:3px; width:18px; height:18px; background:#fff; border-radius:50%; transition:left 0.3s; }
+.toggle.on::after { left:23px; }
+</style>
+</head>
+<body>
+<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;position:relative;z-index:100;">🎨 これはデモサイトです | <a href="../service-ai-agent.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<div class="top-bar">
+  <h1>🤖 AIエージェント 管理ダッシュボード — 株式会社サクラビジネス</h1>
+  <div class="status">AIエージェント稼働中</div>
+</div>
+<div class="layout">
+  <nav class="sidebar-nav">
+    <div class="nav-item active"><span class="icon">📊</span>ダッシュボード</div>
+    <div class="nav-item"><span class="icon">💬</span>会話履歴</div>
+    <div class="nav-item"><span class="icon">📈</span>分析</div>
+    <div class="nav-item"><span class="icon">⚙️</span>設定</div>
+    <div class="nav-item"><span class="icon">📝</span>FAQデータ</div>
+    <div class="nav-item"><span class="icon">🔔</span>通知設定</div>
+  </nav>
+  <main class="main">
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-label">📞 本日の対応数</div><div class="kpi-value">247</div><div class="kpi-change up">↑ +38 昨日比</div></div>
+      <div class="kpi-card"><div class="kpi-label">✅ AI解決率</div><div class="kpi-value">94.2%</div><div class="kpi-change up">↑ +1.8%</div></div>
+      <div class="kpi-card"><div class="kpi-label">⚡ 平均応答速度</div><div class="kpi-value">0.8秒</div><div class="kpi-change up">↑ 改善</div></div>
+      <div class="kpi-card"><div class="kpi-label">🔄 エスカレーション</div><div class="kpi-value">14</div><div class="kpi-change down">↑ +3 昨日比</div></div>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📊 時間帯別対応数</h3>
+        <div class="mini-bar-wrap">
+          <div class="mini-bar" style="height:30%" data-label="9時"></div>
+          <div class="mini-bar" style="height:55%" data-label="10時"></div>
+          <div class="mini-bar" style="height:80%" data-label="11時"></div>
+          <div class="mini-bar" style="height:95%" data-label="12時"></div>
+          <div class="mini-bar" style="height:70%" data-label="13時"></div>
+          <div class="mini-bar" style="height:85%" data-label="14時"></div>
+          <div class="mini-bar" style="height:100%" data-label="15時"></div>
+          <div class="mini-bar" style="height:60%" data-label="16時"></div>
+          <div class="mini-bar" style="height:40%" data-label="17時"></div>
+        </div>
+        <div style="margin-top:24px;"></div>
+      </div>
+      <div class="chart-card" style="text-align:center;">
+        <h3>🎯 解決率</h3>
+        <div class="donut-wrap">
+          <div class="donut"></div>
+          <div class="donut-inner"><div class="donut-num">94%</div><div class="donut-sub">解決率</div></div>
+        </div>
+        <div style="margin-top:20px;display:flex;justify-content:center;gap:20px;font-size:0.8rem;">
+          <div><span style="color:#7c6bff;">■</span> AI解決 94%</div>
+          <div><span style="color:#2a2a3e;">■</span> 人対応 6%</div>
+        </div>
+      </div>
+    </div>
+    <div class="history-card">
+      <h3>💬 最近の会話履歴</h3>
+      <div class="conv-item">
+        <div class="conv-meta">
+          <div class="conv-avatar">👤</div>
+          <div>
+            <div class="conv-user">山田 太郎</div>
+            <div class="conv-preview">「料金プランについて教えてください」</div>
+          </div>
+        </div>
+        <div><div class="conv-status status-resolved">解決済</div><div style="color:#666;font-size:0.75rem;margin-top:4px;">14:32</div></div>
+      </div>
+      <div class="conv-item">
+        <div class="conv-meta">
+          <div class="conv-avatar">👤</div>
+          <div>
+            <div class="conv-user">佐藤 花子</div>
+            <div class="conv-preview">「無料相談の予約をしたいのですが」</div>
+          </div>
+        </div>
+        <div><div class="conv-status status-resolved">解決済</div><div style="color:#666;font-size:0.75rem;margin-top:4px;">14:18</div></div>
+      </div>
+      <div class="conv-item">
+        <div class="conv-meta">
+          <div class="conv-avatar">👤</div>
+          <div>
+            <div class="conv-user">鈴木 一郎</div>
+            <div class="conv-preview">「DX補助金の申請方法を教えてください」</div>
+          </div>
+        </div>
+        <div><div class="conv-status status-pending">対応中</div><div style="color:#666;font-size:0.75rem;margin-top:4px;">14:05</div></div>
+      </div>
+    </div>
+    <div class="settings-card">
+      <h3>⚙️ 設定パネル</h3>
+      <div class="setting-row">
+        <div><div class="setting-label">AI自動応答</div><div class="setting-desc">ユーザーの質問に自動で回答する</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">予約受付機能</div><div class="setting-desc">チャット内での予約フォームを表示する</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">メール自動通知</div><div class="setting-desc">問い合わせ時に管理者へ通知メールを送信</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">エスカレーション</div><div class="setting-desc">解決できない場合に人オペレーターへ引き継ぐ</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">多言語対応</div><div class="setting-desc">英語・中国語での自動応答を有効にする</div></div>
+        <div class="toggle" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
