@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI占い鑑定【無料】| AI Work Stage</title>
-<meta name="description" content="AIがあなたの運気の流れを分析。完全無料のエンターテイメント占い鑑定サービス。メールで鑑定結果をお届けします。">
+<title>AI占い【無料会員登録】| AI Work Stage</title>
+<meta name="description" content="無料会員登録でAI占いが使い放題。メールアドレスだけで今すぐ登録。月2回のメルマガでAI・自動化情報もお届け。">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Hiragino Kaku Gothic Pro', 'Noto Sans JP', sans-serif; color: #1a1a2e; background: #fafafa; }
 
-  /* Hero */
   .hero {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: white;
@@ -42,7 +41,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* Features */
   .features {
     display: flex;
     justify-content: center;
@@ -59,100 +57,76 @@
     font-size: 0.85rem;
   }
 
-  /* Disclaimer hero */
-  .disclaimer-hero {
-    background: #fff3cd;
-    border: 1px solid #f59e0b;
-    color: #664d03;
-    padding: 14px 20px;
-    font-size: 0.82rem;
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  /* Main */
   main { max-width: 680px; margin: 0 auto; padding: 48px 20px; }
 
-  /* Form Card */
   .form-card {
     background: white;
     border-radius: 16px;
     padding: 40px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     border: 1px solid #e5e7eb;
+    text-align: center;
   }
-  .form-card h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #1a1a2e;
-  }
-  .form-card .sub {
-    color: #6b7280;
-    font-size: 0.9rem;
-    margin-bottom: 28px;
-  }
+  .form-card h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; color: #1a1a2e; }
+  .form-card .sub { color: #6b7280; font-size: 0.95rem; margin-bottom: 32px; line-height: 1.7; }
 
-  .form-group { margin-bottom: 20px; }
-  .form-group label {
-    display: block;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #374151;
-    margin-bottom: 6px;
-  }
-  .form-group label .required {
-    color: #e53e3e;
-    margin-left: 4px;
-    font-size: 0.75rem;
-  }
-  .form-group input,
-  .form-group textarea {
+  .email-input {
     width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 16px 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 1.1rem;
     font-family: inherit;
     transition: border-color 0.2s;
     background: #fafafa;
+    margin-bottom: 16px;
   }
-  .form-group input:focus,
-  .form-group textarea:focus {
+  .email-input:focus {
     outline: none;
-    border-color: #0f3460;
+    border-color: #7c3aed;
     background: white;
   }
-  .form-group textarea { height: 130px; resize: vertical; }
 
   .submit-btn {
     width: 100%;
-    background: linear-gradient(135deg, #0f3460, #1a1a2e);
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
     color: white;
     border: none;
     padding: 16px;
     border-radius: 10px;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.1s;
-    margin-top: 8px;
     letter-spacing: 0.03em;
   }
   .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
   .submit-btn:active { transform: translateY(0); }
 
-  /* Note under button */
   .form-note {
-    text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: #9ca3af;
-    margin-top: 12px;
+    margin-top: 14px;
+    line-height: 1.7;
   }
 
-  /* How it works */
-  .how {
+  .benefits {
     margin-top: 48px;
+    background: white;
+    border-radius: 16px;
+    padding: 36px 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
+  }
+  .benefits h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; color: #1a1a2e; }
+  .benefit-list { display: flex; flex-direction: column; gap: 16px; }
+  .benefit-item { display: flex; align-items: flex-start; gap: 14px; }
+  .benefit-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .benefit-text strong { display: block; font-size: 0.95rem; color: #1a1a2e; }
+  .benefit-text span { font-size: 0.85rem; color: #6b7280; }
+
+  .how {
+    margin-top: 32px;
     background: white;
     border-radius: 16px;
     padding: 36px 40px;
@@ -163,7 +137,7 @@
   .steps { display: flex; flex-direction: column; gap: 16px; }
   .step { display: flex; align-items: flex-start; gap: 16px; }
   .step-num {
-    background: linear-gradient(135deg, #0f3460, #1a1a2e);
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
     color: white;
     width: 32px; height: 32px;
     border-radius: 50%;
@@ -175,7 +149,6 @@
   .step-text strong { display: block; font-size: 0.95rem; color: #1a1a2e; }
   .step-text span { font-size: 0.85rem; color: #6b7280; }
 
-  /* Disclaimer bottom */
   .disclaimer-bottom {
     background: #f8f9fa;
     border: 1px solid #dee2e6;
@@ -188,7 +161,6 @@
   }
   .disclaimer-bottom strong { color: #495057; }
 
-  /* Footer */
   footer {
     text-align: center;
     padding: 32px 20px;
@@ -200,7 +172,7 @@
   footer a { color: #6b7280; text-decoration: none; }
 
   @media (max-width: 600px) {
-    .form-card, .how { padding: 28px 20px; }
+    .form-card, .benefits, .how { padding: 28px 20px; }
   }
 </style>
 </head>
@@ -208,75 +180,88 @@
 
 <header class="hero">
   <div class="badge">✨ 完全無料</div>
-  <h1>AI占い鑑定</h1>
-  <p>あなたの生年月日とご相談内容をもとに、AIが運気の流れを鑑定。結果はメールでお届けします。</p>
+  <h1>AI占い 無料会員登録</h1>
+  <p>メールアドレスだけで今すぐ登録。会員専用AIが運気の流れを鑑定します。</p>
   <div class="features">
-    <span class="feature-tag">🔮 AI鑑定</span>
-    <span class="feature-tag">📧 メール返信</span>
+    <span class="feature-tag">🔮 AI鑑定し放題</span>
+    <span class="feature-tag">📧 結果はメールで</span>
     <span class="feature-tag">💰 完全無料</span>
-    <span class="feature-tag">⚡ 即時受付</span>
+    <span class="feature-tag">📮 月2回メルマガ</span>
   </div>
 </header>
 
-<div class="disclaimer-hero">
-  ⚠️ 本サービスはAIによるエンターテイメント目的の無料鑑定です。占い結果を重要な意思決定の根拠にしないでください。個人情報はメール送信のみに使用し、第三者に提供しません。
-</div>
-
 <main>
   <div class="form-card">
-    <h2>🔮 鑑定フォーム</h2>
-    <p class="sub">以下のフォームにご入力いただき、送信ボタンを押してください。鑑定結果をメールでお届けします。</p>
+    <h2>🔮 無料会員登録</h2>
+    <p class="sub">メールアドレスを入力するだけで登録完了。<br>ウェルカムメールに専用占いリンクが届きます。</p>
 
-    <form action="http://141.253.102.142:5001/uranai" method="POST">
-      <div class="form-group">
-        <label>お名前 <span class="required">※必須</span></label>
-        <input type="text" name="name" placeholder="例：山田 太郎" required>
-      </div>
-
-      <div class="form-group">
-        <label>メールアドレス <span class="required">※必須</span><br>
-          <span style="font-weight:400; color:#6b7280; font-size:0.82rem;">鑑定結果の送付先です</span>
-        </label>
-        <input type="email" name="email" placeholder="例：example@email.com" required>
-      </div>
-
-      <div class="form-group">
-        <label>生年月日 <span class="required">※必須</span></label>
-        <input type="date" name="birthdate" required>
-      </div>
-
-      <div class="form-group">
-        <label>ご相談内容 <span class="required">※必須</span></label>
-        <textarea name="question" placeholder="例：仕事運について教えてください。転職を考えているのですが..." required></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">無料で占ってもらう →</button>
-      <p class="form-note">送信後、数分以内にメールが届きます</p>
+    <form action="http://141.253.102.142:5001/register" method="POST">
+      <input type="email" name="email" class="email-input" placeholder="メールアドレスを入力" required>
+      <button type="submit" class="submit-btn">無料で会員登録する →</button>
     </form>
+
+    <p class="form-note">
+      登録するとメルマガが月2回届きます（1日・15日）。<br>
+      配信解除はいつでも可能です。個人情報は第三者に提供しません。
+    </p>
+  </div>
+
+  <div class="benefits">
+    <h2>🎁 会員特典</h2>
+    <div class="benefit-list">
+      <div class="benefit-item">
+        <div class="benefit-icon">✨</div>
+        <div class="benefit-text">
+          <strong>会員専用AI占い（無制限）</strong>
+          <span>専用リンクからいつでもAI鑑定が利用可能。結果はメールで届きます。</span>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📮</div>
+        <div class="benefit-text">
+          <strong>月2回メルマガ配信</strong>
+          <span>AI活用術・自動化ヒント・副業情報を毎月1日・15日にお届け。</span>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🔒</div>
+        <div class="benefit-text">
+          <strong>完全無料・退会自由</strong>
+          <span>費用は一切かかりません。配信解除はメール内リンクから即時可能。</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="how">
-    <h2>📋 ご利用の流れ</h2>
+    <h2>📋 登録から占いまでの流れ</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-text">
-          <strong>フォームに入力して送信</strong>
-          <span>お名前・メール・生年月日・ご相談内容をご記入ください</span>
+          <strong>メールアドレスを入力して登録</strong>
+          <span>フォームにメールアドレスを入力して送信するだけ</span>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-text">
-          <strong>AIが鑑定文を生成</strong>
-          <span>Claude AIがお客様の情報をもとに丁寧な鑑定文を作成します</span>
+          <strong>ウェルカムメールが届く</strong>
+          <span>あなた専用の占いリンクが記載されたメールが届きます</span>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-text">
-          <strong>メールで鑑定結果をお届け</strong>
-          <span>数分以内にご登録のメールアドレスへ結果を送付します</span>
+          <strong>会員専用ページで占いを依頼</strong>
+          <span>お名前・生年月日・相談内容を入力して鑑定を依頼</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <strong>メールで鑑定結果が届く</strong>
+          <span>数分以内にAI鑑定結果がメールで届きます</span>
         </div>
       </div>
     </div>
@@ -284,7 +269,7 @@
 
   <div class="disclaimer-bottom">
     <strong>【免責事項】</strong><br>
-    本サービスはAIによるエンターテイメント目的の無料鑑定です。占い結果を重要な意思決定（医療・法律・投資等）の根拠にしないでください。個人情報（お名前・メールアドレス・生年月日）はメール送信のみに使用し、第三者に提供・販売することは一切ありません。鑑定内容はAIが生成したエンターテイメントコンテンツであり、将来を保証するものではありません。
+    本サービスはAIによるエンターテイメント目的の無料鑑定です。占い結果を重要な意思決定（医療・法律・投資等）の根拠にしないでください。個人情報（メールアドレス）はメール送信のみに使用し、第三者に提供・販売することは一切ありません。鑑定内容はAIが生成したエンターテイメントコンテンツであり、将来を保証するものではありません。
   </div>
 </main>
 

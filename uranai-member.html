@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI占い【会員専用】| AI Work Stage</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Hiragino Kaku Gothic Pro',sans-serif; background:#0f172a; color:white; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .card { background:#1e293b; border-radius:16px; padding:40px; max-width:500px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+  h1 { font-size:1.8rem; text-align:center; margin-bottom:8px; }
+  .sub { text-align:center; color:#94a3b8; margin-bottom:32px; }
+  label { display:block; margin-bottom:6px; font-size:0.9rem; color:#cbd5e1; }
+  input, textarea { width:100%; padding:12px; background:#0f172a; border:1px solid #334155; border-radius:8px; color:white; font-size:1rem; margin-bottom:20px; font-family:inherit; }
+  textarea { height:100px; resize:vertical; }
+  button { width:100%; padding:14px; background:linear-gradient(135deg,#7c3aed,#a855f7); color:white; border:none; border-radius:8px; font-size:1.1rem; font-weight:bold; cursor:pointer; }
+  button:hover { opacity:0.9; }
+  .disclaimer { font-size:0.78rem; color:#64748b; margin-top:16px; text-align:center; line-height:1.6; }
+  #no-token { text-align:center; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="form-area">
+    <h1>✨ AI占い</h1>
+    <p class="sub">会員専用 · 完全無料</p>
+    <form action="http://141.253.102.142:5001/uranai-auth" method="POST">
+      <input type="hidden" name="token" id="token-field" value="">
+      <label>お名前</label>
+      <input type="text" name="name" required placeholder="例：山田 太郎">
+      <label>生年月日</label>
+      <input type="date" name="birthdate" required>
+      <label>ご相談内容</label>
+      <textarea name="question" required placeholder="例：仕事運、恋愛運、今後の方向性など"></textarea>
+      <button type="submit">✨ 鑑定してもらう</button>
+    </form>
+    <p class="disclaimer">※AIによるエンターテイメント目的の鑑定です。重要な判断の根拠としないでください。</p>
+  </div>
+  <div id="no-token" style="display:none;">
+    <h2>🔒 会員専用ページ</h2>
+    <p style="color:#94a3b8;margin:16px 0;">このページは無料会員のみアクセスできます。</p>
+    <a href="https://aiworkstage.com/uranai.html" style="display:inline-block;background:#7c3aed;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;">無料会員登録はこちら →</a>
+  </div>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  if (token) {
+    document.getElementById('token-field').value = token;
+  } else {
+    document.getElementById('form-area').style.display = 'none';
+    document.getElementById('no-token').style.display = 'block';
+  }
+</script>
+</body>
+</html>
