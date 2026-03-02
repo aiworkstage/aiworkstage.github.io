@@ -3,105 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>既存HP診断 デモ - スタンダード | 株式会社サクラビジネス</title>
+<title>詳細HP診断レポート【スタンダードプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#f0f4f8;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.container{max-width:900px;margin:24px auto;padding:0 16px;}
-.report-header{background:linear-gradient(135deg,#1a1a2e,#2d2b55);color:#fff;border-radius:12px;padding:28px 32px;margin-bottom:16px;}
-.report-header h1{font-size:1.3rem;font-weight:700;margin-bottom:6px;}
-.score-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;}
-.score-card{background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.score-card .cat{font-size:0.72rem;color:#888;margin-bottom:6px;}
-.score-card .val{font-size:1.5rem;font-weight:800;}
-.score-card .bar{height:4px;border-radius:2px;margin-top:6px;}
-.good{color:#28c840;} .warn{color:#f9a825;} .bad{color:#ff3b30;}
-.bar-good{background:#28c840;} .bar-warn{background:#f9a825;} .bar-bad{background:#ff3b30;}
-.card{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.card h3{font-size:0.92rem;font-weight:700;margin-bottom:14px;border-left:3px solid #7c6bff;padding-left:10px;}
-.issue-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;}
-.issue-item:last-child{border-bottom:none;}
-.issue-sev{width:8px;border-radius:4px;flex-shrink:0;align-self:stretch;min-height:20px;}
-.sev-high{background:#ff3b30;} .sev-mid{background:#f9a825;} .sev-low{background:#28c840;}
-.issue-info h4{font-size:0.85rem;font-weight:700;margin-bottom:4px;}
-.issue-info p{font-size:0.78rem;color:#888;line-height:1.5;}
-.improvement{background:#f7f5ff;border-radius:8px;padding:12px 14px;margin-top:6px;font-size:0.8rem;color:#555;}
-.improvement::before{content:'💡 改善案: ';font-weight:700;color:#7c6bff;}
-.action-plan{list-style:none;}
-.action-plan li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start;font-size:0.85rem;}
-.action-plan li .step{background:#7c6bff;color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0;}
-@media(max-width:600px){.score-grid{grid-template-columns:repeat(3,1fr);}}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4ff; min-height: 100vh; padding: 24px 16px; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .container { max-width: 760px; margin: 0 auto; animation: fadeIn 0.5s ease; }
+  .plan-badge { display: inline-block; background: #dbeafe; color: #1d4ed8; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+  h1 { font-size: 26px; font-weight: 800; color: #1e3a8a; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #64748b; margin-bottom: 24px; }
+  .site-url { display: inline-block; background: #1e3a8a; color: #fff; padding: 4px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+
+  .card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(59,130,246,0.08); }
+  .card h2 { font-size: 16px; font-weight: 700; color: #1e3a8a; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+
+  /* PageSpeed Insights風スコア */
+  .speed-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 10px; }
+  .speed-item { text-align: center; }
+  .speed-label { font-size: 13px; color: #64748b; margin-bottom: 10px; font-weight: 600; }
+  .speed-ring { position: relative; width: 110px; height: 110px; margin: 0 auto 8px; }
+  .speed-ring svg { transform: rotate(-90deg); }
+  .speed-ring circle { fill: none; stroke-width: 10; }
+  .speed-num { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 28px; font-weight: 800; }
+  .score-good { color: #16a34a; }
+  .score-warn { color: #d97706; }
+  .stroke-good { stroke: #16a34a; }
+  .stroke-warn { stroke: #d97706; }
+  .stroke-bg { stroke: #e5e7eb; }
+
+  /* Web Vitals */
+  .vitals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .vital-card { background: #f8faff; border-radius: 12px; padding: 14px; text-align: center; border: 1.5px solid #dbeafe; }
+  .vital-metric { font-size: 11px; font-weight: 700; color: #1d4ed8; margin-bottom: 6px; }
+  .vital-value { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .vital-label { font-size: 11px; color: #888; }
+  .vg { color: #16a34a; } .vw { color: #d97706; } .vb { color: #dc2626; }
+
+  /* スマホ対応 */
+  .mobile-checks { display: flex; flex-direction: column; gap: 10px; }
+  .mobile-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #f8faff; border-radius: 12px; border: 1.5px solid #dbeafe; }
+  .mobile-size { font-size: 13px; font-weight: 700; color: #1d4ed8; min-width: 80px; }
+  .mobile-device { font-size: 12px; color: #64748b; flex: 1; }
+  .mobile-status { font-size: 13px; font-weight: 700; }
+
+  /* 競合比較 */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .compare-table th { background: #1e3a8a; color: #fff; padding: 10px 12px; font-weight: 700; text-align: center; }
+  .compare-table th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+  .compare-table th:last-child { border-radius: 0 8px 0 0; }
+  .compare-table td { padding: 10px 12px; border-bottom: 1px solid #f0f4ff; text-align: center; }
+  .compare-table td:first-child { text-align: left; font-weight: 600; color: #333; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: #f8faff; }
+  .my-col { font-weight: 700; color: #1d4ed8; }
+  .score-tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+  .tag-good { background: #dcfce7; color: #16a34a; }
+  .tag-warn { background: #fef9c3; color: #d97706; }
+  .tag-bad { background: #fee2e2; color: #dc2626; }
+
+  /* 改善提案 */
+  .priority-section { margin-bottom: 14px; }
+  .priority-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .priority-high { color: #dc2626; }
+  .priority-mid { color: #d97706; }
+  .priority-low { color: #16a34a; }
+  .action-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .action-list li { font-size: 13px; color: #444; padding: 7px 12px; background: #f8faff; border-radius: 8px; border-left: 3px solid #93c5fd; }
+  .action-list li.high { border-left-color: #f87171; }
+  .action-list li.mid { border-left-color: #fbbf24; }
+  .action-list li.low { border-left-color: #86efac; }
+
+  /* 効果予測 */
+  .effect-card { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-radius: 14px; padding: 18px; border: 1.5px solid #93c5fd; }
+  .effect-title { font-size: 14px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px; }
+  .effect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .effect-item { background: #fff; border-radius: 10px; padding: 12px; text-align: center; }
+  .effect-num { font-size: 22px; font-weight: 800; color: #1d4ed8; }
+  .effect-desc { font-size: 11px; color: #64748b; margin-top: 3px; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-hp-check.html">← サービス詳細に戻る</a></div>
 <div class="container">
-  <div class="report-header">
-    <h1>🔍 ウェブサイト詳細診断レポート</h1>
-    <p style="color:#aaa;font-size:0.85rem;">株式会社サクラビジネス様 | 診断日: 2026年3月4日 | スタンダードプラン</p>
-    <div style="display:flex;align-items:center;gap:12px;margin-top:14px;">
-      <div style="font-size:3rem;font-weight:800;color:#f9a825;">52</div>
-      <div>
-        <div style="font-size:0.85rem;color:#ccc;">総合スコア / 100点</div>
-        <div style="font-size:0.8rem;color:#f9a825;font-weight:700;">⚠️ 要改善 — 業界平均: 68点</div>
-      </div>
-    </div>
-  </div>
+  <div class="plan-badge">📊 スタンダードプラン デモ</div>
+  <h1>🔎 詳細HP診断レポート</h1>
+  <div class="subtitle">ページ速度・スマホ対応・競合比較・改善提案書付き</div>
+  <div class="site-url">🌐 診断対象: example-business.jp</div>
 
-  <div class="score-grid">
-    <div class="score-card"><div class="cat">表示速度</div><div class="val warn">58</div><div class="bar bar-warn" style="width:58%"></div></div>
-    <div class="score-card"><div class="cat">モバイル</div><div class="val bad">35</div><div class="bar bar-bad" style="width:35%"></div></div>
-    <div class="score-card"><div class="cat">SEO</div><div class="val warn">62</div><div class="bar bar-warn" style="width:62%"></div></div>
-    <div class="score-card"><div class="cat">セキュリティ</div><div class="val good">80</div><div class="bar bar-good" style="width:80%"></div></div>
-    <div class="score-card"><div class="cat">UX/UI</div><div class="val bad">45</div><div class="bar bar-bad" style="width:45%"></div></div>
-  </div>
-
+  <!-- PageSpeed風スコア -->
   <div class="card">
-    <h3>🚨 重要な問題点（優先順）</h3>
-    <div class="issue-item">
-      <div class="issue-sev sev-high"></div>
-      <div class="issue-info">
-        <h4>スマートフォン表示の崩れ（高）</h4>
-        <p>トップページ・サービスページ・お問い合わせページで表示崩れを確認。スマホユーザーの約60%が離脱している可能性があります。</p>
-        <div class="improvement">レスポンシブCSSを追加し、モバイルファーストで再設計することを推奨します。</div>
+    <h2>⚡ ページ速度スコア（PageSpeed Insights）</h2>
+    <div class="speed-scores">
+      <div class="speed-item">
+        <div class="speed-label">🖥️ PC</div>
+        <div class="speed-ring">
+          <svg viewBox="0 0 100 100" width="110" height="110">
+            <circle class="stroke-bg" cx="50" cy="50" r="42"/>
+            <circle class="stroke-good" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="29" stroke-linecap="round"/>
+          </svg>
+          <div class="speed-num score-good">89</div>
+        </div>
+        <div style="font-size:12px;color:#16a34a;font-weight:700;">✅ 良好</div>
+      </div>
+      <div class="speed-item">
+        <div class="speed-label">📱 スマホ</div>
+        <div class="speed-ring">
+          <svg viewBox="0 0 100 100" width="110" height="110">
+            <circle class="stroke-bg" cx="50" cy="50" r="42"/>
+            <circle class="stroke-warn" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="99" stroke-linecap="round"/>
+          </svg>
+          <div class="speed-num score-warn">63</div>
+        </div>
+        <div style="font-size:12px;color:#d97706;font-weight:700;">⚠️ 要改善</div>
       </div>
     </div>
-    <div class="issue-item">
-      <div class="issue-sev sev-high"></div>
-      <div class="issue-info">
-        <h4>ページ読み込み速度（高）</h4>
-        <p>平均4.2秒（目標3秒以内）。未圧縮画像（合計8.2MB）が主な原因。Core Web VitalsがNG判定。</p>
-        <div class="improvement">WebP変換・遅延読み込み・CDN導入により2秒以内が達成可能です。</div>
+
+    <h2 style="margin-top:20px;">📐 Core Web Vitals</h2>
+    <div class="vitals-grid">
+      <div class="vital-card">
+        <div class="vital-metric">LCP</div>
+        <div class="vital-value vw">3.8s</div>
+        <div class="vital-label">最大コンテンツ描画<br>推奨: 2.5s以内</div>
       </div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-sev sev-mid"></div>
-      <div class="issue-info">
-        <h4>SEO基本設定の不備（中）</h4>
-        <p>4ページでmeta descriptionが未設定。h1タグの重複2件、alt属性の欠落14件。</p>
-        <div class="improvement">各ページに固有のmeta descriptionを設定し、画像にalt属性を追加してください。</div>
+      <div class="vital-card">
+        <div class="vital-metric">FID</div>
+        <div class="vital-value vg">18ms</div>
+        <div class="vital-label">初回入力遅延<br>推奨: 100ms以内</div>
       </div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-sev sev-mid"></div>
-      <div class="issue-info">
-        <h4>問い合わせフォームの不備（中）</h4>
-        <p>確認画面・完了画面が未実装。reCAPTCHA未設定のためスパムリスクがあります。</p>
-        <div class="improvement">フォームを再構築し、自動返信メール・reCAPTCHA v3を実装します。</div>
+      <div class="vital-card">
+        <div class="vital-metric">CLS</div>
+        <div class="vital-value vb">0.28</div>
+        <div class="vital-label">累積レイアウトシフト<br>推奨: 0.1以内</div>
       </div>
     </div>
   </div>
 
+  <!-- スマホ対応 -->
   <div class="card">
-    <h3>📋 改善ロードマップ（優先順）</h3>
-    <ul class="action-plan">
-      <li><div class="step">1</div><div><strong>即日対応：</strong>画像圧縮・WebP変換（速度改善、コスト低・効果大）</div></li>
-      <li><div class="step">2</div><div><strong>1週間以内：</strong>モバイル対応CSSの修正・レスポンシブ対応</div></li>
-      <li><div class="step">3</div><div><strong>2週間以内：</strong>SEOメタ情報の整備・alt属性追加</div></li>
-      <li><div class="step">4</div><div><strong>1ヶ月以内：</strong>フォーム再構築・自動返信設定・スパム対策</div></li>
-    </ul>
+    <h2>📱 スマホ対応確認（3サイズ）</h2>
+    <div class="mobile-checks">
+      <div class="mobile-item">
+        <span class="mobile-size">375px</span>
+        <span class="mobile-device">iPhone SE / iPhone 13 mini</span>
+        <span class="mobile-status" style="color:#d97706;">⚠️ ボタン重なりあり</span>
+      </div>
+      <div class="mobile-item">
+        <span class="mobile-size">390px</span>
+        <span class="mobile-device">iPhone 14 / iPhone 15</span>
+        <span class="mobile-status" style="color:#16a34a;">✅ 正常表示</span>
+      </div>
+      <div class="mobile-item">
+        <span class="mobile-size">428px</span>
+        <span class="mobile-device">iPhone 14 Plus / 15 Plus</span>
+        <span class="mobile-status" style="color:#16a34a;">✅ 正常表示</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 競合比較 -->
+  <div class="card">
+    <h2>🏁 競合比較レポート</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>指標</th>
+          <th>自社サイト</th>
+          <th>競合A</th>
+          <th>競合B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>速度スコア（PC）</td>
+          <td class="my-col"><span class="score-tag tag-good">89点</span></td>
+          <td><span class="score-tag tag-good">92点</span></td>
+          <td><span class="score-tag tag-warn">71点</span></td>
+        </tr>
+        <tr>
+          <td>速度スコア（スマホ）</td>
+          <td class="my-col"><span class="score-tag tag-warn">63点</span></td>
+          <td><span class="score-tag tag-good">78点</span></td>
+          <td><span class="score-tag tag-warn">55点</span></td>
+        </tr>
+        <tr>
+          <td>SEOスコア</td>
+          <td class="my-col"><span class="score-tag tag-warn">68点</span></td>
+          <td><span class="score-tag tag-good">85点</span></td>
+          <td><span class="score-tag tag-warn">72点</span></td>
+        </tr>
+        <tr>
+          <td>コンテンツ量（ページ数）</td>
+          <td class="my-col">12ページ</td>
+          <td>38ページ</td>
+          <td>24ページ</td>
+        </tr>
+        <tr>
+          <td>被リンク数（推定）</td>
+          <td class="my-col">23件</td>
+          <td>187件</td>
+          <td>94件</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 改善提案 -->
+  <div class="card">
+    <h2>📋 改善提案書</h2>
+    <div class="priority-section">
+      <div class="priority-title priority-high">🔴 優先度：高（5項目）</div>
+      <ul class="action-list">
+        <li class="high">スマホ向け画像を最適化し読み込み速度を改善する</li>
+        <li class="high">全ページにmeta descriptionを設定する</li>
+        <li class="high">CLSの原因となる画像サイズ指定を修正する</li>
+        <li class="high">リンク切れ3件を修正する</li>
+        <li class="high">375px表示でのボタン重なりを修正する</li>
+      </ul>
+    </div>
+    <div class="priority-section">
+      <div class="priority-title priority-mid">🟡 優先度：中（8項目）</div>
+      <ul class="action-list">
+        <li class="mid">画像12枚にalt属性を追加する</li>
+        <li class="mid">LCPを改善するためヒーロー画像をWebP変換する</li>
+        <li class="mid">ファビコンを設定する</li>
+        <li class="mid">コピーライト年号を更新する（2021→2025）</li>
+        <li class="mid">titleタグの未設定ページを修正する</li>
+        <li class="mid">Googleアナリティクスを導入する</li>
+        <li class="mid">OGP（SNSシェア用）タグを設定する</li>
+        <li class="mid">構造化データ（Schema.org）を追加する</li>
+      </ul>
+    </div>
+    <div class="priority-section">
+      <div class="priority-title priority-low">🟢 優先度：低（12項目）</div>
+      <ul class="action-list">
+        <li class="low">サイトマップXMLを作成してSearch Consoleに登録する</li>
+        <li class="low">robots.txtを最適化する</li>
+        <li class="low">不要なCSSを削除してファイルを軽量化する</li>
+        <li class="low">JavaScriptを遅延読み込み（defer）に変更する</li>
+        <li class="low">CDNを導入して配信速度を向上する</li>
+        <li class="low">Gzip圧縮を有効化する</li>
+        <li class="low">ブラウザキャッシュを設定する</li>
+        <li class="low">HTTPSリダイレクトを確認・最適化する</li>
+        <li class="low">404ページのデザインを改善する</li>
+        <li class="low">フォントの読み込みを最適化する</li>
+        <li class="low">パンくずリストを追加する</li>
+        <li class="low">内部リンク構造を見直す</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 効果予測 -->
+  <div class="card">
+    <h2>📈 改善後の予測効果</h2>
+    <div class="effect-card">
+      <div class="effect-title">🎯 施策実施後の見込み改善効果</div>
+      <div class="effect-grid">
+        <div class="effect-item"><div class="effect-num">+15%</div><div class="effect-desc">速度改善によるCV率向上</div></div>
+        <div class="effect-item"><div class="effect-num">+28%</div><div class="effect-desc">SEO改善による検索流入増加</div></div>
+        <div class="effect-item"><div class="effect-num">-40%</div><div class="effect-desc">直帰率の改善（推定）</div></div>
+        <div class="effect-item"><div class="effect-num">91点</div><div class="effect-desc">改善後の予測総合スコア</div></div>
+      </div>
+    </div>
   </div>
 </div>
 </body>

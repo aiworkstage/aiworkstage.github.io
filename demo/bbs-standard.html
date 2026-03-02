@@ -3,170 +3,234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>掲示板・コメント デモ - スタンダード | 株式会社サクラビジネス</title>
+<title>カテゴリ別掲示板【スタンダードプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#f0f4f8;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.container{max-width:760px;margin:24px auto;padding:0 16px;}
-h1{font-size:1.2rem;font-weight:700;margin-bottom:4px;}
-.sub{font-size:0.85rem;color:#888;margin-bottom:16px;}
-.thread-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
-.thread-tab{background:#fff;border:1px solid #ddd;border-radius:20px;padding:6px 14px;font-size:0.82rem;cursor:pointer;color:#555;}
-.thread-tab.active{background:#7c6bff;color:#fff;border-color:#7c6bff;}
-.thread{background:#fff;border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.thread-header{padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:flex-start;cursor:pointer;}
-.thread-header:hover{background:#fafafa;}
-.thread-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:0.9rem;flex-shrink:0;}
-.thread-meta{flex:1;}
-.thread-title{font-size:0.92rem;font-weight:700;margin-bottom:3px;}
-.thread-preview{font-size:0.8rem;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.thread-stats{display:flex;gap:10px;font-size:0.75rem;color:#aaa;margin-top:4px;align-items:center;}
-.reply-count{background:#f0f0f0;border-radius:10px;padding:2px 8px;color:#555;}
-.like-btn{cursor:pointer;display:flex;align-items:center;gap:3px;}
-.like-btn:hover{color:#ff6b9d;}
-.thread-body{padding:0;}
-.comment{padding:12px 16px;border-bottom:1px solid #f8f8f8;display:flex;gap:10px;}
-.comment:last-child{border-bottom:none;}
-.comment-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#fff;flex-shrink:0;}
-.comment-body{flex:1;}
-.comment-author{font-size:0.82rem;font-weight:700;color:#333;}
-.comment-time{font-size:0.72rem;color:#aaa;margin-left:6px;}
-.comment-text{font-size:0.85rem;color:#555;line-height:1.6;margin-top:3px;}
-.comment-actions{display:flex;gap:12px;margin-top:6px;}
-.action-btn{font-size:0.75rem;color:#aaa;cursor:pointer;display:flex;align-items:center;gap:3px;}
-.action-btn:hover{color:#7c6bff;}
-.reply-form{padding:12px 16px;background:#f8f9ff;border-top:1px solid #eee;display:flex;gap:8px;}
-.reply-form input{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 14px;font-size:0.85rem;outline:none;}
-.reply-form input:focus{border-color:#7c6bff;}
-.reply-form button{background:#7c6bff;color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #fff8f4; min-height: 100vh; padding: 0; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* ヘッダー */
+  .header { background: linear-gradient(135deg, #ea580c, #f97316); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .header-left { display: flex; align-items: center; gap: 10px; }
+  .header h1 { font-size: 20px; font-weight: 800; color: #fff; }
+  .plan-tag { background: rgba(255,255,255,0.2); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 700; }
+  .login-btn { background: #fff; color: #ea580c; border: none; padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+
+  .page-body { max-width: 800px; margin: 0 auto; padding: 24px 16px; animation: fadeIn 0.5s ease; }
+
+  /* カテゴリタブ */
+  .cat-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+  .cat-tab { padding: 8px 18px; border-radius: 24px; border: 2px solid #fed7aa; background: #fff; color: #ea580c; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .cat-tab.active { background: #ea580c; color: #fff; border-color: #ea580c; }
+  .cat-tab:hover:not(.active) { background: #fff7ed; }
+
+  /* スレッド一覧 */
+  .thread-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .thread-item { background: #fff; border-radius: 12px; padding: 16px; border: 1.5px solid #fed7aa; cursor: pointer; transition: box-shadow 0.15s, border-color 0.15s; }
+  .thread-item:hover { box-shadow: 0 4px 14px rgba(234,88,12,0.12); border-color: #ea580c; }
+  .thread-item.open { border-color: #ea580c; box-shadow: 0 4px 14px rgba(234,88,12,0.12); }
+  .thread-header { display: flex; align-items: flex-start; gap: 10px; }
+  .thread-icon { font-size: 22px; }
+  .thread-info { flex: 1; }
+  .thread-title { font-size: 15px; font-weight: 700; color: #333; margin-bottom: 4px; }
+  .thread-meta { font-size: 12px; color: #aaa; display: flex; gap: 12px; flex-wrap: wrap; }
+  .thread-meta span { font-weight: 500; }
+  .thread-replies { background: #fff7ed; color: #ea580c; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+
+  /* スレッド投稿ツリー */
+  .thread-body { display: none; margin-top: 14px; border-top: 1.5px solid #fff7ed; padding-top: 14px; }
+  .thread-body.open { display: block; }
+  .post { display: flex; gap: 10px; margin-bottom: 10px; }
+  .post-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #f97316, #ea580c); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .post-bubble { flex: 1; background: #fff7ed; border-radius: 12px; padding: 12px; }
+  .post-author { font-size: 12px; font-weight: 700; color: #ea580c; margin-bottom: 4px; }
+  .post-text { font-size: 13px; color: #555; line-height: 1.5; }
+  .post-date { font-size: 11px; color: #ccc; margin-top: 4px; }
+
+  /* モデレーションパネル */
+  .mod-panel { display: none; background: #fef2e8; border: 1.5px solid #fed7aa; border-radius: 12px; padding: 12px 16px; margin-top: 10px; }
+  .mod-panel.show { display: block; }
+  .mod-title { font-size: 12px; font-weight: 700; color: #c2410c; margin-bottom: 8px; }
+  .mod-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+  .mod-btn { padding: 5px 12px; border-radius: 8px; border: none; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .mod-delete { background: #fee2e2; color: #dc2626; }
+  .mod-hide { background: #fef9c3; color: #d97706; }
+  .mod-warn { background: #dbeafe; color: #1d4ed8; }
+
+  /* ログインモーダル */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay.show { display: flex; }
+  .modal-box { background: #fff; border-radius: 20px; padding: 28px 24px; max-width: 340px; width: 90%; box-shadow: 0 8px 40px rgba(0,0,0,0.18); animation: fadeIn 0.3s ease; }
+  .modal-box h3 { font-size: 18px; font-weight: 800; color: #ea580c; margin-bottom: 16px; text-align: center; }
+  .modal-input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1.5px solid #fed7aa; font-size: 14px; outline: none; margin-bottom: 10px; }
+  .modal-input:focus { border-color: #ea580c; }
+  .modal-login-btn { width: 100%; padding: 12px; border-radius: 12px; border: none; background: linear-gradient(135deg, #ea580c, #f97316); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 8px; }
+  .modal-cancel { width: 100%; text-align: center; color: #aaa; font-size: 13px; cursor: pointer; border: none; background: none; }
+  .login-hint { font-size: 12px; color: #aaa; text-align: center; margin-bottom: 12px; }
+
+  /* 通知設定 */
+  .notif-section { background: #fff; border-radius: 14px; padding: 18px; border: 1.5px solid #fed7aa; }
+  .notif-title { font-size: 15px; font-weight: 700; color: #ea580c; margin-bottom: 12px; }
+  .notif-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #fff7ed; }
+  .notif-item:last-child { border-bottom: none; }
+  .notif-label { font-size: 14px; color: #444; }
+  .toggle { width: 44px; height: 24px; background: #e5e7eb; border-radius: 12px; cursor: pointer; position: relative; transition: background 0.2s; }
+  .toggle.on { background: #f97316; }
+  .toggle::after { content:''; position: absolute; left: 2px; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+  .toggle.on::after { left: 22px; }
+
+  /* ログイン済みバッジ */
+  .logged-badge { display: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 10px; }
+  .logged-badge.show { display: inline-block; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-bbs.html">← サービス詳細に戻る</a></div>
-<div class="container">
-  <h1>💬 コミュニティ掲示板</h1>
-  <div class="sub">株式会社サクラビジネス | スタンダードプラン デモ</div>
-  <div class="thread-tabs">
-    <div class="thread-tab active">🔥 人気</div>
-    <div class="thread-tab">🆕 新着</div>
-    <div class="thread-tab">📢 お知らせ</div>
-    <div class="thread-tab">❓ 質問</div>
-  </div>
-
-  <div class="thread" id="thread1">
-    <div class="thread-header" onclick="toggleThread('thread1')">
-      <div class="thread-avatar" style="background:#7c6bff;">田</div>
-      <div class="thread-meta">
-        <div class="thread-title">📢 新サービス「AI議事録」についての質問です</div>
-        <div class="thread-preview">先日体験会に参加しました。Zoom録音から自動で要約してくれて...</div>
-        <div class="thread-stats">
-          <span class="reply-count">💬 3件</span>
-          <span class="like-btn" onclick="like(this,event)">❤️ <span>12</span></span>
-          <span>田中 美咲 · 3時間前</span>
-        </div>
-      </div>
-    </div>
-    <div class="thread-body" id="thread1-body" style="display:none;">
-      <div class="comment">
-        <div class="comment-avatar" style="background:#7c6bff;">田</div>
-        <div class="comment-body">
-          <div><span class="comment-author">田中 美咲</span><span class="comment-time">3時間前</span></div>
-          <div class="comment-text">先日体験会に参加しました。Zoom録音から自動で要約してくれて感動しました！導入費用はどのくらいかかりますか？</div>
-          <div class="comment-actions">
-            <span class="action-btn" onclick="like(this,event)">❤️ <span>5</span></span>
-            <span class="action-btn">↩️ 返信</span>
-          </div>
-        </div>
-      </div>
-      <div class="comment" style="margin-left:32px;background:#fafafa;">
-        <div class="comment-avatar" style="background:#28c840;">公</div>
-        <div class="comment-body">
-          <div><span class="comment-author">運営 サクラビジネス</span><span class="comment-time">2時間前</span></div>
-          <div class="comment-text">ご質問ありがとうございます！料金はプランにより異なりますが、ベーシックプランは月額¥5,000〜となっております。詳細はお気軽にDMください😊</div>
-          <div class="comment-actions">
-            <span class="action-btn" onclick="like(this,event)">❤️ <span>8</span></span>
-          </div>
-        </div>
-      </div>
-      <div class="comment">
-        <div class="comment-avatar" style="background:#f9a825;">鈴</div>
-        <div class="comment-body">
-          <div><span class="comment-author">鈴木 健二</span><span class="comment-time">1時間前</span></div>
-          <div class="comment-text">私も使っています！特に英語会議の日本語翻訳＋要約が神機能でした✨</div>
-          <div class="comment-actions">
-            <span class="action-btn" onclick="like(this,event)">❤️ <span>3</span></span>
-            <span class="action-btn">↩️ 返信</span>
-          </div>
-        </div>
-      </div>
-      <div class="reply-form">
-        <input type="text" placeholder="返信を入力..." id="reply1">
-        <button onclick="postReply('thread1','reply1')">送信</button>
-      </div>
+<div class="header">
+  <div class="header-left">
+    <div style="font-size:24px;">🗂️</div>
+    <div>
+      <h1>コミュニティ掲示板</h1>
+      <span class="plan-tag">スタンダードプラン</span>
     </div>
   </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span class="logged-badge" id="logged-badge">✅ 管理者</span>
+    <button class="login-btn" id="login-btn-header" onclick="openLogin()">🔑 ログイン</button>
+  </div>
+</div>
 
-  <div class="thread" id="thread2">
-    <div class="thread-header" onclick="toggleThread('thread2')">
-      <div class="thread-avatar" style="background:#ff6b9d;">佐</div>
-      <div class="thread-meta">
-        <div class="thread-title">✨ Notion導入してみました！Before/After報告</div>
-        <div class="thread-preview">2週間前に構築をお願いして、今日で2週間経ちます。結論から言うと...</div>
-        <div class="thread-stats">
-          <span class="reply-count">💬 1件</span>
-          <span class="like-btn" onclick="like(this,event)">❤️ <span>24</span></span>
-          <span>佐藤 次郎 · 昨日</span>
-        </div>
-      </div>
-    </div>
-    <div class="thread-body" id="thread2-body" style="display:none;">
-      <div class="comment">
-        <div class="comment-avatar" style="background:#ff6b9d;">佐</div>
-        <div class="comment-body">
-          <div><span class="comment-author">佐藤 次郎</span><span class="comment-time">昨日</span></div>
-          <div class="comment-text">2週間前に構築をお願いして、今日で2週間経ちます。結論から言うと、毎週3時間かかっていた週次報告が30分になりました！チーム全員が使いこなせています。</div>
-          <div class="comment-actions">
-            <span class="action-btn" onclick="like(this,event)">❤️ <span>10</span></span>
+<div class="page-body">
+  <!-- カテゴリタブ -->
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="switchCat(this,'質問')">❓ 質問</button>
+    <button class="cat-tab" onclick="switchCat(this,'雑談')">💬 雑談</button>
+    <button class="cat-tab" onclick="switchCat(this,'告知')">📢 告知</button>
+    <button class="cat-tab" onclick="switchCat(this,'売買')">🛒 売買</button>
+  </div>
+
+  <!-- スレッド一覧 -->
+  <div class="thread-list" id="thread-list">
+    <div class="thread-item" id="t1" onclick="toggleThread('t1')">
+      <div class="thread-header">
+        <span class="thread-icon">❓</span>
+        <div class="thread-info">
+          <div class="thread-title">Webサイト作成の費用はどのくらいかかりますか？</div>
+          <div class="thread-meta">
+            <span>投稿者: 田中 花子</span>
+            <span>最終更新: 2025/03/02 10:30</span>
+            <span class="thread-replies">返信 4件</span>
           </div>
         </div>
       </div>
-      <div class="reply-form">
-        <input type="text" placeholder="返信を入力..." id="reply2">
-        <button onclick="postReply('thread2','reply2')">送信</button>
+      <div class="thread-body" id="t1-body">
+        <div class="post"><div class="post-avatar">👩</div><div class="post-bubble"><div class="post-author">田中 花子（スレ主）</div><div class="post-text">初めて投稿します。ホームページを作りたいのですが、費用の目安を教えていただけますか？</div><div class="post-date">2025/03/01 14:00</div></div></div>
+        <div class="post" style="padding-left:20px;"><div class="post-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">👨</div><div class="post-bubble" style="background:#f0f4ff;"><div class="post-author" style="color:#1d4ed8;">AI Work Stage サポート</div><div class="post-text">ご質問ありがとうございます！プランによって異なりますが、ランディングページは5万円〜、コーポレートサイトは20万円〜が目安です。お気軽にお問い合わせください！</div><div class="post-date">2025/03/01 15:30</div></div></div>
+        <div class="mod-panel" id="mod-t1"><div class="mod-title">🛡️ モデレーションパネル（管理者）</div><div class="mod-buttons"><button class="mod-btn mod-delete" onclick="alert('この投稿を削除しました（デモ）')">🗑️ 削除</button><button class="mod-btn mod-hide" onclick="alert('この投稿を非表示にしました（デモ）')">👁️ 非表示</button><button class="mod-btn mod-warn" onclick="alert('ユーザーに警告を送信しました（デモ）')">⚠️ 警告</button></div></div>
       </div>
+    </div>
+
+    <div class="thread-item" id="t2" onclick="toggleThread('t2')">
+      <div class="thread-header">
+        <span class="thread-icon">❓</span>
+        <div class="thread-info">
+          <div class="thread-title">SNSリンクページの更新は自分でできますか？</div>
+          <div class="thread-meta">
+            <span>投稿者: 山田 太郎</span>
+            <span>最終更新: 2025/03/02 09:15</span>
+            <span class="thread-replies">返信 2件</span>
+          </div>
+        </div>
+      </div>
+      <div class="thread-body" id="t2-body">
+        <div class="post"><div class="post-avatar">👨</div><div class="post-bubble"><div class="post-author">山田 太郎（スレ主）</div><div class="post-text">SNSのリンクが変わった場合、自分で更新することはできますか？</div><div class="post-date">2025/03/02 08:00</div></div></div>
+        <div class="post" style="padding-left:20px;"><div class="post-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">👨</div><div class="post-bubble" style="background:#f0f4ff;"><div class="post-author" style="color:#1d4ed8;">AI Work Stage サポート</div><div class="post-text">はい！管理画面から簡単に更新できます。スタンダードプラン以上は管理画面へのアクセス権も付属しています。</div><div class="post-date">2025/03/02 09:15</div></div></div>
+        <div class="mod-panel" id="mod-t2"><div class="mod-title">🛡️ モデレーションパネル（管理者）</div><div class="mod-buttons"><button class="mod-btn mod-delete" onclick="alert('削除（デモ）')">🗑️ 削除</button><button class="mod-btn mod-hide" onclick="alert('非表示（デモ）')">👁️ 非表示</button><button class="mod-btn mod-warn" onclick="alert('警告（デモ）')">⚠️ 警告</button></div></div>
+      </div>
+    </div>
+
+    <div class="thread-item" id="t3" onclick="toggleThread('t3')">
+      <div class="thread-header">
+        <span class="thread-icon">❓</span>
+        <div class="thread-info">
+          <div class="thread-title">HP診断後、修正も依頼できますか？</div>
+          <div class="thread-meta">
+            <span>投稿者: 鈴木 一郎</span>
+            <span>最終更新: 2025/03/01 18:00</span>
+            <span class="thread-replies">返信 1件</span>
+          </div>
+        </div>
+      </div>
+      <div class="thread-body" id="t3-body">
+        <div class="post"><div class="post-avatar">🧑</div><div class="post-bubble"><div class="post-author">鈴木 一郎（スレ主）</div><div class="post-text">診断だけでなく修正まで対応してもらえますか？</div><div class="post-date">2025/03/01 17:00</div></div></div>
+        <div class="post" style="padding-left:20px;"><div class="post-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">👨</div><div class="post-bubble" style="background:#f0f4ff;"><div class="post-author" style="color:#1d4ed8;">AI Work Stage サポート</div><div class="post-text">プレミアムプランでは診断＋修正実施まで一括対応いたします！</div><div class="post-date">2025/03/01 18:00</div></div></div>
+        <div class="mod-panel" id="mod-t3"><div class="mod-title">🛡️ モデレーションパネル（管理者）</div><div class="mod-buttons"><button class="mod-btn mod-delete" onclick="alert('削除（デモ）')">🗑️ 削除</button><button class="mod-btn mod-hide" onclick="alert('非表示（デモ）')">👁️ 非表示</button><button class="mod-btn mod-warn" onclick="alert('警告（デモ）')">⚠️ 警告</button></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通知設定 -->
+  <div class="notif-section">
+    <div class="notif-title">🔔 通知メール設定</div>
+    <div class="notif-item">
+      <span class="notif-label">自分の投稿に返信があったとき</span>
+      <div class="toggle on" id="notif1" onclick="toggleNotif(this)"></div>
+    </div>
+    <div class="notif-item">
+      <span class="notif-label">フォロー中のスレッドに更新があったとき</span>
+      <div class="toggle" id="notif2" onclick="toggleNotif(this)"></div>
+    </div>
+    <div class="notif-item">
+      <span class="notif-label">新しいスレッドが投稿されたとき</span>
+      <div class="toggle" id="notif3" onclick="toggleNotif(this)"></div>
     </div>
   </div>
 </div>
+
+<!-- ログインモーダル -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-box">
+    <h3>🔑 ログイン</h3>
+    <div class="login-hint">デモ用：ユーザー名「admin」パスワード「1234」</div>
+    <input class="modal-input" type="text" id="login-user" placeholder="ユーザー名">
+    <input class="modal-input" type="password" id="login-pass" placeholder="パスワード">
+    <button class="modal-login-btn" onclick="doLogin()">ログイン</button>
+    <button class="modal-cancel" onclick="closeLogin()">キャンセル</button>
+  </div>
+</div>
+
 <script>
+var isLoggedIn = false;
+
+function switchCat(btn, cat) {
+  document.querySelectorAll('.cat-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+}
 function toggleThread(id) {
-  const body = document.getElementById(id + '-body');
-  body.style.display = body.style.display === 'none' ? 'block' : 'none';
+  var item = document.getElementById(id);
+  var body = document.getElementById(id+'-body');
+  item.classList.toggle('open');
+  body.classList.toggle('open');
+  if(isLoggedIn) {
+    document.getElementById('mod-'+id).classList.toggle('show', item.classList.contains('open'));
+  }
 }
-function like(el, e) {
-  e.stopPropagation();
-  const span = el.querySelector('span');
-  span.textContent = parseInt(span.textContent) + 1;
-  el.style.color = '#ff6b9d';
+function openLogin() { document.getElementById('login-modal').classList.add('show'); }
+function closeLogin() { document.getElementById('login-modal').classList.remove('show'); }
+function doLogin() {
+  var u = document.getElementById('login-user').value;
+  var p = document.getElementById('login-pass').value;
+  if(u==='admin' && p==='1234') {
+    isLoggedIn = true;
+    closeLogin();
+    document.getElementById('logged-badge').classList.add('show');
+    document.getElementById('login-btn-header').style.display = 'none';
+    document.querySelectorAll('.mod-panel').forEach(function(el){ el.classList.remove('show'); });
+    alert('✅ ログインしました。\nスレッドを開くとモデレーションパネルが表示されます。');
+  } else {
+    alert('ユーザー名またはパスワードが違います。\nデモ: admin / 1234');
+  }
 }
-function postReply(threadId, inputId) {
-  const input = document.getElementById(inputId);
-  const text = input.value.trim();
-  if (!text) return;
-  const comment = document.createElement('div');
-  comment.className = 'comment';
-  comment.innerHTML = `
-    <div class="comment-avatar" style="background:#7c6bff;">あ</div>
-    <div class="comment-body">
-      <div><span class="comment-author">あなた</span><span class="comment-time">たった今</span></div>
-      <div class="comment-text">${text}</div>
-      <div class="comment-actions"><span class="action-btn" onclick="like(this,event)">❤️ <span>0</span></span></div>
-    </div>`;
-  const body = document.getElementById(threadId + '-body');
-  body.insertBefore(comment, body.lastElementChild);
-  input.value = '';
-}
+function toggleNotif(el) { el.classList.toggle('on'); }
 </script>
 </body>
 </html>

@@ -3,45 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SNSリンクページ デモ - ベーシック | 株式会社サクラビジネス</title>
+<title>サクラビジネス - SNSリンクページ【ベーシックプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:linear-gradient(135deg,#667eea,#764ba2);font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
-.card{background:#fff;border-radius:24px;padding:40px 32px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
-.avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
-.name{font-size:1.3rem;font-weight:800;color:#333;margin-bottom:4px;}
-.bio{font-size:0.85rem;color:#888;margin-bottom:28px;line-height:1.5;}
-.link-btn{display:block;background:#f7f7f7;border:1px solid #e8e8e8;border-radius:12px;padding:14px 20px;margin-bottom:12px;text-decoration:none;color:#333;font-weight:600;font-size:0.9rem;transition:all 0.2s;display:flex;align-items:center;gap:12px;}
-.link-btn:hover{background:#667eea;color:#fff;border-color:#667eea;transform:translateY(-2px);}
-.link-icon{font-size:1.3rem;}
-.link-text{flex:1;text-align:left;}
-.footer{font-size:0.72rem;color:#ccc;margin-top:20px;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px 24px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .plan-badge {
+    display: inline-block;
+    background: #e8f4fd;
+    color: #2980b9;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.35);
+  }
+  .name { font-size: 22px; font-weight: 700; color: #222; margin-bottom: 4px; }
+  .title { font-size: 13px; color: #888; margin-bottom: 10px; font-weight: 500; }
+  .bio { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 28px; padding: 0 8px; }
+  .links { display: flex; flex-direction: column; gap: 12px; }
+  .link-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px; border-radius: 14px; border: none;
+    cursor: pointer; font-size: 15px; font-weight: 600; color: #fff;
+    text-align: left; transition: transform 0.15s, box-shadow 0.15s; width: 100%;
+  }
+  .link-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+  .link-btn .icon { font-size: 20px; width: 28px; text-align: center; }
+  .link-btn .label { flex: 1; }
+  .link-btn .arrow { font-size: 12px; opacity: 0.7; }
+  .btn-instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+  .btn-x { background: #111; }
+  .btn-youtube { background: #FF0000; }
+  .btn-tiktok { background: linear-gradient(135deg, #010101, #253341); }
+  .btn-website { background: linear-gradient(135deg, #2c3e50, #3498db); }
+  .footer { margin-top: 28px; font-size: 11px; color: #ccc; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-sns-link.html">← サービス詳細に戻る</a></div>
-<div class="page">
-  <div class="card">
-    <div class="avatar">🌸</div>
-    <div class="name">株式会社サクラビジネス</div>
-    <div class="bio">ビジネスの花を咲かせるお手伝いをします 🌸<br>IT・マーケティング支援</div>
-    <a class="link-btn" href="#" onclick="return false;">
-      <span class="link-icon">🌐</span>
-      <span class="link-text">公式ウェブサイト</span>
-    </a>
-    <a class="link-btn" href="#" onclick="return false;">
-      <span class="link-icon">📸</span>
-      <span class="link-text">Instagram</span>
-    </a>
-    <a class="link-btn" href="#" onclick="return false;">
-      <span class="link-icon">💬</span>
-      <span class="link-text">LINE公式アカウント</span>
-    </a>
-    <div class="footer">🌸 Powered by AI Work Stage</div>
+<div class="card">
+  <div class="plan-badge">🌸 ベーシックプラン デモ</div>
+  <div class="avatar">🌸</div>
+  <div class="name">サクラ ビジネス</div>
+  <div class="title">フリーランスデザイナー / クリエイター</div>
+  <div class="bio">✨ Webデザイン・ブランディング・SNS運用のお手伝いをしています。<br>お気軽にフォロー＆ご連絡ください！</div>
+  <div class="links">
+    <button class="link-btn btn-instagram" onclick="showAlert('Instagram', 'https://instagram.com/sakura_business')">
+      <span class="icon">📸</span><span class="label">Instagram</span><span class="arrow">→</span>
+    </button>
+    <button class="link-btn btn-x" onclick="showAlert('X (Twitter)', 'https://x.com/sakura_biz')">
+      <span class="icon">𝕏</span><span class="label">X (Twitter)</span><span class="arrow">→</span>
+    </button>
+    <button class="link-btn btn-youtube" onclick="showAlert('YouTube', 'https://youtube.com/@sakura_biz')">
+      <span class="icon">▶</span><span class="label">YouTube チャンネル</span><span class="arrow">→</span>
+    </button>
+    <button class="link-btn btn-tiktok" onclick="showAlert('TikTok', 'https://tiktok.com/@sakura_biz')">
+      <span class="icon">♪</span><span class="label">TikTok</span><span class="arrow">→</span>
+    </button>
+    <button class="link-btn btn-website" onclick="showAlert('公式サイト', 'https://sakura-business.jp')">
+      <span class="icon">🌐</span><span class="label">公式サイト・お問い合わせ</span><span class="arrow">→</span>
+    </button>
   </div>
+  <div class="footer">Powered by AI Work Stage SNSリンクサービス</div>
 </div>
+<script>
+function showAlert(platform, url) {
+  alert('【' + platform + '】\n\n実際のサービスでは下記URLに飛びます：\n' + url + '\n\n▶ ベーシックプランでは最大5件のSNSリンクを設定できます！');
+}
+</script>
 </body>
 </html>

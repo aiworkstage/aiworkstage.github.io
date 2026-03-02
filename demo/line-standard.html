@@ -3,82 +3,249 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINE公式アカウント デモ - スタンダード | 株式会社サクラビジネス</title>
+<title>LINE公式アカウント スタンダードプラン デモ｜株式会社サクラビジネス</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#06c755;font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.phone{max-width:390px;margin:20px auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.header{background:#00b900;color:#fff;padding:16px;display:flex;align-items:center;gap:12px;}
-.avatar{width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
-.header-info h3{font-size:1rem;font-weight:700;}
-.tabs{display:flex;background:#f8f8f8;border-bottom:1px solid #ddd;}
-.tab{flex:1;padding:10px;text-align:center;font-size:0.82rem;color:#888;cursor:pointer;border-bottom:2px solid transparent;}
-.tab.active{color:#00b900;border-bottom:2px solid #00b900;font-weight:700;}
-.chat-area{padding:16px;background:#e5e5e5;min-height:350px;display:flex;flex-direction:column;gap:12px;}
-.msg-bubble{max-width:75%;padding:12px 14px;border-radius:16px;font-size:0.88rem;line-height:1.5;}
-.msg-left{background:#fff;border-radius:4px 16px 16px 16px;align-self:flex-start;}
-.msg-right{background:#00b900;color:#fff;border-radius:16px 16px 4px 16px;align-self:flex-end;}
-.sender{font-size:0.72rem;color:#888;margin-bottom:4px;}
-.coupon{background:linear-gradient(135deg,#ff6b6b,#ee0979);color:#fff;margin:8px 16px;border-radius:12px;padding:16px;text-align:center;}
-.coupon h3{font-size:1.1rem;font-weight:800;margin-bottom:4px;}
-.coupon p{font-size:0.8rem;opacity:0.9;}
-.coupon .code{background:rgba(255,255,255,0.2);border-radius:8px;padding:8px;margin-top:10px;font-size:1.2rem;font-weight:700;letter-spacing:4px;}
-.rich-menu{background:#f8f8f8;padding:12px;}
-.rich-menu h4{text-align:center;font-size:0.8rem;color:#555;margin-bottom:8px;}
-.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
-.menu-btn{background:#00b900;color:#fff;border:none;padding:14px 8px;font-size:0.78rem;font-weight:700;cursor:pointer;border-radius:4px;}
-.menu-btn:hover{background:#009900;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#f5faf5;color:#333}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn 0.5s ease}
+
+.demo-header{background:#06C755;color:#fff;padding:14px 20px;text-align:center}
+.demo-header h1{font-size:18px;font-weight:bold}
+.demo-header p{font-size:12px;opacity:.85;margin-top:4px}
+.back-link{display:inline-block;color:rgba(255,255,255,.85);font-size:12px;margin-bottom:6px;text-decoration:none}
+
+.container{max-width:1100px;margin:0 auto;padding:16px}
+
+/* タブ */
+.tabs{display:flex;gap:0;border-bottom:2px solid #06C755;margin-bottom:16px}
+.tab{padding:10px 20px;cursor:pointer;font-size:13px;color:#666;border-radius:6px 6px 0 0;border:1px solid transparent;border-bottom:none;margin-bottom:-2px;background:#fff;transition:none}
+.tab.active{background:#fff;color:#06C755;font-weight:bold;border-color:#06C755;border-bottom-color:#fff}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.panel{background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:14px}
+.panel h2{font-size:15px;font-weight:bold;color:#06C755;border-bottom:2px solid #a5d6a7;padding-bottom:8px;margin-bottom:14px}
+.badge{display:inline-block;background:#e8f5e9;color:#06C755;border:1px solid #a5d6a7;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:bold}
+
+/* スマホチャット */
+.phone-wrap{display:flex;justify-content:center}
+.phone{background:#fff;border-radius:28px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);border:5px solid #222;width:320px}
+.phone-header{background:#06C755;color:#fff;border-radius:16px 16px 0 0;padding:10px 14px;display:flex;align-items:center;gap:8px}
+.phone-icon{width:30px;height:30px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.chat-area{background:#c8e6c9;padding:10px;height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:7px}
+.msg{max-width:75%;padding:8px 12px;border-radius:14px;font-size:12px;line-height:1.5;word-break:break-all}
+.msg.bot{background:#fff;align-self:flex-start;border-radius:4px 14px 14px 14px}
+.msg.user{background:#06C755;color:#fff;align-self:flex-end;border-radius:14px 4px 14px 14px}
+.input-area{display:flex;border-top:1px solid #ddd;padding:8px;gap:6px;border-radius:0 0 16px 16px;background:#fff}
+.input-area input{flex:1;border:1px solid #ddd;border-radius:20px;padding:6px 12px;font-size:12px;outline:none}
+.send-btn{background:#06C755;color:#fff;border:none;border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer}
+
+/* シナリオフロー */
+.scenario-flow{display:flex;flex-direction:column;gap:0}
+.scenario-step{display:flex;align-items:flex-start;gap:12px;position:relative;padding-bottom:20px}
+.scenario-step:last-child{padding-bottom:0}
+.scenario-step::before{content:'';position:absolute;left:19px;top:40px;bottom:0;width:2px;background:#a5d6a7}
+.scenario-step:last-child::before{display:none}
+.step-circle{width:40px;height:40px;background:#06C755;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.step-info{background:#f5faf5;border-radius:8px;padding:12px;flex:1}
+.step-label{font-size:11px;color:#388e3c;font-weight:bold;margin-bottom:3px}
+.step-msg{font-size:12px;color:#333;background:#fff;border-radius:6px;padding:8px;border-left:3px solid #06C755;line-height:1.5}
+
+/* セグメント */
+.segment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.segment-card{background:#f5faf5;border-radius:8px;padding:14px;border:1px solid #c8e6c9}
+.seg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.seg-tag{background:#06C755;color:#fff;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:bold}
+.seg-count{font-size:20px;font-weight:bold;color:#06C755}
+.seg-desc{font-size:11px;color:#666;margin-bottom:8px}
+.seg-btn{background:#06C755;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:11px;cursor:pointer;width:100%}
+.seg-btn:hover{background:#05a847}
+
+/* 予約テーブル */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#e8f5e9;color:#388e3c;padding:10px 12px;text-align:left;font-size:12px}
+td{padding:10px 12px;border-bottom:1px solid #f0f0f0}
+tr:hover td{background:#f5faf5}
+.status-badge{display:inline-block;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:bold}
+.s-confirmed{background:#e8f5e9;color:#2e7d32}
+.s-pending{background:#fff8e1;color:#f57f17}
+.s-cancel{background:#ffebee;color:#c62828}
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-line.html">← サービス詳細に戻る</a></div>
-<div style="text-align:center;padding:12px;color:#fff;font-size:0.85rem;font-weight:700;">【スタンダードプラン】LINE公式アカウント構築デモ</div>
-<div class="phone">
-  <div class="header">
-    <div class="avatar">🌸</div>
-    <div class="header-info">
-      <h3>株式会社サクラビジネス</h3>
-      <p>公式アカウント ✓ 認証済み</p>
-    </div>
-  </div>
+<div class="demo-header">
+  <a class="back-link" href="../index.html">← サービス一覧に戻る</a>
+  <h1>📱 LINE公式アカウント スタンダードプラン</h1>
+  <p>自動応答（無制限）・シナリオ配信・セグメント管理・予約連携・1ヶ月保守｜株式会社サクラビジネス（美容サロン）</p>
+</div>
+
+<div class="container fade-in">
   <div class="tabs">
-    <div class="tab active">💬 チャット</div>
-    <div class="tab">🎫 クーポン</div>
-    <div class="tab">📅 予約</div>
+    <div class="tab active" onclick="switchTab('chat',this)">💬 チャット画面</div>
+    <div class="tab" onclick="switchTab('scenario',this)">📬 シナリオ配信</div>
+    <div class="tab" onclick="switchTab('segment',this)">🎯 セグメント管理</div>
+    <div class="tab" onclick="switchTab('reserve',this)">📋 予約一覧</div>
   </div>
-  <div class="chat-area">
-    <div>
-      <div class="sender">サクラビジネス</div>
-      <div class="msg-bubble msg-left">🌸 新商品入荷のお知らせです！<br>今週末限定で特別クーポンをプレゼント🎁<br>下の「クーポン」タブをチェック！</div>
+
+  <!-- チャット -->
+  <div class="tab-content active" id="tab-chat">
+    <div class="panel">
+      <h2>💬 LINEチャット画面（スタンダード機能）</h2>
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-header">
+            <div class="phone-icon">🌸</div>
+            <div>
+              <div style="font-weight:bold;font-size:13px">サクラビジネス公式LINE</div>
+              <div style="font-size:10px;opacity:.85">認証済み ✓</div>
+            </div>
+          </div>
+          <div class="chat-area" id="chatArea">
+            <div style="font-size:10px;color:#777;text-align:center">2026年3月2日</div>
+            <div class="msg bot">🌸 友達追加ありがとうございます！<br>初回限定クーポンをプレゼント🎁</div>
+            <div class="msg bot">ご希望のメニューをお知らせください。自動でお答えします！</div>
+          </div>
+          <div class="input-area">
+            <input type="text" id="userInput" placeholder="メッセージを入力..." onkeydown="if(event.key==='Enter')sendFromInput()">
+            <button class="send-btn" onclick="sendFromInput()">送信</button>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:11px;color:#888;margin-top:10px">▲ メッセージを入力してEnterまたは「送信」を押してください（自動応答デモ）</p>
     </div>
-    <div style="align-self:flex-end;">
-      <div class="msg-bubble msg-right">予約したいのですが</div>
-    </div>
-    <div>
-      <div class="sender">サクラビジネス</div>
-      <div class="msg-bubble msg-left">
-        📅 ご予約はこちらから受け付けております！<br><br>「予約」タブをタップ、または以下から日時をお選びください：<br>・平日 10:00〜17:00<br>・土曜 10:00〜15:00
+  </div>
+
+  <!-- シナリオ配信 -->
+  <div class="tab-content" id="tab-scenario">
+    <div class="panel">
+      <h2>📬 シナリオ配信フロー設定</h2>
+      <span class="badge">🔄 友達追加から自動で配信</span>
+      <div style="margin-top:14px" class="scenario-flow">
+        <div class="scenario-step">
+          <div class="step-circle">👋</div>
+          <div class="step-info">
+            <div class="step-label">STEP 1 ｜ 友達追加直後（0日後）</div>
+            <div class="step-msg">🌸 友達追加ありがとうございます！<br>初回限定20%OFFクーポンをプレゼント🎁<br>ぜひご来店ください。</div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="step-circle">📩</div>
+          <div class="step-info">
+            <div class="step-label">STEP 2 ｜ 1日後</div>
+            <div class="step-msg">💅 サクラビジネスのメニューはご覧いただけましたか？<br>カット・カラー・トリートメントなど多数ご用意しております。<br>ご質問はお気軽にどうぞ！</div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="step-circle">⭐</div>
+          <div class="step-info">
+            <div class="step-label">STEP 3 ｜ 3日後</div>
+            <div class="step-msg">🎟️ まだご来店されていない方へ、特別クーポンをお届け！<br>平日限定トリートメント無料サービス実施中✨<br>ご予約はこちら → sakura-salon.jp/reserve</div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="step-circle">🔔</div>
+          <div class="step-info">
+            <div class="step-label">STEP 4 ｜ 7日後</div>
+            <div class="step-msg">😊 先日はご登録ありがとうございました！<br>クーポンの有効期限は今週末までです。<br>お早めにご来店ください🌸</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="coupon">
-    <h3>🎫 期間限定クーポン</h3>
-    <p>初回ご利用のお客様限定</p>
-    <div style="font-size:1.4rem;font-weight:800;margin:6px 0;">10% OFF</div>
-    <div class="code">SAKURA10</div>
-    <p style="font-size:0.72rem;margin-top:6px;">有効期限：2026年3月31日</p>
+
+  <!-- セグメント -->
+  <div class="tab-content" id="tab-segment">
+    <div class="panel">
+      <h2>🎯 顧客セグメント管理</h2>
+      <div class="segment-grid">
+        <div class="segment-card">
+          <div class="seg-header"><span class="seg-tag">🆕 新規</span><span class="seg-count">76名</span></div>
+          <div class="seg-desc">登録7日以内の新規フォロワー<br>ウェルカムキャンペーン対象</div>
+          <button class="seg-btn" onclick="sendSegment('新規顧客')">📩 一斉送信</button>
+        </div>
+        <div class="segment-card">
+          <div class="seg-header"><span class="seg-tag">🔄 リピーター</span><span class="seg-count">284名</span></div>
+          <div class="seg-desc">過去3ヶ月以内に来店あり<br>定期来店促進キャンペーン対象</div>
+          <button class="seg-btn" onclick="sendSegment('リピーター')">📩 一斉送信</button>
+        </div>
+        <div class="segment-card">
+          <div class="seg-header"><span class="seg-tag">⭐ VIP</span><span class="seg-count">48名</span></div>
+          <div class="seg-desc">月2回以上来店の優良顧客<br>VIP限定クーポン・特典対象</div>
+          <button class="seg-btn" onclick="sendSegment('VIP顧客')">📩 一斉送信</button>
+        </div>
+        <div class="segment-card">
+          <div class="seg-header"><span class="seg-tag">💤 休眠</span><span class="seg-count">132名</span></div>
+          <div class="seg-desc">3ヶ月以上来店なし<br>再来店クーポン送信対象</div>
+          <button class="seg-btn" onclick="sendSegment('休眠顧客')">📩 一斉送信</button>
+        </div>
+      </div>
+      <div id="segMsg" style="margin-top:12px;padding:10px;background:#e8f5e9;border-radius:8px;color:#2e7d32;font-size:12px;display:none"></div>
+    </div>
   </div>
-  <div class="rich-menu">
-    <h4>📋 メニュー</h4>
-    <div class="menu-grid">
-      <button class="menu-btn" onclick="alert('お問い合わせ')">📞 問い合わせ</button>
-      <button class="menu-btn" onclick="alert('予約ページへ')">📅 予約する</button>
-      <button class="menu-btn" onclick="alert('クーポン一覧へ')">🎫 クーポン</button>
-      <button class="menu-btn" onclick="alert('メニュー一覧へ')">📋 メニュー</button>
+
+  <!-- 予約一覧 -->
+  <div class="tab-content" id="tab-reserve">
+    <div class="panel">
+      <h2>📋 LINE予約一覧</h2>
+      <table>
+        <thead>
+          <tr><th>お客様名</th><th>予約日時</th><th>メニュー</th><th>担当</th><th>ステータス</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>山田 花子</td><td>3/5（水）14:00</td><td>カット＋カラー</td><td>佐藤スタイリスト</td><td><span class="status-badge s-confirmed">確定</span></td></tr>
+          <tr><td>鈴木 陽子</td><td>3/6（木）11:00</td><td>トリートメント</td><td>田中スタイリスト</td><td><span class="status-badge s-confirmed">確定</span></td></tr>
+          <tr><td>田中 美咲</td><td>3/7（金）13:00</td><td>パーマ</td><td>佐藤スタイリスト</td><td><span class="status-badge s-pending">確認待ち</span></td></tr>
+          <tr><td>佐藤 加奈</td><td>3/8（土）10:00</td><td>カット</td><td>未定</td><td><span class="status-badge s-pending">確認待ち</span></td></tr>
+          <tr><td>伊藤 由美</td><td>3/9（日）15:00</td><td>カラー＋トリートメント</td><td>田中スタイリスト</td><td><span class="status-badge s-confirmed">確定</span></td></tr>
+          <tr><td>渡辺 千春</td><td>3/10（月）12:00</td><td>カット</td><td>—</td><td><span class="status-badge s-cancel">キャンセル</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<script>
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+const autoReplies = {
+  '予約':'🗓️ ご予約ありがとうございます！\n希望日時をお知らせください。',
+  'メニュー':'💅 カット¥4,400〜・カラー¥8,800〜・パーマ¥11,000〜',
+  'クーポン':'🎟️ 初回20%OFFクーポン配布中！ご来店時にご提示ください。',
+  '料金':'💰 カット¥4,400〜・カラー¥8,800〜です。',
+  'ありがとう':'😊 こちらこそありがとうございます！またのご来店をお待ちしております🌸',
+};
+function sendFromInput() {
+  const inp = document.getElementById('userInput');
+  const text = inp.value.trim();
+  if (!text) return;
+  const area = document.getElementById('chatArea');
+  const u = document.createElement('div');
+  u.className='msg user'; u.textContent=text; area.appendChild(u);
+  let reply = '担当者が確認してご連絡いたします。しばらくお待ちください🙏';
+  for (const [k,v] of Object.entries(autoReplies)) {
+    if (text.includes(k)) { reply=v; break; }
+  }
+  inp.value='';
+  setTimeout(()=>{
+    const b=document.createElement('div'); b.className='msg bot';
+    b.style.whiteSpace='pre-line'; b.textContent=reply;
+    area.appendChild(b); area.scrollTop=area.scrollHeight;
+  },500);
+  area.scrollTop=area.scrollHeight;
+}
+
+function sendSegment(seg) {
+  const msg = document.getElementById('segMsg');
+  msg.textContent='✅ '+seg+'（'+{新規顧客:'76名',リピーター:'284名',VIP顧客:'48名',休眠顧客:'132名'}[seg]+'）にメッセージを送信しました！';
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',3000);
+}
+</script>
 </body>
 </html>

@@ -3,56 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SNSリンクページ デモ - スタンダード | 株式会社サクラビジネス</title>
+<title>YUKI CREATIVE - SNSリンクページ【スタンダードプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:linear-gradient(135deg,#0a0e1a 0%,#1a0a2e 50%,#0a1a0e 100%);font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
-.card{max-width:420px;width:100%;text-align:center;}
-.avatar-wrap{position:relative;display:inline-block;margin-bottom:16px;}
-.avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#7c6bff,#ff6b9d);display:flex;align-items:center;justify-content:center;font-size:2.8rem;border:4px solid rgba(255,255,255,0.15);}
-.verified{position:absolute;bottom:4px;right:4px;background:#7c6bff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;}
-.name{font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:6px;}
-.handle{font-size:0.85rem;color:#8888aa;margin-bottom:8px;}
-.bio{font-size:0.85rem;color:#c0c0d8;margin-bottom:16px;line-height:1.6;}
-.social-stats{display:flex;justify-content:center;gap:24px;margin-bottom:24px;}
-.stat-item{text-align:center;}
-.stat-num{font-size:1.1rem;font-weight:800;color:#7c6bff;}
-.stat-label{font-size:0.72rem;color:#8888aa;}
-.link-btn{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:14px;padding:14px 20px;margin-bottom:10px;text-decoration:none;color:#fff;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
-.link-btn:hover{background:rgba(124,107,255,0.2);border-color:#7c6bff;transform:translateY(-2px);}
-.link-icon{font-size:1.3rem;width:28px;text-align:center;}
-.link-text{flex:1;text-align:left;}
-.link-arrow{color:#8888aa;font-size:0.8rem;}
-.footer{font-size:0.72rem;color:#555;margin-top:20px;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #fff;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .page-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease;
+  }
+
+  /* ヘッダーグラデ帯 */
+  .hero {
+    background: linear-gradient(135deg, #f953c6 0%, #b91d73 50%, #4776E6 100%);
+    border-radius: 24px;
+    padding: 36px 24px 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(249,83,198,0.25);
+  }
+  .avatar {
+    width: 96px; height: 96px; border-radius: 50%;
+    margin: 0 auto 14px;
+    background: rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    border: 3px solid rgba(255,255,255,0.6);
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  .avatar:hover { transform: rotate(15deg); }
+  .name { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .title { font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 10px; }
+  .bio { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.6; }
+
+  /* 独自ドメイン表示バー */
+  .domain-bar {
+    background: #f1f3f5;
+    border-radius: 10px;
+    padding: 8px 14px;
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 20px;
+    font-size: 13px; color: #555;
+    border: 1px solid #e0e0e0;
+  }
+  .domain-bar .lock { color: #27ae60; font-size: 14px; }
+  .domain-bar .url { font-weight: 600; color: #333; }
+
+  /* リンクボタン */
+  .links { display: flex; flex-direction: column; gap: 11px; margin-bottom: 20px; }
+  .link-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 18px; border-radius: 14px; border: none;
+    cursor: pointer; font-size: 14px; font-weight: 600; color: #fff;
+    text-align: left; transition: transform 0.15s, box-shadow 0.15s; width: 100%;
+  }
+  .link-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.16); }
+  .link-btn .icon { font-size: 18px; width: 26px; text-align: center; }
+  .link-btn .label { flex: 1; }
+  .link-btn .arrow { font-size: 11px; opacity: 0.7; }
+  .btn-ig { background: linear-gradient(90deg, #f09433, #dc2743, #bc1888); }
+  .btn-x { background: #111; }
+  .btn-yt { background: #FF0000; }
+  .btn-tt { background: linear-gradient(90deg, #111, #2c3e50); }
+  .btn-fb { background: #1877F2; }
+  .btn-line { background: #06C755; }
+  .btn-note { background: #41C9B4; }
+  .btn-amazon { background: linear-gradient(90deg, #FF9900, #e47911); color: #111; }
+  .btn-merch { background: linear-gradient(90deg, #9b59b6, #6c3483); }
+  .btn-contact { background: linear-gradient(90deg, #2c3e50, #3498db); }
+
+  /* アクセス解析パネル */
+  .analytics {
+    background: #fff;
+    border: 1.5px solid #f0e6ff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .analytics h3 { font-size: 14px; font-weight: 700; color: #555; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+  .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .stat-card { background: linear-gradient(135deg, #f8f0ff, #fce4f3); border-radius: 12px; padding: 14px; text-align: center; }
+  .stat-card .num { font-size: 26px; font-weight: 800; color: #b91d73; }
+  .stat-card .lbl { font-size: 11px; color: #888; margin-top: 2px; }
+  .top-links h4 { font-size: 12px; color: #888; margin-bottom: 8px; font-weight: 600; }
+  .top-link-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+  .top-link-item:last-child { border-bottom: none; }
+  .rank { font-size: 16px; width: 24px; }
+  .tl-name { flex: 1; color: #333; font-weight: 500; }
+  .tl-count { font-weight: 700; color: #b91d73; }
+
+  .footer { text-align: center; font-size: 11px; color: #ccc; padding-top: 10px; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-sns-link.html">← サービス詳細に戻る</a></div>
-<div class="page">
-  <div class="card">
-    <div class="avatar-wrap">
-      <div class="avatar">🌸</div>
-      <div class="verified">✓</div>
-    </div>
-    <div class="name">株式会社サクラビジネス</div>
-    <div class="handle">@sakura_business</div>
-    <div class="bio">ビジネスの花を咲かせるIT×マーケティング支援 🌸<br>HP制作 / LINE構築 / Notion / AI自動化</div>
-    <div class="social-stats">
-      <div class="stat-item"><div class="stat-num">2,847</div><div class="stat-label">フォロワー</div></div>
-      <div class="stat-item"><div class="stat-num">184</div><div class="stat-label">投稿</div></div>
-      <div class="stat-item"><div class="stat-num">97%</div><div class="stat-label">満足度</div></div>
-    </div>
-    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">🌐</span><span class="link-text">公式ウェブサイト</span><span class="link-arrow">›</span></a>
-    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">📸</span><span class="link-text">Instagram</span><span class="link-arrow">›</span></a>
-    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">🐦</span><span class="link-text">X (Twitter)</span><span class="link-arrow">›</span></a>
-    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">💬</span><span class="link-text">LINE公式アカウント</span><span class="link-arrow">›</span></a>
-    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">📹</span><span class="link-text">YouTube</span><span class="link-arrow">›</span></a>
-    <a class="link-btn" href="#" onclick="return false;"><span class="link-icon">📧</span><span class="link-text">お問い合わせ</span><span class="link-arrow">›</span></a>
-    <div class="footer">🌸 Powered by AI Work Stage</div>
+<div class="page-wrapper">
+  <div class="plan-badge" style="text-align:center;margin-bottom:12px;">
+    <span style="display:inline-block;background:#fce4f3;color:#b91d73;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;">✨ スタンダードプラン デモ</span>
   </div>
+
+  <div class="hero">
+    <div class="avatar">🎨</div>
+    <div class="name">YUKI CREATIVE</div>
+    <div class="title">クリエイター / フォトグラファー / デザイナー</div>
+    <div class="bio">写真・動画・グラフィック制作 🌟<br>お仕事のご依頼はDMまで！</div>
+  </div>
+
+  <div class="domain-bar">
+    <span class="lock">🔒</span>
+    <span class="url">yuki-creative.com</span>
+    <span style="flex:1;"></span>
+    <span style="font-size:11px;color:#27ae60;">独自ドメイン対応</span>
+  </div>
+
+  <div class="links">
+    <button class="link-btn btn-ig" onclick="linkClick('Instagram')"><span class="icon">📸</span><span class="label">Instagram — フォトギャラリー</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-x" onclick="linkClick('X')"><span class="icon">𝕏</span><span class="label">X — 日常つぶやき</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-yt" onclick="linkClick('YouTube')"><span class="icon">▶</span><span class="label">YouTube — メイキング動画</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-tt" onclick="linkClick('TikTok')"><span class="icon">♪</span><span class="label">TikTok — ショート動画</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-fb" onclick="linkClick('Facebook')"><span class="icon">f</span><span class="label">Facebook — コミュニティ</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-line" onclick="linkClick('LINE公式')"><span class="icon">💬</span><span class="label">LINE公式 — お得情報配信</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-note" onclick="linkClick('note')"><span class="icon">📝</span><span class="label">note — コラム・記事</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-amazon" onclick="linkClick('Amazon欲しいものリスト')"><span class="icon">📦</span><span class="label">Amazon 欲しいものリスト</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-merch" onclick="linkClick('グッズショップ')"><span class="icon">👕</span><span class="label">グッズショップ</span><span class="arrow">→</span></button>
+    <button class="link-btn btn-contact" onclick="linkClick('お仕事のご依頼')"><span class="icon">✉️</span><span class="label">お仕事のご依頼フォーム</span><span class="arrow">→</span></button>
+  </div>
+
+  <div class="analytics">
+    <h3>📊 アクセス解析パネル <span style="font-size:11px;font-weight:400;color:#aaa;">（本日のデータ）</span></h3>
+    <div class="analytics-grid">
+      <div class="stat-card">
+        <div class="num">1,248</div>
+        <div class="lbl">本日の訪問者数</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">387</div>
+        <div class="lbl">本日のクリック数</div>
+      </div>
+    </div>
+    <div class="top-links">
+      <h4>🏆 人気リンク TOP3</h4>
+      <div class="top-link-item"><span class="rank">🥇</span><span class="tl-name">Instagram</span><span class="tl-count">152クリック</span></div>
+      <div class="top-link-item"><span class="rank">🥈</span><span class="tl-name">お仕事のご依頼フォーム</span><span class="tl-count">98クリック</span></div>
+      <div class="top-link-item"><span class="rank">🥉</span><span class="tl-name">YouTube</span><span class="tl-count">71クリック</span></div>
+    </div>
+  </div>
+
+  <div class="footer">Powered by AI Work Stage — スタンダードプラン（リンク無制限・独自ドメイン対応）</div>
 </div>
+<script>
+function linkClick(name) {
+  alert('【' + name + '】\n\n実際のサービスでは本物のURLに飛びます。\nクリック数はアクセス解析パネルに自動集計されます。\n\n▶ スタンダードプラン：リンク無制限・アクセス解析・独自ドメイン対応');
+}
+</script>
 </body>
 </html>

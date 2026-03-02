@@ -3,129 +3,246 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notion構築 デモ - プレミアム | 株式会社サクラビジネス</title>
+<title>Notion構築 プレミアムプラン デモ｜株式会社サクラビジネス</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0e1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#e0e0f0;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.sidebar{position:fixed;left:0;top:36px;width:220px;height:100%;background:#0d0d1a;border-right:1px solid #2a2a3e;padding:16px;overflow-y:auto;}
-.sidebar h4{font-size:0.7rem;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;margin-top:14px;}
-.nav-item{padding:6px 10px;border-radius:6px;font-size:0.83rem;cursor:pointer;display:flex;align-items:center;gap:8px;color:#c0c0d8;}
-.nav-item:hover,.nav-item.active{background:#1a1a2e;color:#fff;}
-.main{margin-left:220px;padding:28px 32px;}
-h1{font-size:1.6rem;font-weight:700;margin-bottom:4px;}
-.portal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-.portal-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:16px;text-align:center;}
-.portal-card .num{font-size:1.8rem;font-weight:800;color:#7c6bff;}
-.portal-card .label{font-size:0.75rem;color:#8888aa;margin-top:4px;}
-.portal-card .trend{font-size:0.72rem;color:#28c840;margin-top:2px;}
-.dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
-.dept-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:16px;}
-.dept-card h3{font-size:0.88rem;color:#7c6bff;margin-bottom:10px;}
-.dept-item{display:flex;justify-content:space-between;font-size:0.8rem;padding:4px 0;border-bottom:1px solid #1e1e30;color:#c0c0d8;}
-.flow-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:20px;margin-bottom:24px;}
-.flow-card h3{font-size:0.95rem;color:#7c6bff;margin-bottom:16px;}
-.automation-list{display:flex;flex-direction:column;gap:10px;}
-.auto-item{background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;padding:12px;display:flex;align-items:center;gap:12px;}
-.auto-icon{font-size:1.4rem;}
-.auto-info h4{font-size:0.85rem;color:#e0e0f0;}
-.auto-info p{font-size:0.75rem;color:#8888aa;margin-top:2px;}
-.auto-status{margin-left:auto;background:#28c840;color:#fff;border-radius:20px;padding:3px 10px;font-size:0.72rem;font-weight:700;}
-.auto-status.off{background:#555;}
-@media(max-width:768px){.sidebar{display:none;}.main{margin-left:0;padding:16px;}.portal-grid{grid-template-columns:repeat(2,1fr);}.dept-grid{grid-template-columns:1fr;}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif;background:#fff;color:#37352f}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn 0.5s ease}
+
+.demo-header{background:#f7f6f3;border-bottom:1px solid #e0e0e0;padding:10px 20px;display:flex;align-items:center;justify-content:space-between}
+.back-link{color:#888;text-decoration:none;font-size:12px}
+.layout{display:flex;min-height:calc(100vh - 44px)}
+.sidebar{width:200px;background:#f7f6f3;border-right:1px solid #e0e0e0;padding:14px 8px;flex-shrink:0}
+.sidebar-title{font-size:11px;color:#999;font-weight:600;padding:4px 8px;margin-bottom:4px}
+.sidebar-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;cursor:pointer;font-size:12px;color:#37352f}
+.sidebar-item:hover{background:#ebe9e4}
+.sidebar-item.active{background:#e3e2de;font-weight:600}
+.main{flex:1;padding:24px 32px;max-width:1000px}
+.page-title{font-size:26px;font-weight:700;margin-bottom:16px}
+
+/* KPIカード */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi-card{border:1px solid #e0e0e0;border-radius:10px;padding:16px;text-align:center}
+.kpi-icon{font-size:24px;margin-bottom:6px}
+.kpi-num{font-size:28px;font-weight:700;color:#37352f}
+.kpi-label{font-size:11px;color:#999;margin-top:3px}
+.kpi-trend{font-size:11px;color:#2a7a2a;margin-top:3px}
+.kpi-trend.down{color:#c62828}
+
+/* 部門タブ */
+.dept-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.dept-tab{padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;border:1px solid #e0e0e0;color:#666;background:#fff}
+.dept-tab.active{background:#37352f;color:#fff;border-color:#37352f}
+
+.panel{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:18px;margin-bottom:14px}
+.panel h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#37352f}
+
+/* AI要約 */
+.ai-input{background:#f7f6f3;border-radius:8px;padding:12px;font-size:12px;color:#555;line-height:1.7;margin-bottom:10px;max-height:120px;overflow:hidden}
+.ai-output{background:#e8f0fe;border:1px solid #c5d8fc;border-radius:8px;padding:12px;font-size:12px;color:#1a3a6b;line-height:1.7;display:none}
+.ai-btn{background:#37352f;color:#fff;border:none;border-radius:6px;padding:8px 16px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.ai-btn:hover{background:#555}
+.ai-badge{background:#d3e4fd;color:#1a3a6b;border-radius:4px;padding:1px 8px;font-size:10px;font-weight:600;margin-left:8px}
+
+/* ワークフロー図 */
+.workflow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.wf-step{background:#f7f6f3;border:1px solid #e0e0e0;border-radius:8px;padding:8px 12px;font-size:11px;text-align:center;min-width:80px}
+.wf-step .wf-icon{font-size:18px;margin-bottom:3px}
+.wf-arrow{color:#999;font-size:16px;flex-shrink:0}
+
+/* CRMタイムライン */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:12px;padding-bottom:14px;position:relative}
+.tl-item::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:1px;background:#e0e0e0}
+.tl-item:last-child::before{display:none}
+.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:2px solid #e0e0e0;background:#fff}
+.tl-content{flex:1}
+.tl-title{font-size:12px;font-weight:600;margin-bottom:2px}
+.tl-desc{font-size:11px;color:#666}
+.tl-date{font-size:10px;color:#aaa;margin-top:2px}
+
+/* 部門コンテンツ */
+.dept-content{display:none}
+.dept-content.active{display:block}
+.dept-stat-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.dept-stat{background:#f7f6f3;border-radius:8px;padding:10px 14px;flex:1;min-width:100px}
+.dept-stat .num{font-size:20px;font-weight:700}
+.dept-stat .lbl{font-size:10px;color:#999;margin-top:2px}
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-notion.html">← サービス詳細に戻る</a></div>
-<div class="sidebar">
-  <div style="font-size:1rem;font-weight:700;color:#7c6bff;margin-bottom:16px;">🌸 サクラビジネス</div>
-  <h4>ホーム</h4>
-  <div class="nav-item active">🏠 全社ポータル</div>
-  <div class="nav-item">📊 ダッシュボード</div>
-  <h4>部門</h4>
-  <div class="nav-item">💼 営業部</div>
-  <div class="nav-item">💻 開発部</div>
-  <div class="nav-item">🎨 デザイン部</div>
-  <div class="nav-item">📦 物流部</div>
-  <div class="nav-item">💰 財務部</div>
-  <h4>自動化</h4>
-  <div class="nav-item">⚡ オートメーション</div>
-  <div class="nav-item">📧 通知設定</div>
-  <div class="nav-item">🔗 外部連携</div>
+<div class="demo-header">
+  <a class="back-link" href="../index.html">← サービス一覧に戻る</a>
+  <div style="font-size:14px;font-weight:bold">📝 Notion構築 プレミアムプラン デモ</div>
+  <div style="font-size:11px;color:#aaa">株式会社サクラビジネス</div>
 </div>
-<div class="main">
-  <h1>🏠 全社ポータル</h1>
-  <div style="color:#8888aa;font-size:0.85rem;margin-bottom:20px;">株式会社サクラビジネス | 全部門統合ダッシュボード</div>
 
-  <div class="portal-grid">
-    <div class="portal-card"><div class="num">¥12.4M</div><div class="label">今月売上</div><div class="trend">↑ +18%</div></div>
-    <div class="portal-card"><div class="num">48</div><div class="label">アクティブタスク</div><div class="trend">↓ -5件</div></div>
-    <div class="portal-card"><div class="num">32</div><div class="label">従業員数</div><div class="trend">+ 2名（今月）</div></div>
-    <div class="portal-card"><div class="num">97%</div><div class="label">顧客満足度</div><div class="trend">↑ +2%</div></div>
+<div class="layout fade-in">
+  <div class="sidebar">
+    <div class="sidebar-title">全社ポータル</div>
+    <div class="sidebar-item active">🏠 マスターダッシュボード</div>
+    <div class="sidebar-item">💼 営業部門</div>
+    <div class="sidebar-item">📢 マーケ部門</div>
+    <div class="sidebar-item">⚙️ エンジニア</div>
+    <div class="sidebar-item">💰 経理部門</div>
+    <div class="sidebar-item">👥 HR部門</div>
+    <div class="sidebar-title" style="margin-top:12px">機能</div>
+    <div class="sidebar-item">🤖 AI機能</div>
+    <div class="sidebar-item">⚡ 自動化フロー</div>
+    <div class="sidebar-item">👤 CRM統合</div>
+    <div class="sidebar-item" style="font-size:11px;color:#aaa;margin-top:8px">＋ ページを追加</div>
   </div>
 
-  <div class="dept-grid">
-    <div class="dept-card">
-      <h3>💼 営業部</h3>
-      <div class="dept-item"><span>今月商談数</span><span>24件</span></div>
-      <div class="dept-item"><span>成約率</span><span>58%</span></div>
-      <div class="dept-item"><span>パイプライン</span><span>¥3.2M</span></div>
-      <div class="dept-item"><span>新規顧客</span><span>7社</span></div>
-    </div>
-    <div class="dept-card">
-      <h3>💻 開発部</h3>
-      <div class="dept-item"><span>進行プロジェクト</span><span>5件</span></div>
-      <div class="dept-item"><span>完了タスク</span><span>83件</span></div>
-      <div class="dept-item"><span>バグ対応</span><span>2件</span></div>
-      <div class="dept-item"><span>スプリント</span><span>第3週</span></div>
-    </div>
-    <div class="dept-card">
-      <h3>📦 物流部</h3>
-      <div class="dept-item"><span>在庫アイテム</span><span>247SKU</span></div>
-      <div class="dept-item"><span>今月出荷</span><span>1,284件</span></div>
-      <div class="dept-item"><span>返品率</span><span>0.8%</span></div>
-      <div class="dept-item"><span>欠品アラート</span><span>3品目</span></div>
-    </div>
-  </div>
+  <div class="main">
+    <div class="page-title">🏢 株式会社サクラビジネス 全社ポータル</div>
 
-  <div class="flow-card">
-    <h3>⚡ 自動化フロー（アクティブ）</h3>
-    <div class="automation-list">
-      <div class="auto-item">
-        <div class="auto-icon">📧</div>
-        <div class="auto-info">
-          <h4>新規問い合わせ → 担当者自動割当</h4>
-          <p>フォーム送信 → Notionタスク生成 → Slack通知 → メール返信</p>
+    <!-- KPIカード -->
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-icon">💰</div><div class="kpi-num">¥4.8M</div><div class="kpi-label">今月売上</div><div class="kpi-trend">↑ +18% vs先月</div></div>
+      <div class="kpi-card"><div class="kpi-icon">✅</div><div class="kpi-num">78%</div><div class="kpi-label">タスク完了率</div><div class="kpi-trend">↑ +5%</div></div>
+      <div class="kpi-card"><div class="kpi-icon">😊</div><div class="kpi-num">4.6</div><div class="kpi-label">顧客満足度</div><div class="kpi-trend">↑ +0.2</div></div>
+      <div class="kpi-card"><div class="kpi-icon">👥</div><div class="kpi-num">24名</div><div class="kpi-label">従業員数</div><div class="kpi-trend down">↓ -1（退職）</div></div>
+    </div>
+
+    <!-- 部門タブ -->
+    <div class="dept-tabs">
+      <div class="dept-tab active" onclick="swDept('sales',this)">💼 営業</div>
+      <div class="dept-tab" onclick="swDept('marketing',this)">📢 マーケ</div>
+      <div class="dept-tab" onclick="swDept('engineering',this)">⚙️ エンジニア</div>
+      <div class="dept-tab" onclick="swDept('finance',this)">💰 経理</div>
+      <div class="dept-tab" onclick="swDept('hr',this)">👥 HR</div>
+    </div>
+
+    <div class="dept-content active" id="dept-sales">
+      <div class="panel"><h3>💼 営業部門 ダッシュボード</h3>
+        <div class="dept-stat-row">
+          <div class="dept-stat"><div class="num">12件</div><div class="lbl">今月の商談数</div></div>
+          <div class="dept-stat"><div class="num">¥2.4M</div><div class="lbl">今月受注額</div></div>
+          <div class="dept-stat"><div class="num">58%</div><div class="lbl">受注率</div></div>
+          <div class="dept-stat"><div class="num">5件</div><div class="lbl">クロージング予定</div></div>
         </div>
-        <div class="auto-status">稼働中</div>
+        <div style="font-size:12px;color:#666">📌 今月の重点顧客：山田工業・田中商事・佐藤製作所</div>
       </div>
-      <div class="auto-item">
-        <div class="auto-icon">📊</div>
-        <div class="auto-info">
-          <h4>月次レポート自動生成</h4>
-          <p>毎月1日 → 各部門DBを集計 → PDF作成 → 役員にメール配信</p>
+    </div>
+    <div class="dept-content" id="dept-marketing">
+      <div class="panel"><h3>📢 マーケ部門 ダッシュボード</h3>
+        <div class="dept-stat-row">
+          <div class="dept-stat"><div class="num">8,420</div><div class="lbl">Webサイト訪問数</div></div>
+          <div class="dept-stat"><div class="num">3.2%</div><div class="lbl">CVR</div></div>
+          <div class="dept-stat"><div class="num">284</div><div class="lbl">LINE友達数増加</div></div>
+          <div class="dept-stat"><div class="num">12件</div><div class="lbl">今月の施策</div></div>
         </div>
-        <div class="auto-status">稼働中</div>
       </div>
-      <div class="auto-item">
-        <div class="auto-icon">⏰</div>
-        <div class="auto-info">
-          <h4>期限切れタスク → リマインダー通知</h4>
-          <p>毎朝9時 → 期限超過タスクを検知 → 担当者・マネージャーに通知</p>
+    </div>
+    <div class="dept-content" id="dept-engineering">
+      <div class="panel"><h3>⚙️ エンジニア ダッシュボード</h3>
+        <div class="dept-stat-row">
+          <div class="dept-stat"><div class="num">23件</div><div class="lbl">今月のIssue</div></div>
+          <div class="dept-stat"><div class="num">18件</div><div class="lbl">クローズ済み</div></div>
+          <div class="dept-stat"><div class="num">99.9%</div><div class="lbl">稼働率</div></div>
+          <div class="dept-stat"><div class="num">4本</div><div class="lbl">今月リリース</div></div>
         </div>
-        <div class="auto-status">稼働中</div>
       </div>
-      <div class="auto-item">
-        <div class="auto-icon">🔗</div>
-        <div class="auto-info">
-          <h4>Google Calendar 双方向同期</h4>
-          <p>NotionカレンダーDB ↔ Google Calendar をリアルタイム同期</p>
+    </div>
+    <div class="dept-content" id="dept-finance">
+      <div class="panel"><h3>💰 経理部門 ダッシュボード</h3>
+        <div class="dept-stat-row">
+          <div class="dept-stat"><div class="num">¥4.8M</div><div class="lbl">今月売上</div></div>
+          <div class="dept-stat"><div class="num">¥2.1M</div><div class="lbl">経費</div></div>
+          <div class="dept-stat"><div class="num">¥2.7M</div><div class="lbl">利益</div></div>
+          <div class="dept-stat"><div class="num">12件</div><div class="lbl">未処理経費精算</div></div>
         </div>
-        <div class="auto-status off">準備中</div>
+      </div>
+    </div>
+    <div class="dept-content" id="dept-hr">
+      <div class="panel"><h3>👥 HR部門 ダッシュボード</h3>
+        <div class="dept-stat-row">
+          <div class="dept-stat"><div class="num">24名</div><div class="lbl">従業員数</div></div>
+          <div class="dept-stat"><div class="num">3名</div><div class="lbl">採用活動中</div></div>
+          <div class="dept-stat"><div class="num">92%</div><div class="lbl">有給消化率</div></div>
+          <div class="dept-stat"><div class="num">2名</div><div class="lbl">研修予定</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI機能 -->
+    <div class="panel">
+      <h3>🤖 AI機能：議事録自動要約 <span class="ai-badge">✨ AI powered</span></h3>
+      <div class="ai-input" id="aiInput">
+【2026年3月2日 週次定例会議】参加者：山田太郎、鈴木花子、佐藤次郎、田中三郎（計4名）、開始10:00、終了11:15<br><br>
+議題1: 3月キャンペーンについて。山田より、LINE公式アカウントを活用した春のキャンペーンを3月10日から開始する旨の提案があった。鈴木より予算は50万円以内に抑えること、佐藤よりコンテンツは3月5日までに用意することの確認があった。田中より広告は平日のみ配信する旨の提案があり承認された。<br><br>
+議題2: ホームページリニューアルについて。現状の進捗確認、3月10日の公開に向けて最終調整を実施。バナー画像の差し替えは鈴木が担当、SEO対策の確認は佐藤が担当。<br><br>
+次回会議: 3月9日（月）10:00〜予定。
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center">
+        <button class="ai-btn" onclick="aiSummarize()">🤖 AIで要約する</button>
+        <span style="font-size:11px;color:#999">クリックでAIが3行に要約します</span>
+      </div>
+      <div class="ai-output" id="aiOutput">
+        ✅ <strong>AI要約完了</strong><br><br>
+        ① 3月10日〜LINEを活用した春キャンペーン開始（予算50万円以内、コンテンツは3/5までに用意）<br>
+        ② ホームページリニューアル最終調整中。バナー差し替え（鈴木担当）・SEO確認（佐藤担当）で3/10公開予定<br>
+        ③ 次回定例は3月9日（月）10:00〜
+      </div>
+    </div>
+
+    <!-- 自動化フロー -->
+    <div class="panel">
+      <h3>⚡ 高度な自動化フロー（10ステップ）</h3>
+      <div class="workflow">
+        <div class="wf-step"><div class="wf-icon">📝</div>フォーム<br>受付</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">🤖</div>AI<br>分類</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">📥</div>Notion<br>DB登録</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">📩</div>担当者<br>通知</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">📧</div>自動<br>返信</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">📅</div>日程<br>調整</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">💬</div>LINE<br>通知</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">✅</div>承認<br>フロー</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">📊</div>集計<br>レポート</div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step"><div class="wf-icon">📤</div>上長<br>報告</div>
+      </div>
+    </div>
+
+    <!-- CRMタイムライン -->
+    <div class="panel">
+      <h3>👤 CRM統合：顧客接触履歴タイムライン（山田 花子 様）</h3>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">📞</div><div class="tl-content"><div class="tl-title">電話フォローアップ</div><div class="tl-desc">次回来店の日程調整。3月15日（土）13:00で予約確定</div><div class="tl-date">2026-03-02 10:30</div></div></div>
+        <div class="tl-item"><div class="tl-dot">💄</div><div class="tl-content"><div class="tl-title">来店（カラー・トリートメント）</div><div class="tl-desc">カラー＋トリートメントを施術。大変ご満足いただけた。次回はパーマも検討中</div><div class="tl-date">2026-02-28 14:00</div></div></div>
+        <div class="tl-item"><div class="tl-dot">📩</div><div class="tl-content"><div class="tl-title">LINEメッセージ送信</div><div class="tl-desc">2月キャンペーンクーポンを送信。既読確認済み</div><div class="tl-date">2026-02-15 12:00</div></div></div>
+        <div class="tl-item"><div class="tl-dot">🎁</div><div class="tl-content"><div class="tl-title">ポイント特典交換</div><div class="tl-desc">500ptをトリートメント無料クーポンと交換</div><div class="tl-date">2026-02-01 15:30</div></div></div>
+        <div class="tl-item"><div class="tl-dot">💄</div><div class="tl-content"><div class="tl-title">来店（カット）</div><div class="tl-desc">初回来店。カット施術。VIPメンバー登録完了</div><div class="tl-date">2026-01-15 11:00</div></div></div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+function swDept(name, el) {
+  document.querySelectorAll('.dept-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.dept-content').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('dept-'+name).classList.add('active');
+}
+function aiSummarize() {
+  const out = document.getElementById('aiOutput');
+  document.querySelector('.ai-btn').disabled = true;
+  document.querySelector('.ai-btn').textContent = '⏳ AIが要約中...';
+  setTimeout(()=>{
+    out.style.display = 'block';
+    document.querySelector('.ai-btn').textContent = '✅ 要約完了';
+  }, 1200);
+}
+</script>
 </body>
 </html>

@@ -2,72 +2,271 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>株式会社サクラビジネス</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>サクラ美容サロン | 東京・渋谷のプライベートサロン</title>
+<meta name="description" content="サクラ美容サロンは東京渋谷の完全個室プライベートサロンです。フェイシャルケア・ボディケア・脱毛など幅広いメニューをご用意しています。">
+<meta property="og:title" content="サクラ美容サロン | 東京・渋谷のプライベートサロン">
+<meta property="og:description" content="完全個室・国家資格保有スタッフ・24時間ネット予約対応。初回体験50%OFFキャンペーン実施中。">
+<meta property="og:type" content="website">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#f9f9f9; color:#333; }
-header { background:#1a1a2e; color:#fff; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; }
-header h1 { font-size:1.4rem; }
-nav a { color:#ccc; text-decoration:none; margin-left:20px; font-size:0.9rem; }
-.hero { background:#16213e; color:#fff; text-align:center; padding:80px 20px; }
-.hero h2 { font-size:2rem; margin-bottom:16px; }
-.hero p { font-size:1rem; color:#aaa; margin-bottom:24px; }
-.btn { background:#7c6bff; color:#fff; padding:12px 28px; border-radius:6px; text-decoration:none; font-weight:700; display:inline-block; }
-.services { max-width:800px; margin:60px auto; padding:0 20px; }
-.services h2 { font-size:1.4rem; margin-bottom:24px; text-align:center; }
-.service-item { background:#fff; border:1px solid #ddd; border-radius:8px; padding:24px; margin-bottom:16px; }
-.service-item h3 { color:#7c6bff; margin-bottom:8px; }
-.contact { background:#1a1a2e; color:#fff; padding:60px 20px; text-align:center; }
-.contact h2 { font-size:1.4rem; margin-bottom:16px; }
-.contact form { max-width:400px; margin:0 auto; }
-.contact input, .contact textarea { width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:none; font-size:0.9rem; }
-.contact button { background:#7c6bff; color:#fff; padding:12px 32px; border:none; border-radius:6px; font-size:1rem; cursor:pointer; }
-footer { background:#0d0d1a; color:#888; text-align:center; padding:20px; font-size:0.8rem; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Hiragino Sans',system-ui,sans-serif;background:#fff;color:#333;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade{animation:fadeIn 0.5s ease both;}
+
+/* デモバナー */
+.demo-banner{background:#7c6bff;color:#fff;padding:10px;text-align:center;font-size:0.85rem;}
+.demo-banner a{color:#fff;}
+
+/* ヘッダー */
+header{background:#fff;border-bottom:2px solid #b3e5fc;padding:0 40px;display:flex;justify-content:space-between;align-items:center;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(3,169,244,0.1);}
+.logo{font-size:1.2rem;font-weight:900;color:#0288d1;}
+.logo span{color:#4fc3f7;}
+nav{display:flex;gap:24px;}
+nav a{text-decoration:none;color:#555;font-size:0.9rem;font-weight:500;transition:color 0.2s;}
+nav a:hover{color:#0288d1;}
+.nav-cta{background:#0288d1;color:#fff!important;padding:8px 20px;border-radius:20px;}
+.nav-cta:hover{background:#0277bd!important;color:#fff!important;}
+
+/* ヒーロー */
+.hero{background:linear-gradient(135deg,#e1f5fe,#b3e5fc,#e1f5fe);padding:80px 24px;text-align:center;}
+.hero-badge{display:inline-block;background:#0288d1;color:#fff;font-size:0.8rem;font-weight:700;padding:4px 16px;border-radius:20px;margin-bottom:16px;}
+.hero h1{font-size:2.4rem;font-weight:900;color:#01579b;line-height:1.3;margin-bottom:16px;}
+.hero p{font-size:1.05rem;color:#555;margin-bottom:32px;line-height:1.8;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:linear-gradient(135deg,#0288d1,#03a9f4);color:#fff;padding:16px 36px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;box-shadow:0 6px 20px rgba(2,136,209,0.3);transition:transform 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-secondary{background:#fff;color:#0288d1;padding:16px 36px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;border:2px solid #0288d1;transition:all 0.2s;}
+.btn-secondary:hover{background:#e1f5fe;}
+
+/* 概要 */
+.about{padding:60px 24px;max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.about-img{background:linear-gradient(135deg,#b3e5fc,#e1f5fe);border-radius:20px;height:280px;display:flex;align-items:center;justify-content:center;font-size:5rem;}
+.about-text h2{font-size:1.5rem;font-weight:900;color:#01579b;margin-bottom:16px;}
+.about-text p{color:#666;line-height:1.8;font-size:0.95rem;}
+.about-points{margin-top:20px;display:flex;flex-direction:column;gap:10px;}
+.about-point{display:flex;align-items:center;gap:10px;font-size:0.9rem;color:#333;}
+.about-point::before{content:'✓';background:#0288d1;color:#fff;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:900;flex-shrink:0;}
+
+/* サービスメニュー */
+.services{background:#f0f9ff;padding:60px 24px;}
+.services h2{text-align:center;font-size:1.6rem;font-weight:900;color:#01579b;margin-bottom:40px;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto;}
+.service-card{background:#fff;border:1px solid #b3e5fc;border-radius:16px;padding:28px 20px;text-align:center;transition:box-shadow 0.2s;}
+.service-card:hover{box-shadow:0 8px 24px rgba(2,136,209,0.15);}
+.service-icon{font-size:2.8rem;margin-bottom:12px;}
+.service-card h3{font-size:1.05rem;font-weight:700;color:#01579b;margin-bottom:8px;}
+.service-card p{font-size:0.85rem;color:#666;line-height:1.7;margin-bottom:12px;}
+.service-price{font-size:1.2rem;font-weight:900;color:#0288d1;}
+.service-price span{font-size:0.8rem;color:#888;font-weight:400;}
+
+/* アクセス */
+.access{padding:60px 24px;max-width:900px;margin:0 auto;}
+.access h2{text-align:center;font-size:1.5rem;font-weight:900;color:#01579b;margin-bottom:32px;}
+.access-content{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.map-placeholder{background:#e0e0e0;border-radius:16px;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#666;gap:8px;border:1px solid #ccc;}
+.map-placeholder .map-icon{font-size:2.5rem;}
+.map-placeholder p{font-size:0.85rem;}
+.access-info{display:flex;flex-direction:column;gap:16px;}
+.access-item{display:flex;gap:12px;align-items:flex-start;}
+.access-item-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+.access-item-text strong{display:block;font-size:0.85rem;color:#0288d1;margin-bottom:2px;}
+.access-item-text span{font-size:0.9rem;color:#555;}
+
+/* お問い合わせ */
+.contact{background:linear-gradient(135deg,#e1f5fe,#b3e5fc);padding:60px 24px;}
+.contact h2{text-align:center;font-size:1.5rem;font-weight:900;color:#01579b;margin-bottom:32px;}
+.contact-form{max-width:560px;margin:0 auto;background:#fff;border-radius:20px;padding:32px;box-shadow:0 8px 32px rgba(2,136,209,0.1);}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.form-group label{font-size:0.85rem;color:#555;font-weight:600;}
+.form-group input,.form-group textarea,.form-group select{padding:12px 16px;border:2px solid #b3e5fc;border-radius:10px;font-size:0.95rem;color:#333;background:#fff;font-family:inherit;transition:border-color 0.2s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:#0288d1;}
+.form-group textarea{height:110px;resize:none;}
+.submit-btn{width:100%;background:linear-gradient(135deg,#0288d1,#03a9f4);color:#fff;border:none;padding:16px;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity 0.2s;}
+.submit-btn:hover{opacity:0.9;}
+.success-box{display:none;text-align:center;padding:24px;background:#e1f5fe;border-radius:12px;color:#01579b;font-weight:700;}
+
+/* フッター */
+footer{background:#01579b;color:#fff;padding:32px 24px;text-align:center;}
+.footer-info{font-size:0.9rem;line-height:2;opacity:0.9;}
+.footer-copy{margin-top:16px;font-size:0.8rem;opacity:0.6;border-top:1px solid rgba(255,255,255,0.2);padding-top:16px;}
+
+/* SEOメタタグ表示 */
+.seo-box{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:20px;max-width:900px;margin:0 auto 0;font-size:0.85rem;}
+.seo-box h3{color:#2e7d32;margin-bottom:12px;font-size:1rem;}
+.seo-item{margin-bottom:8px;}<br>.seo-item code{background:#fff;border:1px solid #c8e6c9;border-radius:4px;padding:2px 6px;font-size:0.8rem;word-break:break-all;}
+
+@media(max-width:700px){
+  .about,.access-content{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .hero h1{font-size:1.6rem;}
+  header{padding:0 16px;}
+  nav{gap:12px;}
+}
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-hp.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<div class="demo-banner">🏠 HP ベーシックプランのデモ（1ページ構成・SEO基本設定・お問い合わせフォーム） | <a href="../service-hp.html">← サービス詳細に戻る</a></div>
+
 <header>
-  <h1>🌸 株式会社サクラビジネス</h1>
+  <div class="logo">🌸 サクラ<span>美容サロン</span></div>
   <nav>
-    <a href="#services">サービス</a>
-    <a href="#contact">お問い合わせ</a>
+    <a href="#access">アクセス</a>
+    <a href="#services">メニュー</a>
+    <a href="#contact" class="nav-cta">予約・お問い合わせ</a>
   </nav>
 </header>
-<div class="hero">
-  <h2>ビジネスを、次のステージへ。</h2>
-  <p>株式会社サクラビジネスは、あなたのビジネスの成長を全力でサポートします。</p>
-  <a href="#contact" class="btn">無料相談はこちら</a>
+
+<!-- ヒーロー -->
+<section class="hero fade">
+  <div class="hero-badge">🎉 初回体験 50% OFF キャンペーン実施中</div>
+  <h1>渋谷の完全個室<br>プライベートサロン</h1>
+  <p>あなたの肌悩みに寄り添う、丁寧なケアをご提供します。<br>国家資格保有スタッフが担当・24時間ネット予約対応。</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">今すぐ予約する →</a>
+    <a href="#services" class="btn-secondary">メニューを見る</a>
+  </div>
+</section>
+
+<!-- 当サロンについて -->
+<section class="about fade" id="about">
+  <div class="about-img">🌸</div>
+  <div class="about-text">
+    <h2>当サロンについて</h2>
+    <p>2015年創業、延べ10,000名以上のお客様にご来店いただいたサクラ美容サロン。完全個室で、周りを気にせずリラックスできる空間をご用意しています。</p>
+    <div class="about-points">
+      <div class="about-point">全スタッフ国家資格（美容師・エステ）保有</div>
+      <div class="about-point">完全個室・プライベート空間を保証</div>
+      <div class="about-point">24時間オンライン予約対応</div>
+      <div class="about-point">前日キャンセル・変更無料</div>
+    </div>
+  </div>
+</section>
+
+<!-- サービスメニュー -->
+<section class="services fade" id="services">
+  <h2>🌟 サービスメニュー</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">💆</div>
+      <h3>フェイシャルケア</h3>
+      <p>毛穴・くすみ・ニキビなどのお悩みに対応。お肌の状態を見ながら最適なケアをご提供します。</p>
+      <div class="service-price">¥6,800<span>〜（60分）</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✨</div>
+      <h3>ボディケア・マッサージ</h3>
+      <p>全身のコリや疲れをほぐすリラクゼーションマッサージ。アロマオイル使用で心身ともに癒されます。</p>
+      <div class="service-price">¥8,800<span>〜（60分）</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌙</div>
+      <h3>脱毛・除毛ケア</h3>
+      <p>最新の光脱毛機器を使用。痛みが少なく、効果的な脱毛ケアをご提供します。</p>
+      <div class="service-price">¥3,800<span>〜（1部位）</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- アクセスマップ -->
+<section class="access fade" id="access">
+  <h2>📍 アクセス</h2>
+  <div class="access-content">
+    <div class="map-placeholder">
+      <div class="map-icon">🗺️</div>
+      <p>Googleマップ埋め込みエリア</p>
+      <p style="font-size:0.75rem;color:#999;">制作時に実際のマップを表示</p>
+    </div>
+    <div class="access-info">
+      <div class="access-item">
+        <div class="access-item-icon">📍</div>
+        <div class="access-item-text"><strong>住所</strong><span>〒150-0001 東京都渋谷区神宮前1-2-3 サクラビル2F</span></div>
+      </div>
+      <div class="access-item">
+        <div class="access-item-icon">🚃</div>
+        <div class="access-item-text"><strong>最寄り駅</strong><span>渋谷駅 徒歩5分 / 原宿駅 徒歩8分</span></div>
+      </div>
+      <div class="access-item">
+        <div class="access-item-icon">📞</div>
+        <div class="access-item-text"><strong>電話番号</strong><span>03-1234-5678</span></div>
+      </div>
+      <div class="access-item">
+        <div class="access-item-icon">🕐</div>
+        <div class="access-item-text"><strong>営業時間</strong><span>10:00〜20:00（年中無休）</span></div>
+      </div>
+      <div class="access-item">
+        <div class="access-item-icon">🅿️</div>
+        <div class="access-item-text"><strong>駐車場</strong><span>近隣コインパーキングご利用ください</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEOメタタグ確認エリア（デモ用） -->
+<div style="padding:24px;background:#f9fbe7;border-top:1px solid #dcedc8;">
+  <div class="seo-box">
+    <h3>✅ SEO基本設定 確認エリア（デモ表示）</h3>
+    <div class="seo-item"><strong>title：</strong><code>サクラ美容サロン | 東京・渋谷のプライベートサロン</code></div>
+    <div class="seo-item"><strong>description：</strong><code>サクラ美容サロンは東京渋谷の完全個室プライベートサロンです。フェイシャルケア・ボディケア・脱毛など幅広いメニューをご用意しています。</code></div>
+    <div class="seo-item"><strong>OGP設定：</strong><code>og:title / og:description / og:type 設定済み</code></div>
+    <div class="seo-item"><strong>viewport：</strong><code>width=device-width, initial-scale=1</code>（スマホ対応）</div>
+    <div class="seo-item" style="color:#888;font-size:0.8rem;margin-top:8px;">※ 実際の制作ではページごとにユニークなタイトル・ディスクリプションを設定します</div>
+  </div>
 </div>
-<section class="services" id="services">
-  <h2>📋 サービス一覧</h2>
-  <div class="service-item">
-    <h3>🏢 経営コンサルティング</h3>
-    <p>中小企業の経営課題を解決するための戦略立案・実行支援を行います。</p>
-  </div>
-  <div class="service-item">
-    <h3>📊 財務・会計サポート</h3>
-    <p>資金繰りの改善から税務申告まで、財務面での包括的なサポートを提供します。</p>
-  </div>
-  <div class="service-item">
-    <h3>💼 人材採用支援</h3>
-    <p>求人票の作成から面接同席まで、採用活動をトータルでサポートします。</p>
+
+<!-- お問い合わせフォーム -->
+<section class="contact fade" id="contact">
+  <h2>📩 予約・お問い合わせ</h2>
+  <div class="contact-form">
+    <form id="contactForm">
+      <div class="form-group">
+        <label>お名前 *</label>
+        <input type="text" placeholder="山田 花子" required>
+      </div>
+      <div class="form-group">
+        <label>電話番号 *</label>
+        <input type="tel" placeholder="090-1234-5678" required>
+      </div>
+      <div class="form-group">
+        <label>メールアドレス</label>
+        <input type="email" placeholder="example@email.com">
+      </div>
+      <div class="form-group">
+        <label>ご希望のメニュー</label>
+        <select>
+          <option value="">選択してください</option>
+          <option>フェイシャルケア</option>
+          <option>ボディケア・マッサージ</option>
+          <option>脱毛・除毛ケア</option>
+          <option>その他・カウンセリング</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>お問い合わせ内容</label>
+        <textarea placeholder="ご質問・ご要望などをご記入ください"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">送信する 🌸</button>
+    </form>
+    <div class="success-box" id="successBox">✅ お問い合わせありがとうございます！<br>24時間以内にご連絡いたします。</div>
   </div>
 </section>
-<section class="contact" id="contact">
-  <h2>📩 お問い合わせ</h2>
-  <p style="margin-bottom:24px;color:#aaa;">お気軽にご相談ください</p>
-  <form>
-    <input type="text" placeholder="お名前">
-    <input type="email" placeholder="メールアドレス">
-    <textarea rows="4" placeholder="お問い合わせ内容"></textarea>
-    <button type="submit">送信する</button>
-  </form>
-</section>
+
 <footer>
-  <p>© 2024 株式会社サクラビジネス All Rights Reserved.</p>
-  <p style="margin-top:8px;">〒100-0001 東京都千代田区丸の内1-1-1 | TEL: 03-0000-0000</p>
+  <div class="footer-info">
+    🌸 サクラ美容サロン<br>
+    〒150-0001 東京都渋谷区神宮前1-2-3 サクラビル2F<br>
+    TEL：03-1234-5678 ／ 営業時間：10:00〜20:00（年中無休）
+  </div>
+  <div class="footer-copy">© 2025 株式会社サクラビジネス All Rights Reserved.</div>
 </footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  this.style.display='none';
+  document.getElementById('successBox').style.display='block';
+});
+</script>
 </body>
 </html>

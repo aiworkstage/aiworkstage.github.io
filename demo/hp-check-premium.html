@@ -3,144 +3,227 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>既存HP診断 デモ - プレミアム | 株式会社サクラビジネス</title>
+<title>包括HP診断＋修正【プレミアムプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0e1a;font-family:'Helvetica Neue',Arial,sans-serif;color:#e0e0f0;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.container{max-width:960px;margin:0 auto;padding:24px 16px;}
-h1{font-size:1.4rem;font-weight:700;margin-bottom:4px;}
-.subtitle{color:#8888aa;font-size:0.85rem;margin-bottom:20px;}
-.tabs{display:flex;gap:0;border-bottom:1px solid #2a2a3e;margin-bottom:20px;overflow-x:auto;}
-.tab{padding:10px 18px;color:#8888aa;font-size:0.85rem;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
-.tab.active{color:#7c6bff;border-bottom:2px solid #7c6bff;font-weight:700;}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:20px;}
-.card h3{font-size:0.9rem;color:#7c6bff;margin-bottom:14px;border-bottom:1px solid #2a2a3e;padding-bottom:8px;}
-.competitor-table{width:100%;border-collapse:collapse;font-size:0.82rem;}
-.competitor-table th{background:#0a0e1a;padding:8px 12px;text-align:left;color:#8888aa;font-weight:600;}
-.competitor-table td{padding:8px 12px;border-bottom:1px solid #1e1e30;}
-.competitor-table tr:last-child td{border-bottom:none;}
-.score-cell{font-weight:700;}
-.score-high{color:#28c840;} .score-mid{color:#f9a825;} .score-low{color:#ff3b30;}
-.my-row td{background:#7c6bff11;color:#fff;}
-.seo-list{list-style:none;}
-.seo-list li{padding:8px 0;border-bottom:1px solid #1e1e30;font-size:0.82rem;display:flex;gap:8px;align-items:flex-start;}
-.seo-list li:last-child{border-bottom:none;}
-.seo-icon{font-size:1rem;}
-.roadmap{display:flex;flex-direction:column;gap:0;}
-.rm-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #1e1e30;align-items:flex-start;}
-.rm-item:last-child{border-bottom:none;}
-.rm-phase{min-width:80px;text-align:center;}
-.rm-phase .phase-label{background:#7c6bff;color:#fff;border-radius:20px;padding:2px 10px;font-size:0.72rem;font-weight:700;display:inline-block;}
-.rm-phase .phase-period{font-size:0.7rem;color:#8888aa;margin-top:4px;}
-.rm-content h4{font-size:0.85rem;font-weight:700;margin-bottom:4px;}
-.rm-content p{font-size:0.78rem;color:#8888aa;line-height:1.5;}
-.rm-effect{background:#28c84022;color:#28c840;border-radius:6px;padding:3px 8px;font-size:0.72rem;font-weight:700;margin-top:6px;display:inline-block;}
-@media(max-width:700px){.grid-2{grid-template-columns:1fr;}}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f0f4ff; min-height: 100vh; padding: 24px 16px; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .container { max-width: 780px; margin: 0 auto; animation: fadeIn 0.5s ease; }
+  .plan-badge { display: inline-block; background: #dbeafe; color: #1d4ed8; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+  h1 { font-size: 26px; font-weight: 800; color: #1e3a8a; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #64748b; margin-bottom: 24px; }
+  .card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(59,130,246,0.08); }
+  .card-title { font-size: 16px; font-weight: 700; color: #1e3a8a; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+
+  /* セキュリティ診断 */
+  .security-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .sec-item { border-radius: 12px; padding: 16px; border: 1.5px solid; }
+  .sec-ok { background: #f0fdf4; border-color: #86efac; }
+  .sec-warn { background: #fffbeb; border-color: #fcd34d; }
+  .sec-ng { background: #fef2f2; border-color: #fca5a5; }
+  .sec-name { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 4px; }
+  .sec-status { font-size: 12px; font-weight: 700; }
+  .sec-desc { font-size: 11px; color: #888; margin-top: 4px; line-height: 1.4; }
+  .s-ok { color: #16a34a; } .s-warn { color: #d97706; } .s-ng { color: #dc2626; }
+
+  /* コード品質 */
+  .code-items { display: flex; flex-direction: column; gap: 10px; }
+  .code-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; background: #f8faff; border: 1.5px solid #dbeafe; }
+  .code-label { flex: 1; font-size: 13px; font-weight: 600; color: #333; }
+  .code-bar-wrap { width: 120px; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
+  .code-bar { height: 100%; border-radius: 4px; }
+  .code-val { font-size: 13px; font-weight: 800; min-width: 60px; text-align: right; }
+  .cb-ng { background: #f87171; }
+  .cb-warn { background: #fbbf24; }
+  .cb-ok { background: #4ade80; }
+
+  /* 修正実施ログ */
+  .fix-log { display: flex; flex-direction: column; gap: 8px; }
+  .fix-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; background: #f0fdf4; border-left: 3px solid #4ade80; font-size: 13px; color: #166534; font-weight: 500; }
+  .fix-icon { font-size: 16px; }
+
+  /* 改善前後カード */
+  .before-after { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; margin-bottom: 14px; }
+  .ba-card { border-radius: 14px; padding: 20px; text-align: center; }
+  .ba-before { background: #fef2f2; border: 1.5px solid #fca5a5; }
+  .ba-after { background: #f0fdf4; border: 1.5px solid #86efac; }
+  .ba-label { font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+  .ba-score { font-size: 36px; font-weight: 800; }
+  .ba-arrow { font-size: 28px; color: #3b82f6; text-align: center; }
+  .before-score { color: #dc2626; }
+  .after-score { color: #16a34a; }
+
+  /* PDFレポート風 */
+  .pdf-report { background: #fff; border: 2px solid #dbeafe; border-radius: 16px; overflow: hidden; }
+  .pdf-header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); padding: 20px 24px; color: #fff; }
+  .pdf-header h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .pdf-header p { font-size: 12px; opacity: 0.85; }
+  .pdf-body { padding: 20px 24px; }
+  .pdf-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .pdf-meta-item { background: #f8faff; border-radius: 10px; padding: 12px; }
+  .pdf-meta-item .pm-label { font-size: 11px; color: #888; margin-bottom: 3px; }
+  .pdf-meta-item .pm-val { font-size: 14px; font-weight: 700; color: #1e3a8a; }
+  .vuln-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .vuln-table th { background: #1e3a8a; color: #fff; padding: 8px 12px; font-weight: 700; text-align: left; }
+  .vuln-table td { padding: 8px 12px; border-bottom: 1px solid #f0f4ff; }
+  .vuln-table tr:last-child td { border-bottom: none; }
+  .sev-high { color: #dc2626; font-weight: 700; }
+  .sev-mid { color: #d97706; font-weight: 700; }
+  .sev-low { color: #16a34a; font-weight: 700; }
+  .sev-none { color: #6b7280; font-weight: 700; }
+
+  .rating-badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 800; background: #dcfce7; color: #16a34a; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-hp-check.html">← サービス詳細に戻る</a></div>
 <div class="container">
-  <h1>🔍 ウェブサイト 総合診断・競合分析レポート</h1>
-  <div class="subtitle">株式会社サクラビジネス様 | 2026年3月4日 | プレミアムプラン</div>
-  <div class="tabs">
-    <div class="tab active">競合比較</div>
-    <div class="tab">SEO分析</div>
-    <div class="tab">改善ロードマップ</div>
-  </div>
+  <div class="plan-badge">🛡️ プレミアムプラン デモ</div>
+  <h1>🏥 包括HP診断＋修正レポート</h1>
+  <div class="subtitle">セキュリティ診断・コード品質・修正実施・改善後レポート</div>
 
-  <div class="card" style="margin-bottom:16px;">
-    <h3>🏆 競合他社サイト比較分析</h3>
-    <table class="competitor-table">
-      <thead>
-        <tr><th>サイト</th><th>表示速度</th><th>モバイル</th><th>SEO</th><th>UX</th><th>総合</th></tr>
-      </thead>
-      <tbody>
-        <tr class="my-row"><td>🌸 <strong>サクラビジネス（御社）</strong></td><td class="score-cell score-low">58</td><td class="score-cell score-low">35</td><td class="score-cell score-mid">62</td><td class="score-cell score-low">45</td><td class="score-cell score-mid">52</td></tr>
-        <tr><td>🔵 競合A社</td><td class="score-cell score-high">82</td><td class="score-cell score-high">90</td><td class="score-cell score-high">78</td><td class="score-cell score-high">85</td><td class="score-cell score-high">84</td></tr>
-        <tr><td>🟢 競合B社</td><td class="score-cell score-mid">74</td><td class="score-cell score-mid">72</td><td class="score-cell score-mid">68</td><td class="score-cell score-mid">70</td><td class="score-cell score-mid">71</td></tr>
-        <tr><td>🟡 競合C社</td><td class="score-cell score-mid">66</td><td class="score-cell score-high">80</td><td class="score-cell score-mid">64</td><td class="score-cell score-mid">68</td><td class="score-cell score-mid">70</td></tr>
-        <tr><td style="color:#8888aa;">業界平均</td><td class="score-cell">68</td><td class="score-cell">70</td><td class="score-cell">68</td><td class="score-cell">67</td><td class="score-cell">68</td></tr>
-      </tbody>
-    </table>
-    <div style="background:#ff3b3011;border:1px solid #ff3b3044;border-radius:8px;padding:10px 14px;margin-top:12px;font-size:0.8rem;color:#ff9999;">
-      ⚠️ 御社のスコアは業界平均を大きく下回っています。特にモバイル対応（35点）が深刻な状況です。
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <h3>🔑 SEO詳細分析</h3>
-      <ul class="seo-list">
-        <li><span class="seo-icon">❌</span><div><strong>meta description未設定：</strong>4/8ページで未設定。検索結果のクリック率に影響。</div></li>
-        <li><span class="seo-icon">❌</span><div><strong>h1タグ重複：</strong>同一キーワードのh1が複数ページに存在。SEO評価が分散。</div></li>
-        <li><span class="seo-icon">⚠️</span><div><strong>Core Web Vitals：</strong>LCP 4.2秒（要改善基準: 2.5秒）、CLS 0.28（要改善）</div></li>
-        <li><span class="seo-icon">❌</span><div><strong>構造化データ：</strong>Schema.orgマークアップが未実装。リッチスニペット非対応。</div></li>
-        <li><span class="seo-icon">✅</span><div><strong>SSL/HTTPS：</strong>正常に設定されています。</div></li>
-        <li><span class="seo-icon">⚠️</span><div><strong>内部リンク：</strong>孤立したページが3件確認されました。</div></li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>📊 キーワード流入分析</h3>
-      <div style="font-size:0.78rem;color:#8888aa;margin-bottom:10px;">上位検索クエリ（推定）</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;">
-          <span>「サクラビジネス」</span><div style="background:#7c6bff;height:6px;width:90%;border-radius:3px;margin:0 8px;"></div><span style="color:#8888aa;white-space:nowrap;">1位</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;">
-          <span>「IT支援 東京」</span><div style="background:#f9a825;height:6px;width:40%;border-radius:3px;margin:0 8px;"></div><span style="color:#8888aa;white-space:nowrap;">14位</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;">
-          <span>「LINE構築 代行」</span><div style="background:#ff3b30;height:6px;width:20%;border-radius:3px;margin:0 8px;"></div><span style="color:#8888aa;white-space:nowrap;">32位</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;">
-          <span>「HP制作 格安」</span><div style="background:#ff3b30;height:6px;width:15%;border-radius:3px;margin:0 8px;"></div><span style="color:#8888aa;white-space:nowrap;">45位</span>
-        </div>
-      </div>
-      <div style="background:#0a0e1a;border-radius:8px;padding:10px;margin-top:12px;font-size:0.78rem;color:#8888aa;">
-        💡 「LINE構築 代行」などのサービス系キーワードでの順位改善が収益向上に直結します。
-      </div>
-    </div>
-  </div>
-
+  <!-- セキュリティ診断 -->
   <div class="card">
-    <h3>🗺️ 改善ロードマップ（3ヶ月計画）</h3>
-    <div class="roadmap">
-      <div class="rm-item">
-        <div class="rm-phase"><span class="phase-label">第1週</span><div class="phase-period">即時対応</div></div>
-        <div class="rm-content">
-          <h4>画像最適化・HTTPS確認・meta設定</h4>
-          <p>画像をWebP変換・圧縮。未設定のmeta descriptionを全ページに追加。</p>
-          <span class="rm-effect">効果: 速度 +40% / SEO +10点 見込み</span>
-        </div>
+    <div class="card-title">🔐 セキュリティ診断パネル</div>
+    <div class="security-grid">
+      <div class="sec-item sec-ok">
+        <div class="sec-name">SSL/TLS証明書</div>
+        <div class="sec-status s-ok">✅ 有効（A+評価）</div>
+        <div class="sec-desc">TLS 1.3対応・証明書期限 2025/12/31</div>
       </div>
-      <div class="rm-item">
-        <div class="rm-phase"><span class="phase-label">第2-3週</span><div class="phase-period">モバイル対応</div></div>
-        <div class="rm-content">
-          <h4>レスポンシブデザイン全面修正</h4>
-          <p>全ページのモバイル表示を修正。スマホでの操作性を大幅改善。</p>
-          <span class="rm-effect">効果: モバイルスコア +45点 / 離脱率 -20% 見込み</span>
-        </div>
+      <div class="sec-item sec-ng">
+        <div class="sec-name">CSP（コンテンツセキュリティポリシー）</div>
+        <div class="sec-status s-ng">❌ 未設定</div>
+        <div class="sec-desc">XSS攻撃リスクあり。ヘッダー追加が必要です</div>
       </div>
-      <div class="rm-item">
-        <div class="rm-phase"><span class="phase-label">第4-6週</span><div class="phase-period">SEO強化</div></div>
-        <div class="rm-content">
-          <h4>構造化データ・内部リンク最適化</h4>
-          <p>Schema.orgマークアップ実装、孤立ページの解消、h1タグ整理。</p>
-          <span class="rm-effect">効果: SEO +15点 / 流入 +25% 見込み</span>
-        </div>
+      <div class="sec-item sec-warn">
+        <div class="sec-name">XSS対策</div>
+        <div class="sec-status s-warn">⚠️ 部分的に対策済み</div>
+        <div class="sec-desc">フォームの一部でエスケープ処理が不完全</div>
       </div>
-      <div class="rm-item">
-        <div class="rm-phase"><span class="phase-label">第7-12週</span><div class="phase-period">継続改善</div></div>
-        <div class="rm-content">
-          <h4>コンテンツSEO・UX改善・KPI計測体制整備</h4>
-          <p>ブログ記事作成・Googleアナリティクス4設定・ヒートマップ導入。</p>
-          <span class="rm-effect">効果: 総合スコア 52→80点 / 問い合わせ2倍 見込み</span>
-        </div>
+      <div class="sec-item sec-ok">
+        <div class="sec-name">SQLインジェクション対策</div>
+        <div class="sec-status s-ok">✅ 対策済み</div>
+        <div class="sec-desc">プリペアドステートメント使用を確認</div>
       </div>
+      <div class="sec-item sec-ng">
+        <div class="sec-name">クリックジャッキング対策</div>
+        <div class="sec-status s-ng">❌ X-Frame-Options未設定</div>
+        <div class="sec-desc">フィッシング攻撃に利用される可能性あり</div>
+      </div>
+      <div class="sec-item sec-ok">
+        <div class="sec-name">HTTPS強制リダイレクト</div>
+        <div class="sec-status s-ok">✅ 設定済み</div>
+        <div class="sec-desc">HTTP→HTTPS自動リダイレクト動作確認済み</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- コード品質 -->
+  <div class="card">
+    <div class="card-title">💻 コード品質スキャン</div>
+    <div class="code-items">
+      <div class="code-item">
+        <span class="code-label">HTMLバリデーションエラー</span>
+        <div class="code-bar-wrap"><div class="code-bar cb-ng" style="width:75%"></div></div>
+        <span class="code-val s-ng">23件</span>
+      </div>
+      <div class="code-item">
+        <span class="code-label">CSS未使用コード率</span>
+        <div class="code-bar-wrap"><div class="code-bar cb-warn" style="width:58%"></div></div>
+        <span class="code-val s-warn">58%</span>
+      </div>
+      <div class="code-item">
+        <span class="code-label">JavaScriptエラー数</span>
+        <div class="code-bar-wrap"><div class="code-bar cb-ng" style="width:30%"></div></div>
+        <span class="code-val s-ng">7件</span>
+      </div>
+      <div class="code-item">
+        <span class="code-label">画像最適化率</span>
+        <div class="code-bar-wrap"><div class="code-bar cb-warn" style="width:45%"></div></div>
+        <span class="code-val s-warn">45%</span>
+      </div>
+      <div class="code-item">
+        <span class="code-label">コードの重複率</span>
+        <div class="code-bar-wrap"><div class="code-bar cb-warn" style="width:32%"></div></div>
+        <span class="code-val s-warn">32%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 修正実施ログ -->
+  <div class="card">
+    <div class="card-title">🛠️ SEO改善施策 実施ログ</div>
+    <div class="fix-log">
+      <div class="fix-item"><span class="fix-icon">✅</span>全ページのtitleタグを最適化しました（キーワード含む最大60文字）</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>全ページにmeta descriptionを追加しました（120〜160文字）</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>画像12枚のalt属性を設定しました</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>CSPヘッダーを追加しXSS対策を強化しました</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>X-Frame-Optionsヘッダーを設定しクリックジャッキング対策を実施しました</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>リンク切れ3件を修正しました</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>画像をWebP形式に変換し表示速度を改善しました</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>未使用CSSを削除し38KB軽量化しました</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>JavaScriptをdeferに変更しページ描画速度を向上しました</div>
+      <div class="fix-item"><span class="fix-icon">✅</span>ファビコンを設定しました</div>
+    </div>
+  </div>
+
+  <!-- 改善前後 -->
+  <div class="card">
+    <div class="card-title">📊 改善前後レポート</div>
+    <div class="before-after">
+      <div class="ba-card ba-before">
+        <div class="ba-label" style="color:#dc2626;">🔴 修正前</div>
+        <div class="ba-score before-score">58点</div>
+        <div style="font-size:12px;color:#888;margin-top:6px;">総合スコア</div>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-card ba-after">
+        <div class="ba-label" style="color:#16a34a;">🟢 修正後</div>
+        <div class="ba-score after-score">91点</div>
+        <div style="font-size:12px;color:#888;margin-top:6px;">総合スコア</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:12px;">
+      <div style="background:#f8faff;border-radius:10px;padding:12px;text-align:center;border:1.5px solid #dbeafe;">
+        <div style="color:#888;margin-bottom:4px;">ページ速度(スマホ)</div>
+        <div style="font-weight:700;color:#1d4ed8;">63点 → <span style="color:#16a34a;">84点</span></div>
+      </div>
+      <div style="background:#f8faff;border-radius:10px;padding:12px;text-align:center;border:1.5px solid #dbeafe;">
+        <div style="color:#888;margin-bottom:4px;">SEOスコア</div>
+        <div style="font-weight:700;color:#1d4ed8;">68点 → <span style="color:#16a34a;">93点</span></div>
+      </div>
+      <div style="background:#f8faff;border-radius:10px;padding:12px;text-align:center;border:1.5px solid #dbeafe;">
+        <div style="color:#888;margin-bottom:4px;">セキュリティ</div>
+        <div style="font-weight:700;color:#1d4ed8;">C評価 → <span style="color:#16a34a;">A評価</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- セキュリティレポートPDF風 -->
+  <div class="pdf-report">
+    <div class="pdf-header">
+      <h3>🛡️ セキュリティ診断レポート</h3>
+      <p>Powered by AI Work Stage — プレミアムプラン</p>
+    </div>
+    <div class="pdf-body">
+      <div class="pdf-meta">
+        <div class="pdf-meta-item"><div class="pm-label">診断対象</div><div class="pm-val">example-business.jp</div></div>
+        <div class="pdf-meta-item"><div class="pm-label">診断日</div><div class="pm-val">2025年3月2日</div></div>
+        <div class="pdf-meta-item"><div class="pm-label">会社名</div><div class="pm-val">サンプル株式会社</div></div>
+        <div class="pdf-meta-item"><div class="pm-label">総合評価</div><div class="pm-val"><span class="rating-badge">✅ 修正完了・A評価</span></div></div>
+      </div>
+      <div style="margin-bottom:12px;font-size:14px;font-weight:700;color:#1e3a8a;">脆弱性一覧（修正前→修正後）</div>
+      <table class="vuln-table">
+        <thead><tr><th>脆弱性</th><th>重要度</th><th>修正前</th><th>修正後</th></tr></thead>
+        <tbody>
+          <tr><td>CSP未設定</td><td class="sev-high">高</td><td>未対策</td><td style="color:#16a34a;font-weight:700;">✅ 修正済み</td></tr>
+          <tr><td>X-Frame-Options未設定</td><td class="sev-high">高</td><td>未対策</td><td style="color:#16a34a;font-weight:700;">✅ 修正済み</td></tr>
+          <tr><td>XSS（フォーム）</td><td class="sev-mid">中</td><td>部分対策</td><td style="color:#16a34a;font-weight:700;">✅ 修正済み</td></tr>
+          <tr><td>不要なエラーメッセージ</td><td class="sev-mid">中</td><td>表示あり</td><td style="color:#16a34a;font-weight:700;">✅ 修正済み</td></tr>
+          <tr><td>SSL証明書</td><td class="sev-none">問題なし</td><td>A+評価</td><td>A+評価（変更なし）</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

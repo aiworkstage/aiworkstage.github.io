@@ -3,123 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>有人チャット+ボット切替 デモ | 株式会社サクラビジネス</title>
+<title>チャットボット スタンダード デモ | 株式会社サクラビジネス</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; min-height:100vh; }
-.page { display:grid; grid-template-columns:1fr 380px; min-height:100vh; }
-@media(max-width:800px){ .page { grid-template-columns:1fr; } .chat-sidebar { position:fixed; bottom:0; left:0; right:0; height:60vh; } }
-.page-main { padding:60px 40px; }
-.page-main h1 { font-size:1.8rem; color:#fff; margin-bottom:16px; }
-.page-main p { color:#888; line-height:1.8; margin-bottom:16px; }
-/* Chat sidebar */
-.chat-sidebar { background:#12121e; border-left:1px solid #2a2a3e; display:flex; flex-direction:column; }
-.chat-head { background:#0d0d20; padding:14px 16px; border-bottom:1px solid #2a2a3e; }
-.mode-switch { display:flex; gap:8px; margin-top:12px; }
-.mode-sw-btn { flex:1; padding:7px; border-radius:8px; border:1px solid #2a2a3e; background:transparent; color:#888; font-size:0.8rem; cursor:pointer; transition:all 0.2s; }
-.mode-sw-btn.active { background:#7c6bff; color:#fff; border-color:#7c6bff; }
-.agent-info { display:flex; align-items:center; gap:10px; margin-top:10px; padding:10px; background:#1a1a3e; border-radius:8px; display:none; }
-.agent-info.show { display:flex; }
-.agent-avatar { width:36px; height:36px; background:linear-gradient(135deg,#ff6b6b,#ffa07a); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; }
-.agent-name { color:#fff; font-size:0.85rem; font-weight:700; }
-.agent-status { color:#4caf50; font-size:0.75rem; }
-.messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; }
-.msg { max-width:85%; padding:10px 14px; border-radius:14px; font-size:0.88rem; line-height:1.5; }
-.msg.bot { background:#1a1a3e; color:#e0e0f0; align-self:flex-start; border-bottom-left-radius:4px; }
-.msg.user { background:linear-gradient(135deg,#7c6bff,#a78bfa); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
-.msg.human { background:#1a3a1a; color:#e0e0f0; align-self:flex-start; border-bottom-left-radius:4px; border-left:3px solid #4caf50; }
-.msg-label { font-size:0.7rem; color:#666; margin-bottom:4px; }
-.system-msg { text-align:center; color:#666; font-size:0.8rem; padding:6px 0; }
-.typing { display:none; padding:8px 14px; background:#1a1a3e; border-radius:14px; border-bottom-left-radius:4px; align-self:flex-start; }
-.typing span { display:inline-block; width:7px; height:7px; background:#7c6bff; border-radius:50%; animation:b 1.4s infinite; margin-right:3px; }
-.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
-@keyframes b{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
-.input-area { display:flex; gap:8px; padding:14px; border-top:1px solid #2a2a3e; }
-.input-area input { flex:1; background:#0a0e1a; border:1px solid #2a2a3e; color:#fff; padding:9px 14px; border-radius:50px; font-size:0.88rem; outline:none; }
-.input-area input:focus { border-color:#7c6bff; }
-.send-btn { background:#7c6bff; border:none; color:#fff; width:38px; height:38px; border-radius:50%; cursor:pointer; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f9f7ff; color:#1e1b4b; font-family:'Segoe UI',sans-serif; min-height:100vh; }
+  header { background:#6d28d9; color:#fff; padding:14px 24px; display:flex; align-items:center; gap:12px; box-shadow:0 2px 8px rgba(109,40,217,.2); }
+  header h1 { font-size:17px; font-weight:700; }
+  .badge { background:rgba(255,255,255,.2); padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+
+  .layout { display:grid; grid-template-columns:1fr 1fr; height:calc(100vh - 56px); }
+
+  /* Admin panel */
+  .admin { background:#fff; border-right:2px solid #e9d5ff; padding:20px; overflow-y:auto; }
+  .admin h2 { font-size:14px; font-weight:700; color:#6d28d9; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+  .admin-actions { display:flex; gap:8px; margin-bottom:16px; }
+  .add-btn { background:#6d28d9; color:#fff; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600; }
+  .add-btn:hover { background:#5b21b6; }
+  .faq-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .faq-table th { background:#f3e8ff; color:#6d28d9; padding:9px 10px; text-align:left; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
+  .faq-table td { padding:8px 10px; border-bottom:1px solid #f3e8ff; vertical-align:middle; color:#374151; }
+  .faq-table tr:hover td { background:#faf5ff; }
+  .del-btn { background:#fee2e2; color:#dc2626; border:none; padding:3px 8px; border-radius:4px; cursor:pointer; font-size:11px; font-weight:600; }
+  .del-btn:hover { background:#fecaca; }
+  .add-form { background:#f9f7ff; border:1.5px dashed #d8b4fe; border-radius:8px; padding:14px; margin-top:14px; animation:fadeIn .5s ease both; }
+  .add-form h3 { font-size:12px; font-weight:700; color:#6d28d9; margin-bottom:10px; }
+  .form-row { display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+  .form-row label { font-size:11px; color:#6b7280; font-weight:600; }
+  .form-row input, .form-row textarea { border:1px solid #d8b4fe; border-radius:6px; padding:7px 10px; font-size:13px; color:#1e1b4b; outline:none; font-family:inherit; }
+  .form-row input:focus, .form-row textarea:focus { border-color:#6d28d9; }
+  .submit-btn { background:#6d28d9; color:#fff; border:none; padding:8px 18px; border-radius:6px; cursor:pointer; font-size:13px; font-weight:600; width:100%; }
+
+  /* Chat preview */
+  .preview { background:#f9f7ff; padding:20px; display:flex; flex-direction:column; }
+  .preview h2 { font-size:14px; font-weight:700; color:#6d28d9; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+  .chat-frame { flex:1; background:#fff; border:1.5px solid #e9d5ff; border-radius:14px; display:flex; flex-direction:column; overflow:hidden; max-height:calc(100vh - 140px); }
+  .chat-top { background:#6d28d9; padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .bot-av { width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .chat-top h3 { font-size:14px; font-weight:700; color:#fff; }
+  .chat-top p { font-size:10px; color:rgba(255,255,255,.8); }
+  .reset-btn { margin-left:auto; background:rgba(255,255,255,.2); color:#fff; border:none; padding:4px 10px; border-radius:6px; cursor:pointer; font-size:11px; }
+  .chat-body { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:8px; }
+  .msg { max-width:85%; animation:fadeIn .4s ease both; }
+  .msg.bot { align-self:flex-start; }
+  .msg.user { align-self:flex-end; }
+  .bubble { padding:9px 13px; border-radius:14px; font-size:13px; line-height:1.5; }
+  .bot .bubble { background:#f3e8ff; color:#1e1b4b; border-radius:4px 14px 14px 14px; }
+  .user .bubble { background:#6d28d9; color:#fff; border-radius:14px 4px 14px 14px; }
+  .chat-input-row { padding:10px; border-top:1px solid #e9d5ff; display:flex; gap:8px; }
+  .chat-input { flex:1; border:1.5px solid #d8b4fe; border-radius:8px; padding:9px 12px; font-size:13px; outline:none; font-family:inherit; color:#1e1b4b; }
+  .chat-input:focus { border-color:#6d28d9; }
+  .send-btn { background:#6d28d9; color:#fff; border:none; padding:9px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:700; }
+  .send-btn:hover { background:#5b21b6; }
+  .no-match { font-size:12px; color:#9ca3af; font-style:italic; }
+
+  @media(max-width:700px){ .layout{grid-template-columns:1fr; grid-template-rows:auto 1fr;} }
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-chatbot.html" style="color:#fff;">← サービス詳細に戻る</a></div>
-<div class="page">
-  <div class="page-main">
-    <h1>🤖 有人チャット + ボット切替デモ</h1>
-    <p>右のチャット画面で「ボットモード」と「有人チャットモード」を切り替えられます。スタンダードプランでは、AIが対応できない複雑な質問を人のオペレーターがシームレスに引き継ぎます。</p>
-    <div style="background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:20px;margin-top:32px;">
-      <h3 style="color:#fff;margin-bottom:12px;">✨ スタンダードプランの特徴</h3>
-      <ul style="color:#888;font-size:0.9rem;line-height:2;list-style:none;">
-        <li>✓ AI自動応答（24時間対応）</li>
-        <li>✓ 有人チャットへのシームレス切替</li>
-        <li>✓ オペレーター用管理画面</li>
-        <li>✓ 会話履歴保存・検索</li>
-        <li>✓ メール・LINE通知連携</li>
-      </ul>
+<header>
+  <span style="font-size:20px">💬</span>
+  <h1>チャットボット スタンダードプラン デモ</h1>
+  <span class="badge">AI会話型ボット</span>
+  <span class="badge">管理画面付き</span>
+  <span class="badge">1ヶ月保守サポート</span>
+</header>
+
+<div class="layout">
+  <!-- Admin -->
+  <div class="admin">
+    <h2>🛠️ 管理画面 — FAQ編集</h2>
+    <div class="admin-actions">
+      <button class="add-btn" onclick="toggleForm()">＋ 質問を追加</button>
     </div>
+
+    <div class="add-form" id="addForm" style="display:none">
+      <h3>新しい質問を追加</h3>
+      <div class="form-row">
+        <label>質問（キーワード含む）</label>
+        <input type="text" id="newQ" placeholder="例：営業時間は？">
+      </div>
+      <div class="form-row">
+        <label>回答</label>
+        <textarea id="newA" rows="2" placeholder="例：10:00〜20:00です。"></textarea>
+      </div>
+      <button class="submit-btn" onclick="addFaq()">追加する</button>
+    </div>
+
+    <table class="faq-table" id="faqTable">
+      <thead><tr><th>質問</th><th>回答</th><th></th></tr></thead>
+      <tbody id="faqBody"></tbody>
+    </table>
   </div>
-  <div class="chat-sidebar">
-    <div class="chat-head">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div style="color:#fff;font-size:0.9rem;font-weight:700;">💬 サクラサポート</div>
-        <div style="color:#4caf50;font-size:0.78rem;">● オンライン</div>
+
+  <!-- Preview -->
+  <div class="preview">
+    <h2>💬 チャットプレビュー</h2>
+    <div class="chat-frame">
+      <div class="chat-top">
+        <div class="bot-av">🤖</div>
+        <div><h3>サクラボット</h3><p>スタンダード：記憶型AI会話</p></div>
+        <button class="reset-btn" onclick="resetChat()">🔄 会話リセット</button>
       </div>
-      <div class="mode-switch">
-        <button class="mode-sw-btn active" id="botBtn" onclick="setMode('bot')">🤖 AIボット</button>
-        <button class="mode-sw-btn" id="humanBtn" onclick="setMode('human')">👤 有人チャット</button>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatInput" placeholder="メッセージを入力…" onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="send-btn" onclick="sendMsg()">送信</button>
       </div>
-      <div class="agent-info" id="agentInfo">
-        <div class="agent-avatar">👩</div>
-        <div><div class="agent-name">佐藤 花子</div><div class="agent-status">● 対応中</div></div>
-      </div>
-    </div>
-    <div class="messages" id="messages">
-      <div class="msg bot"><div class="msg-label">🤖 AIボット</div>こんにちは！AIサポートです。ご質問はありますか？</div>
-      <div class="typing" id="typing"><span></span><span></span><span></span></div>
-    </div>
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="メッセージを入力..." onkeydown="if(event.key==='Enter')send()">
-      <button class="send-btn" onclick="send()">➤</button>
     </div>
   </div>
 </div>
+
 <script>
-let mode = 'bot';
-const botFaqs = {'料金':'月額¥50,000〜のスタンダードプランです。','無料相談':'初回相談は無料です！ご予約はフォームから。','営業時間':'AIは24時間対応、有人は平日9〜18時です。'};
-const humanReplies = ['承知いたしました。担当の佐藤が対応いたします。','詳しく確認してご案内いたします。少々お待ちください。','ご不便をおかけして申し訳ありません。早急に対応いたします。','ご質問の件ですが、〇〇という形でいかがでしょうか？'];
-let hrIdx = 0;
-function setMode(m) {
-  mode = m;
-  document.getElementById('botBtn').classList.toggle('active', m==='bot');
-  document.getElementById('humanBtn').classList.toggle('active', m==='human');
-  document.getElementById('agentInfo').classList.toggle('show', m==='human');
-  const sys = document.createElement('div');
-  sys.className = 'system-msg';
-  sys.textContent = m==='bot' ? '— AIボットモードに切り替えました —' : '— 有人チャットに切り替えました。担当者が接続しました —';
-  document.getElementById('messages').insertBefore(sys, document.getElementById('typing'));
+let faqs = [
+  {q:'料金', a:'ベーシック¥5,000〜、スタンダード¥15,000〜、プレミアム¥30,000〜です。'},
+  {q:'営業時間', a:'10:00〜20:00（土日祝も対応）。このチャットは24時間ご利用いただけます。'},
+  {q:'キャンセル', a:'前日まで無料キャンセル可能です。当日のキャンセルはキャンセル料が発生します。'},
+  {q:'納期', a:'ベーシック最短3日〜、スタンダード1週間〜、プレミアム2週間〜が目安です。'},
+  {q:'無料相談', a:'初回は無料でオンライン相談を承っています。ぜひお気軽にご連絡ください！'},
+  {q:'サポート', a:'スタンダード以上のプランには保守サポートが付属します。'},
+  {q:'連携', a:'Gmail・Slack・Notion・kintoneなど多数のサービスと連携可能です。'},
+];
+let history = [];
+
+function renderTable() {
+  const tbody = document.getElementById('faqBody');
+  tbody.innerHTML = '';
+  faqs.forEach((f, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${f.q}</td><td>${f.a}</td><td><button class="del-btn" onclick="delFaq(${i})">削除</button></td>`;
+    tbody.appendChild(tr);
+  });
 }
-function getReply(msg) {
-  if (mode === 'human') { const r = humanReplies[hrIdx % humanReplies.length]; hrIdx++; return r; }
-  for (const [k,v] of Object.entries(botFaqs)) { if (msg.includes(k)) return v; }
-  return 'ご質問ありがとうございます。有人チャットに切り替えますか？';
+
+function delFaq(i) {
+  faqs.splice(i, 1);
+  renderTable();
+  addMsg('bot', `⚙️ FAQ更新：${faqs.length}件になりました。`);
 }
-function getLabel() { return mode==='bot' ? '🤖 AIボット' : '👩 佐藤（担当）'; }
-function getMsgClass() { return mode==='bot' ? 'bot' : 'human'; }
-function addMsg(text, type, label='') {
-  const m = document.getElementById('messages');
-  const d = document.createElement('div');
-  d.className = 'msg ' + type;
-  d.innerHTML = (label ? `<div class="msg-label">${label}</div>` : '') + text;
-  m.insertBefore(d, document.getElementById('typing'));
-  m.scrollTop = m.scrollHeight;
+
+function toggleForm() {
+  const f = document.getElementById('addForm');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
 }
-function st(){document.getElementById('typing').style.display='block';document.getElementById('messages').scrollTop=document.getElementById('messages').scrollHeight;}
-function ht(){document.getElementById('typing').style.display='none';}
-function send() {
-  const i = document.getElementById('userInput');
-  const t = i.value.trim(); if (!t) return;
-  addMsg(t, 'user'); i.value=''; st();
-  setTimeout(()=>{ht();addMsg(getReply(t), getMsgClass(), getLabel());}, mode==='human'?1500:900);
+
+function addFaq() {
+  const q = document.getElementById('newQ').value.trim();
+  const a = document.getElementById('newA').value.trim();
+  if (!q || !a) return alert('質問と回答を入力してください');
+  faqs.push({q, a});
+  renderTable();
+  document.getElementById('newQ').value = '';
+  document.getElementById('newA').value = '';
+  document.getElementById('addForm').style.display = 'none';
+  addMsg('bot', `✅ 「${q}」を追加しました！チャットで試してみてください。`);
 }
+
+function addMsg(type, text) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  div.innerHTML = `<div class="bubble">${text}</div>`;
+  const body = document.getElementById('chatBody');
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+  history.push({type, text});
+}
+
+function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  addMsg('user', msg);
+  setTimeout(() => {
+    const matched = faqs.find(f => msg.includes(f.q) || f.q.includes(msg) || msg.includes(f.q.split(/[・、]/)[0]));
+    if (matched) {
+      addMsg('bot', matched.a);
+    } else {
+      const lower = msg.toLowerCase();
+      const matched2 = faqs.find(f => lower.includes(f.q.toLowerCase()) || f.q.toLowerCase().includes(lower));
+      if (matched2) {
+        addMsg('bot', matched2.a);
+      } else {
+        addMsg('bot', '<span class="no-match">ご質問ありがとうございます。担当者よりご連絡させていただきます。<br>「料金」「営業時間」「キャンセル」などのキーワードでお試しください。</span>');
+      }
+    }
+  }, 350);
+}
+
+function resetChat() {
+  document.getElementById('chatBody').innerHTML = '';
+  history = [];
+  addMsg('bot', 'こんにちは！会話をリセットしました。何でもお気軽にどうぞ😊<br>（キーワード例：料金・営業時間・キャンセル・納期）');
+}
+
+renderTable();
+addMsg('bot', 'こんにちは！サクラボットです。何でもお気軽にどうぞ😊<br>（キーワード例：料金・営業時間・キャンセル・納期）');
 </script>
 </body>
 </html>

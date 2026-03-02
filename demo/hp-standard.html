@@ -2,137 +2,263 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>株式会社サクラビジネス | 経営・DX支援</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>サクラ美容サロン | 渋谷・フェイシャル・ボディケア・脱毛</title>
+<meta name="description" content="渋谷の完全個室プライベートサロン。フェイシャルケア・ボディマッサージ・脱毛の専門サロン。国家資格保有スタッフによる確かなケア。">
+<!-- GA4タグ設置場所 -->
+<!-- ここにGoogle Analytics 4（G-XXXXXXXXXX）のgtag.jsを設置します -->
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; }
-header { background:rgba(10,14,26,0.95); backdrop-filter:blur(8px); position:sticky; top:0; z-index:100; padding:16px 60px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #2a2a3e; }
-header h1 { font-size:1.3rem; color:#fff; }
-nav a { color:#aaa; text-decoration:none; margin-left:24px; font-size:0.9rem; transition:color 0.2s; }
-nav a:hover { color:#7c6bff; }
-.hero { min-height:90vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:60px 20px; background:radial-gradient(ellipse at 50% 30%, rgba(124,107,255,0.2) 0%, transparent 60%); }
-.hero-inner h2 { font-size:3rem; font-weight:900; color:#fff; line-height:1.2; margin-bottom:20px; }
-.hero-inner h2 span { color:#7c6bff; }
-.hero-inner p { font-size:1.1rem; color:#aaa; max-width:560px; margin:0 auto 32px; }
-.btn { background:#7c6bff; color:#fff; padding:14px 36px; border-radius:8px; text-decoration:none; font-weight:700; display:inline-block; transition:transform 0.2s, box-shadow 0.2s; }
-.btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(124,107,255,0.4); }
-.btn-outline { background:transparent; border:2px solid #7c6bff; color:#7c6bff; margin-left:12px; }
-section { padding:80px 20px; }
-.container { max-width:1000px; margin:0 auto; }
-h2.section-title { font-size:1.8rem; text-align:center; margin-bottom:48px; color:#fff; }
-h2.section-title span { color:#7c6bff; }
-.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-@media(max-width:768px){ .services-grid { grid-template-columns:1fr; } header { padding:16px 20px; } .hero-inner h2 { font-size:2rem; } }
-.service-card { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:32px 24px; text-align:center; transition:border-color 0.2s, transform 0.2s; }
-.service-card:hover { border-color:#7c6bff; transform:translateY(-4px); }
-.service-card .icon { font-size:2.5rem; margin-bottom:16px; }
-.service-card h3 { color:#fff; font-size:1.1rem; margin-bottom:12px; }
-.service-card p { color:#888; font-size:0.9rem; line-height:1.6; }
-.results { background:#0d0d20; padding:80px 20px; }
-.results-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center; }
-@media(max-width:600px){ .results-grid { grid-template-columns:repeat(2,1fr); } }
-.result-num { font-size:2.5rem; font-weight:900; color:#7c6bff; }
-.result-label { color:#888; font-size:0.85rem; margin-top:4px; }
-.faq { max-width:700px; margin:0 auto; }
-.faq-item { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px 24px; margin-bottom:12px; }
-.faq-item .q { font-weight:700; color:#fff; margin-bottom:8px; }
-.faq-item .a { color:#888; font-size:0.9rem; line-height:1.6; }
-.contact-form { max-width:560px; margin:0 auto; }
-.contact-form input, .contact-form textarea { width:100%; background:#12121e; border:1px solid #2a2a3e; color:#fff; padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:0.95rem; }
-.contact-form input:focus, .contact-form textarea:focus { outline:none; border-color:#7c6bff; }
-footer { background:#060810; color:#555; text-align:center; padding:40px 20px; font-size:0.85rem; }
-footer a { color:#7c6bff; text-decoration:none; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Hiragino Sans',system-ui,sans-serif;background:#fff;color:#333;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade{animation:fadeIn 0.5s ease both;}
+
+.demo-banner{background:#7c6bff;color:#fff;padding:10px;text-align:center;font-size:0.85rem;position:sticky;top:0;z-index:200;}
+.demo-banner a{color:#fff;}
+
+/* ヘッダー */
+header{background:#1a237e;padding:0 40px;display:flex;justify-content:space-between;align-items:center;height:64px;position:sticky;top:36px;z-index:100;}
+.logo{font-size:1.2rem;font-weight:900;color:#fff;}
+.logo span{color:#90caf9;}
+.tab-nav{display:flex;gap:4px;}
+.tab-btn{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:none;padding:10px 20px;cursor:pointer;font-size:0.9rem;border-radius:6px;transition:all 0.2s;font-family:inherit;}
+.tab-btn.active,.tab-btn:hover{background:#fff;color:#1a237e;font-weight:700;}
+
+/* タブコンテンツ */
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ホームタブ */
+.home-hero{background:linear-gradient(135deg,#1a237e,#283593,#3949ab);padding:80px 24px;text-align:center;color:#fff;}
+.home-hero-badge{display:inline-block;background:rgba(255,255,255,0.2);padding:5px 16px;border-radius:20px;font-size:0.8rem;margin-bottom:16px;}
+.home-hero h1{font-size:2.2rem;font-weight:900;line-height:1.3;margin-bottom:16px;}
+.home-hero h1 span{color:#90caf9;}
+.home-hero p{color:rgba(255,255,255,0.85);font-size:1rem;line-height:1.8;margin-bottom:32px;}
+.hero-cta{display:inline-block;background:#fff;color:#1a237e;padding:16px 40px;border-radius:50px;font-weight:900;text-decoration:none;font-size:1rem;box-shadow:0 8px 24px rgba(0,0,0,0.2);transition:transform 0.2s;}
+.hero-cta:hover{transform:translateY(-2px);}
+
+.home-services{background:#f8f9ff;padding:60px 24px;}
+.home-services h2{text-align:center;font-size:1.5rem;font-weight:900;color:#1a237e;margin-bottom:36px;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto 40px;}
+.svc-card{background:#fff;border:1px solid #c5cae9;border-radius:14px;padding:24px;text-align:center;transition:box-shadow 0.2s;}
+.svc-card:hover{box-shadow:0 6px 20px rgba(26,35,126,0.1);}
+.svc-icon{font-size:2.5rem;margin-bottom:10px;}
+.svc-card h3{color:#1a237e;font-size:1rem;margin-bottom:6px;}
+.svc-card p{font-size:0.85rem;color:#666;line-height:1.6;}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:900px;margin:0 auto;padding:40px 0 0;}
+.stat-box{text-align:center;background:#fff;border:1px solid #c5cae9;border-radius:14px;padding:24px;}
+.stat-num{font-size:2rem;font-weight:900;color:#1a237e;}
+.stat-label{font-size:0.8rem;color:#888;margin-top:4px;}
+
+/* サービスタブ */
+.svc-detail{padding:60px 24px;max-width:960px;margin:0 auto;}
+.svc-detail h2{font-size:1.5rem;font-weight:900;color:#1a237e;margin-bottom:36px;text-align:center;}
+.svc-detail-list{display:flex;flex-direction:column;gap:20px;margin-bottom:48px;}
+.svc-detail-item{background:#f8f9ff;border:1px solid #c5cae9;border-radius:14px;padding:24px;display:grid;grid-template-columns:60px 1fr auto;gap:16px;align-items:center;}
+.svc-detail-icon{font-size:2rem;text-align:center;}
+.svc-detail-info h3{font-size:1.1rem;color:#1a237e;margin-bottom:4px;}
+.svc-detail-info p{font-size:0.85rem;color:#666;line-height:1.6;}
+.svc-detail-price{text-align:right;white-space:nowrap;}
+.svc-detail-price .price{font-size:1.4rem;font-weight:900;color:#1a237e;}
+.svc-detail-price .unit{font-size:0.8rem;color:#888;}
+
+.price-table{border:1px solid #c5cae9;border-radius:14px;overflow:hidden;}
+.price-table-header{background:#1a237e;color:#fff;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:14px 20px;font-size:0.85rem;font-weight:700;}
+.price-table-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:14px 20px;border-top:1px solid #e8eaf6;font-size:0.9rem;}
+.price-table-row:hover{background:#f8f9ff;}
+.price-table-row .best{color:#1a237e;font-weight:700;}
+
+/* ブログタブ */
+.blog-section{padding:60px 24px;max-width:960px;margin:0 auto;}
+.blog-section h2{font-size:1.5rem;font-weight:900;color:#1a237e;margin-bottom:36px;text-align:center;}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.blog-card{background:#fff;border:1px solid #c5cae9;border-radius:14px;overflow:hidden;transition:box-shadow 0.2s;cursor:pointer;}
+.blog-card:hover{box-shadow:0 6px 20px rgba(26,35,126,0.12);}
+.blog-thumb{background:linear-gradient(135deg,#3949ab,#5c6bc0);height:140px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+.blog-body{padding:20px;}
+.blog-meta{display:flex;gap:8px;margin-bottom:8px;align-items:center;}
+.blog-date{font-size:0.75rem;color:#888;}
+.blog-cat{background:#e8eaf6;color:#3949ab;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.blog-card h3{font-size:0.95rem;color:#1a237e;margin-bottom:8px;line-height:1.4;}
+.blog-card p{font-size:0.82rem;color:#666;line-height:1.6;}
+
+/* お問い合わせタブ */
+.contact-tab{padding:60px 24px;max-width:640px;margin:0 auto;}
+.contact-tab h2{font-size:1.5rem;font-weight:900;color:#1a237e;margin-bottom:32px;text-align:center;}
+.ga-note{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:0.85rem;color:#2e7d32;}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.form-group label{font-size:0.85rem;color:#555;font-weight:600;}
+.form-group input,.form-group textarea,.form-group select{padding:12px 16px;border:2px solid #c5cae9;border-radius:10px;font-size:0.95rem;color:#333;font-family:inherit;transition:border-color 0.2s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:#1a237e;}
+.form-group textarea{height:110px;resize:none;}
+.submit-btn{width:100%;background:linear-gradient(135deg,#1a237e,#283593);color:#fff;border:none;padding:16px;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity 0.2s;}
+.submit-btn:hover{opacity:0.9;}
+.success-box{display:none;text-align:center;padding:24px;background:#e8eaf6;border-radius:12px;color:#1a237e;font-weight:700;}
+
+footer{background:#1a237e;color:#fff;text-align:center;padding:32px 24px;}
+.footer-copy{margin-top:12px;font-size:0.8rem;opacity:0.6;}
+
+@media(max-width:700px){
+  .svc-grid,.stats-row,.blog-grid{grid-template-columns:1fr;}
+  .svc-detail-item{grid-template-columns:1fr;text-align:center;}
+  .svc-detail-price{text-align:center;}
+  .home-hero h1{font-size:1.6rem;}
+  header{padding:0 12px;}
+  .tab-btn{padding:8px 12px;font-size:0.8rem;}
+}
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-hp.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<div class="demo-banner">🌐 HP スタンダードプランのデモ（タブ式マルチページ・GA4設置・ブログ機能） | <a href="../service-hp.html">← サービス詳細に戻る</a></div>
+
 <header>
-  <h1>🌸 株式会社サクラビジネス</h1>
-  <nav>
-    <a href="#services">サービス</a>
-    <a href="#results">実績</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">お問い合わせ</a>
-  </nav>
+  <div class="logo">🌸 サクラ<span>美容サロン</span></div>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('home')">ホーム</button>
+    <button class="tab-btn" onclick="showTab('service')">サービス</button>
+    <button class="tab-btn" onclick="showTab('blog')">ブログ</button>
+    <button class="tab-btn" onclick="showTab('contact')">お問い合わせ</button>
+  </div>
 </header>
-<div class="hero">
-  <div class="hero-inner">
-    <h2>あなたのビジネスを<br><span>AI × DX</span>で加速する</h2>
-    <p>株式会社サクラビジネスは、最新技術を活用した経営支援で中小企業の成長を力強くサポートします。</p>
-    <a href="#contact" class="btn">無料相談を予約する</a>
-    <a href="#services" class="btn btn-outline">サービスを見る</a>
+
+<!-- ホームタブ -->
+<div class="tab-content active" id="tab-home">
+  <div class="home-hero fade">
+    <div class="home-hero-badge">🎉 初回体験 50% OFF キャンペーン実施中</div>
+    <h1>渋谷で選ばれ続ける<br><span>プライベートサロン</span></h1>
+    <p>完全個室・国家資格スタッフ・24時間予約対応<br>あなたの肌悩みに真剣に向き合います</p>
+    <a href="#" class="hero-cta" onclick="showTab('contact');return false;">今すぐ予約する →</a>
+  </div>
+  <div class="home-services fade">
+    <h2>🌟 主なサービス</h2>
+    <div class="svc-grid">
+      <div class="svc-card"><div class="svc-icon">💆</div><h3>フェイシャルケア</h3><p>毛穴・くすみ・ニキビなどを集中改善</p></div>
+      <div class="svc-card"><div class="svc-icon">✨</div><h3>ボディケア</h3><p>全身のコリ・疲れをリセットするマッサージ</p></div>
+      <div class="svc-card"><div class="svc-icon">🌙</div><h3>光脱毛</h3><p>最新機器で痛みの少ない本格脱毛ケア</p></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num">10,000+</div><div class="stat-label">累計来店数</div></div>
+      <div class="stat-box"><div class="stat-num">98%</div><div class="stat-label">顧客満足度</div></div>
+      <div class="stat-box"><div class="stat-num">8年</div><div class="stat-label">創業年数</div></div>
+      <div class="stat-box"><div class="stat-num">4.9★</div><div class="stat-label">Google評価</div></div>
+    </div>
   </div>
 </div>
-<section id="services">
-  <div class="container">
-    <h2 class="section-title">💼 <span>サービス</span>一覧</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="icon">🏢</div>
-        <h3>経営コンサルティング</h3>
-        <p>現状分析から戦略立案まで、経営課題を根本から解決する包括的サポート。</p>
+
+<!-- サービスタブ -->
+<div class="tab-content" id="tab-service">
+  <div class="svc-detail fade">
+    <h2>🛎️ サービス詳細</h2>
+    <div class="svc-detail-list">
+      <div class="svc-detail-item">
+        <div class="svc-detail-icon">💆</div>
+        <div class="svc-detail-info">
+          <h3>フェイシャルケア</h3>
+          <p>毛穴・くすみ・ニキビ・乾燥などお肌全般のお悩みに対応。AI肌診断で最適な施術をご提案します。</p>
+        </div>
+        <div class="svc-detail-price"><div class="price">¥6,800〜</div><div class="unit">60分〜</div></div>
       </div>
-      <div class="service-card">
-        <div class="icon">🤖</div>
-        <h3>AI・DX導入支援</h3>
-        <p>業務効率化のためのAIツール選定・導入・定着まで一気通貫で対応。</p>
+      <div class="svc-detail-item">
+        <div class="svc-detail-icon">✨</div>
+        <div class="svc-detail-info">
+          <h3>ボディマッサージ</h3>
+          <p>リンパドレナージュ・オイルマッサージ・スウェディッシュの3種から選べます。</p>
+        </div>
+        <div class="svc-detail-price"><div class="price">¥8,800〜</div><div class="unit">60分〜</div></div>
       </div>
-      <div class="service-card">
-        <div class="icon">📈</div>
-        <h3>Webマーケティング</h3>
-        <p>SEO・SNS・広告を組み合わせた集客戦略で売上アップを実現。</p>
+      <div class="svc-detail-item">
+        <div class="svc-detail-icon">🌙</div>
+        <div class="svc-detail-info">
+          <h3>光脱毛</h3>
+          <p>最新IPL光脱毛機器使用。脚・腕・VIO・全身など各部位に対応しています。</p>
+        </div>
+        <div class="svc-detail-price"><div class="price">¥3,800〜</div><div class="unit">1部位〜</div></div>
+      </div>
+    </div>
+    <h2 style="font-size:1.2rem;margin-bottom:20px;">💰 料金表</h2>
+    <div class="price-table">
+      <div class="price-table-header"><span>コース名</span><span>60分</span><span>90分</span><span>120分</span></div>
+      <div class="price-table-row"><span>フェイシャルスタンダード</span><span>¥6,800</span><span>¥9,200</span><span class="best">¥11,800</span></div>
+      <div class="price-table-row"><span>フェイシャルプレミアム</span><span>¥9,800</span><span>¥13,200</span><span class="best">¥16,800</span></div>
+      <div class="price-table-row"><span>ボディマッサージ</span><span>¥8,800</span><span>¥11,800</span><span class="best">¥14,800</span></div>
+      <div class="price-table-row"><span>フェイシャル＋ボディ</span><span>—</span><span>¥16,800</span><span class="best">¥21,800</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ブログタブ -->
+<div class="tab-content" id="tab-blog">
+  <div class="blog-section fade">
+    <h2>📝 スタッフブログ</h2>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-thumb">💆</div>
+        <div class="blog-body">
+          <div class="blog-meta"><span class="blog-date">2025.06.15</span><span class="blog-cat">スキンケア</span></div>
+          <h3>夏の紫外線対策！サロンで教えるUVケアの正しい方法</h3>
+          <p>日差しが強くなるこの季節。正しい日焼け止めの使い方から、サロンでできる紫外線ダメージケアまでご紹介します。</p>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb">✨</div>
+        <div class="blog-body">
+          <div class="blog-meta"><span class="blog-date">2025.06.08</span><span class="blog-cat">脱毛</span></div>
+          <h3>光脱毛とレーザー脱毛の違い、徹底比較してみました</h3>
+          <p>どちらを選べばいいか迷っている方へ。それぞれの特徴・効果・価格・向いている肌タイプを詳しく解説します。</p>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb">🌙</div>
+        <div class="blog-body">
+          <div class="blog-meta"><span class="blog-date">2025.05.30</span><span class="blog-cat">美容知識</span></div>
+          <h3>毛穴の黒ずみ、原因と改善方法を専門家が解説</h3>
+          <p>気になる毛穴の黒ずみ。その原因を正しく知ることで、適切なケアが可能になります。自宅でできるケア法も公開！</p>
+        </div>
       </div>
     </div>
   </div>
-</section>
-<section class="results" id="results">
-  <div class="container">
-    <h2 class="section-title">📊 <span>支援実績</span></h2>
-    <div class="results-grid">
-      <div><div class="result-num">300+</div><div class="result-label">支援企業数</div></div>
-      <div><div class="result-num">98%</div><div class="result-label">顧客満足度</div></div>
-      <div><div class="result-num">5年</div><div class="result-label">平均取引継続</div></div>
-      <div><div class="result-num">2.5倍</div><div class="result-label">平均売上改善率</div></div>
-    </div>
-  </div>
-</section>
-<section id="faq">
-  <div class="container">
-    <h2 class="section-title">❓ よくある<span>質問</span></h2>
-    <div class="faq">
-      <div class="faq-item">
-        <div class="q">Q. 費用はどのくらいかかりますか？</div>
-        <div class="a">A. プランによって異なりますが、月額3万円〜からご利用いただけます。まずは無料相談でご要望をお聞きします。</div>
+</div>
+
+<!-- お問い合わせタブ -->
+<div class="tab-content" id="tab-contact">
+  <div class="contact-tab fade">
+    <h2>📩 予約・お問い合わせ</h2>
+    <div class="ga-note">📊 <strong>Google Analytics 4 設置済み</strong>：フォーム送信・ページ閲覧をトラッキングしています。詳細レポートはGA4ダッシュボードでご確認いただけます。</div>
+    <form id="contactForm">
+      <div class="form-group"><label>お名前 *</label><input type="text" placeholder="山田 花子" required></div>
+      <div class="form-group"><label>メールアドレス *</label><input type="email" placeholder="example@email.com" required></div>
+      <div class="form-group"><label>電話番号</label><input type="tel" placeholder="090-1234-5678"></div>
+      <div class="form-group">
+        <label>ご希望のメニュー</label>
+        <select><option>フェイシャルケア</option><option>ボディマッサージ</option><option>光脱毛</option><option>その他</option></select>
       </div>
-      <div class="faq-item">
-        <div class="q">Q. 契約期間の縛りはありますか？</div>
-        <div class="a">A. 最短1ヶ月からご利用可能です。長期契約の場合は割引プランもご用意しています。</div>
-      </div>
-      <div class="faq-item">
-        <div class="q">Q. どんな業種でも対応できますか？</div>
-        <div class="a">A. 製造業・小売・サービス業・医療など幅広い業種に対応実績があります。</div>
-      </div>
-    </div>
+      <div class="form-group"><label>ご要望・ご質問</label><textarea placeholder="何でもお気軽にどうぞ"></textarea></div>
+      <button type="submit" class="submit-btn">送信する →</button>
+    </form>
+    <div class="success-box" id="successBox">✅ お問い合わせありがとうございます！<br>24時間以内にご返信いたします。</div>
   </div>
-</section>
-<section id="contact" style="background:#0d0d20;">
-  <div class="container">
-    <h2 class="section-title">📩 <span>お問い合わせ</span></h2>
-    <div class="contact-form">
-      <input type="text" placeholder="お名前 *">
-      <input type="email" placeholder="メールアドレス *">
-      <input type="tel" placeholder="電話番号">
-      <textarea rows="5" placeholder="お問い合わせ内容 *"></textarea>
-      <a href="#" class="btn" style="display:block;text-align:center;">送信する</a>
-    </div>
-  </div>
-</section>
+</div>
+
 <footer>
-  <p>🌸 株式会社サクラビジネス</p>
-  <p style="margin-top:8px;">〒100-0001 東京都千代田区丸の内1-1-1 | TEL: 03-0000-0000 | <a href="#">プライバシーポリシー</a></p>
-  <p style="margin-top:8px;">© 2024 株式会社サクラビジネス All Rights Reserved.</p>
+  <div>🌸 サクラ美容サロン ／ 〒150-0001 東京都渋谷区神宮前1-2-3 ／ TEL：03-1234-5678</div>
+  <div class="footer-copy">© 2025 株式会社サクラビジネス All Rights Reserved.</div>
 </footer>
+
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top:64,behavior:'smooth'});
+}
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  this.style.display='none';
+  document.getElementById('successBox').style.display='block';
+});
+</script>
 </body>
 </html>

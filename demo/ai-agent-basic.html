@@ -3,119 +3,240 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIチャットボット デモ | 株式会社サクラビジネス</title>
+<title>AIエージェント ベーシック デモ | 株式会社サクラビジネス</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; display:flex; flex-direction:column; min-height:100vh; }
-.page-header { background:#12121e; border-bottom:1px solid #2a2a3e; padding:20px 40px; text-align:center; }
-.page-header h1 { font-size:1.2rem; color:#fff; }
-.page-header p { color:#888; font-size:0.85rem; margin-top:4px; }
-.chat-container { max-width:640px; margin:40px auto; padding:0 20px; flex:1; width:100%; }
-.chat-box { background:#12121e; border:1px solid #2a2a3e; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
-.chat-header { background:#0d0d20; padding:16px 20px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #2a2a3e; }
-.bot-avatar { width:40px; height:40px; background:linear-gradient(135deg,#7c6bff,#a78bfa); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
-.bot-name { color:#fff; font-weight:700; font-size:0.95rem; }
-.bot-status { color:#4caf50; font-size:0.8rem; display:flex; align-items:center; gap:4px; }
-.bot-status::before { content:''; width:8px; height:8px; background:#4caf50; border-radius:50%; display:inline-block; }
-.messages { height:400px; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:12px; }
-.msg { max-width:80%; padding:12px 16px; border-radius:16px; font-size:0.9rem; line-height:1.5; }
-.msg.bot { background:#1a1a3e; color:#e0e0f0; align-self:flex-start; border-bottom-left-radius:4px; }
-.msg.user { background:linear-gradient(135deg,#7c6bff,#a78bfa); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
-.msg-time { font-size:0.7rem; color:#666; margin-top:4px; }
-.quick-replies { padding:12px 20px; display:flex; gap:8px; flex-wrap:wrap; border-top:1px solid #1a1a2e; }
-.quick-btn { background:#1a1a3e; border:1px solid #2a2a3e; color:#a78bfa; padding:6px 14px; border-radius:20px; font-size:0.82rem; cursor:pointer; transition:background 0.2s; }
-.quick-btn:hover { background:#2a2a5e; }
-.input-area { display:flex; gap:8px; padding:16px 20px; border-top:1px solid #2a2a3e; }
-.input-area input { flex:1; background:#0a0e1a; border:1px solid #2a2a3e; color:#fff; padding:10px 16px; border-radius:50px; font-size:0.9rem; outline:none; }
-.input-area input:focus { border-color:#7c6bff; }
-.send-btn { background:#7c6bff; border:none; color:#fff; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.1rem; transition:transform 0.2s; }
-.send-btn:hover { transform:scale(1.1); }
-.typing { display:none; padding:8px 16px; background:#1a1a3e; border-radius:16px; border-bottom-left-radius:4px; align-self:flex-start; }
-.typing span { display:inline-block; width:8px; height:8px; background:#7c6bff; border-radius:50%; animation:bounce 1.4s infinite; margin-right:3px; }
-.typing span:nth-child(2) { animation-delay:0.2s; }
-.typing span:nth-child(3) { animation-delay:0.4s; }
-@keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f0f6ff; color:#1e293b; font-family:'Segoe UI',sans-serif; min-height:100vh; }
+
+  header { background:#fff; border-bottom:2px solid #dbeafe; padding:14px 24px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; box-shadow:0 1px 4px rgba(59,130,246,.08); }
+  header h1 { font-size:17px; color:#1d4ed8; font-weight:700; }
+  .badge { background:#dbeafe; color:#1d4ed8; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+  .api-badge { margin-left:auto; background:#dcfce7; color:#15803d; border:1px solid #bbf7d0; border-radius:8px; padding:5px 14px; font-size:12px; font-weight:600; }
+
+  .layout { display:flex; min-height:calc(100vh - 58px); }
+
+  /* Sidebar */
+  .sidebar { width:260px; background:#fff; border-right:1px solid #dbeafe; padding:20px; flex-shrink:0; }
+  .sidebar h2 { font-size:12px; color:#1d4ed8; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; font-weight:700; }
+  .step { display:flex; gap:12px; margin-bottom:18px; animation:fadeIn .5s ease both; }
+  .step:nth-child(2){animation-delay:.05s} .step:nth-child(3){animation-delay:.1s} .step:nth-child(4){animation-delay:.15s} .step:nth-child(5){animation-delay:.2s}
+  .step-num { width:28px; height:28px; background:#dbeafe; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; color:#1d4ed8; flex-shrink:0; font-weight:700; }
+  .step-content h3 { font-size:13px; color:#1d4ed8; margin-bottom:3px; font-weight:600; }
+  .step-content p { font-size:12px; color:#64748b; line-height:1.6; }
+  .divider { height:1px; background:#e0e7ff; margin:16px 0; }
+  .tip { background:#eff6ff; border-left:3px solid #3b82f6; padding:10px 12px; border-radius:0 6px 6px 0; font-size:12px; color:#1e40af; line-height:1.6; }
+
+  /* Main */
+  .main { flex:1; padding:24px; }
+  .toolbar { display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+  .run-btn { background:#1d4ed8; color:#fff; border:none; padding:10px 22px; border-radius:8px; cursor:pointer; font-size:14px; font-weight:700; transition:background .2s; display:flex; align-items:center; gap:6px; }
+  .run-btn:hover { background:#1e40af; }
+  .run-btn:disabled { background:#93c5fd; cursor:not-allowed; }
+  .reset-btn { background:#fff; color:#1d4ed8; border:1.5px solid #3b82f6; padding:9px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600; }
+  .reset-btn:hover { background:#eff6ff; }
+  #statusText { font-size:13px; color:#64748b; }
+
+  .section-title { font-size:14px; font-weight:700; color:#1e3a8a; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+
+  .email-list { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+  .email-item { background:#fff; border:1.5px solid #dbeafe; border-radius:10px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; transition:border-color .4s, background .4s; animation:fadeIn .5s ease both; }
+  .email-item.sorted { border-color:#86efac; background:#f0fdf4; }
+  .email-icon { width:36px; height:36px; border-radius:50%; background:#dbeafe; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+  .email-body { flex:1; }
+  .email-from { font-size:11px; color:#94a3b8; margin-bottom:2px; }
+  .email-subject { font-size:14px; color:#1e293b; font-weight:600; margin-bottom:3px; }
+  .email-preview { font-size:12px; color:#64748b; }
+  .label { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; margin-top:6px; opacity:0; transition:opacity .5s; }
+  .label.show { opacity:1; }
+  .label-mitsumori { background:#dbeafe; color:#1d4ed8; }
+  .label-claim { background:#fee2e2; color:#dc2626; }
+  .label-ippan { background:#dcfce7; color:#15803d; }
+  .proc-icon { margin-left:auto; font-size:16px; opacity:0; transition:opacity .3s; }
+  .proc-icon.show { opacity:1; }
+
+  /* Report */
+  .report { background:#fff; border:1.5px solid #dbeafe; border-radius:12px; padding:20px; animation:fadeIn .5s ease both; }
+  .report h3 { font-size:13px; font-weight:700; color:#1d4ed8; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .stat-card { background:#f0f6ff; border-radius:8px; padding:14px; text-align:center; border:1px solid #dbeafe; }
+  .stat-num { font-size:28px; font-weight:700; color:#1d4ed8; }
+  .stat-label { font-size:11px; color:#64748b; margin-top:4px; }
+  .bar { height:4px; background:#dbeafe; border-radius:2px; margin-top:8px; overflow:hidden; }
+  .bar-fill { height:100%; background:#3b82f6; width:0%; transition:width 1s; border-radius:2px; }
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-ai-agent.html" style="color:#fff;">← サービス詳細に戻る</a></div>
-<div class="page-header">
-  <h1>🤖 AIチャットボット — ベーシックプラン デモ</h1>
-  <p>株式会社サクラビジネス公式チャットボット / FAQ自動回答</p>
-</div>
-<div class="chat-container">
-  <div class="chat-box">
-    <div class="chat-header">
-      <div class="bot-avatar">🤖</div>
-      <div>
-        <div class="bot-name">サクラAIアシスタント</div>
-        <div class="bot-status">オンライン</div>
+<header>
+  <div style="font-size:20px">🤖</div>
+  <h1>AIエージェント ベーシックプラン デモ</h1>
+  <span class="badge">単一業務自動化</span>
+  <span class="badge">API連携（1サービス）</span>
+  <div class="api-badge">✅ Gmail API 接続済み</div>
+</header>
+
+<div class="layout">
+  <div class="sidebar">
+    <h2>📖 操作マニュアル</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>メール取得</h3>
+        <p>エージェントがGmail APIを通じて受信トレイのメールを自動取得します。</p>
       </div>
     </div>
-    <div class="messages" id="messages">
-      <div class="msg bot">こんにちは！株式会社サクラビジネスのAIアシスタントです。ご質問にお答えします。<div class="msg-time">今</div></div>
-      <div class="typing" id="typing"><span></span><span></span><span></span></div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>AI分類処理</h3>
+        <p>件名・本文をAIが解析し「見積もり依頼」「クレーム」「一般問い合わせ」に分類します。</p>
+      </div>
     </div>
-    <div class="quick-replies">
-      <button class="quick-btn" onclick="quickReply('料金を教えてください')">料金を知りたい</button>
-      <button class="quick-btn" onclick="quickReply('対応業種を教えてください')">対応業種は？</button>
-      <button class="quick-btn" onclick="quickReply('無料相談はできますか？')">無料相談したい</button>
-      <button class="quick-btn" onclick="quickReply('営業時間を教えてください')">営業時間は？</button>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>ラベル付け＆ソート</h3>
+        <p>分類結果でラベルを付与。クレームは最優先で表示されます。</p>
+      </div>
     </div>
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="メッセージを入力..." onkeydown="if(event.key==='Enter')sendMessage()">
-      <button class="send-btn" onclick="sendMessage()">➤</button>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>実行レポート生成</h3>
+        <p>処理件数・処理時間・成功率を自動でレポートに集計します。</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="tip">
+      💡 このエージェントは24時間365日稼働し、メールが届くたびに自動仕分けします。担当者の手作業を完全に排除できます。
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="toolbar">
+      <button class="run-btn" id="runBtn" onclick="runAgent()">▶ エージェント実行</button>
+      <button class="reset-btn" onclick="resetDemo()">🔄 リセット</button>
+      <span id="statusText"></span>
+    </div>
+
+    <div class="section-title">📧 受信メールリスト（5通）</div>
+    <div class="email-list" id="emailList">
+      <div class="email-item" data-type="claim">
+        <div class="email-icon">😡</div>
+        <div class="email-body">
+          <div class="email-from">田中 太郎 &lt;tanaka@example.com&gt;</div>
+          <div class="email-subject">先日購入した商品について苦情があります</div>
+          <div class="email-preview">先日お送りいただいた商品が破損していました。至急対応をお願いします...</div>
+          <div class="label label-claim" id="label-0">⚠️ クレーム</div>
+        </div>
+        <div class="proc-icon" id="proc-0">✅</div>
+      </div>
+      <div class="email-item" data-type="mitsumori">
+        <div class="email-icon">📋</div>
+        <div class="email-body">
+          <div class="email-from">山田 花子 &lt;yamada@corp.co.jp&gt;</div>
+          <div class="email-subject">システム開発の見積もり依頼</div>
+          <div class="email-preview">貴社のAI導入支援サービスについて、概算見積もりをいただけますでしょうか...</div>
+          <div class="label label-mitsumori" id="label-1">💼 見積もり依頼</div>
+        </div>
+        <div class="proc-icon" id="proc-1">✅</div>
+      </div>
+      <div class="email-item" data-type="ippan">
+        <div class="email-icon">💬</div>
+        <div class="email-body">
+          <div class="email-from">佐藤 健 &lt;sato@gmail.com&gt;</div>
+          <div class="email-subject">サービスについてお伺いしたいことがあります</div>
+          <div class="email-preview">はじめまして。チャットボット導入を検討しており、詳しいお話を聞かせていただけますか...</div>
+          <div class="label label-ippan" id="label-2">📨 一般問い合わせ</div>
+        </div>
+        <div class="proc-icon" id="proc-2">✅</div>
+      </div>
+      <div class="email-item" data-type="mitsumori">
+        <div class="email-icon">📋</div>
+        <div class="email-body">
+          <div class="email-from">鈴木 一郎 &lt;suzuki@biztech.jp&gt;</div>
+          <div class="email-subject">AIエージェント導入の費用見積もりについて</div>
+          <div class="email-preview">弊社でも御社のAIエージェントを活用したく、費用の見積もりをお願いしたいと思います...</div>
+          <div class="label label-mitsumori" id="label-3">💼 見積もり依頼</div>
+        </div>
+        <div class="proc-icon" id="proc-3">✅</div>
+      </div>
+      <div class="email-item" data-type="ippan">
+        <div class="email-icon">💬</div>
+        <div class="email-body">
+          <div class="email-from">高橋 美咲 &lt;takahashi@startup.io&gt;</div>
+          <div class="email-subject">資料請求のお願い</div>
+          <div class="email-preview">御社のサービス資料一式をお送りいただけますでしょうか。検討したいと思います...</div>
+          <div class="label label-ippan" id="label-4">📨 一般問い合わせ</div>
+        </div>
+        <div class="proc-icon" id="proc-4">✅</div>
+      </div>
+    </div>
+
+    <div class="report">
+      <h3>📊 実行レポート</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="statCount">—</div>
+          <div class="stat-label">処理件数</div>
+          <div class="bar"><div class="bar-fill" id="bar1"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="statTime">—</div>
+          <div class="stat-label">処理時間（秒）</div>
+          <div class="bar"><div class="bar-fill" id="bar2"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="statRate">—</div>
+          <div class="stat-label">成功率</div>
+          <div class="bar"><div class="bar-fill" id="bar3"></div></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
 <script>
-const faqs = {
-  '料金': 'ベーシックプランは月額¥30,000〜からご利用いただけます。初回は無料相談も承っております。',
-  '対応業種': '製造業・飲食・小売・IT・医療など幅広い業種に対応しています。まずはご相談ください。',
-  '無料相談': 'はい！初回相談は完全無料です。お電話（03-0000-0000）またはフォームよりお申し込みください。',
-  '営業時間': '平日9:00〜18:00が営業時間です。お問い合わせフォームは24時間受付中です。',
-  '解約': '月次契約のため、毎月末での解約が可能です。解約違約金はありません。',
-  'ai': 'AI導入支援も行っております！業務効率化に向けた最適なAIツールをご提案します。',
-  'dx': 'DX（デジタルトランスフォーメーション）支援は得意分野です。現状分析から実装・定着まで伴走します。',
-};
-function getReply(msg) {
-  for (const [key, reply] of Object.entries(faqs)) {
-    if (msg.includes(key)) return reply;
+function runAgent() {
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 処理中...';
+  document.getElementById('statusText').textContent = 'Gmail APIからメールを取得しています...';
+  const start = Date.now();
+  let done = 0;
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      document.getElementById('label-' + i).classList.add('show');
+      document.getElementById('proc-' + i).classList.add('show');
+      document.getElementById('emailList').children[i].classList.add('sorted');
+      done++;
+      document.getElementById('statCount').textContent = done;
+      if (done === 5) {
+        const t = ((Date.now() - start) / 1000).toFixed(1);
+        document.getElementById('statTime').textContent = t;
+        document.getElementById('statRate').textContent = '100%';
+        document.getElementById('bar1').style.width = '100%';
+        document.getElementById('bar2').style.width = '75%';
+        document.getElementById('bar3').style.width = '100%';
+        document.getElementById('statusText').textContent = '✅ 処理完了！';
+        btn.textContent = '✅ 実行完了';
+        btn.disabled = false;
+      }
+    }, i * 600 + 400);
   }
-  return 'ご質問ありがとうございます。詳しくは担当者にお繋ぎします。お電話（03-0000-0000）またはお問い合わせフォームからご連絡ください。';
 }
-function addMsg(text, type) {
-  const messages = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.className = 'msg ' + type;
-  div.innerHTML = text + '<div class="msg-time">今</div>';
-  messages.insertBefore(div, document.getElementById('typing'));
-  messages.scrollTop = messages.scrollHeight;
-}
-function showTyping() {
-  document.getElementById('typing').style.display = 'block';
-  document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-}
-function hideTyping() { document.getElementById('typing').style.display = 'none'; }
-function sendMessage() {
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text) return;
-  addMsg(text, 'user');
-  input.value = '';
-  showTyping();
-  setTimeout(() => {
-    hideTyping();
-    addMsg(getReply(text), 'bot');
-  }, 1200);
-}
-function quickReply(text) {
-  addMsg(text, 'user');
-  showTyping();
-  setTimeout(() => {
-    hideTyping();
-    addMsg(getReply(text), 'bot');
-  }, 1000);
+function resetDemo() {
+  for (let i = 0; i < 5; i++) {
+    document.getElementById('label-' + i).classList.remove('show');
+    document.getElementById('proc-' + i).classList.remove('show');
+    document.getElementById('emailList').children[i].classList.remove('sorted');
+  }
+  ['statCount','statTime','statRate'].forEach(id => document.getElementById(id).textContent = '—');
+  ['bar1','bar2','bar3'].forEach(id => document.getElementById(id).style.width = '0');
+  const btn = document.getElementById('runBtn');
+  btn.textContent = '▶ エージェント実行';
+  btn.disabled = false;
+  document.getElementById('statusText').textContent = '';
 }
 </script>
 </body>

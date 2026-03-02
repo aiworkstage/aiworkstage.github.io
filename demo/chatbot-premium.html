@@ -1,98 +1,241 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AIチャット プレミアムデモ | 株式会社サクラビジネス</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チャットボット プレミアム デモ | 株式会社サクラビジネス</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:system-ui,sans-serif;background:#0a0e1a;color:#e0e0ff;}
-.demo-banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.demo-banner a{color:#fff;}
-.dashboard{display:grid;grid-template-columns:240px 1fr 300px;height:calc(100vh - 36px);}
-.sidebar{background:#12121e;border-right:1px solid #2a2a3e;padding:20px;}
-.sidebar h3{font-size:0.8rem;color:#8888aa;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
-.nav-item{padding:10px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
-.nav-item.active{background:#7c6bff22;color:#7c6bff;}
-.nav-item:hover{background:#1e1e2e;}
-.main{display:flex;flex-direction:column;}
-.chat-header{background:#12121e;border-bottom:1px solid #2a2a3e;padding:16px 24px;display:flex;align-items:center;gap:12px;}
-.lang-selector{background:#1e1e2e;border:1px solid #2a2a3e;border-radius:8px;padding:6px 12px;color:#e0e0ff;font-size:0.82rem;}
-.chat-area{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px;}
-.msg{display:flex;gap:12px;max-width:70%;}
-.msg.user{align-self:flex-end;flex-direction:row-reverse;}
-.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;}
-.bot-avatar{background:#7c6bff;}
-.user-avatar{background:#00d4ff;color:#000;}
-.bubble{background:#1e1e2e;border-radius:12px;padding:12px 16px;font-size:0.88rem;line-height:1.6;}
-.msg.user .bubble{background:#7c6bff22;border:1px solid #7c6bff44;}
-.sentiment{font-size:0.75rem;margin-top:6px;color:#8888aa;}
-.escalate-btn{background:#ff6b35;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:0.8rem;margin-top:8px;}
-.input-area{border-top:1px solid #2a2a3e;padding:16px 24px;display:flex;gap:12px;}
-.input-area input{flex:1;background:#12121e;border:1px solid #2a2a3e;border-radius:10px;padding:12px 16px;color:#e0e0ff;font-size:0.9rem;}
-.send-btn{background:#7c6bff;color:#fff;border:none;border-radius:10px;padding:12px 20px;cursor:pointer;}
-.analytics{background:#12121e;border-left:1px solid #2a2a3e;padding:20px;overflow-y:auto;}
-.stat-card{background:#1e1e2e;border-radius:10px;padding:14px;margin-bottom:12px;}
-.stat-card .label{font-size:0.75rem;color:#8888aa;margin-bottom:4px;}
-.stat-card .value{font-size:1.4rem;font-weight:800;color:#7c6bff;}
-.bar{height:6px;background:#2a2a3e;border-radius:3px;margin-top:8px;}
-.bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#7c6bff,#00d4ff);}
-</style></head>
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f9f7ff; color:#1e1b4b; font-family:'Segoe UI',sans-serif; min-height:100vh; }
+  header { background:#581c87; color:#fff; padding:14px 24px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  header h1 { font-size:17px; font-weight:700; }
+  .badge { background:rgba(255,255,255,.2); padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+  .badge-gold { background:#78350f; color:#fde68a; }
+
+  .top-layout { display:grid; grid-template-columns:1fr 340px; height:calc(100vh - 56px); }
+
+  /* Chat area */
+  .chat-area { display:flex; flex-direction:column; border-right:2px solid #e9d5ff; }
+
+  /* Lang switcher */
+  .lang-bar { background:#fff; padding:10px 16px; border-bottom:1px solid #e9d5ff; display:flex; align-items:center; gap:8px; }
+  .lang-bar span { font-size:12px; color:#6b7280; margin-right:4px; }
+  .lang-btn { background:#f3e8ff; color:#581c87; border:1.5px solid #d8b4fe; padding:5px 12px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700; transition:background .2s; }
+  .lang-btn.active { background:#581c87; color:#fff; border-color:#581c87; }
+
+  /* Chat frame */
+  .chat-frame { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+  .chat-top { padding:12px 16px; display:flex; align-items:center; gap:12px; }
+  /* Sakura-chan avatar (CSS art) */
+  .sakura-face { width:44px; height:44px; border-radius:50%; background:#fce7f3; border:3px solid #f9a8d4; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; position:relative; }
+  .sakura-face::after { content:'🌸'; position:absolute; top:-6px; right:-6px; font-size:12px; }
+  .chat-top h3 { font-size:14px; font-weight:700; }
+  .chat-top p { font-size:11px; opacity:.8; }
+  .chat-body { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:8px; }
+  .msg { max-width:80%; animation:fadeIn .4s ease both; }
+  .msg.bot { align-self:flex-start; display:flex; gap:8px; align-items:flex-end; }
+  .msg.user { align-self:flex-end; }
+  .mini-av { width:28px; height:28px; border-radius:50%; background:#fce7f3; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .bubble { padding:10px 13px; border-radius:14px; font-size:13px; line-height:1.5; }
+  .bot .bubble { background:#f3e8ff; color:#1e1b4b; border-radius:4px 14px 14px 14px; }
+  .user .bubble { background:#581c87; color:#fff; border-radius:14px 4px 14px 14px; }
+  .chat-input-row { padding:10px; border-top:1px solid #e9d5ff; display:flex; gap:8px; background:#fff; }
+  .chat-input { flex:1; border:1.5px solid #d8b4fe; border-radius:8px; padding:9px 12px; font-size:13px; outline:none; font-family:inherit; }
+  .chat-input:focus { border-color:#581c87; }
+  .send-btn { background:#581c87; color:#fff; border:none; padding:9px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:700; }
+  .send-btn:hover { background:#4c1d95; }
+
+  /* Right sidebar */
+  .right { overflow-y:auto; display:flex; flex-direction:column; }
+
+  /* CRM Panel */
+  .crm-panel { background:#fff; border-bottom:2px solid #e9d5ff; padding:16px; }
+  .crm-panel h2 { font-size:13px; font-weight:700; color:#581c87; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+  .crm-table { width:100%; border-collapse:collapse; font-size:11px; }
+  .crm-table th { background:#f3e8ff; color:#581c87; padding:7px 8px; text-align:left; font-weight:700; }
+  .crm-table td { padding:6px 8px; border-bottom:1px solid #faf5ff; color:#374151; }
+  .crm-table tr:last-child td { border:none; }
+  .crm-new { animation:fadeIn .5s ease both; background:#fdf4ff; }
+  .crm-badge { font-size:10px; background:#e9d5ff; color:#581c87; padding:1px 6px; border-radius:8px; font-weight:600; }
+
+  /* Analytics */
+  .analytics { background:#f9f7ff; padding:16px; flex:1; }
+  .analytics h2 { font-size:13px; font-weight:700; color:#581c87; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; }
+  .ana-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+  .ana-card { background:#fff; border:1px solid #e9d5ff; border-radius:8px; padding:12px; text-align:center; }
+  .ana-val { font-size:22px; font-weight:700; color:#581c87; }
+  .ana-lbl { font-size:10px; color:#6b7280; margin-top:2px; }
+  .stars { color:#f59e0b; font-size:16px; letter-spacing:2px; }
+
+  @media(max-width:800px){ .top-layout{grid-template-columns:1fr;} .right{border-top:2px solid #e9d5ff;} }
+</style>
+</head>
 <body>
-<div class="demo-banner">🎨 これはデモサイトです（プレミアム） | <a href="../service-chatbot.html">← サービス詳細に戻る</a></div>
-<div class="dashboard">
-  <div class="sidebar">
-    <div style="font-weight:800;margin-bottom:24px;">🤖 AI Chat Pro</div>
-    <h3>メニュー</h3>
-    <div class="nav-item active">💬 チャット</div>
-    <div class="nav-item">📊 分析</div>
-    <div class="nav-item">🌐 多言語設定</div>
-    <div class="nav-item">🔔 エスカレーション</div>
-    <div class="nav-item">⚙️ 設定</div>
-    <div style="margin-top:24px;padding:12px;background:#28c84022;border-radius:8px;border:1px solid #28c840;">
-      <div style="color:#28c840;font-size:0.8rem;font-weight:700;">● オンライン</div>
-      <div style="color:#8888aa;font-size:0.75rem;margin-top:4px;">現在の対応言語: 日本語・英語・中国語</div>
+<header>
+  <span style="font-size:20px">💬</span>
+  <h1>チャットボット プレミアムプラン デモ</h1>
+  <span class="badge">カスタムAIキャラクター</span>
+  <span class="badge">多言語対応</span>
+  <span class="badge">CRM連携</span>
+  <span class="badge badge-gold">3ヶ月保守サポート</span>
+</header>
+
+<div class="top-layout">
+  <!-- Chat -->
+  <div class="chat-area">
+    <div class="lang-bar">
+      <span>🌐 言語：</span>
+      <button class="lang-btn active" onclick="setLang('ja',this)">🇯🇵 日本語</button>
+      <button class="lang-btn" onclick="setLang('en',this)">🇬🇧 English</button>
+      <button class="lang-btn" onclick="setLang('zh',this)">🇨🇳 中国語</button>
     </div>
-  </div>
-  <div class="main">
-    <div class="chat-header">
-      <div style="flex:1;"><div style="font-weight:700;">サクラビジネス AIサポート</div><div style="font-size:0.8rem;color:#28c840;">● 応答中</div></div>
-      <select class="lang-selector"><option>🇯🇵 日本語</option><option>🇺🇸 English</option><option>🇨🇳 中文</option></select>
-    </div>
-    <div class="chat-area">
-      <div class="msg">
-        <div class="avatar bot-avatar">🤖</div>
+    <div class="chat-frame">
+      <div class="chat-top" style="background:#581c87">
+        <div class="sakura-face">🌸</div>
         <div>
-          <div class="bubble">こんにちは！株式会社サクラビジネスのAIサポートです。どのようなご用件でしょうか？</div>
-          <div class="sentiment">😊 感情スコア: ニュートラル</div>
+          <h3 style="color:#fff">さくらちゃん</h3>
+          <p style="color:rgba(255,255,255,.8)">カスタムAIキャラクター · オンライン</p>
         </div>
       </div>
-      <div class="msg user">
-        <div class="avatar user-avatar">👤</div>
-        <div><div class="bubble">料金について聞きたいのですが...</div></div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatInput" placeholder="メッセージを入力…" onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="send-btn" onclick="sendMsg()">送信</button>
       </div>
-      <div class="msg">
-        <div class="avatar bot-avatar">🤖</div>
-        <div>
-          <div class="bubble">ご質問ありがとうございます！料金はベーシック¥7,500〜、スタンダード¥15,000〜、プレミアム¥25,000〜となっております。詳しくはこちらをご覧ください。</div>
-          <div class="sentiment">😊 感情スコア: ポジティブ</div>
-          <button class="escalate-btn">👨‍💼 有人対応に切り替え</button>
-        </div>
-      </div>
-    </div>
-    <div class="input-area">
-      <input type="text" placeholder="メッセージを入力（日本語・英語・中国語対応）...">
-      <button class="send-btn">送信</button>
     </div>
   </div>
-  <div class="analytics">
-    <div style="font-weight:700;margin-bottom:16px;">📊 リアルタイム分析</div>
-    <div class="stat-card"><div class="label">本日の対応件数</div><div class="value">142</div><div class="bar"><div class="bar-fill" style="width:72%;"></div></div></div>
-    <div class="stat-card"><div class="label">自動解決率</div><div class="value">87%</div><div class="bar"><div class="bar-fill" style="width:87%;"></div></div></div>
-    <div class="stat-card"><div class="label">平均応答時間</div><div class="value">0.3秒</div></div>
-    <div class="stat-card"><div class="label">顧客満足度</div><div class="value">4.8 ⭐</div><div class="bar"><div class="bar-fill" style="width:96%;"></div></div></div>
-    <div style="font-size:0.78rem;color:#8888aa;margin-top:8px;">言語別対応</div>
-    <div style="font-size:0.82rem;margin-top:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>🇯🇵 日本語</span><span>68%</span></div><div class="bar"><div class="bar-fill" style="width:68%;"></div></div></div>
-    <div style="font-size:0.82rem;margin-top:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>🇺🇸 英語</span><span>24%</span></div><div class="bar"><div class="bar-fill" style="width:24%;"></div></div></div>
-    <div style="font-size:0.82rem;margin-top:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>🇨🇳 中国語</span><span>8%</span></div><div class="bar"><div class="bar-fill" style="width:8%;"></div></div></div>
+
+  <!-- Right -->
+  <div class="right">
+    <!-- CRM -->
+    <div class="crm-panel">
+      <h2>🗂️ CRM連携 — 顧客記録</h2>
+      <table class="crm-table">
+        <thead><tr><th>顧客名</th><th>問い合わせ内容</th><th>日時</th></tr></thead>
+        <tbody id="crmBody">
+          <tr><td>田中 様</td><td>料金について</td><td>10:02</td></tr>
+          <tr><td>山田 様</td><td>納期の確認</td><td>10:15</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:10px;color:#9ca3af;margin-top:8px;">✅ チャット内容が自動でCRMに記録されます</p>
+    </div>
+
+    <!-- Analytics -->
+    <div class="analytics">
+      <h2>📊 分析ダッシュボード</h2>
+      <div class="ana-grid">
+        <div class="ana-card">
+          <div class="ana-val" id="convCount">3</div>
+          <div class="ana-lbl">本日の会話数</div>
+        </div>
+        <div class="ana-card">
+          <div class="ana-val">87%</div>
+          <div class="ana-lbl">自動解決率</div>
+        </div>
+        <div class="ana-card" style="grid-column:1/-1;">
+          <div class="ana-lbl" style="margin-bottom:4px">顧客満足度</div>
+          <div class="stars">★★★★☆</div>
+          <div class="ana-val" style="font-size:16px;margin-top:4px">4.2 / 5.0</div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:#9ca3af;">※ デモデータです。実際のデータはリアルタイムで更新されます。</p>
+    </div>
   </div>
 </div>
-</body></html>
+
+<script>
+let lang = 'ja';
+let msgCount = 3;
+const greetings = {
+  ja: 'こんにちは！🌸 さくらちゃんです。サクラビジネスへようこそ！何でもお気軽にどうぞ😊',
+  en: 'Hello! 🌸 I\'m Sakura-chan. Welcome to Sakura Business! Feel free to ask me anything 😊',
+  zh: '你好！🌸 我是小樱。欢迎来到Sakura Business！有任何问题请随时问我 😊',
+};
+const faqs = {
+  ja: [
+    {q:'料金', a:'ベーシック¥5,000〜、スタンダード¥15,000〜、プレミアム¥30,000〜です！'},
+    {q:'営業時間', a:'10:00〜20:00（土日祝も対応）です。チャットは24時間OK！'},
+    {q:'キャンセル', a:'前日まで無料でキャンセルいただけます✨'},
+    {q:'納期', a:'最短3日〜対応可能です。お急ぎの場合もご相談ください！'},
+    {q:'サポート', a:'プレミアムプランは3ヶ月間の保守サポート付きです😊'},
+  ],
+  en: [
+    {q:'price', a:'Basic from ¥5,000, Standard from ¥15,000, Premium from ¥30,000!'},
+    {q:'hours', a:'Open 10:00–20:00 (weekends & holidays included). Chat is 24/7!'},
+    {q:'cancel', a:'Free cancellation up to the day before 😊'},
+    {q:'delivery', a:'Fastest turnaround is 3 days. Rush orders available!'},
+  ],
+  zh: [
+    {q:'价格', a:'基础套餐从¥5,000起，标准套餐¥15,000起，高级套餐¥30,000起！'},
+    {q:'营业时间', a:'营业时间10:00〜20:00（含周末和节假日）。在线客服24小时！'},
+    {q:'取消', a:'可在前一天免费取消服务✨'},
+    {q:'交货期', a:'最快3天交付，急单也欢迎咨询！'},
+  ],
+};
+
+function setLang(l, el) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  addMsg('bot', greetings[l]);
+}
+
+function addMsg(type, text, name) {
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  if (type === 'bot') {
+    div.innerHTML = `<div class="mini-av">🌸</div><div class="bubble">${text}</div>`;
+  } else {
+    div.innerHTML = `<div class="bubble">${text}</div>`;
+  }
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+  if (type === 'user') {
+    msgCount++;
+    document.getElementById('convCount').textContent = msgCount;
+    // CRM記録
+    addCrm(name || 'ゲスト様', text);
+  }
+}
+
+function addCrm(name, text) {
+  const tbody = document.getElementById('crmBody');
+  const tr = document.createElement('tr');
+  tr.className = 'crm-new';
+  const now = new Date().toLocaleTimeString('ja-JP', {hour:'2-digit',minute:'2-digit'});
+  const short = text.length > 14 ? text.slice(0,14) + '…' : text;
+  tr.innerHTML = `<td>${name} <span class="crm-badge">NEW</span></td><td>${short}</td><td>${now}</td>`;
+  tbody.prepend(tr);
+  setTimeout(() => tr.querySelector('.crm-badge')?.remove(), 4000);
+}
+
+function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMsg('user', text, 'お客様');
+  setTimeout(() => {
+    const currentFaqs = faqs[lang] || faqs.ja;
+    const lower = text.toLowerCase();
+    const matched = currentFaqs.find(f => lower.includes(f.q));
+    if (matched) {
+      addMsg('bot', matched.a);
+    } else {
+      const def = {
+        ja: 'ご質問ありがとうございます🌸 担当者よりご連絡いたします。キーワード（料金・営業時間・キャンセル・納期）でもお試しください！',
+        en: 'Thank you for your message 🌸 Our team will get back to you shortly! Try keywords like price, hours, or cancel.',
+        zh: '谢谢您的提问🌸 我们的工作人员将尽快与您联系！也可以尝试关键词：价格、营业时间、取消、交货期。',
+      };
+      addMsg('bot', def[lang] || def.ja);
+    }
+  }, 400);
+}
+
+// Init
+addMsg('bot', greetings.ja);
+</script>
+</body>
+</html>

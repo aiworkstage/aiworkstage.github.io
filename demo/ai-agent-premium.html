@@ -3,175 +3,272 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIエージェント管理ダッシュボード | 株式会社サクラビジネス</title>
+<title>AIエージェント プレミアム デモ | 株式会社サクラビジネス</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; min-height:100vh; }
-.top-bar { background:#12121e; border-bottom:1px solid #2a2a3e; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; }
-.top-bar h1 { font-size:1rem; color:#fff; }
-.top-bar .status { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#4caf50; }
-.top-bar .status::before { content:''; width:8px; height:8px; background:#4caf50; border-radius:50%; display:inline-block; }
-.layout { display:grid; grid-template-columns:200px 1fr; min-height:calc(100vh - 100px); }
-@media(max-width:768px){ .layout { grid-template-columns:1fr; } .sidebar-nav { display:none; } }
-.sidebar-nav { background:#0d0d20; border-right:1px solid #2a2a3e; padding:20px 0; }
-.nav-item { padding:12px 20px; display:flex; align-items:center; gap:10px; color:#888; font-size:0.88rem; cursor:pointer; transition:background 0.2s; }
-.nav-item:hover { background:#1a1a3e; color:#fff; }
-.nav-item.active { background:rgba(124,107,255,0.15); color:#a78bfa; border-right:3px solid #7c6bff; }
-.nav-item .icon { font-size:1rem; }
-.main { padding:24px; overflow:auto; }
-/* KPI cards */
-.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
-@media(max-width:900px){ .kpi-grid { grid-template-columns:repeat(2,1fr); } }
-.kpi-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
-.kpi-label { color:#888; font-size:0.78rem; margin-bottom:8px; }
-.kpi-value { font-size:1.8rem; font-weight:900; color:#fff; }
-.kpi-change { font-size:0.78rem; margin-top:6px; }
-.up { color:#4caf50; } .down { color:#f44336; }
-/* Charts */
-.charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
-@media(max-width:700px){ .charts-grid { grid-template-columns:1fr; } }
-.chart-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
-.chart-card h3 { color:#fff; font-size:0.9rem; margin-bottom:16px; }
-.mini-bar-wrap { display:flex; align-items:flex-end; gap:6px; height:100px; }
-.mini-bar { flex:1; border-radius:4px 4px 0 0; background:linear-gradient(0deg,#7c6bff,#a78bfa); position:relative; }
-.mini-bar::after { content:attr(data-label); position:absolute; bottom:-18px; left:50%; transform:translateX(-50%); font-size:0.65rem; color:#666; white-space:nowrap; }
-.donut-wrap { position:relative; width:100px; height:100px; margin:0 auto; }
-.donut { width:100%; height:100%; border-radius:50%; background:conic-gradient(#7c6bff 0% 94%, #2a2a3e 94% 100%); }
-.donut-inner { position:absolute; inset:15%; background:#12121e; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-direction:column; }
-.donut-num { font-size:1.2rem; font-weight:900; color:#7c6bff; }
-.donut-sub { font-size:0.65rem; color:#888; }
-/* Conversation history */
-.history-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; margin-bottom:16px; }
-.history-card h3 { color:#fff; font-size:0.9rem; margin-bottom:16px; }
-.conv-item { display:flex; justify-content:space-between; align-items:flex-start; padding:12px 0; border-bottom:1px solid #1a1a2e; }
-.conv-item:last-child { border-bottom:none; }
-.conv-meta { display:flex; gap:10px; align-items:center; }
-.conv-avatar { width:32px; height:32px; background:linear-gradient(135deg,#2a2a5e,#3a3a7e); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.9rem; }
-.conv-user { color:#fff; font-size:0.85rem; font-weight:700; }
-.conv-preview { color:#888; font-size:0.8rem; margin-top:2px; }
-.conv-status { font-size:0.75rem; padding:3px 10px; border-radius:10px; }
-.status-resolved { background:#1a3a1a; color:#4caf50; }
-.status-pending { background:#3a2a1a; color:#ff9800; }
-/* Settings panel */
-.settings-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
-.settings-card h3 { color:#fff; font-size:0.9rem; margin-bottom:16px; }
-.setting-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #1a1a2e; }
-.setting-row:last-child { border-bottom:none; }
-.setting-label { color:#c0c0d8; font-size:0.88rem; }
-.setting-desc { color:#666; font-size:0.78rem; margin-top:2px; }
-.toggle { width:44px; height:24px; background:#2a2a3e; border-radius:12px; position:relative; cursor:pointer; transition:background 0.3s; }
-.toggle.on { background:#7c6bff; }
-.toggle::after { content:''; position:absolute; top:3px; left:3px; width:18px; height:18px; background:#fff; border-radius:50%; transition:left 0.3s; }
-.toggle.on::after { left:23px; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0a0e1a; color:#e0e6f0; font-family:'Segoe UI',sans-serif; min-height:100vh; }
+  header { background:#111827; border-bottom:2px solid #1e3a5f; padding:14px 24px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  header h1 { font-size:17px; color:#a78bfa; font-weight:700; }
+  .badge { background:#1e1b4b; color:#a78bfa; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+  .badge-gold { background:#292116; color:#fbbf24; }
+
+  .main { max-width:1200px; margin:0 auto; padding:24px; }
+  .layout { display:grid; grid-template-columns:1fr 320px; gap:20px; }
+
+  .card { background:#111827; border:1px solid #1e3a5f; border-radius:12px; padding:20px; margin-bottom:20px; animation:fadeIn .5s ease both; }
+  .card-title { font-size:13px; font-weight:700; color:#a78bfa; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+
+  /* Flow builder */
+  .flow-canvas { background:#0a0e1a; border:1px solid #1e3a5f; border-radius:8px; padding:24px; position:relative; min-height:280px; display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; overflow:hidden; }
+  .node { background:#111827; border:2px solid #3b82f6; border-radius:10px; padding:12px 14px; text-align:center; min-width:110px; cursor:pointer; transition:border-color .3s, box-shadow .3s; animation:fadeIn .5s ease both; }
+  .node:hover, .node.active { border-color:#a78bfa; box-shadow:0 0 14px rgba(167,139,250,.3); }
+  .node .n-icon { font-size:20px; }
+  .node .n-lbl { font-size:11px; font-weight:700; color:#a78bfa; margin-top:4px; }
+  .node .n-type { font-size:10px; color:#64748b; margin-top:2px; }
+  .node.trigger { border-color:#22d3ee; } .node.trigger .n-lbl { color:#22d3ee; }
+  .node.decision { border-color:#f59e0b; } .node.decision .n-lbl { color:#f59e0b; }
+  .node.api { border-color:#4ade80; } .node.api .n-lbl { color:#4ade80; }
+  .node.notify { border-color:#f472b6; } .node.notify .n-lbl { color:#f472b6; }
+  .node.done { border-color:#6366f1; } .node.done .n-lbl { color:#6366f1; }
+  .arrow { color:#3b82f6; font-size:22px; padding:0 4px; align-self:center; }
+  .branch { display:flex; flex-direction:column; gap:8px; align-items:center; }
+  .branch-label { font-size:10px; color:#f59e0b; margin:2px 0; }
+
+  /* AI Logic */
+  .logic-box { background:#0a0e1a; border:1px solid #1e3a5f; border-radius:8px; padding:14px; margin-bottom:10px; font-family:'Courier New',monospace; font-size:13px; }
+  .logic-if { color:#f59e0b; }
+  .logic-then { color:#4ade80; }
+  .logic-else { color:#60a5fa; }
+
+  /* Custom UI */
+  .color-swatches { display:flex; gap:10px; margin-bottom:12px; }
+  .swatch { width:32px; height:32px; border-radius:6px; cursor:pointer; border:2px solid transparent; transition:border-color .2s; }
+  .swatch.sel { border-color:#fff; }
+  .logo-mock { background:#1e3a5f; border:2px dashed #3b82f6; border-radius:8px; padding:16px; text-align:center; color:#64748b; font-size:13px; cursor:pointer; }
+  .logo-mock:hover { background:#1e4d7f; }
+
+  /* API list */
+  .api-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .api-item { background:#0a0e1a; border:1px solid #1e3a5f; border-radius:8px; padding:10px 8px; text-align:center; font-size:11px; color:#94a3b8; }
+  .api-item .ai { font-size:18px; margin-bottom:4px; }
+
+  /* Maintenance log */
+  .mlog-item { padding:10px 0; border-bottom:1px solid #1e3a5f; display:flex; gap:12px; animation:fadeIn .5s ease both; }
+  .mlog-item:last-child { border:none; }
+  .mlog-date { font-size:11px; color:#64748b; min-width:80px; }
+  .mlog-msg { font-size:13px; color:#e0e6f0; }
+  .mlog-type { font-size:10px; padding:2px 7px; border-radius:10px; font-weight:700; }
+  .mlog-update { background:#1e1b4b; color:#a78bfa; }
+  .mlog-fix { background:#1a2e1a; color:#4ade80; }
+  .mlog-add { background:#292116; color:#fbbf24; }
+
+  #nodeDetail { background:#0a0e1a; border:1px solid #1e3a5f; border-radius:8px; padding:14px; min-height:60px; font-size:13px; color:#94a3b8; margin-top:8px; }
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;position:relative;z-index:100;">🎨 これはデモサイトです | <a href="../service-ai-agent.html" style="color:#fff;">← サービス詳細に戻る</a></div>
-<div class="top-bar">
-  <h1>🤖 AIエージェント 管理ダッシュボード — 株式会社サクラビジネス</h1>
-  <div class="status">AIエージェント稼働中</div>
+<header>
+  <div style="font-size:20px">🤖</div>
+  <h1>AIエージェント プレミアムプラン デモ</h1>
+  <span class="badge">複雑なワークフロー自動化</span>
+  <span class="badge">無制限API連携</span>
+  <span class="badge">AI判断・分岐処理</span>
+  <span class="badge badge-gold">3ヶ月保守サポート付き</span>
+</header>
+
+<div class="main">
+  <!-- Flow Builder -->
+  <div class="card">
+    <div class="card-title">🏗️ フルAIワークフロービルダー <span style="font-size:11px;color:#64748b;font-weight:normal;text-transform:none;letter-spacing:0">（各ノードをクリックして詳細を確認）</span></div>
+    <div class="flow-canvas">
+      <div class="node trigger" onclick="selectNode('trigger')">
+        <div class="n-icon">📨</div>
+        <div class="n-lbl">受信トリガー</div>
+        <div class="n-type">Trigger</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node decision" onclick="selectNode('ai')">
+        <div class="n-icon">🧠</div>
+        <div class="n-lbl">AI判断（分岐）</div>
+        <div class="n-type">AI Decision</div>
+      </div>
+      <div class="arrow">→</div>
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:11px;color:#f59e0b;min-width:60px;">スコア≥0.7</span>
+          <div class="arrow" style="padding:0">→</div>
+          <div class="node decision" onclick="selectNode('cond1')" style="min-width:90px;">
+            <div class="n-icon">⚠️</div>
+            <div class="n-lbl">条件分岐A</div>
+            <div class="n-type">Condition</div>
+          </div>
+          <div class="arrow" style="padding:0 4px">→</div>
+          <div class="node api" onclick="selectNode('api1')" style="min-width:90px;">
+            <div class="n-icon">🔗</div>
+            <div class="n-lbl">API呼び出し</div>
+            <div class="n-type">CRM更新</div>
+          </div>
+          <div class="arrow" style="padding:0 4px">→</div>
+          <div class="node notify" onclick="selectNode('notif1')" style="min-width:90px;">
+            <div class="n-icon">🔔</div>
+            <div class="n-lbl">通知送信</div>
+            <div class="n-type">Slack緊急</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:11px;color:#60a5fa;min-width:60px;">スコア&lt;0.3</span>
+          <div class="arrow" style="padding:0">→</div>
+          <div class="node" onclick="selectNode('cond2')" style="min-width:90px;border-color:#60a5fa;">
+            <div class="n-icon">✅</div>
+            <div class="n-lbl n-lbl" style="color:#60a5fa">条件分岐B</div>
+            <div class="n-type">Condition</div>
+          </div>
+          <div class="arrow" style="padding:0 4px">→</div>
+          <div class="node api" onclick="selectNode('api2')" style="min-width:90px;">
+            <div class="n-icon">📧</div>
+            <div class="n-lbl">API呼び出し</div>
+            <div class="n-type">自動返信</div>
+          </div>
+          <div class="arrow" style="padding:0 4px">→</div>
+          <div class="node done" onclick="selectNode('done')" style="min-width:90px;">
+            <div class="n-icon">🏁</div>
+            <div class="n-lbl">完了</div>
+            <div class="n-type">Done</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="nodeDetail">👆 ノードをクリックすると詳細が表示されます</div>
+  </div>
+
+  <div class="layout">
+    <div>
+      <!-- AI Logic -->
+      <div class="card">
+        <div class="card-title">🧠 AIの判断ロジック</div>
+        <div class="logic-box">
+          <div><span class="logic-if">IF</span> 感情分析スコア <span style="color:#f87171">&gt; 0.7</span></div>
+          <div style="margin-left:16px;color:#94a3b8">→ <span class="logic-then">クレーム対応フロー</span></div>
+          <div style="margin-left:16px;color:#94a3b8">→ CRM緊急フラグ設定 + Slack通知</div>
+          <br>
+          <div><span class="logic-if">ELIF</span> 感情分析スコア <span style="color:#4ade80">&lt; 0.3</span></div>
+          <div style="margin-left:16px;color:#94a3b8">→ <span class="logic-else">通常フロー</span></div>
+          <div style="margin-left:16px;color:#94a3b8">→ 自動返信メール送信 + 完了</div>
+          <br>
+          <div><span class="logic-if">ELSE</span> <span style="color:#f59e0b">要人間確認フロー</span></div>
+          <div style="margin-left:16px;color:#94a3b8">→ 担当者トレイに振り分け</div>
+        </div>
+      </div>
+
+      <!-- Unlimited API -->
+      <div class="card">
+        <div class="card-title">🔗 無制限API連携（20サービス対応）</div>
+        <div class="api-grid">
+          <div class="api-item"><div class="ai">📧</div>Gmail</div>
+          <div class="api-item"><div class="ai">💬</div>Slack</div>
+          <div class="api-item"><div class="ai">📊</div>G Sheets</div>
+          <div class="api-item"><div class="ai">🗂️</div>Notion</div>
+          <div class="api-item"><div class="ai">📱</div>LINE</div>
+          <div class="api-item"><div class="ai">🛒</div>Shopify</div>
+          <div class="api-item"><div class="ai">📦</div>Salesforce</div>
+          <div class="api-item"><div class="ai">💳</div>Stripe</div>
+          <div class="api-item"><div class="ai">📅</div>G Calendar</div>
+          <div class="api-item"><div class="ai">🔵</div>HubSpot</div>
+          <div class="api-item"><div class="ai">💼</div>kintone</div>
+          <div class="api-item"><div class="ai">🟦</div>Zoom</div>
+          <div class="api-item"><div class="ai">🐦</div>X (Twitter)</div>
+          <div class="api-item"><div class="ai">📘</div>Facebook</div>
+          <div class="api-item"><div class="ai">🔶</div>AWS S3</div>
+          <div class="api-item"><div class="ai">🌐</div>WordPress</div>
+          <div class="api-item"><div class="ai">📩</div>SendGrid</div>
+          <div class="api-item"><div class="ai">🗄️</div>Airtable</div>
+          <div class="api-item"><div class="ai">⚡</div>Zapier</div>
+          <div class="api-item"><div class="ai">➕</div>カスタムAPI</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Custom UI -->
+      <div class="card">
+        <div class="card-title">🎨 カスタムUI設定パネル</div>
+        <p style="font-size:12px;color:#94a3b8;margin-bottom:10px;">テーマカラー選択</p>
+        <div class="color-swatches" id="swatches">
+          <div class="swatch sel" style="background:#6366f1" onclick="pickColor(this,'#6366f1')"></div>
+          <div class="swatch" style="background:#ec4899" onclick="pickColor(this,'#ec4899')"></div>
+          <div class="swatch" style="background:#10b981" onclick="pickColor(this,'#10b981')"></div>
+          <div class="swatch" style="background:#f59e0b" onclick="pickColor(this,'#f59e0b')"></div>
+          <div class="swatch" style="background:#3b82f6" onclick="pickColor(this,'#3b82f6')"></div>
+        </div>
+        <div id="colorPreview" style="background:#6366f1;border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;">プレビュー：このカラーで適用されます</div>
+        <p style="font-size:12px;color:#94a3b8;margin-bottom:8px;">ロゴアップロード（モック）</p>
+        <div class="logo-mock" onclick="this.textContent='✅ ロゴをアップロードしました（モック）'">
+          📁 クリックしてロゴをアップロード<br><span style="font-size:10px">PNG / SVG / JPG 対応</span>
+        </div>
+      </div>
+
+      <!-- Maintenance Log -->
+      <div class="card">
+        <div class="card-title">🔧 保守ログ（過去3ヶ月）</div>
+        <div class="mlog-item">
+          <div class="mlog-date">2025-12-01</div>
+          <div>
+            <div class="mlog-msg">AIモデルをGPT-4o-miniからGPT-4oにアップグレード</div>
+            <span class="mlog-type mlog-update">アップデート</span>
+          </div>
+        </div>
+        <div class="mlog-item">
+          <div class="mlog-date">2026-01-08</div>
+          <div>
+            <div class="mlog-msg">Slack API接続エラーを修正（Token期限切れ対応）</div>
+            <span class="mlog-type mlog-fix">バグ修正</span>
+          </div>
+        </div>
+        <div class="mlog-item">
+          <div class="mlog-date">2026-01-20</div>
+          <div>
+            <div class="mlog-msg">感情分析の精度改善（精度 +12%向上）</div>
+            <span class="mlog-type mlog-update">アップデート</span>
+          </div>
+        </div>
+        <div class="mlog-item">
+          <div class="mlog-date">2026-02-03</div>
+          <div>
+            <div class="mlog-msg">LINE通知機能を新規追加</div>
+            <span class="mlog-type mlog-add">機能追加</span>
+          </div>
+        </div>
+        <div class="mlog-item">
+          <div class="mlog-date">2026-02-28</div>
+          <div>
+            <div class="mlog-msg">月次パフォーマンスレポート自動送信設定</div>
+            <span class="mlog-type mlog-add">機能追加</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="layout">
-  <nav class="sidebar-nav">
-    <div class="nav-item active"><span class="icon">📊</span>ダッシュボード</div>
-    <div class="nav-item"><span class="icon">💬</span>会話履歴</div>
-    <div class="nav-item"><span class="icon">📈</span>分析</div>
-    <div class="nav-item"><span class="icon">⚙️</span>設定</div>
-    <div class="nav-item"><span class="icon">📝</span>FAQデータ</div>
-    <div class="nav-item"><span class="icon">🔔</span>通知設定</div>
-  </nav>
-  <main class="main">
-    <div class="kpi-grid">
-      <div class="kpi-card"><div class="kpi-label">📞 本日の対応数</div><div class="kpi-value">247</div><div class="kpi-change up">↑ +38 昨日比</div></div>
-      <div class="kpi-card"><div class="kpi-label">✅ AI解決率</div><div class="kpi-value">94.2%</div><div class="kpi-change up">↑ +1.8%</div></div>
-      <div class="kpi-card"><div class="kpi-label">⚡ 平均応答速度</div><div class="kpi-value">0.8秒</div><div class="kpi-change up">↑ 改善</div></div>
-      <div class="kpi-card"><div class="kpi-label">🔄 エスカレーション</div><div class="kpi-value">14</div><div class="kpi-change down">↑ +3 昨日比</div></div>
-    </div>
-    <div class="charts-grid">
-      <div class="chart-card">
-        <h3>📊 時間帯別対応数</h3>
-        <div class="mini-bar-wrap">
-          <div class="mini-bar" style="height:30%" data-label="9時"></div>
-          <div class="mini-bar" style="height:55%" data-label="10時"></div>
-          <div class="mini-bar" style="height:80%" data-label="11時"></div>
-          <div class="mini-bar" style="height:95%" data-label="12時"></div>
-          <div class="mini-bar" style="height:70%" data-label="13時"></div>
-          <div class="mini-bar" style="height:85%" data-label="14時"></div>
-          <div class="mini-bar" style="height:100%" data-label="15時"></div>
-          <div class="mini-bar" style="height:60%" data-label="16時"></div>
-          <div class="mini-bar" style="height:40%" data-label="17時"></div>
-        </div>
-        <div style="margin-top:24px;"></div>
-      </div>
-      <div class="chart-card" style="text-align:center;">
-        <h3>🎯 解決率</h3>
-        <div class="donut-wrap">
-          <div class="donut"></div>
-          <div class="donut-inner"><div class="donut-num">94%</div><div class="donut-sub">解決率</div></div>
-        </div>
-        <div style="margin-top:20px;display:flex;justify-content:center;gap:20px;font-size:0.8rem;">
-          <div><span style="color:#7c6bff;">■</span> AI解決 94%</div>
-          <div><span style="color:#2a2a3e;">■</span> 人対応 6%</div>
-        </div>
-      </div>
-    </div>
-    <div class="history-card">
-      <h3>💬 最近の会話履歴</h3>
-      <div class="conv-item">
-        <div class="conv-meta">
-          <div class="conv-avatar">👤</div>
-          <div>
-            <div class="conv-user">山田 太郎</div>
-            <div class="conv-preview">「料金プランについて教えてください」</div>
-          </div>
-        </div>
-        <div><div class="conv-status status-resolved">解決済</div><div style="color:#666;font-size:0.75rem;margin-top:4px;">14:32</div></div>
-      </div>
-      <div class="conv-item">
-        <div class="conv-meta">
-          <div class="conv-avatar">👤</div>
-          <div>
-            <div class="conv-user">佐藤 花子</div>
-            <div class="conv-preview">「無料相談の予約をしたいのですが」</div>
-          </div>
-        </div>
-        <div><div class="conv-status status-resolved">解決済</div><div style="color:#666;font-size:0.75rem;margin-top:4px;">14:18</div></div>
-      </div>
-      <div class="conv-item">
-        <div class="conv-meta">
-          <div class="conv-avatar">👤</div>
-          <div>
-            <div class="conv-user">鈴木 一郎</div>
-            <div class="conv-preview">「DX補助金の申請方法を教えてください」</div>
-          </div>
-        </div>
-        <div><div class="conv-status status-pending">対応中</div><div style="color:#666;font-size:0.75rem;margin-top:4px;">14:05</div></div>
-      </div>
-    </div>
-    <div class="settings-card">
-      <h3>⚙️ 設定パネル</h3>
-      <div class="setting-row">
-        <div><div class="setting-label">AI自動応答</div><div class="setting-desc">ユーザーの質問に自動で回答する</div></div>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="setting-row">
-        <div><div class="setting-label">予約受付機能</div><div class="setting-desc">チャット内での予約フォームを表示する</div></div>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="setting-row">
-        <div><div class="setting-label">メール自動通知</div><div class="setting-desc">問い合わせ時に管理者へ通知メールを送信</div></div>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="setting-row">
-        <div><div class="setting-label">エスカレーション</div><div class="setting-desc">解決できない場合に人オペレーターへ引き継ぐ</div></div>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="setting-row">
-        <div><div class="setting-label">多言語対応</div><div class="setting-desc">英語・中国語での自動応答を有効にする</div></div>
-        <div class="toggle" onclick="this.classList.toggle('on')"></div>
-      </div>
-    </div>
-  </main>
-</div>
+
+<script>
+const nodeInfo = {
+  trigger: '【受信トリガー】GmailやWebフォームから新着メッセージを検出すると自動でワークフローが起動します。ポーリング間隔：30秒。',
+  ai: '【AI判断（分岐）】GPT-4oが件名・本文を解析し、感情分析スコア（0〜1）と問い合わせカテゴリを判定します。',
+  cond1: '【条件分岐A】感情分析スコアが0.7以上の場合、クレーム対応フローへ分岐。CRM緊急フラグを自動セットします。',
+  cond2: '【条件分岐B】感情分析スコアが0.3未満の場合、通常の問い合わせとして自動返信フローへ進みます。',
+  api1: '【API呼び出し（CRM更新）】Salesforce CRMに顧客情報・クレーム内容を自動記録し、担当者へタスクを割り当てます。',
+  api2: '【API呼び出し（自動返信）】Gmail APIを使い、テンプレートに基づいた自動返信メールを即時送信します。',
+  notif1: '【通知送信】Slackの #support-urgent チャンネルに緊急通知を投稿し、担当者がスマホで即座に確認できます。',
+  done: '【完了】全処理が正常終了。実行ログに記録し、月次レポートに集計されます。',
+};
+function selectNode(key) {
+  document.getElementById('nodeDetail').textContent = nodeInfo[key] || '詳細情報なし';
+}
+function pickColor(el, color) {
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('colorPreview').style.background = color;
+}
+</script>
 </body>
 </html>

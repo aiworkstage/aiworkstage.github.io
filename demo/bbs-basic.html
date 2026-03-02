@@ -3,89 +3,247 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>掲示板・コメント デモ - ベーシック | 株式会社サクラビジネス</title>
+<title>コメント機能デモ【ベーシックプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif;color:#333;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.container{max-width:700px;margin:24px auto;padding:0 16px;}
-.page-title{font-size:1.2rem;font-weight:700;margin-bottom:6px;}
-.page-sub{font-size:0.85rem;color:#888;margin-bottom:20px;}
-.comment-form{background:#fff;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.comment-form h3{font-size:0.92rem;font-weight:700;margin-bottom:12px;}
-.form-group{margin-bottom:10px;}
-.form-group label{font-size:0.8rem;color:#888;display:block;margin-bottom:4px;}
-.form-group input,.form-group textarea{width:100%;border:1px solid #ddd;border-radius:8px;padding:10px 12px;font-size:0.88rem;font-family:inherit;outline:none;transition:border-color 0.2s;}
-.form-group input:focus,.form-group textarea:focus{border-color:#7c6bff;}
-.form-group textarea{min-height:80px;resize:vertical;}
-.submit-btn{background:#7c6bff;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-weight:700;cursor:pointer;font-size:0.9rem;}
-.submit-btn:hover{background:#6a5bef;}
-.comments-list{display:flex;flex-direction:column;gap:12px;}
-.comment{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.comment-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.avatar{width:36px;height:36px;border-radius:50%;background:#7c6bff22;display:flex;align-items:center;justify-content:center;font-weight:700;color:#7c6bff;font-size:0.9rem;}
-.comment-meta .author{font-size:0.88rem;font-weight:700;}
-.comment-meta .time{font-size:0.75rem;color:#aaa;}
-.comment-text{font-size:0.88rem;line-height:1.7;color:#444;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #fff8f4; min-height: 100vh; padding: 24px 16px; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .container { max-width: 700px; margin: 0 auto; animation: fadeIn 0.5s ease; }
+  .plan-badge { display: inline-block; background: #ffedd5; color: #c2410c; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+
+  /* ブログ記事エリア */
+  .article { background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(234,88,12,0.08); }
+  .article-cat { display: inline-block; background: #ff6b35; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; margin-bottom: 10px; }
+  .article h1 { font-size: 22px; font-weight: 800; color: #1a1a1a; margin-bottom: 10px; line-height: 1.4; }
+  .article-meta { font-size: 12px; color: #999; margin-bottom: 16px; }
+  .article p { font-size: 14px; color: #555; line-height: 1.7; }
+
+  /* コメントセクション */
+  .comments-section { background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(234,88,12,0.08); }
+  .section-title { font-size: 18px; font-weight: 800; color: #c2410c; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+  .comment-count { background: #ff6b35; color: #fff; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+
+  /* 既存コメント */
+  .comment { display: flex; gap: 12px; padding: 16px 0; border-bottom: 1px solid #fff0e8; }
+  .comment:last-of-type { border-bottom: none; }
+  .comment-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #ff6b35, #f7931e); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .comment-body { flex: 1; }
+  .comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .comment-name { font-size: 14px; font-weight: 700; color: #333; }
+  .comment-date { font-size: 11px; color: #aaa; }
+  .comment-text { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 8px; }
+  .reply-btn { font-size: 12px; color: #ff6b35; border: none; background: none; cursor: pointer; font-weight: 600; padding: 0; }
+  .reply-btn:hover { color: #c2410c; text-decoration: underline; }
+
+  /* 新着コメントは上に追加 */
+  #comments-list { margin-bottom: 20px; }
+
+  /* 投稿フォーム */
+  .comment-form { border-top: 2px solid #fff0e8; padding-top: 20px; }
+  .comment-form h3 { font-size: 16px; font-weight: 700; color: #c2410c; margin-bottom: 14px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group label { font-size: 12px; font-weight: 700; color: #666; }
+  .form-input {
+    padding: 10px 14px; border-radius: 10px; border: 1.5px solid #fed7aa;
+    font-size: 14px; outline: none; width: 100%; background: #fff;
+  }
+  .form-input:focus { border-color: #ff6b35; }
+  .form-textarea { padding: 12px 14px; border-radius: 10px; border: 1.5px solid #fed7aa; font-size: 14px; outline: none; width: 100%; resize: vertical; min-height: 90px; font-family: inherit; background: #fff; }
+  .form-textarea:focus { border-color: #ff6b35; }
+
+  /* reCAPTCHA モック */
+  .recaptcha-mock { display: flex; align-items: center; gap: 10px; border: 1.5px solid #d4d4d4; border-radius: 8px; padding: 12px 16px; background: #f9f9f9; margin-bottom: 14px; width: fit-content; }
+  .recaptcha-check { width: 24px; height: 24px; border: 2px solid #c8c8c8; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .recaptcha-check.checked { background: #ff6b35; border-color: #ff6b35; }
+  .recaptcha-label { font-size: 14px; color: #333; user-select: none; cursor: pointer; }
+  .recaptcha-logo { margin-left: 10px; text-align: center; }
+  .recaptcha-logo .rc-logo { font-size: 20px; }
+  .recaptcha-logo .rc-text { font-size: 8px; color: #999; line-height: 1.2; }
+
+  .submit-btn { padding: 12px 28px; border-radius: 12px; border: none; background: linear-gradient(135deg, #ff6b35, #f7931e); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .submit-btn:hover { opacity: 0.9; }
+
+  /* アコーディオン */
+  .accordion { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(234,88,12,0.08); }
+  .accordion-header { background: linear-gradient(135deg, #ff6b35, #f7931e); color: #fff; padding: 16px 20px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .accordion-body { display: none; padding: 20px; }
+  .accordion-body.open { display: block; }
+  .manual-step { display: flex; gap: 12px; margin-bottom: 12px; }
+  .step-num { background: #ff6b35; color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: #555; line-height: 1.5; padding-top: 3px; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-bbs.html">← サービス詳細に戻る</a></div>
 <div class="container">
-  <div class="page-title">💬 お客様の声・コメント欄</div>
-  <div class="page-sub">株式会社サクラビジネス | ベーシックプラン デモ</div>
+  <div class="plan-badge">💬 ベーシックプラン デモ</div>
 
-  <div class="comment-form">
-    <h3>✏️ コメントを投稿する</h3>
-    <div class="form-group"><label>お名前</label><input type="text" id="nameInput" placeholder="山田 太郎"></div>
-    <div class="form-group"><label>コメント</label><textarea id="commentInput" placeholder="ご感想・ご意見をお聞かせください"></textarea></div>
-    <button class="submit-btn" onclick="postComment()">投稿する 📝</button>
+  <!-- ブログ記事 -->
+  <div class="article">
+    <span class="article-cat">お知らせ</span>
+    <h1>2025年春の新サービスをリリースしました！</h1>
+    <div class="article-meta">2025年3月1日 | 運営チーム</div>
+    <p>このたびAI Work Stageでは、中小企業・個人事業主様向けの新サービスをリリースいたしました。SNSリンクページ作成・HP診断・掲示板設置など、デジタル集客に必要なサービスをワンストップで提供します。ぜひご利用ください！</p>
   </div>
 
-  <div class="comments-list" id="commentsList">
-    <div class="comment">
-      <div class="comment-header">
-        <div class="avatar">田</div>
-        <div class="comment-meta"><div class="author">田中 美咲</div><div class="time">2026年3月4日 14:23</div></div>
-      </div>
-      <div class="comment-text">サービスをご利用してとても満足しています！対応が丁寧で、想像以上の仕上がりでした。また機会があればよろしくお願いします😊</div>
+  <!-- コメントセクション -->
+  <div class="comments-section">
+    <div class="section-title">
+      💬 コメント <span class="comment-count" id="count">3</span>
     </div>
-    <div class="comment">
-      <div class="comment-header">
-        <div class="avatar">鈴</div>
-        <div class="comment-meta"><div class="author">鈴木 一郎</div><div class="time">2026年3月3日 09:15</div></div>
+
+    <div id="comments-list">
+      <div class="comment">
+        <div class="comment-avatar">👩</div>
+        <div class="comment-body">
+          <div class="comment-header">
+            <span class="comment-name">田中 花子</span>
+            <span class="comment-date">2025/03/01 14:22</span>
+          </div>
+          <div class="comment-text">素晴らしいサービスですね！早速SNSリンクページを作ってみました。とても使いやすかったです。</div>
+          <button class="reply-btn" onclick="replyTo('田中 花子')">↩ 返信</button>
+        </div>
       </div>
-      <div class="comment-text">LINEアカウントの構築をお願いしました。思っていたよりスピーディに対応いただけて助かりました。友だち登録数が増えています！</div>
+      <div class="comment">
+        <div class="comment-avatar">👨</div>
+        <div class="comment-body">
+          <div class="comment-header">
+            <span class="comment-name">佐藤 次郎</span>
+            <span class="comment-date">2025/03/01 16:45</span>
+          </div>
+          <div class="comment-text">HP診断サービスも気になっています。自社サイトのスコアが心配で…。ぜひ試してみます！</div>
+          <button class="reply-btn" onclick="replyTo('佐藤 次郎')">↩ 返信</button>
+        </div>
+      </div>
+      <div class="comment">
+        <div class="comment-avatar">🧑</div>
+        <div class="comment-body">
+          <div class="comment-header">
+            <span class="comment-name">山田 太郎</span>
+            <span class="comment-date">2025/03/02 09:11</span>
+          </div>
+          <div class="comment-text">掲示板機能のデモを見ました。お客様とのやり取りがサイト上でできるのは便利ですね。導入を検討します。</div>
+          <button class="reply-btn" onclick="replyTo('山田 太郎')">↩ 返信</button>
+        </div>
+      </div>
     </div>
-    <div class="comment">
-      <div class="comment-header">
-        <div class="avatar">佐</div>
-        <div class="comment-meta"><div class="author">佐々木 健</div><div class="time">2026年3月1日 16:42</div></div>
+
+    <!-- 投稿フォーム -->
+    <div class="comment-form">
+      <h3>✍️ コメントを投稿</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="c-name">お名前 *</label>
+          <input class="form-input" type="text" id="c-name" placeholder="山田 太郎">
+        </div>
+        <div class="form-group">
+          <label for="c-email">メールアドレス（非公開）</label>
+          <input class="form-input" type="email" id="c-email" placeholder="your@email.com">
+        </div>
       </div>
-      <div class="comment-text">Notion構築のサポートありがとうございました。チームの業務効率が上がって、毎週の報告作業が半分以下になりました。</div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label for="c-text">コメント *</label>
+        <textarea class="form-textarea" id="c-text" placeholder="コメントを入力してください..."></textarea>
+      </div>
+      <div class="recaptcha-mock" id="recaptcha">
+        <div class="recaptcha-check" id="rc-check" onclick="toggleCaptcha()"></div>
+        <span class="recaptcha-label" onclick="toggleCaptcha()">私はロボットではありません</span>
+        <div class="recaptcha-logo">
+          <div class="rc-logo">🔒</div>
+          <div class="rc-text">reCAPTCHA<br>プライバシー 利用規約</div>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitComment()">コメントを送信 →</button>
+    </div>
+  </div>
+
+  <!-- 操作マニュアル -->
+  <div class="accordion">
+    <div class="accordion-header" onclick="toggleAccordion()">
+      📖 操作マニュアル（クリックで開く） <span id="acc-arrow">▼</span>
+    </div>
+    <div class="accordion-body" id="acc-body">
+      <div class="manual-step">
+        <div class="step-num">1</div>
+        <div class="step-text">コメント欄にお名前・メールアドレス・コメント内容を入力します。メールアドレスは管理者にのみ通知され、公開されません。</div>
+      </div>
+      <div class="manual-step">
+        <div class="step-num">2</div>
+        <div class="step-text">「私はロボットではありません」のチェックボックスにチェックを入れます（スパム対策）。</div>
+      </div>
+      <div class="manual-step">
+        <div class="step-num">3</div>
+        <div class="step-text">「コメントを送信」ボタンを押すと投稿完了です。管理者が確認後、ページに反映されます。</div>
+      </div>
+      <div class="manual-step">
+        <div class="step-num">4</div>
+        <div class="step-text">他の方のコメントに返信したい場合は「↩ 返信」ボタンをクリックしてください。</div>
+      </div>
     </div>
   </div>
 </div>
+
 <script>
-function postComment() {
-  const name = document.getElementById('nameInput').value.trim() || '匿名';
-  const text = document.getElementById('commentInput').value.trim();
-  if (!text) { alert('コメントを入力してください'); return; }
-  const now = new Date();
-  const timeStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
-  const comment = document.createElement('div');
-  comment.className = 'comment';
-  comment.style.borderLeft = '3px solid #7c6bff';
-  comment.innerHTML = `
-    <div class="comment-header">
-      <div class="avatar" style="background:#7c6bff;color:#fff;">${name[0]}</div>
-      <div class="comment-meta"><div class="author">${name} <span style="background:#7c6bff;color:#fff;border-radius:10px;padding:1px 6px;font-size:0.7rem;">NEW</span></div><div class="time">${timeStr}</div></div>
-    </div>
-    <div class="comment-text">${text}</div>`;
-  document.getElementById('commentsList').prepend(comment);
-  document.getElementById('nameInput').value = '';
-  document.getElementById('commentInput').value = '';
+var captchaChecked = false;
+var commentCount = 3;
+
+function toggleCaptcha() {
+  captchaChecked = !captchaChecked;
+  var el = document.getElementById('rc-check');
+  if(captchaChecked) { el.classList.add('checked'); el.innerHTML = '✓'; }
+  else { el.classList.remove('checked'); el.innerHTML = ''; }
+}
+
+function replyTo(name) {
+  var ta = document.getElementById('c-text');
+  ta.value = '> ' + name + ' さんへ返信：\n';
+  ta.focus();
+}
+
+function submitComment() {
+  var name = document.getElementById('c-name').value.trim();
+  var text = document.getElementById('c-text').value.trim();
+  if(!name) { alert('お名前を入力してください'); return; }
+  if(!text) { alert('コメントを入力してください'); return; }
+  if(!captchaChecked) { alert('「私はロボットではありません」にチェックしてください'); return; }
+
+  var now = new Date();
+  var dateStr = now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  var emojis = ['😊','🙂','👤','🧑','👩','👨'];
+  var emoji = emojis[Math.floor(Math.random()*emojis.length)];
+
+  var html = '<div class="comment" style="animation:fadeIn 0.5s ease;">' +
+    '<div class="comment-avatar">' + emoji + '</div>' +
+    '<div class="comment-body">' +
+    '<div class="comment-header"><span class="comment-name">' + escHtml(name) + '</span><span class="comment-date">' + dateStr + '</span></div>' +
+    '<div class="comment-text">' + escHtml(text).replace(/\n/g,'<br>') + '</div>' +
+    '<button class="reply-btn">↩ 返信</button></div></div>';
+
+  var list = document.getElementById('comments-list');
+  list.insertAdjacentHTML('beforeend', html);
+  commentCount++;
+  document.getElementById('count').textContent = commentCount;
+  document.getElementById('c-name').value = '';
+  document.getElementById('c-email').value = '';
+  document.getElementById('c-text').value = '';
+  captchaChecked = false;
+  document.getElementById('rc-check').classList.remove('checked');
+  document.getElementById('rc-check').innerHTML = '';
+
+  // localStorage保存
+  var saved = JSON.parse(localStorage.getItem('bbs-basic-comments')||'[]');
+  saved.push({name:name, text:text, date:dateStr});
+  localStorage.setItem('bbs-basic-comments', JSON.stringify(saved));
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toggleAccordion() {
+  var body = document.getElementById('acc-body');
+  var arrow = document.getElementById('acc-arrow');
+  if(body.classList.contains('open')) { body.classList.remove('open'); arrow.textContent='▼'; }
+  else { body.classList.add('open'); arrow.textContent='▲'; }
 }
 </script>
 </body>

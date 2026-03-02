@@ -1,139 +1,357 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>売上3倍の秘密を公開 | 株式会社サクラビジネス</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>サクラ美容サロン | スタンダードLP デモ</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#fff; color:#333; }
-.demo-banner { background:#7c6bff; color:#fff; padding:8px; text-align:center; font-size:0.85rem; }
-.demo-banner a { color:#fff; }
-.hero { background:linear-gradient(160deg,#1a0030 0%,#0a0e3a 100%); color:#fff; padding:100px 20px 80px; text-align:center; position:relative; overflow:hidden; }
-.hero::after { content:''; position:absolute; bottom:-40px; left:0; right:0; height:80px; background:#fff; transform:skewY(-2deg); }
-.hero .eyecatch { background:linear-gradient(135deg,#ff4d4d,#ff8c00); color:#fff; padding:8px 20px; border-radius:20px; font-size:0.9rem; font-weight:700; display:inline-block; margin-bottom:24px; }
-.hero h1 { font-size:2.8rem; font-weight:900; line-height:1.2; margin-bottom:24px; }
-.hero h1 .yellow { color:#ffd700; }
-.hero h1 .big { font-size:3.5rem; display:block; }
-.hero-sub { font-size:1rem; color:#ccc; max-width:560px; margin:0 auto 36px; line-height:1.8; }
-.cta-btn { background:linear-gradient(135deg,#ff4d4d,#ff8c00); color:#fff; padding:18px 52px; border-radius:50px; font-size:1.2rem; font-weight:900; display:inline-block; text-decoration:none; box-shadow:0 10px 30px rgba(255,100,0,0.4); }
-.cta-small { font-size:0.8rem; color:#aaa; margin-top:12px; }
-section { padding:80px 20px; }
-.container { max-width:960px; margin:0 auto; }
-h2.sec-title { text-align:center; font-size:1.8rem; margin-bottom:48px; }
-h2.sec-title .line { display:inline-block; position:relative; }
-h2.sec-title .line::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:4px; background:linear-gradient(90deg,#7c6bff,#a78bfa); border-radius:2px; }
-/* Testimonials */
-.testimonials { background:#f8f4ff; padding:80px 20px; }
-.test-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-@media(max-width:768px){ .test-grid { grid-template-columns:1fr; } .hero h1 { font-size:2rem; } .hero h1 .big { font-size:2.5rem; } .results-grid,.faq-wrap { grid-template-columns:1fr !important; } }
-.test-card { background:#fff; border-radius:16px; padding:24px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
-.test-stars { color:#ffc800; font-size:1.1rem; margin-bottom:12px; }
-.test-text { color:#444; font-size:0.9rem; line-height:1.7; margin-bottom:16px; }
-.test-author { display:flex; align-items:center; gap:12px; }
-.test-avatar { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#7c6bff,#a78bfa); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
-.test-name { font-weight:700; font-size:0.9rem; }
-.test-company { color:#888; font-size:0.8rem; }
-/* Results */
-.results-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center; }
-.result-box { background:#fff; border:2px solid #7c6bff; border-radius:16px; padding:24px; }
-.result-num { font-size:2.5rem; font-weight:900; color:#7c6bff; }
-.result-label { color:#555; font-size:0.85rem; margin-top:6px; }
-/* FAQ */
-.faq-wrap { max-width:700px; margin:0 auto; }
-.faq-item { border:1px solid #e0d8ff; border-radius:12px; margin-bottom:12px; overflow:hidden; }
-.faq-q { background:#f0ecff; padding:16px 20px; font-weight:700; color:#1a0a2e; cursor:pointer; display:flex; justify-content:space-between; }
-.faq-a { padding:16px 20px; color:#555; font-size:0.9rem; line-height:1.7; }
-.cta-final { background:linear-gradient(135deg,#1a0030,#0a0e3a); color:#fff; padding:100px 20px; text-align:center; }
-.cta-final h2 { font-size:2rem; margin-bottom:8px; }
-.cta-final p { color:#ccc; margin-bottom:32px; font-size:1rem; }
-footer { background:#0d0d1a; color:#666; text-align:center; padding:24px; font-size:0.8rem; }
-footer a { color:#7c6bff; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hiragino Sans',system-ui,sans-serif;background:#1a1000;}
+.demo-banner{background:#7c6bff;color:#fff;padding:10px;text-align:center;font-size:0.85rem;position:sticky;top:0;z-index:100;}
+.demo-banner a{color:#fff;}
+/* アニメーション（シンプルfade-in） */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.animate{animation:fadeIn 0.5s ease both;}
+/* A/Bテスト */
+.ab-bar{background:#222;padding:12px;text-align:center;display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap;}
+.ab-bar span{color:#f7c948;font-weight:700;font-size:0.9rem;}
+.ab-btn{padding:8px 20px;border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:0.85rem;transition:all 0.2s;}
+.ab-btn.a{background:#e53935;color:#fff;}
+.ab-btn.b{background:#43a047;color:#fff;}
+.ab-btn.active{box-shadow:0 0 0 3px #f7c948;}
+/* ヒーロー */
+.hero{background:linear-gradient(135deg,#ff6b35,#f7c948,#ff9a00);padding:100px 24px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);color:#fff;padding:6px 20px;border-radius:20px;font-size:0.85rem;margin-bottom:20px;}
+.hero h1{font-size:2.6rem;font-weight:900;color:#fff;line-height:1.3;margin-bottom:16px;text-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.hero p{font-size:1.1rem;color:rgba(255,255,255,0.9);margin-bottom:24px;}
+.countdown{display:flex;justify-content:center;gap:16px;margin-bottom:32px;}
+.cd-box{background:rgba(0,0,0,0.3);backdrop-filter:blur(10px);border-radius:12px;padding:12px 20px;text-align:center;}
+.cd-num{font-size:2rem;font-weight:900;color:#f7c948;display:block;}
+.cd-label{font-size:0.7rem;color:rgba(255,255,255,0.8);text-transform:uppercase;}
+.cta-btn{display:inline-block;padding:18px 48px;border-radius:50px;font-size:1.1rem;font-weight:700;text-decoration:none;transition:all 0.3s;cursor:pointer;border:none;}
+.cta-btn.variant-a{background:linear-gradient(135deg,#e53935,#c62828);color:#fff;box-shadow:0 8px 24px rgba(229,57,53,0.4);}
+.cta-btn.variant-b{background:linear-gradient(135deg,#43a047,#2e7d32);color:#fff;box-shadow:0 8px 24px rgba(67,160,71,0.4);}
+.cta-btn:hover{transform:translateY(-3px);}
+/* セクション共通 */
+section{padding:70px 24px;}
+.section-title{text-align:center;font-size:1.8rem;font-weight:900;margin-bottom:48px;}
+/* 課題提起 */
+.problems{background:#fff9f0;}
+.problems .section-title{color:#e65100;}
+.problem-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:16px;}
+.problem-item{background:#fff;border-left:4px solid #ff6b35;padding:16px 20px;border-radius:0 12px 12px 0;display:flex;align-items:center;gap:12px;font-size:1rem;color:#333;}
+.problem-item::before{content:'😔';font-size:1.5rem;flex-shrink:0;}
+/* 解決策 */
+.solution{background:linear-gradient(135deg,#fff3e0,#fff8e1);}
+.solution .section-title{color:#e65100;}
+.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto;}
+.solution-card{background:#fff;border-radius:16px;padding:28px 20px;text-align:center;box-shadow:0 4px 16px rgba(255,107,53,0.1);}
+.solution-icon{font-size:2.5rem;margin-bottom:12px;}
+.solution-card h3{color:#e65100;font-size:1.1rem;margin-bottom:8px;}
+.solution-card p{color:#666;font-size:0.9rem;line-height:1.7;}
+/* コース */
+.courses{background:#1a0a00;}
+.courses .section-title{color:#f7c948;}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto;}
+.course-card{background:#2a1500;border:1px solid #ff6b35;border-radius:16px;padding:28px 20px;text-align:center;}
+.course-card.featured{border-color:#f7c948;background:#2a1800;}
+.course-badge{display:inline-block;background:#f7c948;color:#1a0a00;font-size:0.75rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;}
+.course-card h3{color:#f7c948;font-size:1.2rem;margin-bottom:8px;}
+.course-price{font-size:2rem;font-weight:900;color:#fff;margin:12px 0;}
+.course-price span{font-size:0.9rem;color:#aaa;}
+.course-features{list-style:none;text-align:left;margin:16px 0;}
+.course-features li{color:#ccc;font-size:0.9rem;padding:6px 0;border-bottom:1px solid #333;}
+.course-features li::before{content:'✓ ';color:#f7c948;}
+/* 動画 */
+.video-section{background:#fff9f0;}
+.video-section .section-title{color:#e65100;}
+.video-wrapper{max-width:720px;margin:0 auto;background:#000;border-radius:16px;overflow:hidden;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 8px 32px rgba(255,107,53,0.3);}
+.video-thumb{width:100%;height:100%;background:linear-gradient(135deg,#ff6b35,#f7c948);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:#fff;position:relative;}
+.play-btn{width:80px;height:80px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:16px;transition:transform 0.2s;}
+.play-btn:hover{transform:scale(1.1);}
+.video-label{font-size:1.1rem;font-weight:700;}
+.video-sub{font-size:0.85rem;opacity:0.8;margin-top:4px;}
+/* 口コミ */
+.reviews{background:#fff;}
+.reviews .section-title{color:#e65100;}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto;}
+.review-card{background:#fff9f0;border-radius:16px;padding:24px;border:1px solid #ffe0cc;}
+.stars{color:#f7c948;font-size:1.2rem;margin-bottom:8px;}
+.review-text{color:#555;font-size:0.95rem;line-height:1.7;margin-bottom:12px;}
+.reviewer{display:flex;align-items:center;gap:10px;}
+.reviewer-icon{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff6b35,#f7c948);display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:#fff;font-weight:700;}
+.reviewer-name{font-size:0.9rem;color:#333;font-weight:700;}
+.reviewer-sub{font-size:0.8rem;color:#999;}
+/* A/Bテスト */
+.ab-demo{background:linear-gradient(135deg,#fff3e0,#fff8e1);}
+.ab-demo .section-title{color:#e65100;}
+.ab-container{max-width:800px;margin:0 auto;}
+.ab-variants{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;}
+.ab-variant{border-radius:16px;padding:24px;text-align:center;position:relative;}
+.ab-variant.v-a{background:#fff0f0;border:2px solid #e53935;}
+.ab-variant.v-b{background:#f0fff0;border:2px solid #43a047;}
+.ab-variant-label{position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 16px;border-radius:20px;font-weight:700;font-size:0.8rem;color:#fff;}
+.v-a .ab-variant-label{background:#e53935;}
+.v-b .ab-variant-label{background:#43a047;}
+.ab-variant h3{font-size:1.1rem;color:#333;margin:16px 0 8px;}
+.ab-variant p{color:#666;font-size:0.9rem;margin-bottom:16px;}
+.ab-metric{font-size:1.8rem;font-weight:900;margin-bottom:4px;}
+.v-a .ab-metric{color:#e53935;}
+.v-b .ab-metric{color:#43a047;}
+.ab-metric-label{font-size:0.8rem;color:#999;}
+.ab-active-demo{background:#fff;border-radius:16px;padding:32px;text-align:center;border:2px dashed #ccc;}
+.ab-active-demo h3{color:#333;margin-bottom:16px;}
+/* CTA */
+.cta-section{background:linear-gradient(135deg,#ff6b35,#f7c948);}
+.cta-section .section-title{color:#fff;}
+.cta-section p{text-align:center;color:rgba(255,255,255,0.9);font-size:1.1rem;margin-bottom:32px;}
+.cta-form{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+.cta-form input,.cta-form textarea{padding:14px 18px;border:none;border-radius:12px;font-size:1rem;background:#fff;color:#333;font-family:inherit;}
+.cta-form textarea{height:100px;resize:none;}
+.cta-form button{padding:18px;border:none;border-radius:12px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all 0.3s;}
+.cta-form button.variant-a{background:linear-gradient(135deg,#e53935,#c62828);color:#fff;}
+.cta-form button.variant-b{background:linear-gradient(135deg,#43a047,#2e7d32);color:#fff;}
+footer{background:#1a0a00;color:#aaa;text-align:center;padding:24px;font-size:0.9rem;}
+@media(max-width:700px){
+  .solution-grid,.course-grid,.review-grid,.ab-variants{grid-template-columns:1fr;}
+  .hero h1{font-size:1.8rem;}
+}
 </style>
 </head>
 <body>
-<div class="demo-banner">🎨 これはデモサイトです | <a href="../service-lp.html">← サービス詳細に戻る</a></div>
-<div class="hero">
-  <div class="eyecatch">🔥 導入企業500社突破記念キャンペーン</div>
-  <h1>中小企業の経営が<span class="big"><span class="yellow">3ヶ月</span>で変わる</span></h1>
-  <p class="hero-sub">AIと経営のプロが伴走するから、確実な成果が出ます。実績98%の満足度、500社が証明した経営革命を今すぐ体験してください。</p>
-  <a href="#" class="cta-btn">🚀 今すぐ無料で相談する</a>
-  <div class="cta-small">※ 完全無料・クレカ不要・先着20名限定</div>
+<div class="demo-banner">📊 スタンダードプランのデモ（長尺LP・アニメーション・A/Bテスト・動画埋め込み） | <a href="../service-lp.html">← サービス詳細に戻る</a></div>
+
+<!-- A/Bテスト切り替えバー -->
+<div class="ab-bar">
+  <span>🔬 A/Bテスト切り替え：</span>
+  <button class="ab-btn a active" onclick="setVariant('a')">バリアントA（赤ボタン）</button>
+  <button class="ab-btn b" onclick="setVariant('b')">バリアントB（緑ボタン）</button>
+  <span id="ab-status" style="color:#ccc;font-size:0.85rem;">現在：バリアントA 表示中</span>
 </div>
-<section class="testimonials">
-  <div class="container">
-    <h2 class="sec-title"><span class="line">お客様の声</span></h2>
-    <div class="test-grid">
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <div class="test-text">「導入から3ヶ月で売上が2.8倍になりました。AIで業務効率が上がったのはもちろん、戦略的な視点で経営できるようになったのが一番の収穫です。」</div>
-        <div class="test-author">
-          <div class="test-avatar">👨</div>
-          <div><div class="test-name">田中 誠一</div><div class="test-company">株式会社タナカフーズ 代表</div></div>
-        </div>
+
+<!-- 1. ヒーロー -->
+<section class="hero animate" id="hero">
+  <div class="hero-badge">🌸 初回限定キャンペーン実施中</div>
+  <h1>あなたの美しさを<br>最大限に引き出す</h1>
+  <p>サクラ美容サロンのプレミアムケアで<br>理想のあなたへ。今だけ50%OFF！</p>
+  <div class="countdown">
+    <div class="cd-box"><span class="cd-num" id="cdDays">03</span><span class="cd-label">日</span></div>
+    <div class="cd-box"><span class="cd-num" id="cdHours">14</span><span class="cd-label">時間</span></div>
+    <div class="cd-box"><span class="cd-num" id="cdMins">27</span><span class="cd-label">分</span></div>
+    <div class="cd-box"><span class="cd-num" id="cdSecs">45</span><span class="cd-label">秒</span></div>
+  </div>
+  <a href="#cta" class="cta-btn variant-a" id="heroBtn">今すぐ無料カウンセリングを予約する →</a>
+</section>
+
+<!-- 2. 課題提起 -->
+<section class="problems">
+  <h2 class="section-title animate">😔 あなたはこんな悩みを<br>抱えていませんか？</h2>
+  <div class="problem-list animate">
+    <div class="problem-item">肌荒れやシミが気になって、自信が持てない</div>
+    <div class="problem-item">何度もサロンに通ったのに、なかなか改善されない</div>
+    <div class="problem-item">忙しくて定期的なケアができず、肌状態が悪化している</div>
+    <div class="problem-item">高いお金を払ったのに、効果を実感できなかった</div>
+    <div class="problem-item">自分に合った施術が何かわからず、迷ってしまう</div>
+  </div>
+</section>
+
+<!-- 3. 解決策 -->
+<section class="solution">
+  <h2 class="section-title animate">✨ サクラサロンが解決します</h2>
+  <div class="solution-grid animate">
+    <div class="solution-card">
+      <div class="solution-icon">🔬</div>
+      <h3>AI肌診断</h3>
+      <p>最新AI技術で肌状態を詳細分析。あなただけの最適プランをご提案します。</p>
+    </div>
+    <div class="solution-card">
+      <div class="solution-icon">👩‍⚕️</div>
+      <h3>資格保有スタッフ</h3>
+      <p>国家資格保有のプロが担当。確かな技術と知識でご対応します。</p>
+    </div>
+    <div class="solution-card">
+      <div class="solution-icon">📅</div>
+      <h3>継続サポート</h3>
+      <p>通い放題プランで継続ケア。定期的な施術で確実な効果を実感。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. コース詳細 -->
+<section class="courses">
+  <h2 class="section-title animate" style="color:#f7c948;">🌟 選べる3つのコース</h2>
+  <div class="course-grid animate">
+    <div class="course-card">
+      <h3>ライトコース</h3>
+      <div class="course-price">¥9,800<span>/月</span></div>
+      <ul class="course-features">
+        <li>フェイシャルケア 月2回</li>
+        <li>AI肌診断 1回</li>
+        <li>ホームケアアドバイス</li>
+        <li>LINEサポート</li>
+      </ul>
+    </div>
+    <div class="course-card featured">
+      <div class="course-badge">⭐ 人気No.1</div>
+      <h3>スタンダードコース</h3>
+      <div class="course-price">¥19,800<span>/月</span></div>
+      <ul class="course-features">
+        <li>フェイシャルケア 月4回</li>
+        <li>AI肌診断 毎回</li>
+        <li>ボディケア 月2回</li>
+        <li>24時間LINEサポート</li>
+        <li>ホームケア製品プレゼント</li>
+      </ul>
+    </div>
+    <div class="course-card">
+      <h3>プレミアムコース</h3>
+      <div class="course-price">¥39,800<span>/月</span></div>
+      <ul class="course-features">
+        <li>フェイシャルケア 週2回</li>
+        <li>全身ボディケア 月4回</li>
+        <li>担当スタッフ固定制</li>
+        <li>専用ラウンジ利用可</li>
+        <li>高級コスメ月1点プレゼント</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 動画 -->
+<section class="video-section">
+  <h2 class="section-title animate" style="color:#e65100;">🎬 サロン紹介動画</h2>
+  <div class="video-wrapper animate">
+    <div class="video-thumb">
+      <div class="play-btn">▶</div>
+      <div class="video-label">サロン紹介動画</div>
+      <div class="video-sub">※ 動画素材はお客様にご用意いただきます</div>
+    </div>
+  </div>
+  <p style="text-align:center;color:#999;font-size:0.85rem;margin-top:12px;">実際のLP制作時はご提供いただいた動画を埋め込みます（YouTube・Vimeo対応）</p>
+</section>
+
+<!-- 6. お客様の声 -->
+<section class="reviews">
+  <h2 class="section-title animate" style="color:#e65100;">💬 お客様の声</h2>
+  <div class="review-grid animate">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">3ヶ月通い続けて、シミが目立たなくなりました。スタッフの方がとても親切で、毎回のケアが楽しみです！</div>
+      <div class="reviewer">
+        <div class="reviewer-icon">田</div>
+        <div><div class="reviewer-name">田中 美咲さん（32歳）</div><div class="reviewer-sub">スタンダードコース 利用中</div></div>
       </div>
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <div class="test-text">「正直、半信半疑でしたが試してみて正解でした。毎月のレポートが分かりやすく、課題が見えるようになり、決断が速くなりました。」</div>
-        <div class="test-author">
-          <div class="test-avatar">👩</div>
-          <div><div class="test-name">鈴木 美咲</div><div class="test-company">ミサキ美容クリニック 院長</div></div>
-        </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">他のサロンと比べてスタッフの技術が段違い。初回カウンセリングで自分の肌の悩みを完全に理解してもらえました。</div>
+      <div class="reviewer">
+        <div class="reviewer-icon">鈴</div>
+        <div><div class="reviewer-name">鈴木 さおりさん（28歳）</div><div class="reviewer-sub">プレミアムコース 利用中</div></div>
       </div>
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <div class="test-text">「人件費を削らずに利益を増やす方法を教えてもらいました。AIツールの使い方からマーケティングまで、トータルで支援してもらえて安心感があります。」</div>
-        <div class="test-author">
-          <div class="test-avatar">👨‍🦱</div>
-          <div><div class="test-name">佐々木 浩二</div><div class="test-company">ホウジサービス株式会社 社長</div></div>
-        </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <div class="review-text">忙しい中でも24時間予約できるのが助かります。施術の効果も確実に出ていて、友人にも勧めました！</div>
+      <div class="reviewer">
+        <div class="reviewer-icon">山</div>
+        <div><div class="reviewer-name">山田 裕子さん（40歳）</div><div class="reviewer-sub">ライトコース 利用中</div></div>
       </div>
     </div>
   </div>
 </section>
-<section>
-  <div class="container">
-    <h2 class="sec-title"><span class="line">支援実績</span></h2>
-    <div class="results-grid">
-      <div class="result-box"><div class="result-num">500+</div><div class="result-label">支援企業数</div></div>
-      <div class="result-box"><div class="result-num">98%</div><div class="result-label">顧客満足度</div></div>
-      <div class="result-box"><div class="result-num">2.5倍</div><div class="result-label">平均売上改善</div></div>
-      <div class="result-box"><div class="result-num">¥0</div><div class="result-label">相談料</div></div>
+
+<!-- 7. A/Bテストデモ -->
+<section class="ab-demo">
+  <h2 class="section-title animate" style="color:#e65100;">🔬 A/Bテスト機能デモ</h2>
+  <div class="ab-container animate">
+    <div class="ab-variants">
+      <div class="ab-variant v-a">
+        <div class="ab-variant-label">バリアントA</div>
+        <h3>赤いCTAボタン</h3>
+        <p>緊急感・興奮を与えるカラー<br>クリック率が高い傾向</p>
+        <div class="ab-metric">3.2%</div>
+        <div class="ab-metric-label">CTR（クリック率）</div>
+      </div>
+      <div class="ab-variant v-b">
+        <div class="ab-variant-label">バリアントB</div>
+        <h3>緑のCTAボタン</h3>
+        <p>安心感・GOサインを与えるカラー<br>CV率が高い傾向</p>
+        <div class="ab-metric">4.1%</div>
+        <div class="ab-metric-label">CTR（クリック率）</div>
+      </div>
+    </div>
+    <div class="ab-active-demo">
+      <h3>現在ページ全体に適用中のバリアント：<span id="activeVariantLabel" style="color:#e65100;">A（赤ボタン）</span></h3>
+      <p style="color:#999;font-size:0.9rem;margin-top:8px;">上部のボタンで切り替えると、ページ上のすべてのCTAボタンが変わります</p>
     </div>
   </div>
 </section>
-<section style="background:#f8f4ff;">
-  <div class="container">
-    <h2 class="sec-title"><span class="line">よくある質問</span></h2>
-    <div class="faq-wrap">
-      <div class="faq-item">
-        <div class="faq-q">Q. 本当に無料で相談できますか？<span>▼</span></div>
-        <div class="faq-a">A. はい、初回相談は完全無料です。費用が発生するのは正式なご契約後のみです。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Q. どんな業種でも対応できますか？<span>▼</span></div>
-        <div class="faq-a">A. 製造業・飲食・小売・IT・医療・不動産など幅広い業種に対応実績があります。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Q. 契約後すぐに効果が出ますか？<span>▼</span></div>
-        <div class="faq-a">A. 個別の状況によりますが、多くの企業様で3ヶ月以内に具体的な成果が出ています。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Q. 解約はいつでもできますか？<span>▼</span></div>
-        <div class="faq-a">A. 月次契約のため、毎月末での解約が可能です。長期縛りはありません。</div>
-      </div>
-    </div>
+
+<!-- 8. CTA + フォーム -->
+<section class="cta-section" id="cta">
+  <h2 class="section-title animate">🌸 今すぐ無料カウンセリングを<br>予約してください</h2>
+  <p class="animate">先着20名様限定・初回体験50%OFF<br>キャンペーンは残り<strong id="remainSlots">7</strong>名様分のみ！</p>
+  <form class="cta-form animate" id="ctaForm">
+    <input type="text" placeholder="お名前 *" required>
+    <input type="email" placeholder="メールアドレス *" required>
+    <input type="tel" placeholder="電話番号">
+    <textarea placeholder="ご希望の施術や気になることをご記入ください"></textarea>
+    <button type="submit" class="variant-a" id="ctaBtn">今すぐ無料カウンセリングを予約する →</button>
+  </form>
+  <div id="ctaSuccess" style="display:none;text-align:center;background:rgba(255,255,255,0.2);border-radius:16px;padding:32px;color:#fff;">
+    <div style="font-size:3rem;margin-bottom:16px;">🎉</div>
+    <h3 style="font-size:1.5rem;margin-bottom:8px;">ご予約ありがとうございます！</h3>
+    <p>24時間以内にスタッフよりご連絡いたします。</p>
   </div>
 </section>
-<section class="cta-final">
-  <div class="container">
-    <h2>チャンスは今だけ</h2>
-    <p>先着20名限定の無料相談枠は残りわずかです。今すぐ申し込んでビジネスを変えましょう。</p>
-    <a href="#" class="cta-btn">今すぐ無料相談を予約する →</a>
-    <div class="cta-small" style="color:#888;margin-top:16px;">お電話でのご相談：03-0000-0000（平日9〜18時）</div>
-  </div>
-</section>
-<footer>© 2024 株式会社サクラビジネス | <a href="#">プライバシーポリシー</a> | <a href="#">特定商取引法</a> | <a href="#">免責事項</a></footer>
+
+<footer>© 2025 株式会社サクラビジネス | サクラ美容サロン | 〒150-0001 東京都渋谷区神宮前1-2-3</footer>
+
+<script>
+// カウントダウンタイマー
+function updateCountdown() {
+  const now = new Date();
+  const target = new Date(now);
+  target.setDate(target.getDate() + 3);
+  target.setHours(23,59,59);
+  const diff = target - now;
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
+  document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cdMins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cdSecs').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// A/Bテスト切り替え
+let currentVariant = 'a';
+function setVariant(v) {
+  currentVariant = v;
+  document.querySelectorAll('.ab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.ab-btn.'+v).classList.add('active');
+  const btns = document.querySelectorAll('.cta-btn, .cta-form button');
+  btns.forEach(b => {
+    b.classList.remove('variant-a','variant-b');
+    b.classList.add('variant-'+v);
+  });
+  document.getElementById('ab-status').textContent = '現在：バリアント'+v.toUpperCase()+' 表示中';
+  document.getElementById('activeVariantLabel').textContent = v.toUpperCase()+'（'+(v==='a'?'赤':'緑')+'ボタン）';
+  document.getElementById('activeVariantLabel').style.color = v==='a' ? '#e53935' : '#43a047';
+}
+
+// フォーム送信
+document.getElementById('ctaForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.style.display='none';
+  document.getElementById('ctaSuccess').style.display='block';
+  let slots = parseInt(document.getElementById('remainSlots').textContent);
+  if(slots > 1) document.getElementById('remainSlots').textContent = slots - 1;
+});
+</script>
 </body>
 </html>

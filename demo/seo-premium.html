@@ -2,145 +2,263 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>月次SEOレポート 2024年11月 | 株式会社サクラビジネス</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>プレミアムSEO戦略ダッシュボード | 株式会社サクラビジネス</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; }
-.container { max-width:1000px; margin:0 auto; padding:40px 20px; }
-.report-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:40px; flex-wrap:wrap; gap:20px; }
-.report-top h1 { font-size:1.6rem; color:#fff; }
-.report-top p { color:#888; font-size:0.9rem; margin-top:6px; }
-.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:32px; }
-@media(max-width:700px){ .kpi-grid { grid-template-columns:repeat(2,1fr); } }
-.kpi-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; text-align:center; }
-.kpi-value { font-size:2rem; font-weight:900; color:#7c6bff; }
-.kpi-label { color:#888; font-size:0.8rem; margin-top:4px; }
-.kpi-change { font-size:0.8rem; margin-top:6px; }
-.up { color:#4caf50; } .down { color:#f44336; }
-.card { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:28px; margin-bottom:28px; }
-.card h2 { color:#fff; font-size:1.1rem; margin-bottom:20px; }
-/* Line chart CSS */
-.chart-wrap { position:relative; height:200px; margin-top:12px; }
-.chart-grid { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between; }
-.chart-line { border-top:1px dashed #2a2a3e; width:100%; }
-.chart-labels-x { display:flex; justify-content:space-between; margin-top:8px; font-size:0.75rem; color:#666; }
-.chart-bars { position:absolute; bottom:0; left:0; right:0; display:flex; align-items:flex-end; gap:4px; height:100%; }
-.chart-bar { flex:1; border-radius:4px 4px 0 0; position:relative; }
-.chart-bar::after { content:attr(data-val); position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem; color:#7c6bff; white-space:nowrap; }
-/* Rank table */
-table { width:100%; border-collapse:collapse; font-size:0.88rem; }
-th { background:#0a0e1a; color:#7c6bff; font-weight:700; padding:10px 14px; text-align:left; border-bottom:2px solid #2a2a3e; }
-td { padding:10px 14px; border-bottom:1px solid #1a1a2e; color:#c0c0d8; }
-.rank-arrow { font-weight:700; }
-.up-rank { color:#4caf50; }
-.down-rank { color:#f44336; }
-.same-rank { color:#888; }
-/* Next month plan */
-.plan-list { list-style:none; }
-.plan-list li { padding:14px 0; border-bottom:1px solid #1a1a2e; display:flex; align-items:flex-start; gap:12px; }
-.plan-list li:last-child { border-bottom:none; }
-.plan-icon { font-size:1.2rem; flex-shrink:0; }
-.plan-title { color:#fff; font-size:0.9rem; font-weight:700; margin-bottom:4px; }
-.plan-desc { color:#888; font-size:0.85rem; line-height:1.5; }
-.plan-date { color:#7c6bff; font-size:0.8rem; margin-top:4px; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hiragino Sans',system-ui,sans-serif;background:#f0f4ff;color:#333;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade{animation:fadeIn 0.5s ease both;}
+
+.demo-banner{background:#7c6bff;color:#fff;padding:10px;text-align:center;font-size:0.85rem;}
+.demo-banner a{color:#fff;}
+
+.page-header{background:linear-gradient(135deg,#0a2472,#0d47a1,#1565c0);padding:40px 24px;color:#fff;text-align:center;}
+.page-header h1{font-size:1.6rem;font-weight:900;margin-bottom:8px;}
+.page-header p{font-size:0.9rem;opacity:0.85;}
+.header-chips{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap;}
+.header-chip{background:rgba(255,255,255,0.15);padding:5px 16px;border-radius:20px;font-size:0.8rem;}
+
+.container{max-width:960px;margin:0 auto;padding:32px 20px;}
+.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(21,101,192,0.08);margin-bottom:24px;}
+.card-title{font-size:1rem;font-weight:900;color:#1565c0;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+
+/* GSC風 */
+.gsc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;}
+.gsc-box{background:#f0f4ff;border-radius:12px;padding:18px;text-align:center;}
+.gsc-val{font-size:1.8rem;font-weight:900;color:#1565c0;}
+.gsc-label{font-size:0.78rem;color:#888;margin-top:4px;}
+.gsc-change{font-size:0.78rem;font-weight:700;margin-top:4px;}
+.up{color:#2e7d32;}
+.dn{color:#c62828;}
+
+.gsc-chart{display:flex;align-items:flex-end;gap:3px;height:100px;background:#f8f9ff;border-radius:8px;padding:8px;}
+.gsc-bar{flex:1;border-radius:3px 3px 0 0;}
+.gsc-bar.clicks{background:linear-gradient(180deg,#1976d2,#90caf9);}
+.gsc-bar.impressions{background:linear-gradient(180deg,#7b1fa2,#ce93d8);}
+.gsc-legend{display:flex;gap:16px;margin-top:8px;font-size:0.78rem;color:#888;}
+.gsc-legend-dot{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:4px;}
+
+/* PageSpeed */
+.speed-compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.speed-box{text-align:center;padding:20px;border-radius:12px;}
+.speed-box.before{background:#ffebee;}
+.speed-box.after{background:#e8f5e9;}
+.speed-score{font-size:3rem;font-weight:900;line-height:1;}
+.speed-score.bad{color:#c62828;}
+.speed-score.good{color:#2e7d32;}
+.speed-label{font-size:0.85rem;font-weight:700;margin:8px 0;}
+.speed-items{font-size:0.8rem;color:#666;line-height:1.8;text-align:left;margin-top:12px;}
+.speed-items li{list-style:none;padding-left:0;}
+.speed-items li::before{content:'• ';color:inherit;}
+
+/* ブログ記事 */
+.blog-list{display:flex;flex-direction:column;gap:12px;}
+.blog-item{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:center;padding:14px 16px;background:#f8f9ff;border-radius:10px;font-size:0.85rem;}
+.blog-title{font-weight:600;color:#1565c0;}
+.blog-date{color:#888;font-size:0.78rem;white-space:nowrap;}
+.blog-kw{background:#e3f2fd;color:#1565c0;font-size:0.75rem;padding:2px 8px;border-radius:8px;white-space:nowrap;}
+.blog-rank{font-weight:700;font-size:0.9rem;}
+.blog-rank.top{color:#2e7d32;}
+.blog-rank.mid{color:#f57f17;}
+.blog-rank.low{color:#c62828;}
+
+/* 被リンク */
+.backlink-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+.bl-box{background:#f0f4ff;border-radius:12px;padding:16px;text-align:center;}
+.bl-val{font-size:1.8rem;font-weight:900;color:#1565c0;}
+.bl-label{font-size:0.78rem;color:#888;margin-top:4px;}
+.bl-table{width:100%;border-collapse:collapse;}
+.bl-table th{background:#1565c0;color:#fff;padding:8px 12px;font-size:0.78rem;text-align:left;}
+.bl-table td{padding:10px 12px;font-size:0.82rem;border-bottom:1px solid #f0f4ff;}
+.bl-table tr:last-child td{border-bottom:none;}
+.bl-table tr:hover td{background:#f8f9ff;}
+.da-badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.72rem;font-weight:700;}
+.da-high{background:#e8f5e9;color:#2e7d32;}
+.da-mid{background:#fff8e1;color:#f57f17;}
+.da-low{background:#ffebee;color:#c62828;}
+
+/* ロードマップ */
+.roadmap{display:flex;flex-direction:column;gap:0;}
+.roadmap-month{display:grid;grid-template-columns:80px 1fr;gap:16px;position:relative;}
+.roadmap-month:not(:last-child) .roadmap-line::after{content:'';position:absolute;left:39px;top:36px;bottom:-16px;width:2px;background:#c5cae9;}
+.roadmap-line{position:relative;display:flex;flex-direction:column;align-items:center;padding-top:8px;}
+.roadmap-dot{width:14px;height:14px;border-radius:50%;background:#1565c0;border:3px solid #fff;box-shadow:0 0 0 2px #1565c0;}
+.roadmap-month-label{font-size:0.78rem;font-weight:700;color:#1565c0;margin-top:4px;text-align:center;}
+.roadmap-tasks{padding:8px 0 24px;}
+.roadmap-task{background:#f8f9ff;border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:0.82rem;border-left:3px solid #1565c0;}
+.roadmap-task strong{color:#1565c0;display:block;margin-bottom:2px;}
+.roadmap-task span{color:#777;}
+
+footer{background:#0a2472;color:#fff;text-align:center;padding:24px;font-size:0.85rem;}
+
+@media(max-width:700px){
+  .gsc-grid,.speed-compare,.backlink-summary{grid-template-columns:repeat(2,1fr);}
+  .blog-item{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-seo.html" style="color:#fff;">← サービス詳細に戻る</a></div>
+<div class="demo-banner">🚀 SEO プレミアムプランのデモ（GSC連携・PageSpeed改善・被リンク・SEOブログ・年間ロードマップ） | <a href="../service-seo.html">← サービス詳細に戻る</a></div>
+
+<div class="page-header fade">
+  <h1>🚀 プレミアムSEO戦略ダッシュボード</h1>
+  <p>株式会社サクラビジネス ／ 2025年6月 月次レポート</p>
+  <div class="header-chips">
+    <div class="header-chip">📡 Search Console 連携済み</div>
+    <div class="header-chip">⚡ PageSpeed 最適化済み</div>
+    <div class="header-chip">📝 SEOブログ 4本/月</div>
+    <div class="header-chip">🔗 被リンク獲得支援</div>
+  </div>
+</div>
+
 <div class="container">
-  <div class="report-top">
-    <div>
-      <h1>📊 月次SEOレポート — 2024年11月</h1>
-      <p>株式会社サクラビジネス / プレミアムプラン / 担当：山田 太郎</p>
+
+  <!-- GSC風データ -->
+  <div class="card fade">
+    <div class="card-title">📡 Google Search Console データ（過去28日間）</div>
+    <div class="gsc-grid">
+      <div class="gsc-box"><div class="gsc-val">4,812</div><div class="gsc-label">クリック数</div><div class="gsc-change up">▲ 28.4%</div></div>
+      <div class="gsc-box"><div class="gsc-val">142,000</div><div class="gsc-label">表示回数（インプレッション）</div><div class="gsc-change up">▲ 15.2%</div></div>
+      <div class="gsc-box"><div class="gsc-val">3.39%</div><div class="gsc-label">CTR（クリック率）</div><div class="gsc-change up">▲ 0.5pt</div></div>
+      <div class="gsc-box"><div class="gsc-val">11.4位</div><div class="gsc-label">平均掲載順位</div><div class="gsc-change up">▲ 2.1位改善</div></div>
     </div>
-    <div style="background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:16px 24px;text-align:right;">
-      <div style="color:#888;font-size:0.8rem;">総合スコア</div>
-      <div style="font-size:2.5rem;font-weight:900;color:#4caf50;">78</div>
-      <div style="color:#4caf50;font-size:0.8rem;">↑12 前月比</div>
+    <div class="gsc-chart">
+      <div class="gsc-bar clicks" style="height:40%"></div>
+      <div class="gsc-bar clicks" style="height:52%"></div>
+      <div class="gsc-bar clicks" style="height:48%"></div>
+      <div class="gsc-bar clicks" style="height:60%"></div>
+      <div class="gsc-bar clicks" style="height:55%"></div>
+      <div class="gsc-bar clicks" style="height:70%"></div>
+      <div class="gsc-bar clicks" style="height:65%"></div>
+      <div class="gsc-bar clicks" style="height:75%"></div>
+      <div class="gsc-bar clicks" style="height:72%"></div>
+      <div class="gsc-bar clicks" style="height:80%"></div>
+      <div class="gsc-bar clicks" style="height:85%"></div>
+      <div class="gsc-bar clicks" style="height:90%"></div>
+    </div>
+    <div class="gsc-legend">
+      <span><span class="gsc-legend-dot" style="background:#1976d2;"></span>クリック数（日別推移）</span>
+      <span style="color:#999;font-size:0.75rem;">※ 実際のGSCデータをAPIで取得して表示します</span>
     </div>
   </div>
 
-  <div class="kpi-grid">
-    <div class="kpi-card"><div class="kpi-value">12,480</div><div class="kpi-label">オーガニック流入</div><div class="kpi-change up">↑ +18% 前月比</div></div>
-    <div class="kpi-card"><div class="kpi-value">3.2%</div><div class="kpi-label">平均CTR</div><div class="kpi-change up">↑ +0.4pt</div></div>
-    <div class="kpi-card"><div class="kpi-value">8.4</div><div class="kpi-label">平均掲載順位</div><div class="kpi-change up">↑ 改善</div></div>
-    <div class="kpi-card"><div class="kpi-value">¥380,000</div><div class="kpi-label">推定流入価値</div><div class="kpi-change up">↑ +¥52,000</div></div>
-  </div>
-
-  <div class="card">
-    <h2>📈 月間オーガニック流入推移</h2>
-    <div class="chart-wrap">
-      <div class="chart-grid">
-        <div class="chart-line"></div>
-        <div class="chart-line"></div>
-        <div class="chart-line"></div>
-        <div class="chart-line"></div>
+  <!-- PageSpeed改善 -->
+  <div class="card fade">
+    <div class="card-title">⚡ ページ速度改善レポート（PageSpeed Insights）</div>
+    <div class="speed-compare">
+      <div class="speed-box before">
+        <div class="speed-score bad">45</div>
+        <div class="speed-label">改善前スコア（モバイル）</div>
+        <ul class="speed-items">
+          <li>❌ 画像未圧縮（JPEG大量使用）</li>
+          <li>❌ JavaScriptが読み込みをブロック</li>
+          <li>❌ CSSが未ミニファイ</li>
+          <li>❌ サーバーレスポンスが遅い（2.8s）</li>
+          <li>❌ Lazy Loadが未設定</li>
+        </ul>
       </div>
-      <div class="chart-bars">
-        <div class="chart-bar" data-val="7,200" style="height:58%;background:linear-gradient(0deg,#7c6bff,#a78bfa);"></div>
-        <div class="chart-bar" data-val="7,800" style="height:63%;background:linear-gradient(0deg,#7c6bff,#a78bfa);"></div>
-        <div class="chart-bar" data-val="8,400" style="height:68%;background:linear-gradient(0deg,#7c6bff,#a78bfa);"></div>
-        <div class="chart-bar" data-val="9,100" style="height:73%;background:linear-gradient(0deg,#7c6bff,#a78bfa);"></div>
-        <div class="chart-bar" data-val="10,200" style="height:82%;background:linear-gradient(0deg,#7c6bff,#a78bfa);"></div>
-        <div class="chart-bar" data-val="12,480" style="height:100%;background:linear-gradient(0deg,#4caf50,#81c784);"></div>
+      <div class="speed-box after">
+        <div class="speed-score good">89</div>
+        <div class="speed-label">改善後スコア（モバイル）</div>
+        <ul class="speed-items">
+          <li>✅ 全画像をWebPに変換（67%削減）</li>
+          <li>✅ JS・CSSを非同期読み込みに変更</li>
+          <li>✅ CSS・JS圧縮・ミニファイ適用</li>
+          <li>✅ CDN導入でTTFB 0.4sに短縮</li>
+          <li>✅ Lazy Load設定で初期表示高速化</li>
+        </ul>
       </div>
-    </div>
-    <div class="chart-labels-x">
-      <span>6月</span><span>7月</span><span>8月</span><span>9月</span><span>10月</span><span>11月</span>
     </div>
   </div>
 
-  <div class="card">
-    <h2>🎯 主要キーワード順位変動</h2>
-    <table>
-      <tr><th>キーワード</th><th>月初順位</th><th>月末順位</th><th>変動</th><th>流入数</th></tr>
-      <tr><td>経営コンサルティング 東京</td><td>14位</td><td>9位</td><td><span class="rank-arrow up-rank">↑5</span></td><td>1,840</td></tr>
-      <tr><td>中小企業 AI導入</td><td>8位</td><td>5位</td><td><span class="rank-arrow up-rank">↑3</span></td><td>2,320</td></tr>
-      <tr><td>IT補助金 申請 代行</td><td>3位</td><td>2位</td><td><span class="rank-arrow up-rank">↑1</span></td><td>3,100</td></tr>
-      <tr><td>DXコンサル 中小企業</td><td>21位</td><td>15位</td><td><span class="rank-arrow up-rank">↑6</span></td><td>980</td></tr>
-      <tr><td>経営支援 無料相談</td><td>6位</td><td>6位</td><td><span class="rank-arrow same-rank">→</span></td><td>1,200</td></tr>
-      <tr><td>AI チャットボット 導入 費用</td><td>32位</td><td>18位</td><td><span class="rank-arrow up-rank">↑14</span></td><td>560</td></tr>
+  <!-- SEOブログ記事 -->
+  <div class="card fade">
+    <div class="card-title">📝 月間SEOブログ記事（4本/月）</div>
+    <div class="blog-list">
+      <div class="blog-item">
+        <div><div class="blog-title">渋谷でフェイシャルケアをするなら絶対知っておくべき5つのこと</div></div>
+        <div class="blog-date">2025.06.02</div>
+        <div class="blog-kw">渋谷 フェイシャルケア</div>
+        <div class="blog-rank top">5位 ✓</div>
+      </div>
+      <div class="blog-item">
+        <div><div class="blog-title">光脱毛とレーザー脱毛、どちらを選ぶべき？徹底比較2025年版</div></div>
+        <div class="blog-date">2025.06.09</div>
+        <div class="blog-kw">光脱毛 レーザー 比較</div>
+        <div class="blog-rank mid">14位 →</div>
+      </div>
+      <div class="blog-item">
+        <div><div class="blog-title">毛穴の黒ずみ・開き、サロンケアで本当に改善する？プロが解説</div></div>
+        <div class="blog-date">2025.06.16</div>
+        <div class="blog-kw">毛穴 黒ずみ サロン</div>
+        <div class="blog-rank mid">11位 ↑</div>
+      </div>
+      <div class="blog-item">
+        <div><div class="blog-title">渋谷・原宿エリア 完全個室エステサロン おすすめ5選【2025年最新】</div></div>
+        <div class="blog-date">2025.06.23</div>
+        <div class="blog-kw">渋谷 完全個室 サロン</div>
+        <div class="blog-rank top">3位 ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 被リンク -->
+  <div class="card fade">
+    <div class="card-title">🔗 被リンク獲得レポート（今月）</div>
+    <div class="backlink-summary">
+      <div class="bl-box"><div class="bl-val">+12</div><div class="bl-label">新規被リンク数</div></div>
+      <div class="bl-box"><div class="bl-val">48→60</div><div class="bl-label">累計被リンク数</div></div>
+      <div class="bl-box"><div class="bl-val">32→36</div><div class="bl-label">ドメイン権威（DA）</div></div>
+    </div>
+    <table class="bl-table">
+      <tr><th>被リンク元サイト</th><th>DA（権威）</th><th>種別</th><th>獲得日</th></tr>
+      <tr><td>渋谷区 地域情報ポータル</td><td><span class="da-badge da-high">DA 52</span></td><td>地域メディア掲載</td><td>06/04</td></tr>
+      <tr><td>東京エステ口コミサイト</td><td><span class="da-badge da-high">DA 48</span></td><td>サロン紹介記事</td><td>06/07</td></tr>
+      <tr><td>美容ブログ（個人）</td><td><span class="da-badge da-mid">DA 31</span></td><td>体験レポート</td><td>06/12</td></tr>
+      <tr><td>渋谷区商工会ウェブサイト</td><td><span class="da-badge da-high">DA 58</span></td><td>会員企業掲載</td><td>06/15</td></tr>
+      <tr><td>美容・ヘルスケア比較サイト</td><td><span class="da-badge da-mid">DA 39</span></td><td>ランキング掲載</td><td>06/21</td></tr>
     </table>
   </div>
 
-  <div class="card">
-    <h2>🚀 来月（12月）施策プラン</h2>
-    <ul class="plan-list">
-      <li>
-        <span class="plan-icon">✍️</span>
-        <div>
-          <div class="plan-title">SEOブログ記事 4本公開</div>
-          <div class="plan-desc">「AI補助金2025」「DX中小企業成功事例」など狙いキーワードで記事作成・公開。</div>
-          <div class="plan-date">実施時期：12月1〜20日</div>
+  <!-- 年間ロードマップ -->
+  <div class="card fade">
+    <div class="card-title">🗓️ 年間SEOロードマップ（2025年）</div>
+    <div class="roadmap">
+      <div class="roadmap-month">
+        <div class="roadmap-line"><div class="roadmap-dot"></div><div class="roadmap-month-label">1〜2月</div></div>
+        <div class="roadmap-tasks">
+          <div class="roadmap-task"><strong>基盤構築フェーズ</strong><span>SEO診断・技術的SEO修正・XMLサイトマップ送信・GSC連携</span></div>
         </div>
-      </li>
-      <li>
-        <span class="plan-icon">🔗</span>
-        <div>
-          <div class="plan-title">被リンク獲得キャンペーン</div>
-          <div class="plan-desc">業界ポータル3媒体へプレスリリース配信・ゲスト寄稿で高品質被リンクを5件獲得目標。</div>
-          <div class="plan-date">実施時期：12月中旬</div>
+      </div>
+      <div class="roadmap-month">
+        <div class="roadmap-line"><div class="roadmap-dot"></div><div class="roadmap-month-label">3〜4月</div></div>
+        <div class="roadmap-tasks">
+          <div class="roadmap-task"><strong>コンテンツ強化フェーズ</strong><span>SEOブログ開始（月4本）・主要キーワード対策ページ作成・内部リンク最適化</span></div>
         </div>
-      </li>
-      <li>
-        <span class="plan-icon">🏗️</span>
-        <div>
-          <div class="plan-title">内部リンク最適化</div>
-          <div class="plan-desc">主要ランディングページへの内部リンクを整備。クロール効率とページ権威を向上。</div>
-          <div class="plan-date">実施時期：12月第1週</div>
+      </div>
+      <div class="roadmap-month">
+        <div class="roadmap-line"><div class="roadmap-dot"></div><div class="roadmap-month-label">5〜6月</div></div>
+        <div class="roadmap-tasks">
+          <div class="roadmap-task"><strong>被リンク獲得フェーズ ← 現在</strong><span>地域メディア・ポータルへの掲載申請・PR記事配信・ドメイン権威向上</span></div>
         </div>
-      </li>
-      <li>
-        <span class="plan-icon">📱</span>
-        <div>
-          <div class="plan-title">Core Web Vitals改善</div>
-          <div class="plan-desc">LCPを現在の3.2秒→2.0秒以下に改善。画像WebP変換・JS遅延読み込みを実装。</div>
-          <div class="plan-date">実施時期：12月第2週</div>
+      </div>
+      <div class="roadmap-month">
+        <div class="roadmap-line"><div class="roadmap-dot" style="background:#aaa;border-color:#aaa;"></div><div class="roadmap-month-label">7〜8月</div></div>
+        <div class="roadmap-tasks">
+          <div class="roadmap-task" style="border-color:#aaa;background:#f5f5f5;"><strong style="color:#888;">ローカルSEO強化</strong><span>Googleビジネスプロフィール最適化・口コミ獲得施策・地域キーワード強化</span></div>
         </div>
-      </li>
-    </ul>
+      </div>
+      <div class="roadmap-month">
+        <div class="roadmap-line"><div class="roadmap-dot" style="background:#aaa;border-color:#aaa;"></div><div class="roadmap-month-label">9〜12月</div></div>
+        <div class="roadmap-tasks">
+          <div class="roadmap-task" style="border-color:#aaa;background:#f5f5f5;"><strong style="color:#888;">CVR改善・収益最大化</strong><span>A/Bテスト実施・LPとSEOの連携・年間成果レポート・次年度戦略立案</span></div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>
+<footer>© 2025 株式会社サクラビジネス ／ このダッシュボードはSEOプレミアムプランのデモです</footer>
 </body>
 </html>

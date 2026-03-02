@@ -2,103 +2,232 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>キーワード分析レポート | 株式会社サクラビジネス</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>月次SEOレポート 2025年6月 | 株式会社サクラビジネス</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; }
-.container { max-width:960px; margin:0 auto; padding:40px 20px; }
-.page-title { color:#fff; font-size:1.8rem; margin-bottom:8px; }
-.page-sub { color:#888; font-size:0.9rem; margin-bottom:40px; }
-.card { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:28px; margin-bottom:28px; }
-.card h2 { color:#fff; font-size:1.1rem; margin-bottom:20px; display:flex; align-items:center; gap:8px; }
-.card h2 span { font-size:1.3rem; }
-table { width:100%; border-collapse:collapse; font-size:0.88rem; }
-th { background:#0a0e1a; color:#7c6bff; font-weight:700; padding:10px 14px; text-align:left; border-bottom:2px solid #2a2a3e; }
-td { padding:10px 14px; border-bottom:1px solid #1a1a2e; color:#c0c0d8; }
-tr:last-child td { border-bottom:none; }
-.badge { display:inline-block; padding:3px 10px; border-radius:10px; font-size:0.75rem; font-weight:700; }
-.badge-high { background:#1a3a1a; color:#4caf50; }
-.badge-mid { background:#2a2a1a; color:#ffc107; }
-.badge-low { background:#3a1a1a; color:#f44336; }
-.rank-up { color:#4caf50; }
-.rank-down { color:#f44336; }
-.rank-same { color:#888; }
-/* Bar chart */
-.bar-wrap { margin-top:8px; }
-.bar-item { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-.bar-label { width:200px; font-size:0.85rem; color:#c0c0d8; flex-shrink:0; }
-.bar-track { flex:1; background:#1a1a2e; border-radius:4px; height:20px; overflow:hidden; }
-.bar-fill { height:100%; background:linear-gradient(90deg,#7c6bff,#a78bfa); border-radius:4px; transition:width 1s; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
-.bar-fill span { font-size:0.75rem; color:#fff; font-weight:700; }
-/* Proposal */
-.proposal-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-@media(max-width:600px){ .proposal-grid { grid-template-columns:1fr; } }
-.proposal-item { background:#0a0e1a; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
-.proposal-priority { font-size:0.75rem; font-weight:700; margin-bottom:8px; }
-.proposal-item h3 { color:#fff; font-size:0.95rem; margin-bottom:8px; }
-.proposal-item p { color:#888; font-size:0.85rem; line-height:1.6; }
-.proposal-effect { margin-top:12px; color:#7c6bff; font-size:0.8rem; font-weight:700; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hiragino Sans',system-ui,sans-serif;background:#f0f4ff;color:#333;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade{animation:fadeIn 0.5s ease both;}
+
+.demo-banner{background:#7c6bff;color:#fff;padding:10px;text-align:center;font-size:0.85rem;}
+.demo-banner a{color:#fff;}
+
+.page-header{background:linear-gradient(135deg,#0d47a1,#1565c0,#1976d2);padding:40px 24px;color:#fff;text-align:center;}
+.page-header h1{font-size:1.6rem;font-weight:900;margin-bottom:8px;}
+.page-header p{font-size:0.9rem;opacity:0.85;}
+.header-stats{display:flex;justify-content:center;gap:32px;margin-top:24px;flex-wrap:wrap;}
+.header-stat{text-align:center;}
+.header-stat .num{font-size:1.8rem;font-weight:900;}
+.header-stat .num.up{color:#81d4fa;}
+.header-stat .label{font-size:0.75rem;opacity:0.8;}
+
+.container{max-width:960px;margin:0 auto;padding:32px 20px;}
+
+/* サマリーカード */
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.summary-card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(21,101,192,0.08);text-align:center;}
+.summary-card .val{font-size:1.8rem;font-weight:900;color:#1565c0;}
+.summary-card .change{font-size:0.8rem;font-weight:700;margin-top:4px;}
+.change.up{color:#2e7d32;}
+.change.down{color:#c62828;}
+.summary-card .lbl{font-size:0.8rem;color:#888;margin-top:2px;}
+
+/* バーグラフ */
+.bar-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(21,101,192,0.08);margin-bottom:24px;}
+.bar-card h2{font-size:1rem;font-weight:900;color:#1565c0;margin-bottom:20px;}
+.bar-chart{display:flex;align-items:flex-end;gap:12px;height:160px;padding:0 8px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bar-col-label{font-size:0.75rem;color:#888;white-space:nowrap;}
+.bar-fill{width:100%;background:linear-gradient(180deg,#1976d2,#42a5f5);border-radius:4px 4px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;}
+.bar-fill span{font-size:0.7rem;font-weight:700;color:#fff;}
+.bar-base{border-top:2px solid #c5cae9;margin-top:-2px;}
+
+/* 順位トラッキング */
+.rank-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(21,101,192,0.08);margin-bottom:24px;}
+.rank-card h2{font-size:1rem;font-weight:900;color:#1565c0;margin-bottom:16px;}
+.rank-table{width:100%;border-collapse:collapse;}
+.rank-table th{background:#1565c0;color:#fff;padding:10px 14px;font-size:0.8rem;text-align:left;}
+.rank-table td{padding:10px 14px;font-size:0.85rem;border-bottom:1px solid #f0f4ff;}
+.rank-table tr:last-child td{border-bottom:none;}
+.rank-table tr:hover td{background:#f8f9ff;}
+.rank-up{color:#2e7d32;font-weight:700;}
+.rank-down{color:#c62828;font-weight:700;}
+.rank-same{color:#888;}
+
+/* 競合比較 */
+.comp-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(21,101,192,0.08);margin-bottom:24px;}
+.comp-card h2{font-size:1rem;font-weight:900;color:#1565c0;margin-bottom:16px;}
+.comp-table{width:100%;border-collapse:collapse;}
+.comp-table th{padding:10px 14px;font-size:0.8rem;text-align:left;background:#f0f4ff;color:#555;}
+.comp-table th:first-child{background:#1565c0;color:#fff;}
+.comp-table td{padding:10px 14px;font-size:0.85rem;border-bottom:1px solid #f0f4ff;}
+.comp-table tr:hover td{background:#f8f9ff;}
+.comp-self{font-weight:700;color:#1565c0;}
+.comp-bar{display:flex;gap:4px;align-items:center;}
+.comp-bar-fill{height:8px;border-radius:4px;background:#1976d2;}
+.comp-bar-label{font-size:0.75rem;color:#555;flex-shrink:0;}
+
+/* 内部リンク */
+.link-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(21,101,192,0.08);margin-bottom:24px;}
+.link-card h2{font-size:1rem;font-weight:900;color:#1565c0;margin-bottom:20px;}
+.link-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;}
+.link-diagram{background:#f0f4ff;border-radius:12px;padding:20px;}
+.link-diagram h3{font-size:0.85rem;color:#555;margin-bottom:14px;text-align:center;}
+.link-nodes{display:flex;flex-direction:column;gap:8px;}
+.link-node{background:#fff;border:1px solid #c5cae9;border-radius:8px;padding:8px 12px;font-size:0.8rem;display:flex;align-items:center;gap:8px;}
+.link-node.center{background:#1565c0;color:#fff;border-color:#1565c0;font-weight:700;}
+.link-arrow{text-align:center;color:#1565c0;font-size:1.2rem;}
+.link-dot{width:8px;height:8px;border-radius:50%;background:#1976d2;flex-shrink:0;}
+.link-dot.red{background:#c62828;}
+.link-dot.green{background:#2e7d32;}
+
+/* 来月施策 */
+.next-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(21,101,192,0.08);margin-bottom:24px;}
+.next-card h2{font-size:1rem;font-weight:900;color:#1565c0;margin-bottom:16px;}
+.next-list{display:flex;flex-direction:column;gap:10px;}
+.next-item{display:flex;gap:12px;align-items:center;padding:12px 16px;background:#f8f9ff;border-radius:10px;font-size:0.88rem;}
+.next-item-num{width:28px;height:28px;background:#1565c0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:900;flex-shrink:0;}
+.next-item-text strong{display:block;color:#1565c0;margin-bottom:2px;}
+.next-item-text span{color:#777;font-size:0.82rem;}
+
+footer{background:#0d47a1;color:#fff;text-align:center;padding:24px;font-size:0.85rem;}
+
+@media(max-width:700px){
+  .summary-grid{grid-template-columns:repeat(2,1fr);}
+  .link-compare{grid-template-columns:1fr;}
+  .link-arrow{transform:rotate(90deg);}
+}
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-seo.html" style="color:#fff;">← サービス詳細に戻る</a></div>
-<div class="container">
-  <div class="page-title">📊 キーワード分析レポート＋改善提案書</div>
-  <div class="page-sub">株式会社サクラビジネス / 2024年12月 / スタンダードプラン</div>
+<div class="demo-banner">📈 SEO スタンダードプランのデモ（月次レポートダッシュボード・競合分析・内部リンク最適化） | <a href="../service-seo.html">← サービス詳細に戻る</a></div>
 
-  <div class="card">
-    <h2><span>🎯</span>ターゲットキーワード順位状況</h2>
-    <table>
-      <tr><th>キーワード</th><th>月間検索数</th><th>現在順位</th><th>前月比</th><th>難易度</th></tr>
-      <tr><td>経営コンサルティング 東京</td><td>1,900</td><td>14位</td><td><span class="rank-up">↑3</span></td><td><span class="badge badge-high">高</span></td></tr>
-      <tr><td>中小企業 AI導入</td><td>880</td><td>8位</td><td><span class="rank-up">↑5</span></td><td><span class="badge badge-mid">中</span></td></tr>
-      <tr><td>DXコンサル 中小企業</td><td>590</td><td>21位</td><td><span class="rank-down">↓2</span></td><td><span class="badge badge-high">高</span></td></tr>
-      <tr><td>経営支援 無料相談</td><td>480</td><td>6位</td><td><span class="rank-same">→</span></td><td><span class="badge badge-mid">中</span></td></tr>
-      <tr><td>IT補助金 申請 代行</td><td>320</td><td>3位</td><td><span class="rank-up">↑7</span></td><td><span class="badge badge-low">低</span></td></tr>
+<div class="page-header fade">
+  <h1>📊 月次SEOレポート</h1>
+  <p>株式会社サクラビジネス ／ 2025年6月（先月比較）</p>
+  <div class="header-stats">
+    <div class="header-stat"><div class="num up">+23%</div><div class="label">セッション数</div></div>
+    <div class="header-stat"><div class="num up">+0.8pt</div><div class="label">CV率</div></div>
+    <div class="header-stat"><div class="num up">+2.1</div><div class="label">平均順位上昇</div></div>
+    <div class="header-stat"><div class="num up">+18%</div><div class="label">オーガニック流入</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- サマリー -->
+  <div class="summary-grid fade">
+    <div class="summary-card"><div class="val">8,492</div><div class="change up">▲ 23.4%</div><div class="lbl">月間セッション</div></div>
+    <div class="summary-card"><div class="val">4.2%</div><div class="change up">▲ 0.8pt</div><div class="lbl">CV率</div></div>
+    <div class="summary-card"><div class="val">357</div><div class="change up">▲ 31.2%</div><div class="lbl">月間CV数</div></div>
+    <div class="summary-card"><div class="val">62%</div><div class="change down">▼ 4pt</div><div class="lbl">直帰率（低いほど良）</div></div>
+  </div>
+
+  <!-- バーグラフ（週別セッション） -->
+  <div class="bar-card fade">
+    <h2>📅 週別セッション数（2025年6月）</h2>
+    <div class="bar-chart">
+      <div class="bar-col">
+        <div class="bar-fill" style="height:85px;"><span>1,820</span></div>
+        <div class="bar-base"></div>
+        <div class="bar-col-label">第1週</div>
+      </div>
+      <div class="bar-col">
+        <div class="bar-fill" style="height:105px;"><span>2,240</span></div>
+        <div class="bar-base"></div>
+        <div class="bar-col-label">第2週</div>
+      </div>
+      <div class="bar-col">
+        <div class="bar-fill" style="height:120px;"><span>2,560</span></div>
+        <div class="bar-base"></div>
+        <div class="bar-col-label">第3週</div>
+      </div>
+      <div class="bar-col">
+        <div class="bar-fill" style="height:90px;"><span>1,872</span></div>
+        <div class="bar-base"></div>
+        <div class="bar-col-label">第4週</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 検索順位トラッキング -->
+  <div class="rank-card fade">
+    <h2>🔍 検索順位トラッキング（主要10キーワード）</h2>
+    <table class="rank-table">
+      <tr><th>キーワード</th><th>先月順位</th><th>今月順位</th><th>変化</th><th>検索数/月</th></tr>
+      <tr><td>渋谷 美容サロン</td><td>18位</td><td>12位</td><td class="rank-up">▲ 6</td><td>8,100</td></tr>
+      <tr><td>渋谷 フェイシャルケア</td><td>8位</td><td>5位</td><td class="rank-up">▲ 3</td><td>2,400</td></tr>
+      <tr><td>渋谷 完全個室 サロン</td><td>3位</td><td>2位</td><td class="rank-up">▲ 1</td><td>1,300</td></tr>
+      <tr><td>渋谷 脱毛 安い</td><td>24位</td><td>19位</td><td class="rank-up">▲ 5</td><td>3,600</td></tr>
+      <tr><td>フェイシャルケア 毛穴 東京</td><td>7位</td><td>4位</td><td class="rank-up">▲ 3</td><td>880</td></tr>
+      <tr><td>渋谷 エステ 口コミ</td><td>15位</td><td>16位</td><td class="rank-down">▼ 1</td><td>2,100</td></tr>
+      <tr><td>美容サロン 初回体験</td><td>11位</td><td>8位</td><td class="rank-up">▲ 3</td><td>1,100</td></tr>
+      <tr><td>渋谷 光脱毛 おすすめ</td><td>20位</td><td>17位</td><td class="rank-up">▲ 3</td><td>1,600</td></tr>
+      <tr><td>渋谷 ボディマッサージ</td><td>9位</td><td>9位</td><td class="rank-same">→ 0</td><td>1,900</td></tr>
+      <tr><td>神宮前 エステサロン</td><td>5位</td><td>3位</td><td class="rank-up">▲ 2</td><td>590</td></tr>
     </table>
   </div>
 
-  <div class="card">
-    <h2><span>📈</span>流入キーワード分布（月間）</h2>
-    <div class="bar-wrap">
-      <div class="bar-item"><div class="bar-label">IT補助金 申請 代行</div><div class="bar-track"><div class="bar-fill" style="width:85%"><span>1,240</span></div></div></div>
-      <div class="bar-item"><div class="bar-label">中小企業 AI導入</div><div class="bar-track"><div class="bar-fill" style="width:65%"><span>950</span></div></div></div>
-      <div class="bar-item"><div class="bar-label">経営支援 無料相談</div><div class="bar-track"><div class="bar-fill" style="width:55%"><span>810</span></div></div></div>
-      <div class="bar-item"><div class="bar-label">経営コンサル 費用</div><div class="bar-track"><div class="bar-fill" style="width:40%"><span>590</span></div></div></div>
-      <div class="bar-item"><div class="bar-label">その他（ロングテール）</div><div class="bar-track"><div class="bar-fill" style="width:30%"><span>440</span></div></div></div>
+  <!-- 競合比較 -->
+  <div class="comp-card fade">
+    <h2>🏆 競合比較分析</h2>
+    <table class="comp-table">
+      <tr><th>項目</th><th>自社（サクラサロン）</th><th>競合A</th><th>競合B</th></tr>
+      <tr>
+        <td>ドメイン権威（DA）</td>
+        <td><span class="comp-self">32</span><div class="comp-bar"><div class="comp-bar-fill" style="width:64px;"></div><span class="comp-bar-label">32/50</span></div></td>
+        <td>41<div class="comp-bar"><div class="comp-bar-fill" style="width:82px;background:#aaa;"></div><span class="comp-bar-label">41/50</span></div></td>
+        <td>28<div class="comp-bar"><div class="comp-bar-fill" style="width:56px;background:#aaa;"></div><span class="comp-bar-label">28/50</span></div></td>
+      </tr>
+      <tr><td>月間オーガニック流入</td><td class="comp-self">6,200</td><td>11,400</td><td>3,800</td></tr>
+      <tr><td>掲載キーワード数</td><td class="comp-self">184</td><td>312</td><td>97</td></tr>
+      <tr><td>被リンク数（外部）</td><td class="comp-self">48</td><td>163</td><td>29</td></tr>
+      <tr><td>PageSpeed（モバイル）</td><td class="comp-self">78点</td><td>65点</td><td>82点</td></tr>
+    </table>
+  </div>
+
+  <!-- 内部リンク最適化 -->
+  <div class="link-card fade">
+    <h2>🔗 内部リンク最適化レポート</h2>
+    <div class="link-compare">
+      <div class="link-diagram">
+        <h3>改善前（リンク不足）</h3>
+        <div class="link-nodes">
+          <div class="link-node center">🏠 トップページ</div>
+          <div class="link-node"><div class="link-dot red"></div>フェイシャルケア（孤立）</div>
+          <div class="link-node"><div class="link-dot red"></div>ボディケア（孤立）</div>
+          <div class="link-node"><div class="link-dot red"></div>ブログ記事（リンクなし）</div>
+          <div class="link-node"><div class="link-dot red"></div>お問い合わせ（到達困難）</div>
+        </div>
+      </div>
+      <div class="link-arrow">→</div>
+      <div class="link-diagram">
+        <h3>改善後（最適化済み）</h3>
+        <div class="link-nodes">
+          <div class="link-node center">🏠 トップページ</div>
+          <div class="link-node"><div class="link-dot green"></div>フェイシャルケア ↔ ブログ</div>
+          <div class="link-node"><div class="link-dot green"></div>ボディケア ↔ 関連記事</div>
+          <div class="link-node"><div class="link-dot green"></div>ブログ → サービスページ</div>
+          <div class="link-node"><div class="link-dot green"></div>全ページ → お問い合わせ</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="card">
-    <h2><span>💡</span>改善提案</h2>
-    <div class="proposal-grid">
-      <div class="proposal-item">
-        <div class="proposal-priority" style="color:#f44336;">🔴 優先度：高</div>
-        <h3>トップページのH1キーワード最適化</h3>
-        <p>「経営コンサルティング 東京」をH1に自然に組み込み、検索意図に合ったコンテンツへ改修する。</p>
-        <div class="proposal-effect">期待効果：1ヶ月でトップ10入り</div>
-      </div>
-      <div class="proposal-item">
-        <div class="proposal-priority" style="color:#f44336;">🔴 優先度：高</div>
-        <h3>サービスページの構造化データ実装</h3>
-        <p>Service・FAQ・Organization スキーマを実装し、リッチスニペット表示を狙う。</p>
-        <div class="proposal-effect">期待効果：CTR 20〜40%改善</div>
-      </div>
-      <div class="proposal-item">
-        <div class="proposal-priority" style="color:#ffc107;">🟡 優先度：中</div>
-        <h3>ロングテールコンテンツの追加</h3>
-        <p>「DX補助金 東京 中小企業 2024」などの具体的キーワードで記事を月3本追加。</p>
-        <div class="proposal-effect">期待効果：3ヶ月で流入+30%</div>
-      </div>
-      <div class="proposal-item">
-        <div class="proposal-priority" style="color:#ffc107;">🟡 優先度：中</div>
-        <h3>被リンク獲得施策</h3>
-        <p>業界メディアへのプレスリリース配信とゲスト記事投稿で被リンクを増やす。</p>
-        <div class="proposal-effect">期待効果：DA +5〜10pt改善</div>
-      </div>
+  <!-- 来月施策 -->
+  <div class="next-card fade">
+    <h2>📋 来月（7月）の施策リスト</h2>
+    <div class="next-list">
+      <div class="next-item"><div class="next-item-num">1</div><div class="next-item-text"><strong>「渋谷 脱毛 安い」対策記事を公開</strong><span>現在19位 → 10位以内を目標。比較記事で流入増</span></div></div>
+      <div class="next-item"><div class="next-item-num">2</div><div class="next-item-text"><strong>Googleビジネスプロフィールの口コミ返信を強化</strong><span>ローカルSEO強化、現在12件→20件を目標</span></div></div>
+      <div class="next-item"><div class="next-item-num">3</div><div class="next-item-text"><strong>画像をWebPに変換・PageSpeedを80点以上に改善</strong><span>現在78点→85点目標。モバイルUX向上</span></div></div>
+      <div class="next-item"><div class="next-item-num">4</div><div class="next-item-text"><strong>被リンク獲得：地域ポータルサイト3件に掲載申請</strong><span>現在48本→55本を目標。ドメイン権威向上</span></div></div>
+      <div class="next-item"><div class="next-item-num">5</div><div class="next-item-text"><strong>構造化データ（FAQページ）を新規作成</strong><span>リッチリザルト表示でCTR改善を狙う</span></div></div>
     </div>
   </div>
+
 </div>
+<footer>© 2025 株式会社サクラビジネス ／ このレポートはSEOスタンダードプランのデモです</footer>
 </body>
 </html>

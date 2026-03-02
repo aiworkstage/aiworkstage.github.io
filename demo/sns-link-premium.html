@@ -3,93 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SNSリンクページ デモ - プレミアム | 株式会社サクラビジネス</title>
+<title>LUXE BRAND - SNSリンクページ【プレミアムプラン】</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-@keyframes glow{0%,100%{box-shadow:0 0 20px #7c6bff44;}50%{box-shadow:0 0 40px #7c6bff88;}}
-@keyframes shimmer{0%{background-position:-200% center;}100%{background-position:200% center;}}
-body{background:#0a0e1a;font-family:'Helvetica Neue',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
-body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 20%,#7c6bff22,transparent 50%),radial-gradient(ellipse at 80% 80%,#ff6b9d22,transparent 50%);pointer-events:none;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;position:relative;z-index:10;}
-.banner a{color:#fff;}
-.page{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;}
-.card{max-width:440px;width:100%;text-align:center;position:relative;z-index:1;}
-.avatar-wrap{display:inline-block;margin-bottom:16px;animation:float 4s ease-in-out infinite;}
-.avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#7c6bff,#ff6b9d,#7c6bff);background-size:200%;animation:shimmer 3s linear infinite,glow 3s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:3rem;border:3px solid rgba(255,255,255,0.2);}
-.verified{background:linear-gradient(135deg,#7c6bff,#ff6b9d);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;margin:0 auto 8px;}
-.name{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,#7c6bff,#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
-.handle{font-size:0.85rem;color:#8888aa;margin-bottom:8px;}
-.bio{font-size:0.85rem;color:#c0c0d8;margin-bottom:14px;line-height:1.6;}
-.social-stats{display:flex;justify-content:center;gap:20px;margin-bottom:20px;}
-.stat-item{text-align:center;}
-.stat-num{font-size:1.1rem;font-weight:800;color:#7c6bff;}
-.stat-label{font-size:0.7rem;color:#8888aa;}
-.link-btn{display:flex;align-items:center;gap:12px;border-radius:14px;padding:14px 20px;margin-bottom:10px;text-decoration:none;color:#fff;font-weight:600;font-size:0.9rem;transition:all 0.3s;position:relative;overflow:hidden;}
-.link-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);transition:left 0.5s;}
-.link-btn:hover::before{left:100%;}
-.link-btn.primary{background:linear-gradient(135deg,#7c6bff,#9b59b6);border:1px solid #7c6bff88;}
-.link-btn.secondary{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);}
-.link-btn:hover{transform:translateY(-3px);filter:brightness(1.15);}
-.link-icon{font-size:1.3rem;width:28px;text-align:center;}
-.link-text{flex:1;text-align:left;}
-.latest-posts{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:16px;text-align:left;}
-.latest-posts h4{font-size:0.8rem;color:#8888aa;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
-.post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
-.post-thumb{aspect-ratio:1;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#2d2b55);display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;transition:transform 0.2s;}
-.post-thumb:hover{transform:scale(1.05);}
-.email-form{background:rgba(124,107,255,0.1);border:1px solid #7c6bff44;border-radius:14px;padding:16px;margin-bottom:16px;}
-.email-form h4{font-size:0.85rem;color:#7c6bff;margin-bottom:10px;}
-.email-form input{width:100%;background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;padding:10px 14px;color:#fff;font-size:0.85rem;margin-bottom:8px;outline:none;}
-.email-form input:focus{border-color:#7c6bff;}
-.email-form button{width:100%;background:linear-gradient(135deg,#7c6bff,#9b59b6);color:#fff;border:none;border-radius:8px;padding:10px;font-weight:700;cursor:pointer;font-size:0.85rem;}
-.shop-badge{background:linear-gradient(135deg,#ff6b6b,#ee0979);color:#fff;border-radius:6px;padding:2px 8px;font-size:0.7rem;font-weight:700;margin-left:auto;}
-.footer{font-size:0.72rem;color:#555;margin-top:16px;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #fff; min-height: 100vh; padding: 20px; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .page-wrapper { max-width: 520px; margin: 0 auto; animation: fadeIn 0.5s ease; }
+
+  /* ゴールド系ヘッダー */
+  .hero {
+    background: linear-gradient(135deg, #b8860b 0%, #daa520 40%, #ffd700 70%, #c8960c 100%);
+    border-radius: 24px; padding: 36px 24px 28px;
+    text-align: center; margin-bottom: 18px;
+    box-shadow: 0 4px 24px rgba(184,134,11,0.3);
+  }
+  .avatar {
+    width: 96px; height: 96px; border-radius: 50%;
+    margin: 0 auto 14px;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    border: 3px solid rgba(255,255,255,0.7);
+  }
+  .name { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: 1px; }
+  .title { font-size: 13px; color: rgba(255,255,255,0.9); margin-bottom: 10px; }
+  .bio { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.6; }
+
+  /* 言語切り替え */
+  .lang-switcher { display: flex; gap: 8px; justify-content: center; margin-bottom: 18px; }
+  .lang-btn {
+    padding: 6px 16px; border-radius: 20px; border: 2px solid #daa520;
+    background: #fff; color: #b8860b; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: background 0.2s, color 0.2s;
+  }
+  .lang-btn.active, .lang-btn:hover { background: #daa520; color: #fff; }
+
+  /* リンクボタン（ゴールド系） */
+  .links { display: flex; flex-direction: column; gap: 11px; margin-bottom: 20px; }
+  .link-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px; border-radius: 14px; border: 2px solid #e8c84a;
+    cursor: pointer; font-size: 14px; font-weight: 700;
+    text-align: left; transition: transform 0.15s, box-shadow 0.15s; width: 100%;
+    background: linear-gradient(135deg, #fffdf0, #fff8d6);
+    color: #7a5c00;
+  }
+  .link-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(184,134,11,0.25); background: linear-gradient(135deg, #fff8d6, #ffeaa0); }
+  .link-btn .icon { font-size: 20px; width: 28px; text-align: center; }
+  .link-btn .label { flex: 1; }
+  .link-btn .arrow { font-size: 12px; color: #daa520; }
+
+  /* ショップセクション */
+  .section-title {
+    font-size: 15px; font-weight: 800; color: #7a5c00;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+    border-bottom: 2px solid #ffd700; padding-bottom: 8px;
+  }
+  .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .shop-card {
+    background: #fffdf0; border-radius: 14px; border: 1.5px solid #f0d060;
+    overflow: hidden; text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+  }
+  .shop-card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(184,134,11,0.18); }
+  .shop-img { height: 90px; display: flex; align-items: center; justify-content: center; font-size: 36px; background: linear-gradient(135deg, #fff8d6, #ffeaa0); }
+  .shop-info { padding: 10px 8px; }
+  .shop-name { font-size: 12px; font-weight: 700; color: #5a4000; margin-bottom: 4px; }
+  .shop-price { font-size: 14px; font-weight: 800; color: #b8860b; }
+  .shop-btn {
+    display: block; margin: 6px 8px 10px;
+    padding: 6px; border-radius: 8px; border: none;
+    background: linear-gradient(135deg, #daa520, #b8860b);
+    color: #fff; font-size: 11px; font-weight: 700; cursor: pointer;
+    width: calc(100% - 16px);
+  }
+
+  /* メルマガ */
+  .mail-section {
+    background: linear-gradient(135deg, #fffdf0, #fff8d6);
+    border: 1.5px solid #e8c84a; border-radius: 16px; padding: 20px; margin-bottom: 20px;
+  }
+  .mail-section p { font-size: 13px; color: #7a5c00; margin-bottom: 12px; line-height: 1.5; }
+  .mail-form { display: flex; gap: 8px; }
+  .mail-input {
+    flex: 1; padding: 10px 14px; border-radius: 10px;
+    border: 1.5px solid #daa520; font-size: 13px; outline: none;
+    background: #fff;
+  }
+  .mail-input:focus { border-color: #b8860b; }
+  .mail-btn {
+    padding: 10px 16px; border-radius: 10px; border: none;
+    background: linear-gradient(135deg, #daa520, #b8860b);
+    color: #fff; font-size: 13px; font-weight: 700; cursor: pointer;
+    white-space: nowrap;
+  }
+  .mail-success { display: none; text-align: center; color: #27ae60; font-weight: 700; font-size: 14px; padding: 10px; }
+
+  /* 最新投稿（Instagram風グリッド） */
+  .ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 20px; border-radius: 12px; overflow: hidden; }
+  .ig-cell { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+
+  .footer { text-align: center; font-size: 11px; color: #ccc; padding-top: 10px; }
+
+  /* モーダル */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 100;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: #fff; border-radius: 20px; padding: 28px 24px; max-width: 340px; width: 90%;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.2); text-align: center;
+    animation: fadeIn 0.3s ease;
+  }
+  .modal-box h3 { color: #b8860b; font-size: 18px; margin-bottom: 8px; }
+  .modal-box p { color: #555; font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
+  .modal-price { font-size: 24px; font-weight: 800; color: #b8860b; margin-bottom: 16px; }
+  .modal-pay-btn {
+    display: block; width: 100%; padding: 12px;
+    background: linear-gradient(135deg, #daa520, #b8860b);
+    color: #fff; border: none; border-radius: 12px;
+    font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 10px;
+  }
+  .modal-close { color: #999; font-size: 13px; cursor: pointer; text-decoration: underline; border: none; background: none; }
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-sns-link.html">← サービス詳細に戻る</a></div>
-<div class="page">
-  <div class="card">
-    <div class="avatar-wrap">
-      <div class="avatar">🌸</div>
-    </div>
-    <div class="verified">✓</div>
-    <div class="name">株式会社サクラビジネス</div>
-    <div class="handle">@sakura_business</div>
-    <div class="bio">ビジネスの花を咲かせるIT×マーケティング支援 🌸<br>HP制作 / LINE構築 / Notion / AI自動化</div>
-    <div class="social-stats">
-      <div class="stat-item"><div class="stat-num">5.2K</div><div class="stat-label">フォロワー</div></div>
-      <div class="stat-item"><div class="stat-num">284</div><div class="stat-label">投稿</div></div>
-      <div class="stat-item"><div class="stat-num">4.8★</div><div class="stat-label">評価</div></div>
-    </div>
+<div class="page-wrapper">
+  <div style="text-align:center;margin-bottom:12px;">
+    <span style="display:inline-block;background:#fff8d6;color:#b8860b;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1px solid #daa520;">👑 プレミアムプラン デモ</span>
+  </div>
 
-    <div class="latest-posts">
-      <h4>📸 最新の投稿</h4>
-      <div class="post-grid">
-        <div class="post-thumb">🌸</div>
-        <div class="post-thumb">💻</div>
-        <div class="post-thumb">📊</div>
-        <div class="post-thumb">🤖</div>
-        <div class="post-thumb">📱</div>
-        <div class="post-thumb">✨</div>
+  <div class="hero">
+    <div class="avatar">👑</div>
+    <div class="name" id="hero-name">LUXE BRAND</div>
+    <div class="title" id="hero-title">ラグジュアリーライフスタイル / ブランドアンバサダー</div>
+    <div class="bio" id="hero-bio">上質なライフスタイルを提案します ✨<br>ご購入・コラボのお問い合わせはこちらから</div>
+  </div>
+
+  <!-- 言語切り替え -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('ja')">日本語</button>
+    <button class="lang-btn" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+  </div>
+
+  <div class="links">
+    <button class="link-btn" onclick="linkClick('Instagram')"><span class="icon">📸</span><span class="label" id="lbl-ig">Instagram — ライフスタイル写真</span><span class="arrow">→</span></button>
+    <button class="link-btn" onclick="linkClick('YouTube')"><span class="icon">▶</span><span class="label" id="lbl-yt">YouTube — ルームツアー・VLog</span><span class="arrow">→</span></button>
+    <button class="link-btn" onclick="linkClick('公式サイト')"><span class="icon">🌐</span><span class="label" id="lbl-web">公式ウェブサイト</span><span class="arrow">→</span></button>
+    <button class="link-btn" onclick="linkClick('お問い合わせ')"><span class="icon">✉️</span><span class="label" id="lbl-contact">コラボ・お仕事のご依頼</span><span class="arrow">→</span></button>
+  </div>
+
+  <!-- ショップ -->
+  <div class="section-title">🛍️ <span id="shop-title">ショップ</span></div>
+  <div class="shop-grid">
+    <div class="shop-card">
+      <div class="shop-img">💍</div>
+      <div class="shop-info">
+        <div class="shop-name" id="item1-name">シルクスカーフ</div>
+        <div class="shop-price">¥12,800</div>
       </div>
+      <button class="shop-btn" onclick="openModal('シルクスカーフ','¥12,800')">購入する</button>
     </div>
-
-    <a class="link-btn primary" href="#" onclick="return false;"><span class="link-icon">🛒</span><span class="link-text">オンラインショップ</span><span class="shop-badge">NEW</span></a>
-    <a class="link-btn secondary" href="#" onclick="return false;"><span class="link-icon">🌐</span><span class="link-text">公式ウェブサイト</span></a>
-    <a class="link-btn secondary" href="#" onclick="return false;"><span class="link-icon">📸</span><span class="link-text">Instagram</span></a>
-    <a class="link-btn secondary" href="#" onclick="return false;"><span class="link-icon">🐦</span><span class="link-text">X (Twitter)</span></a>
-    <a class="link-btn secondary" href="#" onclick="return false;"><span class="link-icon">💬</span><span class="link-text">LINE公式アカウント</span></a>
-
-    <div class="email-form">
-      <h4>📩 メルマガ登録（特典付き）</h4>
-      <input type="email" placeholder="メールアドレスを入力">
-      <button onclick="alert('登録ありがとうございます！特典をお送りします🌸')">無料特典を受け取る 🎁</button>
+    <div class="shop-card">
+      <div class="shop-img">🕯️</div>
+      <div class="shop-info">
+        <div class="shop-name" id="item2-name">アロマキャンドル</div>
+        <div class="shop-price">¥4,500</div>
+      </div>
+      <button class="shop-btn" onclick="openModal('アロマキャンドル','¥4,500')">購入する</button>
     </div>
+    <div class="shop-card">
+      <div class="shop-img">👜</div>
+      <div class="shop-info">
+        <div class="shop-name" id="item3-name">レザーポーチ</div>
+        <div class="shop-price">¥8,200</div>
+      </div>
+      <button class="shop-btn" onclick="openModal('レザーポーチ','¥8,200')">購入する</button>
+    </div>
+  </div>
 
-    <div class="footer">🌸 Powered by AI Work Stage Premium</div>
+  <!-- メルマガ -->
+  <div class="mail-section">
+    <div class="section-title" style="border:none;padding:0;margin-bottom:8px;">📩 <span id="mail-title">メルマガ登録</span></div>
+    <p id="mail-desc">新商品・限定セール情報をいち早くお届けします。登録は無料です！</p>
+    <div class="mail-form">
+      <input class="mail-input" type="email" id="mail-input" placeholder="メールアドレスを入力">
+      <button class="mail-btn" onclick="registerMail()" id="mail-btn">登録</button>
+    </div>
+    <div class="mail-success" id="mail-success">✅ 登録しました！ありがとうございます 🎉</div>
+  </div>
+
+  <!-- 最新投稿グリッド -->
+  <div class="section-title">📷 <span id="posts-title">最新投稿</span></div>
+  <div class="ig-grid">
+    <div class="ig-cell" style="background:#ffeaa0;">🌹</div>
+    <div class="ig-cell" style="background:#fff8d6;">☕</div>
+    <div class="ig-cell" style="background:#ffd700;opacity:.7;">🏠</div>
+    <div class="ig-cell" style="background:#ffeaa0;">💐</div>
+    <div class="ig-cell" style="background:#fff8d6;">🍽️</div>
+    <div class="ig-cell" style="background:#ffe066;">✈️</div>
+  </div>
+
+  <div class="footer">Powered by AI Work Stage — プレミアムプラン（完全カスタム・ショップ・多言語・保守1ヶ月）</div>
+</div>
+
+<!-- 購入モーダル -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <h3 id="modal-item">商品名</h3>
+    <p>安全な決済画面へ移動します。<br>（実際のサービスではStripe等の決済ページに接続されます）</p>
+    <div class="modal-price" id="modal-price">¥0</div>
+    <button class="modal-pay-btn" onclick="alert('実際のサービスでは決済ページへ遷移します。')">💳 クレジットカードで購入</button>
+    <button class="modal-close" onclick="closeModalBtn()">キャンセル</button>
   </div>
 </div>
+
+<script>
+var currentLang = 'ja';
+var texts = {
+  ja: {
+    name: 'LUXE BRAND', title: 'ラグジュアリーライフスタイル / ブランドアンバサダー',
+    bio: '上質なライフスタイルを提案します ✨<br>ご購入・コラボのお問い合わせはこちらから',
+    ig: 'Instagram — ライフスタイル写真', yt: 'YouTube — ルームツアー・VLog',
+    web: '公式ウェブサイト', contact: 'コラボ・お仕事のご依頼',
+    shop: 'ショップ', mail: 'メルマガ登録', mailDesc: '新商品・限定セール情報をいち早くお届けします。登録は無料です！',
+    posts: '最新投稿', mailBtn: '登録', mailPlaceholder: 'メールアドレスを入力',
+    item1: 'シルクスカーフ', item2: 'アロマキャンドル', item3: 'レザーポーチ'
+  },
+  en: {
+    name: 'LUXE BRAND', title: 'Luxury Lifestyle / Brand Ambassador',
+    bio: 'Proposing a premium lifestyle ✨<br>Contact us for purchases & collaborations',
+    ig: 'Instagram — Lifestyle Photos', yt: 'YouTube — Room Tour & VLog',
+    web: 'Official Website', contact: 'Collabs & Business Inquiries',
+    shop: 'Shop', mail: 'Newsletter', mailDesc: 'Get new arrivals & exclusive deals first. Free to subscribe!',
+    posts: 'Latest Posts', mailBtn: 'Subscribe', mailPlaceholder: 'Enter your email',
+    item1: 'Silk Scarf', item2: 'Aroma Candle', item3: 'Leather Pouch'
+  },
+  zh: {
+    name: 'LUXE BRAND', title: '奢华生活方式 / 品牌大使',
+    bio: '为您提供高品质生活方式 ✨<br>购买及合作请联系我们',
+    ig: 'Instagram — 生活写真', yt: 'YouTube — 房间巡礼·VLog',
+    web: '官方网站', contact: '商务合作咨询',
+    shop: '商城', mail: '订阅邮件', mailDesc: '第一时间获取新品和优惠信息，免费订阅！',
+    posts: '最新帖子', mailBtn: '订阅', mailPlaceholder: '输入您的邮箱',
+    item1: '丝巾', item2: '香薰蜡烛', item3: '皮革小包'
+  }
+};
+function setLang(lang) {
+  currentLang = lang;
+  var t = texts[lang];
+  document.getElementById('hero-name').textContent = t.name;
+  document.getElementById('hero-title').textContent = t.title;
+  document.getElementById('hero-bio').innerHTML = t.bio;
+  document.getElementById('lbl-ig').textContent = t.ig;
+  document.getElementById('lbl-yt').textContent = t.yt;
+  document.getElementById('lbl-web').textContent = t.web;
+  document.getElementById('lbl-contact').textContent = t.contact;
+  document.getElementById('shop-title').textContent = t.shop;
+  document.getElementById('mail-title').textContent = t.mail;
+  document.getElementById('mail-desc').textContent = t.mailDesc;
+  document.getElementById('posts-title').textContent = t.posts;
+  document.getElementById('mail-btn').textContent = t.mailBtn;
+  document.getElementById('mail-input').placeholder = t.mailPlaceholder;
+  document.getElementById('item1-name').textContent = t.item1;
+  document.getElementById('item2-name').textContent = t.item2;
+  document.getElementById('item3-name').textContent = t.item3;
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+  event.target.classList.add('active');
+}
+function linkClick(name) { alert('【' + name + '】\n実際のサービスでは本物のURLへ遷移します。\n\n▶ プレミアムプラン：完全カスタム・ショップ機能・多言語・保守1ヶ月'); }
+function openModal(name, price) {
+  document.getElementById('modal-item').textContent = name;
+  document.getElementById('modal-price').textContent = price;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(e) { if(e.target === document.getElementById('modal')) document.getElementById('modal').classList.remove('show'); }
+function closeModalBtn() { document.getElementById('modal').classList.remove('show'); }
+function registerMail() {
+  var val = document.getElementById('mail-input').value;
+  if(!val || !val.includes('@')) { alert('正しいメールアドレスを入力してください'); return; }
+  document.querySelector('.mail-form').style.display = 'none';
+  document.getElementById('mail-success').style.display = 'block';
+}
+</script>
 </body>
 </html>

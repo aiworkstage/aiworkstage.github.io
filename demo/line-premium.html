@@ -3,106 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINE公式アカウント デモ - プレミアム | 株式会社サクラビジネス</title>
+<title>LINE公式アカウント プレミアムプラン デモ｜株式会社サクラビジネス</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0e1a;font-family:'Helvetica Neue',Arial,sans-serif;color:#e0e0f0;}
-.banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
-.banner a{color:#fff;}
-.container{max-width:900px;margin:20px auto;padding:0 16px;}
-h1{text-align:center;font-size:1.2rem;color:#7c6bff;padding:16px 0;}
-.dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
-.stat-card{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:16px;text-align:center;}
-.stat-num{font-size:2rem;font-weight:800;color:#7c6bff;}
-.stat-label{font-size:0.78rem;color:#8888aa;margin-top:4px;}
-.stat-change{font-size:0.72rem;color:#28c840;margin-top:2px;}
-.section{background:#12121e;border:1px solid #2a2a3e;border-radius:12px;padding:20px;margin-bottom:16px;}
-.section h3{font-size:0.95rem;color:#7c6bff;margin-bottom:14px;border-bottom:1px solid #2a2a3e;padding-bottom:8px;}
-.segment-list{display:flex;flex-direction:column;gap:8px;}
-.segment-item{display:flex;align-items:center;justify-content:space-between;background:#0a0e1a;border-radius:8px;padding:10px 14px;}
-.segment-tag{background:#7c6bff22;color:#7c6bff;border-radius:20px;padding:2px 10px;font-size:0.78rem;}
-.segment-count{font-size:0.85rem;color:#c0c0d8;}
-.send-btn{background:#00b900;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:0.78rem;cursor:pointer;}
-.flow-steps{display:flex;gap:0;overflow-x:auto;padding-bottom:8px;}
-.flow-step{min-width:120px;background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;padding:12px;text-align:center;font-size:0.78rem;position:relative;margin-right:24px;}
-.flow-step::after{content:'→';position:absolute;right:-18px;top:50%;transform:translateY(-50%);color:#7c6bff;font-size:1rem;}
-.flow-step:last-child::after{display:none;}
-.flow-step .step-icon{font-size:1.4rem;margin-bottom:4px;}
-.bar-chart{display:flex;flex-direction:column;gap:8px;}
-.bar-row{display:flex;align-items:center;gap:10px;font-size:0.8rem;}
-.bar-label{width:80px;color:#8888aa;text-align:right;}
-.bar-track{flex:1;background:#2a2a3e;border-radius:4px;height:20px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-size:0.72rem;color:#fff;font-weight:700;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#f5faf5;color:#333}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn 0.5s ease}
+
+.demo-header{background:#06C755;color:#fff;padding:14px 20px;text-align:center}
+.demo-header h1{font-size:18px;font-weight:bold}
+.demo-header p{font-size:12px;opacity:.85;margin-top:4px}
+.back-link{display:inline-block;color:rgba(255,255,255,.85);font-size:12px;margin-bottom:6px;text-decoration:none}
+
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.panel{background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:14px}
+.panel h2{font-size:15px;font-weight:bold;color:#06C755;border-bottom:2px solid #a5d6a7;padding-bottom:8px;margin-bottom:14px}
+.badge{display:inline-block;background:#e8f5e9;color:#06C755;border:1px solid #a5d6a7;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:bold}
+
+/* ポイントカード */
+.point-card{background:linear-gradient(135deg,#06C755,#00a040);color:#fff;border-radius:14px;padding:20px;margin-bottom:16px}
+.point-card h3{font-size:14px;margin-bottom:4px;opacity:.9}
+.point-num{font-size:48px;font-weight:bold;line-height:1}
+.point-sub{font-size:11px;opacity:.8;margin-top:4px}
+.point-bar{background:rgba(255,255,255,.3);border-radius:10px;height:8px;margin:10px 0}
+.point-fill{background:#fff;border-radius:10px;height:8px;transition:width .3s}
+.point-btns{display:flex;gap:8px;margin-top:12px}
+.p-btn{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer}
+.p-btn:hover{background:rgba(255,255,255,.35)}
+.customer-input{display:flex;gap:8px;margin-bottom:12px}
+.customer-input input{flex:1;border:1px solid #a5d6a7;border-radius:8px;padding:8px 12px;font-size:13px;outline:none}
+.customer-input button{background:#06C755;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer}
+
+/* EC カルーセル */
+.product-carousel{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+.product-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:12px;min-width:160px;flex-shrink:0}
+.product-img{background:#f5f5f5;border-radius:8px;height:100px;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:8px}
+.product-name{font-size:12px;font-weight:bold;margin-bottom:4px}
+.product-price{color:#e53935;font-size:14px;font-weight:bold;margin-bottom:8px}
+.buy-btn{background:#06C755;color:#fff;border:none;border-radius:6px;padding:6px 0;width:100%;font-size:12px;cursor:pointer}
+.buy-btn:hover{background:#05a847}
+
+/* 分析ダッシュボード */
+.kpi-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.kpi-card{background:#f5faf5;border-radius:8px;padding:12px 16px;flex:1;min-width:100px;text-align:center;border:1px solid #c8e6c9}
+.kpi-num{font-size:24px;font-weight:bold;color:#06C755}
+.kpi-label{font-size:10px;color:#666;margin-top:2px}
+.kpi-delta{font-size:10px;color:#2e7d32;margin-top:2px}
+
+.bar-chart{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-label{width:60px;font-size:11px;color:#666;text-align:right;flex-shrink:0}
+.bar-track{flex:1;background:#e8f5e9;border-radius:4px;height:18px;overflow:hidden}
+.bar-fill{height:100%;background:#06C755;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:#fff;font-weight:bold}
+
+/* A/Bテスト */
+.ab-container{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ab-card{border:2px solid #e0e0e0;border-radius:10px;padding:14px}
+.ab-card.winner{border-color:#06C755;background:#f5faf5}
+.ab-label{font-size:11px;font-weight:bold;color:#888;margin-bottom:6px}
+.ab-msg{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:10px;font-size:12px;line-height:1.5;margin-bottom:10px}
+.ab-stats{display:flex;gap:10px;font-size:11px}
+.ab-stat{text-align:center}
+.ab-stat .num{font-size:18px;font-weight:bold;color:#06C755}
+.ab-stat .lbl{color:#888}
+.winner-badge{background:#06C755;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:bold}
 </style>
 </head>
 <body>
-<div class="banner">🎨 これはデモサイトです | <a href="../service-line.html">← サービス詳細に戻る</a></div>
-<div class="container">
-  <h1>📊 LINE公式アカウント 管理ダッシュボード【プレミアムプラン】</h1>
-  <div style="text-align:center;font-size:0.8rem;color:#8888aa;margin-bottom:16px;">株式会社サクラビジネス | 2026年3月 レポート</div>
+<div class="demo-header">
+  <a class="back-link" href="../index.html">← サービス一覧に戻る</a>
+  <h1>📱 LINE公式アカウント プレミアムプラン</h1>
+  <p>フルカスタム構築・ECサイト連携・ポイントカード機能・分析ダッシュボード・3ヶ月保守｜株式会社サクラビジネス</p>
+</div>
 
-  <div class="dashboard-grid">
-    <div class="stat-card">
-      <div class="stat-num">2,847</div>
-      <div class="stat-label">👥 友だち数</div>
-      <div class="stat-change">↑ +128 (今月)</div>
+<div class="container fade-in">
+  <!-- ポイントカード -->
+  <div class="panel">
+    <h2>🎁 ポイントカード機能</h2>
+    <div class="customer-input">
+      <input type="text" id="custId" placeholder="顧客番号を入力（例：SAK-001）">
+      <button onclick="lookupCustomer()">検索</button>
     </div>
-    <div class="stat-card">
-      <div class="stat-num">68%</div>
-      <div class="stat-label">📩 メッセージ開封率</div>
-      <div class="stat-change">↑ +5% vs 先月</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">¥248K</div>
-      <div class="stat-label">💰 LINE経由売上</div>
-      <div class="stat-change">↑ +32% vs 先月</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h3>🎯 セグメント配信</h3>
-    <div class="segment-list">
-      <div class="segment-item">
-        <div><div class="segment-tag">VIP顧客</div><div style="font-size:0.75rem;color:#8888aa;margin-top:4px;">月5万円以上購入</div></div>
-        <div class="segment-count">148名</div>
-        <button class="send-btn" onclick="alert('VIP向けメッセージを配信しました！')">配信する</button>
-      </div>
-      <div class="segment-item">
-        <div><div class="segment-tag">休眠顧客</div><div style="font-size:0.75rem;color:#8888aa;margin-top:4px;">3ヶ月以上未購入</div></div>
-        <div class="segment-count">392名</div>
-        <button class="send-btn" onclick="alert('再来店クーポンを配信しました！')">配信する</button>
-      </div>
-      <div class="segment-item">
-        <div><div class="segment-tag">新規登録</div><div style="font-size:0.75rem;color:#8888aa;margin-top:4px;">登録7日以内</div></div>
-        <div class="segment-count">76名</div>
-        <button class="send-btn" onclick="alert('ウェルカムキャンペーンを配信しました！')">配信する</button>
+    <div id="pointDisplay" style="display:none">
+      <div class="point-card">
+        <h3>🌸 サクラビジネス ポイントカード</h3>
+        <div id="custName" style="font-size:13px;margin-bottom:8px;opacity:.9"></div>
+        <div class="point-num" id="pointNum">280</div>
+        <div class="point-sub">ポイント（次回特典まで: <span id="ptToNext">220</span>pt）</div>
+        <div class="point-bar"><div class="point-fill" id="ptBar" style="width:56%"></div></div>
+        <div class="point-btns">
+          <button class="p-btn" onclick="addPoints()">＋10pt 来店ポイント付与</button>
+          <button class="p-btn" onclick="usePoints()">特典と交換（500pt〜）</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h3>🛒 購入フロー（シナリオ配信）</h3>
-    <div class="flow-steps">
-      <div class="flow-step"><div class="step-icon">👋</div>友だち追加</div>
-      <div class="flow-step"><div class="step-icon">🎁</div>ウェルカム<br>クーポン</div>
-      <div class="flow-step"><div class="step-icon">📦</div>商品紹介<br>(3日後)</div>
-      <div class="flow-step"><div class="step-icon">⏰</div>リマインダー<br>(7日後)</div>
-      <div class="flow-step"><div class="step-icon">💳</div>購入完了</div>
+  <!-- ECカルーセル -->
+  <div class="panel">
+    <h2>🛒 EC連携：LINE上で商品購入</h2>
+    <span class="badge">LINEアプリ内でそのまま購入可能</span>
+    <div style="margin-top:12px" class="product-carousel">
+      <div class="product-card">
+        <div class="product-img">💆‍♀️</div>
+        <div class="product-name">プレミアムトリートメント</div>
+        <div class="product-price">¥3,800</div>
+        <button class="buy-btn" onclick="buyProduct('プレミアムトリートメント')">LINEで購入</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🧴</div>
+        <div class="product-name">サロン専売シャンプー</div>
+        <div class="product-price">¥2,200</div>
+        <button class="buy-btn" onclick="buyProduct('サロン専売シャンプー')">LINEで購入</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img">✨</div>
+        <div class="product-name">ヘアオイル（高級）</div>
+        <div class="product-price">¥4,500</div>
+        <button class="buy-btn" onclick="buyProduct('ヘアオイル')">LINEで購入</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🎁</div>
+        <div class="product-name">ギフトセット</div>
+        <div class="product-price">¥6,800</div>
+        <button class="buy-btn" onclick="buyProduct('ギフトセット')">LINEで購入</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img">💐</div>
+        <div class="product-name">スカルプケアセット</div>
+        <div class="product-price">¥5,200</div>
+        <button class="buy-btn" onclick="buyProduct('スカルプケアセット')">LINEで購入</button>
+      </div>
     </div>
+    <div id="buyMsg" style="margin-top:10px;display:none;background:#e8f5e9;border-radius:8px;padding:10px;font-size:12px;color:#2e7d32"></div>
   </div>
 
-  <div class="section">
-    <h3>📈 曜日別メッセージ開封率</h3>
-    <div class="bar-chart">
-      <div class="bar-row"><div class="bar-label">月</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:#7c6bff;">72%</div></div></div>
-      <div class="bar-row"><div class="bar-label">火</div><div class="bar-track"><div class="bar-fill" style="width:68%;background:#7c6bff;">68%</div></div></div>
-      <div class="bar-row"><div class="bar-label">水</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:#00b900;">75%</div></div></div>
-      <div class="bar-row"><div class="bar-label">木</div><div class="bar-track"><div class="bar-fill" style="width:70%;background:#7c6bff;">70%</div></div></div>
-      <div class="bar-row"><div class="bar-label">金</div><div class="bar-track"><div class="bar-fill" style="width:82%;background:#ff6b6b;">82%</div></div></div>
-      <div class="bar-row"><div class="bar-label">土</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:#7c6bff;">65%</div></div></div>
-      <div class="bar-row"><div class="bar-label">日</div><div class="bar-track"><div class="bar-fill" style="width:60%;background:#7c6bff;">60%</div></div></div>
+  <div class="grid-2">
+    <!-- 分析ダッシュボード -->
+    <div class="panel">
+      <h2>📊 分析ダッシュボード</h2>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-num">2,847</div><div class="kpi-label">👥 友達数</div><div class="kpi-delta">↑ +128今月</div></div>
+        <div class="kpi-card"><div class="kpi-num">4.2%</div><div class="kpi-label">🚫 ブロック率</div><div class="kpi-delta">↓ -0.3%改善</div></div>
+        <div class="kpi-card"><div class="kpi-num">68%</div><div class="kpi-label">📩 開封率</div><div class="kpi-delta">↑ +5%</div></div>
+        <div class="kpi-card"><div class="kpi-num">23%</div><div class="kpi-label">👆 クリック率</div><div class="kpi-delta">↑ +3%</div></div>
+      </div>
+      <div style="font-size:12px;font-weight:bold;color:#388e3c;margin-bottom:8px">友達数推移（過去6ヶ月）</div>
+      <div class="bar-chart">
+        <div class="bar-row"><div class="bar-label">10月</div><div class="bar-track"><div class="bar-fill" style="width:52%">1,486</div></div></div>
+        <div class="bar-row"><div class="bar-label">11月</div><div class="bar-track"><div class="bar-fill" style="width:60%">1,720</div></div></div>
+        <div class="bar-row"><div class="bar-label">12月</div><div class="bar-track"><div class="bar-fill" style="width:68%">1,940</div></div></div>
+        <div class="bar-row"><div class="bar-label">1月</div><div class="bar-track"><div class="bar-fill" style="width:76%">2,180</div></div></div>
+        <div class="bar-row"><div class="bar-label">2月</div><div class="bar-track"><div class="bar-fill" style="width:87%">2,490</div></div></div>
+        <div class="bar-row"><div class="bar-label">3月</div><div class="bar-track"><div class="bar-fill" style="width:100%">2,847</div></div></div>
+      </div>
+    </div>
+
+    <!-- A/Bテスト -->
+    <div class="panel">
+      <h2>🧪 A/Bテスト機能</h2>
+      <div style="font-size:12px;color:#666;margin-bottom:12px">2種類のメッセージをテスト配信して効果を比較します</div>
+      <div class="ab-container">
+        <div class="ab-card">
+          <div class="ab-label">パターン A</div>
+          <div class="ab-msg">🌸 今週末限定！特別クーポンをお届けします。ぜひご来店ください。</div>
+          <div class="ab-stats">
+            <div class="ab-stat"><div class="num">61%</div><div class="lbl">開封率</div></div>
+            <div class="ab-stat"><div class="num">18%</div><div class="lbl">クリック率</div></div>
+            <div class="ab-stat"><div class="num">430</div><div class="lbl">配信数</div></div>
+          </div>
+        </div>
+        <div class="ab-card winner">
+          <div class="ab-label">パターン B &nbsp;<span class="winner-badge">🏆 勝者</span></div>
+          <div class="ab-msg">⏰ 残り48時間！初回20%OFFクーポン、もうすぐ終了です🎟️</div>
+          <div class="ab-stats">
+            <div class="ab-stat"><div class="num">78%</div><div class="lbl">開封率</div></div>
+            <div class="ab-stat"><div class="num">31%</div><div class="lbl">クリック率</div></div>
+            <div class="ab-stat"><div class="num">430</div><div class="lbl">配信数</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;background:#e8f5e9;border-radius:8px;padding:10px;font-size:12px;color:#2e7d32">
+        💡 パターンBが開封率・クリック率ともに優位。パターンBを本配信に採用することをお勧めします。
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+const customers = {
+  'SAK-001':{name:'山田 花子', points:280, toNext:220},
+  'SAK-002':{name:'鈴木 陽子', points:500, toNext:0},
+  'SAK-003':{name:'田中 美咲', points:120, toNext:380},
+};
+function lookupCustomer() {
+  const id = document.getElementById('custId').value.trim().toUpperCase();
+  const c = customers[id] || customers['SAK-001'];
+  document.getElementById('pointDisplay').style.display='block';
+  document.getElementById('custName').textContent='会員番号: '+(id||'SAK-001')+'　'+c.name+' 様';
+  updatePoints(c.points);
+}
+function updatePoints(p) {
+  document.getElementById('pointNum').textContent=p;
+  const toNext = Math.max(0,500-p);
+  document.getElementById('ptToNext').textContent=toNext;
+  document.getElementById('ptBar').style.width=Math.min(100,p/5)+'%';
+}
+function addPoints() {
+  const cur = parseInt(document.getElementById('pointNum').textContent);
+  updatePoints(cur+10);
+}
+function usePoints() {
+  const cur = parseInt(document.getElementById('pointNum').textContent);
+  if(cur<500){alert('ポイントが不足しています（500pt以上必要）');return;}
+  updatePoints(cur-500);
+  alert('✅ 特典と交換しました！500ptを消費しました。');
+}
+function buyProduct(name) {
+  const msg = document.getElementById('buyMsg');
+  msg.textContent='✅ 「'+name+'」をカートに追加しました！LINE Pay / クレジットカードでお支払い可能です。';
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',3000);
+}
+</script>
 </body>
 </html>

@@ -3,96 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>チャットウィジェット デモ | 株式会社サクラビジネス</title>
+<title>チャットボット ベーシック デモ | 株式会社サクラビジネス</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; min-height:100vh; }
-.page-content { max-width:800px; margin:0 auto; padding:60px 20px; }
-.page-content h1 { font-size:2rem; color:#fff; margin-bottom:16px; }
-.page-content p { color:#888; line-height:1.8; margin-bottom:16px; }
-.page-content .services { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:32px; }
-@media(max-width:600px){ .page-content .services { grid-template-columns:1fr; } }
-.service-card { background:#12121e; border:1px solid #2a2a3e; border-radius:12px; padding:20px; }
-.service-card h3 { color:#fff; margin-bottom:8px; }
-.service-card p { color:#888; font-size:0.88rem; }
-/* Chat widget */
-.chat-widget { position:fixed; bottom:24px; right:24px; z-index:1000; }
-.chat-toggle { width:60px; height:60px; background:linear-gradient(135deg,#7c6bff,#a78bfa); border-radius:50%; border:none; color:#fff; font-size:1.6rem; cursor:pointer; box-shadow:0 8px 24px rgba(124,107,255,0.5); transition:transform 0.3s; }
-.chat-toggle:hover { transform:scale(1.1); }
-.chat-badge { position:absolute; top:-4px; right:-4px; width:20px; height:20px; background:#ff4d4d; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:#fff; font-weight:700; }
-.chat-panel { display:none; width:320px; background:#12121e; border:1px solid #2a2a3e; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.5); margin-bottom:12px; }
-.chat-panel.open { display:block; }
-.chat-head { background:linear-gradient(135deg,#7c6bff,#a78bfa); padding:16px 20px; display:flex; align-items:center; gap:12px; }
-.chat-head .avatar { width:36px; height:36px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; }
-.chat-head h4 { color:#fff; font-size:0.9rem; }
-.chat-head p { color:rgba(255,255,255,0.8); font-size:0.75rem; }
-.chat-head .close-btn { margin-left:auto; background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer; }
-.chat-msgs { height:260px; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:8px; }
-.chat-msg { max-width:85%; padding:9px 13px; border-radius:14px; font-size:0.85rem; line-height:1.4; }
-.chat-msg.bot { background:#1a1a3e; color:#e0e0f0; align-self:flex-start; border-bottom-left-radius:4px; }
-.chat-msg.user { background:linear-gradient(135deg,#7c6bff,#a78bfa); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
-.chat-qr { padding:8px 12px; display:flex; gap:6px; flex-wrap:wrap; border-top:1px solid #1a1a2e; }
-.chat-qr-btn { background:#1a1a3e; border:1px solid #2a2a3e; color:#a78bfa; padding:4px 10px; border-radius:12px; font-size:0.78rem; cursor:pointer; }
-.chat-qr-btn:hover { background:#2a2a5e; }
-.chat-input { display:flex; gap:6px; padding:10px 12px; border-top:1px solid #2a2a3e; }
-.chat-input input { flex:1; background:#0a0e1a; border:1px solid #2a2a3e; color:#fff; padding:7px 12px; border-radius:50px; font-size:0.83rem; outline:none; }
-.chat-input button { background:#7c6bff; border:none; color:#fff; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:0.85rem; }
-.typing { display:none; padding:8px 12px; background:#1a1a3e; border-radius:14px; align-self:flex-start; }
-.typing span { display:inline-block; width:6px; height:6px; background:#7c6bff; border-radius:50%; animation:b 1.4s infinite; margin-right:2px; }
-.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
-@keyframes b{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f9f7ff; color:#1e1b4b; font-family:'Segoe UI',sans-serif; }
+
+  /* Page */
+  header { background:#7c3aed; color:#fff; padding:14px 24px; display:flex; align-items:center; gap:12px; }
+  header h1 { font-size:18px; font-weight:700; }
+  .hero { background:linear-gradient(135deg,#7c3aed,#a855f7); color:#fff; padding:48px 24px; text-align:center; }
+  .hero h2 { font-size:28px; font-weight:700; margin-bottom:12px; animation:fadeIn .5s ease both; }
+  .hero p { font-size:15px; opacity:.9; animation:fadeIn .5s ease .1s both; }
+  .services { max-width:900px; margin:0 auto; padding:40px 24px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .sv-card { background:#fff; border:1.5px solid #e9d5ff; border-radius:12px; padding:20px; text-align:center; animation:fadeIn .5s ease both; }
+  .sv-card .icon { font-size:32px; margin-bottom:8px; }
+  .sv-card h3 { font-size:15px; font-weight:700; color:#7c3aed; margin-bottom:6px; }
+  .sv-card p { font-size:13px; color:#6b7280; }
+  footer-page { display:block; background:#f3f4f6; text-align:center; padding:20px; font-size:13px; color:#9ca3af; margin-top:40px; }
+
+  /* Customize Panel */
+  .cust-panel { position:fixed; left:20px; bottom:20px; background:#fff; border:1.5px solid #e9d5ff; border-radius:12px; padding:14px; box-shadow:0 4px 20px rgba(124,58,237,.1); width:200px; animation:fadeIn .5s ease both; z-index:50; }
+  .cust-panel h4 { font-size:12px; font-weight:700; color:#7c3aed; margin-bottom:10px; }
+  .color-opts { display:flex; gap:8px; }
+  .copt { width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:border-color .2s; }
+  .copt.sel { border-color:#1e1b4b; }
+  .cust-panel small { display:block; margin-top:8px; font-size:10px; color:#9ca3af; }
+
+  /* Chat Widget */
+  .chat-toggle { position:fixed; right:24px; bottom:24px; width:56px; height:56px; border-radius:50%; background:#7c3aed; color:#fff; font-size:26px; border:none; cursor:pointer; box-shadow:0 4px 16px rgba(124,58,237,.4); z-index:100; display:flex; align-items:center; justify-content:center; transition:transform .2s; }
+  .chat-toggle:hover { transform:scale(1.08); }
+  .chat-window { position:fixed; right:24px; bottom:90px; width:340px; background:#fff; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,.15); display:none; flex-direction:column; z-index:100; overflow:hidden; animation:slideUp .4s ease both; }
+  .chat-window.open { display:flex; }
+  .chat-header { padding:14px 16px; color:#fff; display:flex; align-items:center; gap:10px; }
+  .bot-avatar { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .chat-header-info h3 { font-size:14px; font-weight:700; }
+  .chat-header-info p { font-size:11px; opacity:.85; }
+  .chat-badges { padding:8px 12px; background:#f9f7ff; border-bottom:1px solid #e9d5ff; display:flex; gap:6px; }
+  .chat-badge { font-size:10px; background:#e9d5ff; color:#7c3aed; padding:2px 8px; border-radius:10px; font-weight:600; }
+  .chat-body { flex:1; overflow-y:auto; padding:14px; max-height:340px; display:flex; flex-direction:column; gap:10px; }
+  .msg { max-width:85%; animation:fadeIn .4s ease both; }
+  .msg.bot { align-self:flex-start; }
+  .msg.user { align-self:flex-end; }
+  .bubble { padding:10px 13px; border-radius:14px; font-size:13px; line-height:1.5; }
+  .bot .bubble { background:#f3e8ff; color:#1e1b4b; border-radius:4px 14px 14px 14px; }
+  .user .bubble { color:#fff; border-radius:14px 4px 14px 14px; }
+  .faq-btns { display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+  .faq-btn { background:#fff; border:1.5px solid #d8b4fe; color:#7c3aed; padding:8px 12px; border-radius:8px; font-size:12px; cursor:pointer; text-align:left; transition:background .2s; font-weight:600; }
+  .faq-btn:hover { background:#f3e8ff; }
+  .back-btn { background:#f9f7ff; border:1px solid #e9d5ff; color:#6b7280; padding:6px 10px; border-radius:6px; font-size:11px; cursor:pointer; margin-top:4px; }
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-chatbot.html" style="color:#fff;">← サービス詳細に戻る</a></div>
-<div class="page-content">
-  <h1>🌸 株式会社サクラビジネス</h1>
-  <p>AIと経営のプロが伴走する中小企業向け支援サービスです。右下のチャットボタンからお気軽にご相談ください。</p>
-  <div class="services">
-    <div class="service-card"><h3>🏢 経営コンサル</h3><p>戦略立案から実行支援まで</p></div>
-    <div class="service-card"><h3>🤖 AI導入支援</h3><p>業務効率化のAI活用</p></div>
-    <div class="service-card"><h3>📈 Webマーケ</h3><p>SEO・SNS・広告運用</p></div>
-    <div class="service-card"><h3>💰 財務支援</h3><p>補助金申請・資金調達</p></div>
-  </div>
-  <p style="margin-top:40px;text-align:center;color:#666;">👇 右下のチャットボタンを押してデモを体験してください</p>
+
+<!-- Page content -->
+<header>
+  <span style="font-size:22px">🌸</span>
+  <h1>株式会社サクラビジネス</h1>
+</header>
+<div class="hero">
+  <h2>AIで業務を、もっとスマートに</h2>
+  <p>チャットボット・AIエージェント・コンテンツ制作を一括サポート</p>
 </div>
-<!-- Chat Widget -->
-<div class="chat-widget">
-  <div class="chat-panel" id="chatPanel">
-    <div class="chat-head">
-      <div class="avatar">🤖</div>
-      <div><h4>サクラAI</h4><p>平均応答 &lt;1秒</p></div>
-      <button class="close-btn" onclick="toggleChat()">✕</button>
+<div class="services">
+  <div class="sv-card">
+    <div class="icon">🤖</div>
+    <h3>AIエージェント構築</h3>
+    <p>業務の自動化・効率化を実現するカスタムAIエージェントを構築します。</p>
+  </div>
+  <div class="sv-card">
+    <div class="icon">💬</div>
+    <h3>チャットボット導入</h3>
+    <p>24時間対応のFAQボットで問い合わせ対応を自動化します。</p>
+  </div>
+  <div class="sv-card">
+    <div class="icon">✍️</div>
+    <h3>AIコンテンツ制作</h3>
+    <p>SEO最適化されたブログ記事・LP・SNS投稿を高速で作成します。</p>
+  </div>
+</div>
+<footer-page>© 2026 株式会社サクラビジネス　｜　お問い合わせ: info@sakura-biz.co.jp</footer-page>
+
+<!-- Customize Panel -->
+<div class="cust-panel">
+  <h4>🎨 ボットカラー設定</h4>
+  <div class="color-opts">
+    <div class="copt sel" style="background:#7c3aed" onclick="setColor('#7c3aed','#a78bfa',this)"></div>
+    <div class="copt" style="background:#ec4899" onclick="setColor('#ec4899','#f9a8d4',this)"></div>
+    <div class="copt" style="background:#0ea5e9" onclick="setColor('#0ea5e9','#7dd3fc',this)"></div>
+    <div class="copt" style="background:#10b981" onclick="setColor('#10b981','#6ee7b7',this)"></div>
+  </div>
+  <small>ボタンの色を変更できます</small>
+</div>
+
+<!-- Chat Toggle -->
+<button class="chat-toggle" id="chatToggle" onclick="toggleChat()" title="チャットを開く">💬</button>
+
+<!-- Chat Window -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header" id="chatHeader" style="background:#7c3aed">
+    <div class="bot-avatar">🤖</div>
+    <div class="chat-header-info">
+      <h3>サクラボット</h3>
+      <p>オンライン・すぐに返答します</p>
     </div>
-    <div class="chat-msgs" id="chatMsgs">
-      <div class="chat-msg bot">こんにちは！何でもご相談ください。</div>
-      <div class="typing" id="typing"><span></span><span></span><span></span></div>
-    </div>
-    <div class="chat-qr">
-      <button class="chat-qr-btn" onclick="cq('料金を教えてください')">料金は？</button>
-      <button class="chat-qr-btn" onclick="cq('無料相談したい')">無料相談</button>
-      <button class="chat-qr-btn" onclick="cq('営業時間を教えてください')">営業時間</button>
-    </div>
-    <div class="chat-input">
-      <input type="text" id="ci" placeholder="メッセージ..." onkeydown="if(event.key==='Enter')cs()">
-      <button onclick="cs()">➤</button>
+    <button onclick="toggleChat()" style="margin-left:auto;background:none;border:none;color:#fff;font-size:18px;cursor:pointer">✕</button>
+  </div>
+  <div class="chat-badges">
+    <span class="chat-badge">FAQ型ボット</span>
+    <span class="chat-badge">最大50問設定済み</span>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg bot"><div class="bubble">こんにちは！サクラビジネスのチャットボットです😊<br>よくある質問をクリックしてください。</div>
+      <div class="faq-btns" id="faqBtns">
+        <button class="faq-btn" id="faqBtn" onclick="showCategories()">❓ よくある質問を見る</button>
+      </div>
     </div>
   </div>
-  <button class="chat-toggle" onclick="toggleChat()">💬<div class="chat-badge">1</div></button>
 </div>
+
 <script>
-function toggleChat(){
-  const p=document.getElementById('chatPanel');
-  p.classList.toggle('open');
-  document.querySelector('.chat-badge').style.display='none';
+let chatOpen = false;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+  document.getElementById('chatToggle').textContent = chatOpen ? '✕' : '💬';
 }
-const faqs={'料金':'月額¥30,000〜からご利用いただけます。詳しくはプランページをご覧ください。','無料相談':'初回相談は完全無料です。フォームかお電話（03-0000-0000）でご予約ください。','営業時間':'平日9:00〜18:00です。フォームは24時間受付中です。'};
-function getR(m){for(const[k,v]of Object.entries(faqs)){if(m.includes(k))return v;}return 'ご質問ありがとうございます。担当者よりご連絡いたします。お電話: 03-0000-0000';}
-function addM(t,type){const m=document.getElementById('chatMsgs');const d=document.createElement('div');d.className='chat-msg '+type;d.textContent=t;m.insertBefore(d,document.getElementById('typing'));m.scrollTop=m.scrollHeight;}
-function st(){document.getElementById('typing').style.display='block';document.getElementById('chatMsgs').scrollTop=document.getElementById('chatMsgs').scrollHeight;}
-function ht(){document.getElementById('typing').style.display='none';}
-function cs(){const i=document.getElementById('ci');const t=i.value.trim();if(!t)return;addM(t,'user');i.value='';st();setTimeout(()=>{ht();addM(getR(t),'bot');},900);}
-function cq(t){addM(t,'user');st();setTimeout(()=>{ht();addM(getR(t),'bot');},800);}
+
+const faqs = [
+  {q:'💰 料金を教えてください', a:'ベーシックプランは¥5,000〜、スタンダードは¥15,000〜、プレミアムは¥30,000〜です。詳しくはお気軽にご相談ください！'},
+  {q:'🕐 営業時間は？', a:'営業時間は10:00〜20:00（土日祝も対応）です。このチャットは24時間ご利用いただけます！'},
+  {q:'🔄 キャンセルポリシーは？', a:'サービス開始前日まで無料でキャンセル可能です。それ以降はキャンセル料が発生する場合があります。'},
+  {q:'📞 電話で相談できますか？', a:'はい！お問い合わせフォームからお電話番号をご記入いただければ、担当者よりご連絡いたします。'},
+  {q:'⏱️ 納期はどれくらいですか？', a:'ベーシックプランで最短3日〜、スタンダードは1週間〜、プレミアムは2週間〜が目安です。'},
+  {q:'🤝 無料相談はありますか？', a:'はい！初回は無料でオンライン相談を承っております。お気軽にご連絡ください😊'},
+  {q:'🔧 導入後のサポートは？', a:'スタンダード以上のプランには保守サポートが付属します。ベーシックはスポット対応となります。'},
+  {q:'🌐 他システムと連携できますか？', a:'Gmail・Slack・Notion・kintoneなど多数のサービスと連携可能です。ご希望をお知らせください。'},
+  {q:'📝 実績を見せてもらえますか？', a:'はい！導入事例ページにてご確認いただけます。また個別にご紹介することも可能です。'},
+  {q:'❓ その他の質問', a:'担当者にお繋ぎします。お問い合わせフォームよりご連絡いただくか、チャットでご質問をどうぞ！'},
+];
+
+function showCategories() {
+  document.getElementById('faqBtns').remove();
+  addMsg('bot', 'ご質問を選んでください👇', faqs.map(f => f.q));
+}
+
+function addMsg(type, text, btns = []) {
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  let html = `<div class="bubble">${text}</div>`;
+  if (btns.length) {
+    html += '<div class="faq-btns">';
+    btns.forEach((b, i) => {
+      html += `<button class="faq-btn" onclick="answerFaq(${i})">${b}</button>`;
+    });
+    html += '</div>';
+  }
+  div.innerHTML = html;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function answerFaq(idx) {
+  const faq = faqs[idx];
+  addMsg('user', faq.q);
+  setTimeout(() => {
+    addMsg('bot', faq.a + '<br><br>', []);
+    const body = document.getElementById('chatBody');
+    const backDiv = document.createElement('div');
+    backDiv.className = 'msg bot';
+    backDiv.innerHTML = '<button class="back-btn" onclick="goBack()">← 質問一覧に戻る</button>';
+    body.appendChild(backDiv);
+    body.scrollTop = body.scrollHeight;
+  }, 400);
+}
+
+function goBack() {
+  addMsg('bot', '他にご質問はありますか？😊', faqs.map(f => f.q));
+}
+
+function setColor(main, light, el) {
+  document.querySelectorAll('.copt').forEach(e => e.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('chatHeader').style.background = main;
+  document.getElementById('chatToggle').style.background = main;
+  document.querySelectorAll('.faq-btn').forEach(b => b.style.color = main);
+}
 </script>
 </body>
 </html>

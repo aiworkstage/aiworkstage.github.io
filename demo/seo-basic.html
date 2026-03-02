@@ -2,80 +2,242 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SEO診断レポート | 株式会社サクラビジネス</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Hiragino Kaku Gothic ProN',sans-serif; background:#0a0e1a; color:#e0e0f0; }
-.container { max-width:900px; margin:0 auto; padding:40px 20px; }
-.report-header { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:32px; margin-bottom:32px; }
-.report-header h1 { font-size:1.6rem; color:#fff; margin-bottom:8px; }
-.report-header p { color:#888; font-size:0.9rem; }
-.report-meta { display:flex; gap:24px; margin-top:20px; flex-wrap:wrap; }
-.meta-item { background:#0a0e1a; border-radius:8px; padding:12px 20px; }
-.meta-label { color:#888; font-size:0.75rem; margin-bottom:4px; }
-.meta-value { color:#7c6bff; font-weight:700; }
-.score-box { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:32px; margin-bottom:32px; text-align:center; }
-.score-circle { width:120px; height:120px; border-radius:50%; background:conic-gradient(#7c6bff 0% 62%, #2a2a3e 62% 100%); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; position:relative; }
-.score-inner { width:90px; height:90px; background:#12121e; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:900; color:#7c6bff; }
-.score-label { color:#888; font-size:0.9rem; }
-.checks { background:#12121e; border:1px solid #2a2a3e; border-radius:16px; padding:24px; margin-bottom:24px; }
-.checks h2 { color:#fff; font-size:1.1rem; margin-bottom:20px; border-bottom:1px solid #2a2a3e; padding-bottom:12px; }
-.check-item { display:flex; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid #1a1a2e; }
-.check-item:last-child { border-bottom:none; }
-.check-status { flex-shrink:0; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; }
-.ok { background:#1a3a1a; color:#4caf50; }
-.warn { background:#3a2a1a; color:#ff9800; }
-.ng { background:#3a1a1a; color:#f44336; }
-.check-name { flex:1; font-size:0.9rem; color:#c0c0d8; }
-.check-detail { font-size:0.8rem; color:#666; text-align:right; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hiragino Sans',system-ui,sans-serif;background:#f0f4ff;color:#333;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade{animation:fadeIn 0.5s ease both;}
+
+.demo-banner{background:#7c6bff;color:#fff;padding:10px;text-align:center;font-size:0.85rem;}
+.demo-banner a{color:#fff;}
+
+.page-header{background:linear-gradient(135deg,#1565c0,#1976d2,#1e88e5);padding:40px 24px;color:#fff;text-align:center;}
+.page-header h1{font-size:1.6rem;font-weight:900;margin-bottom:8px;}
+.page-header p{font-size:0.9rem;opacity:0.85;}
+.header-meta{display:flex;justify-content:center;gap:24px;margin-top:20px;flex-wrap:wrap;}
+.meta-chip{background:rgba(255,255,255,0.15);backdrop-filter:blur(4px);border-radius:20px;padding:6px 16px;font-size:0.8rem;}
+
+.container{max-width:960px;margin:0 auto;padding:32px 20px;}
+
+/* スコアメーター */
+.score-card{background:#fff;border-radius:16px;padding:32px;box-shadow:0 2px 12px rgba(21,101,192,0.08);margin-bottom:24px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;}
+.score-circle-wrap{text-align:center;}
+.score-circle{width:120px;height:120px;border-radius:50%;background:conic-gradient(#1976d2 0% 72%,#e3f2fd 72% 100%);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;position:relative;}
+.score-inner{width:90px;height:90px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-num{font-size:2rem;font-weight:900;color:#1565c0;line-height:1;}
+.score-denom{font-size:0.75rem;color:#888;}
+.score-label{font-size:0.85rem;color:#555;}
+.score-detail h2{font-size:1.2rem;font-weight:900;color:#1565c0;margin-bottom:12px;}
+.score-bars{display:flex;flex-direction:column;gap:10px;}
+.score-bar-row{display:grid;grid-template-columns:130px 1fr 40px;gap:8px;align-items:center;font-size:0.85rem;}
+.score-bar-bg{background:#e3f2fd;border-radius:4px;height:8px;}
+.score-bar-fill{height:8px;border-radius:4px;background:linear-gradient(90deg,#1976d2,#42a5f5);}
+.score-bar-val{font-weight:700;color:#1565c0;text-align:right;}
+
+/* チェック項目 */
+.check-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(21,101,192,0.08);margin-bottom:24px;}
+.check-card h2{font-size:1.1rem;font-weight:900;color:#1565c0;margin-bottom:20px;}
+.check-list{display:flex;flex-direction:column;gap:0;}
+.check-item{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #f0f4ff;font-size:0.9rem;}
+.check-item:last-child{border-bottom:none;}
+.check-icon{font-size:1.1rem;text-align:center;}
+.check-status{font-size:0.75rem;font-weight:700;padding:2px 10px;border-radius:10px;white-space:nowrap;}
+.status-ok{background:#e8f5e9;color:#2e7d32;}
+.status-warn{background:#fff8e1;color:#f57f17;}
+.status-bad{background:#ffebee;color:#c62828;}
+
+/* メタタグ比較 */
+.meta-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(21,101,192,0.08);margin-bottom:24px;}
+.meta-card h2{font-size:1.1rem;font-weight:900;color:#1565c0;margin-bottom:20px;}
+.meta-compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.meta-col h3{font-size:0.85rem;font-weight:700;margin-bottom:10px;padding:6px 12px;border-radius:6px;}
+.meta-col.before h3{background:#ffebee;color:#c62828;}
+.meta-col.after h3{background:#e8f5e9;color:#2e7d32;}
+.meta-tag-box{background:#f8f9ff;border:1px solid #c5cae9;border-radius:8px;padding:12px;font-size:0.82rem;line-height:1.7;color:#555;}
+.meta-tag-box strong{display:block;color:#1565c0;margin-bottom:4px;}
+.meta-issue{font-size:0.8rem;color:#c62828;margin-top:8px;}
+.meta-good{font-size:0.8rem;color:#2e7d32;margin-top:8px;}
+
+/* キーワードテーブル */
+.keyword-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(21,101,192,0.08);margin-bottom:24px;}
+.keyword-card h2{font-size:1.1rem;font-weight:900;color:#1565c0;margin-bottom:20px;}
+.kw-table{width:100%;border-collapse:collapse;}
+.kw-table th{background:#1565c0;color:#fff;padding:10px 14px;font-size:0.82rem;text-align:left;}
+.kw-table td{padding:10px 14px;font-size:0.85rem;border-bottom:1px solid #f0f4ff;}
+.kw-table tr:last-child td{border-bottom:none;}
+.kw-table tr:hover td{background:#f0f4ff;}
+.priority-high{background:#ffebee;color:#c62828;padding:2px 8px;border-radius:8px;font-size:0.75rem;font-weight:700;}
+.priority-mid{background:#fff8e1;color:#f57f17;padding:2px 8px;border-radius:8px;font-size:0.75rem;font-weight:700;}
+.priority-low{background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:8px;font-size:0.75rem;font-weight:700;}
+.diff-hard{color:#c62828;font-weight:700;}
+.diff-mid{color:#f57f17;font-weight:700;}
+.diff-easy{color:#2e7d32;font-weight:700;}
+
+/* アクションリスト */
+.action-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(21,101,192,0.08);margin-bottom:24px;}
+.action-card h2{font-size:1.1rem;font-weight:900;color:#1565c0;margin-bottom:20px;}
+.action-group{margin-bottom:20px;}
+.action-group-title{font-size:0.85rem;font-weight:700;padding:6px 14px;border-radius:6px;margin-bottom:10px;display:inline-block;}
+.priority-high-label{background:#ffebee;color:#c62828;}
+.priority-mid-label{background:#fff8e1;color:#f57f17;}
+.priority-low-label{background:#e8f5e9;color:#2e7d32;}
+.action-list{display:flex;flex-direction:column;gap:8px;}
+.action-item{display:flex;gap:10px;align-items:flex-start;font-size:0.88rem;color:#555;padding:10px 14px;background:#f8f9ff;border-radius:8px;border-left:3px solid;}
+.action-item.high{border-color:#c62828;}
+.action-item.mid{border-color:#f57f17;}
+.action-item.low{border-color:#2e7d32;}
+.action-item::before{content:'→';flex-shrink:0;font-weight:700;}
+
+footer{background:#1565c0;color:#fff;text-align:center;padding:24px;font-size:0.85rem;margin-top:16px;}
+footer opacity{0.8;}
+
+@media(max-width:700px){
+  .score-card{grid-template-columns:1fr;}
+  .meta-compare{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
-<div style="background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;">🎨 これはデモサイトです | <a href="../service-seo.html" style="color:#fff;">← サービス詳細に戻る</a></div>
-<div class="container">
-  <div class="report-header">
-    <h1>🔍 SEO診断レポート</h1>
-    <p>株式会社サクラビジネス — sakurabusiness.co.jp</p>
-    <div class="report-meta">
-      <div class="meta-item"><div class="meta-label">診断日</div><div class="meta-value">2024年12月01日</div></div>
-      <div class="meta-item"><div class="meta-label">対象URL</div><div class="meta-value">sakurabusiness.co.jp</div></div>
-      <div class="meta-item"><div class="meta-label">プラン</div><div class="meta-value">ベーシック診断</div></div>
-      <div class="meta-item"><div class="meta-label">担当者</div><div class="meta-value">山田 太郎</div></div>
-    </div>
-  </div>
-  <div class="score-box">
-    <div class="score-circle"><div class="score-inner">62</div></div>
-    <div class="score-label">総合SEOスコア（100点満点）</div>
-    <p style="color:#ff9800;margin-top:12px;font-size:0.9rem;">⚠️ 要改善：いくつかの重要な問題が見つかりました</p>
-  </div>
-  <div class="checks">
-    <h2>✅ メタ情報チェック</h2>
-    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">titleタグ</div><div class="check-detail">設定済・適切な文字数</div></div>
-    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">meta description</div><div class="check-detail">設定済（120文字）</div></div>
-    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">OGP設定</div><div class="check-detail">og:imageが未設定</div></div>
-    <div class="check-item"><div class="check-status ng">✗</div><div class="check-name">canonical設定</div><div class="check-detail">未設定・重複リスクあり</div></div>
-  </div>
-  <div class="checks">
-    <h2>🏗️ 構造チェック</h2>
-    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">H1タグ</div><div class="check-detail">1つ存在・適切</div></div>
-    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">H2〜H6の階層</div><div class="check-detail">一部スキップあり</div></div>
-    <div class="check-item"><div class="check-status ng">✗</div><div class="check-name">構造化データ</div><div class="check-detail">未実装</div></div>
-    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">内部リンク</div><div class="check-detail">適切に設置済</div></div>
-  </div>
-  <div class="checks">
-    <h2>⚡ パフォーマンスチェック</h2>
-    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">モバイルフレンドリー</div><div class="check-detail">対応済</div></div>
-    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">ページ速度（PC）</div><div class="check-detail">LCP 3.2秒（要改善）</div></div>
-    <div class="check-item"><div class="check-status ng">✗</div><div class="check-name">画像最適化</div><div class="check-detail">非圧縮画像が12枚</div></div>
-    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">HTTPS対応</div><div class="check-detail">SSL証明書有効</div></div>
-  </div>
-  <div class="checks">
-    <h2>🔗 被リンクチェック</h2>
-    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">被リンク数</div><div class="check-detail">12件（業界平均以下）</div></div>
-    <div class="check-item"><div class="check-status ok">✓</div><div class="check-name">スパムリンク</div><div class="check-detail">検出なし</div></div>
-    <div class="check-item"><div class="check-status warn">!</div><div class="check-name">ドメインオーソリティ</div><div class="check-detail">DA 18（要強化）</div></div>
+<div class="demo-banner">🔍 SEO ベーシックプランのデモ（診断レポート・メタタグ最適化・キーワード提案10件） | <a href="../service-seo.html">← サービス詳細に戻る</a></div>
+
+<div class="page-header fade">
+  <h1>📊 SEO診断レポート</h1>
+  <p>株式会社サクラビジネス / サクラ美容サロン公式サイト</p>
+  <div class="header-meta">
+    <div class="meta-chip">📅 診断日：2025年6月15日</div>
+    <div class="meta-chip">🌐 対象URL：sakura-salon.example.com</div>
+    <div class="meta-chip">🔄 ページ数：12ページ</div>
   </div>
 </div>
+
+<div class="container">
+
+  <!-- スコアメーター -->
+  <div class="score-card fade">
+    <div class="score-circle-wrap">
+      <div class="score-circle">
+        <div class="score-inner">
+          <div class="score-num">72</div>
+          <div class="score-denom">/100</div>
+        </div>
+      </div>
+      <div class="score-label">総合SEOスコア</div>
+    </div>
+    <div class="score-detail">
+      <h2>カテゴリ別スコア</h2>
+      <div class="score-bars">
+        <div class="score-bar-row"><span>技術的SEO</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:85%"></div></div><span class="score-bar-val">85</span></div>
+        <div class="score-bar-row"><span>コンテンツ品質</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:65%"></div></div><span class="score-bar-val">65</span></div>
+        <div class="score-bar-row"><span>メタタグ最適化</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:70%"></div></div><span class="score-bar-val">70</span></div>
+        <div class="score-bar-row"><span>被リンク</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:45%"></div></div><span class="score-bar-val">45</span></div>
+        <div class="score-bar-row"><span>ページ速度</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:78%"></div></div><span class="score-bar-val">78</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- チェック項目 -->
+  <div class="check-card fade">
+    <h2>✅ SEOチェック項目一覧（15項目）</h2>
+    <div class="check-list">
+      <div class="check-item"><span class="check-icon">✅</span><span>titleタグが各ページに設定されている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>meta descriptionが設定されている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">⚠️</span><span>titleタグが30〜35文字以内に収まっている</span><span class="check-status status-warn">要改善</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>H1タグが各ページに1つだけ使われている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>画像にalt属性が設定されている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">❌</span><span>XMLサイトマップが作成・送信されている</span><span class="check-status status-bad">問題あり</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>robots.txtが正しく設定されている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">⚠️</span><span>ページ読み込み速度が3秒以内</span><span class="check-status status-warn">要改善</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>モバイルフレンドリーに対応している</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>SSL（HTTPS）が有効になっている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">❌</span><span>構造化データ（JSON-LD）が設定されている</span><span class="check-status status-bad">問題あり</span></div>
+      <div class="check-item"><span class="check-icon">⚠️</span><span>内部リンクが適切に設置されている</span><span class="check-status status-warn">要改善</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>正規URL（canonical）が設定されている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>OGPタグ（SNS表示用）が設定されている</span><span class="check-status status-ok">良好</span></div>
+      <div class="check-item"><span class="check-icon">❌</span><span>Google Search Consoleにサイトが登録されている</span><span class="check-status status-bad">問題あり</span></div>
+    </div>
+  </div>
+
+  <!-- メタタグ最適化提案 -->
+  <div class="meta-card fade">
+    <h2>✏️ メタタグ最適化提案</h2>
+    <div class="meta-compare">
+      <div class="meta-col before">
+        <h3>❌ 現在のタグ（問題あり）</h3>
+        <div class="meta-tag-box">
+          <strong>title：</strong>サクラ美容サロン公式サイト｜東京都渋谷区にある完全個室のプライベートビューティーサロンです（56文字）
+          <div class="meta-issue">⚠️ 長すぎ（推奨：30〜35文字）。検索結果で途切れる</div>
+        </div>
+        <div class="meta-tag-box" style="margin-top:12px;">
+          <strong>description：</strong>当サロンではフェイシャルケアやボディマッサージなど様々なサービスを提供しています。
+          <div class="meta-issue">⚠️ 短すぎ＆キーワードが不足（推奨：100〜120文字）</div>
+        </div>
+      </div>
+      <div class="meta-col after">
+        <h3>✅ 最適化後のタグ（提案）</h3>
+        <div class="meta-tag-box">
+          <strong>title：</strong>サクラ美容サロン｜渋谷の完全個室サロン（22文字）
+          <div class="meta-good">✓ 適切な長さ。メインキーワードを前方配置</div>
+        </div>
+        <div class="meta-tag-box" style="margin-top:12px;">
+          <strong>description：</strong>渋谷の完全個室プライベートサロン。フェイシャルケア・ボディマッサージ・光脱毛に対応。国家資格保有スタッフによる確かなケア。初回体験50%OFFキャンペーン中！（103文字）
+          <div class="meta-good">✓ キーワード豊富・CTAを含む・適切な文字数</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- キーワード提案 -->
+  <div class="keyword-card fade">
+    <h2>🔑 キーワード提案（10件）</h2>
+    <table class="kw-table">
+      <tr><th>キーワード</th><th>月間検索数</th><th>難易度</th><th>優先度</th></tr>
+      <tr><td>渋谷 美容サロン</td><td>8,100</td><td class="diff-hard">高</td><td><span class="priority-high">高</span></td></tr>
+      <tr><td>渋谷 フェイシャルケア</td><td>2,400</td><td class="diff-mid">中</td><td><span class="priority-high">高</span></td></tr>
+      <tr><td>渋谷 完全個室 サロン</td><td>1,300</td><td class="diff-easy">低</td><td><span class="priority-high">高</span></td></tr>
+      <tr><td>渋谷 脱毛 安い</td><td>3,600</td><td class="diff-hard">高</td><td><span class="priority-mid">中</span></td></tr>
+      <tr><td>渋谷 ボディマッサージ</td><td>1,900</td><td class="diff-mid">中</td><td><span class="priority-mid">中</span></td></tr>
+      <tr><td>美容サロン 初回体験</td><td>1,100</td><td class="diff-easy">低</td><td><span class="priority-high">高</span></td></tr>
+      <tr><td>フェイシャルケア 毛穴 東京</td><td>880</td><td class="diff-easy">低</td><td><span class="priority-high">高</span></td></tr>
+      <tr><td>渋谷 エステ 口コミ</td><td>2,100</td><td class="diff-mid">中</td><td><span class="priority-mid">中</span></td></tr>
+      <tr><td>神宮前 美容院</td><td>590</td><td class="diff-easy">低</td><td><span class="priority-low">低</span></td></tr>
+      <tr><td>渋谷 光脱毛 おすすめ</td><td>1,600</td><td class="diff-mid">中</td><td><span class="priority-mid">中</span></td></tr>
+    </table>
+  </div>
+
+  <!-- アクションリスト -->
+  <div class="action-card fade">
+    <h2>📋 改善アクションリスト</h2>
+    <div class="action-group">
+      <div class="action-group-title priority-high-label">🔴 優先度：高（即対応推奨）</div>
+      <div class="action-list">
+        <div class="action-item high">XMLサイトマップを作成しGoogle Search Consoleに送信する</div>
+        <div class="action-item high">各ページのtitleを30〜35文字以内に短縮し、キーワードを前方配置</div>
+        <div class="action-item high">構造化データ（LocalBusiness JSON-LD）をトップページに追加する</div>
+        <div class="action-item high">Google Search ConsoleにURLを登録・インデックス申請する</div>
+      </div>
+    </div>
+    <div class="action-group">
+      <div class="action-group-title priority-mid-label">🟡 優先度：中（1ヶ月以内）</div>
+      <div class="action-list">
+        <div class="action-item mid">meta descriptionを100〜120文字に調整し、CTAを追加する</div>
+        <div class="action-item mid">内部リンクをサービスページ・ブログ間で追加する（最低5箇所）</div>
+        <div class="action-item mid">画像ファイルをWebP形式に変換しページ速度を改善する</div>
+      </div>
+    </div>
+    <div class="action-group">
+      <div class="action-group-title priority-low-label">🟢 優先度：低（3ヶ月以内）</div>
+      <div class="action-list">
+        <div class="action-item low">Googleビジネスプロフィール（旧マイビジネス）を最適化する</div>
+        <div class="action-item low">ブログ記事を月2本以上コンスタントに公開してコンテンツを充実させる</div>
+        <div class="action-item low">SNS（Instagram）と連携してブランド認知を高める</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>© 2025 株式会社サクラビジネス ／ このレポートはSEOベーシックプランのデモです</footer>
 </body>
 </html>
