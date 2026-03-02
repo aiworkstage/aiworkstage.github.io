@@ -8,55 +8,82 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0a0f; color: #e8e8f0; }
-    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; }
-    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #6366f1, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
     nav a { color: #a0a0c0; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
     nav a:hover { color: #fff; }
 
     .hero { text-align: center; padding: 80px 40px 60px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); }
     .hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 16px; }
-    .hero h1 span { background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 1rem; color: #8888aa; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+    .hero h1 span { background: linear-gradient(135deg, #6366f1, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1rem; color: #64748b; max-width: 600px; margin: 0 auto; line-height: 1.8; }
     .price-badge { display: inline-block; margin-top: 20px; background: rgba(124,107,255,0.15); border: 1px solid rgba(124,107,255,0.4); border-radius: 30px; padding: 10px 24px; font-size: 1rem; font-weight: 700; color: #b0a8ff; }
 
     .section { padding: 60px 40px; max-width: 960px; margin: 0 auto; }
     .section h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
-    .section .sub { color: #8888aa; margin-bottom: 40px; font-size: 0.9rem; }
+    .section .sub { color: #64748b; margin-bottom: 40px; font-size: 0.9rem; }
 
     .ai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; }
-    .ai-card { background: #12121e; border: 2px solid #1e1e2e; border-radius: 16px; padding: 28px; transition: border-color 0.2s, transform 0.2s; position: relative; }
-    .ai-card:hover { border-color: #7c6bff; transform: translateY(-4px); }
+    .ai-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 16px; padding: 28px; transition: border-color 0.2s, transform 0.2s; position: relative; }
+    .ai-card:hover { border-color: #6366f1; transform: translateY(-4px); }
     .ai-card.recommended { border-color: rgba(124,107,255,0.5); background: #13132a; }
-    .rec-badge { position: absolute; top: -12px; right: 20px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; }
+    .rec-badge { position: absolute; top: -12px; right: 20px; background: linear-gradient(135deg, #6366f1, #00d4ff); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; }
     .ai-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .ai-checkbox { width: 22px; height: 22px; border: 2px solid #7c6bff; border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
-    .ai-checkbox.checked { background: linear-gradient(135deg, #7c6bff, #00d4ff); }
+    .ai-checkbox { width: 22px; height: 22px; border: 2px solid #6366f1; border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .ai-checkbox.checked { background: linear-gradient(135deg, #6366f1, #00d4ff); }
     .ai-card-icon { font-size: 2rem; }
     .ai-card h3 { font-size: 1.15rem; font-weight: 700; }
     .ai-table { width: 100%; border-collapse: collapse; }
-    .ai-table tr { border-bottom: 1px solid #1e1e2e; }
+    .ai-table tr { border-bottom: 1px solid #e2e8f0; }
     .ai-table tr:last-child { border-bottom: none; }
     .ai-table td { padding: 8px 0; font-size: 0.88rem; line-height: 1.6; }
-    .ai-table td:first-child { color: #7c6bff; font-weight: 600; width: 110px; vertical-align: top; }
+    .ai-table td:first-child { color: #6366f1; font-weight: 600; width: 110px; vertical-align: top; }
     .ai-table td:last-child { color: #c0c0d8; }
     .warn { color: #ffcc44 !important; }
     .ok { color: #00d4ff !important; }
 
     .cta-section { background: #0d0d18; padding: 60px 40px; text-align: center; }
     .cta-section h2 { font-size: 1.6rem; margin-bottom: 16px; }
-    .cta-section p { color: #8888aa; margin-bottom: 32px; font-size: 0.95rem; }
-    .cta-btn { display: inline-block; padding: 18px 48px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.05rem; transition: opacity 0.2s; }
+    .cta-section p { color: #64748b; margin-bottom: 32px; font-size: 0.95rem; }
+    .cta-btn { display: inline-block; padding: 18px 48px; background: linear-gradient(135deg, #6366f1, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.05rem; transition: opacity 0.2s; }
     .cta-btn:hover { opacity: 0.85; }
 
-    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
-    footer a { color: #7c6bff; text-decoration: none; }
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #e2e8f0; }
+    footer a { color: #6366f1; text-decoration: none; }
 
     @media (max-width: 600px) {
       .hero h1 { font-size: 1.8rem; }
       .ai-grid { grid-template-columns: 1fr; }
       header { padding: 16px 20px; }
     }
-  </style>
+  
+    /* === Light Theme === */
+    :root { --accent: #6366f1; }
+    body { background: #f8faff !important; color: #1a202c !important; }
+    .hero, .service-hero { background: linear-gradient(135deg, #e8eaf6, #c5cae9) !important; color: #1a202c !important; }
+    .hero h1, .service-hero h1 { color: #1a202c !important; }
+    .hero p, .service-hero p { color: #2d3748 !important; }
+    .price-card { background: #fff !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important; }
+    .price-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important; transform: translateY(-4px); }
+    .price-card.featured { border: 2px solid #6366f1 !important; }
+    .faq-item { background: #fff !important; border: 1px solid #e2e8f0 !important; }
+    section h2 { color: #1a202c !important; border-left-color: #6366f1 !important; }
+    .plan-price { color: #6366f1 !important; }
+    .btn, .cta-btn, button[type=submit], .apply-btn { background: #6366f1 !important; border-color: #6366f1 !important; color: #fff !important; }
+    nav, header { background: rgba(255,255,255,0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0 !important; }
+    nav a, header a { color: #1a202c !important; }
+    .logo, .nav-logo { color: #6366f1 !important; }
+    footer { background: linear-gradient(135deg, #1e1b4b, #312e81) !important; color: #e0e7ff !important; }
+    footer a { color: #c7d2fe !important; }
+
+    /* Tooltip styles */
+    .tooltip { position: relative; border-bottom: 1px dotted #6366f1; cursor: help; }
+    .tooltip::after { content: attr(data-tip); position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background: #1a202c; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 0.78rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 100; }
+    .tooltip:hover::after { opacity: 1; }
+    @media(max-width:600px){ .tooltip::after { white-space: normal; width: 200px; left: 0; transform: none; } }
+
+
+    </style>
 </head>
 <body>
 

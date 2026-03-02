@@ -7,63 +7,63 @@
   <meta name="description" content="業務管理・ナレッジベース・自動化をNotionで構築。チームの生産性を最大化するNotionワークスペースを¥7,500〜で提供。">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0e1a; color: #e0e0ff; line-height: 1.7; }
-    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; background: #0a0e1a; }
-    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
-    nav a { color: #8888aa; text-decoration: none; margin-left: 24px; font-size: 0.9rem; transition: color 0.2s; }
-    nav a:hover { color: #e0e0ff; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f8faff; color: #1a202c; line-height: 1.7; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; background: #f8faff; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #6366f1, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #64748b; text-decoration: none; margin-left: 24px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #1a202c; }
     .container { max-width: 960px; margin: 0 auto; padding: 60px 24px; }
-    h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 24px; color: #e0e0ff; }
-    h3 { font-size: 1.1rem; font-weight: 700; color: #e0e0ff; }
+    h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #6366f1, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 24px; color: #1a202c; }
+    h3 { font-size: 1.1rem; font-weight: 700; color: #1a202c; }
     section { margin-bottom: 64px; }
     .icon-large { font-size: 4rem; margin-bottom: 16px; display: block; }
     .desc { color: #c0c0d8; font-size: 1rem; max-width: 700px; line-height: 1.8; }
     /* Visual diagram */
-    .diagram { background: #12121e; border: 1px solid #2a2a3e; border-radius: 20px; padding: 36px; display: flex; flex-wrap: nowrap; gap: 8px; justify-content: center; align-items: center; overflow-x: auto; }
+    .diagram { background: #ffffff; border: 1px solid #2a2a3e; border-radius: 20px; padding: 36px; display: flex; flex-wrap: nowrap; gap: 8px; justify-content: center; align-items: center; overflow-x: auto; }
     .diagram-item { background: #1a1a2e; border: 1px solid #3a3a5e; border-radius: 14px; padding: 20px 12px; text-align: center; min-width: 90px; max-width: 110px; flex-shrink: 0; }
     .diagram-item .di-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
     .diagram-item .di-label { font-size: 0.85rem; color: #c0c0d8; }
-    .diagram-arrow { display: flex; align-items: center; font-size: 1.5rem; color: #7c6bff; }
+    .diagram-arrow { display: flex; align-items: center; font-size: 1.5rem; color: #6366f1; }
     /* Flow */
     .flow-list { display: flex; flex-direction: column; gap: 0; }
     .flow-step { display: flex; align-items: flex-start; gap: 20px; }
     .flow-step-line { display: flex; flex-direction: column; align-items: center; }
-    .step-num { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #7c6bff, #00d4ff); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; color: #fff; flex-shrink: 0; }
-    .step-connector { width: 2px; height: 32px; background: linear-gradient(to bottom, #7c6bff, transparent); margin: 0 auto; }
-    .flow-step-body { background: #12121e; border: 1px solid #2a2a3e; border-radius: 14px; padding: 20px 24px; flex: 1; margin-bottom: 8px; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #00d4ff); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; color: #fff; flex-shrink: 0; }
+    .step-connector { width: 2px; height: 32px; background: linear-gradient(to bottom, #6366f1, transparent); margin: 0 auto; }
+    .flow-step-body { background: #ffffff; border: 1px solid #2a2a3e; border-radius: 14px; padding: 20px 24px; flex: 1; margin-bottom: 8px; }
     .flow-step-body h3 { margin-bottom: 6px; }
-    .flow-step-body p { color: #8888aa; font-size: 0.9rem; }
+    .flow-step-body p { color: #64748b; font-size: 0.9rem; }
     /* Pricing */
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .price-card { background: #12121e; border: 1px solid #2a2a3e; border-radius: 20px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
-    .price-card:hover { border-color: #7c6bff; transform: translateY(-4px); }
-    .price-card.featured { border-color: #7c6bff; background: linear-gradient(135deg, rgba(124,107,255,0.08), #12121e); }
-    .price-card .plan-name { font-size: 1rem; font-weight: 700; color: #8888aa; margin-bottom: 12px; }
-    .price-card .plan-price { font-size: 2rem; font-weight: 800; color: #7c6bff; margin-bottom: 16px; }
-    .price-card .plan-price span { font-size: 1rem; color: #8888aa; }
+    .price-card { background: #ffffff; border: 1px solid #2a2a3e; border-radius: 20px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+    .price-card:hover { border-color: #6366f1; transform: translateY(-4px); }
+    .price-card.featured { border-color: #6366f1; background: linear-gradient(135deg, rgba(124,107,255,0.08), #ffffff); }
+    .price-card .plan-name { font-size: 1rem; font-weight: 700; color: #64748b; margin-bottom: 12px; }
+    .price-card .plan-price { font-size: 2rem; font-weight: 800; color: #6366f1; margin-bottom: 16px; }
+    .price-card .plan-price span { font-size: 1rem; color: #64748b; }
     .price-card ul { list-style: none; text-align: left; font-size: 0.88rem; color: #c0c0d8; line-height: 2; }
-    .price-card ul li::before { content: "✓ "; color: #7c6bff; font-weight: 700; }
-    .badge { display: inline-block; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; font-weight: 700; margin-bottom: 12px; }
+    .price-card ul li::before { content: "✓ "; color: #6366f1; font-weight: 700; }
+    .badge { display: inline-block; background: linear-gradient(135deg, #6366f1, #00d4ff); color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; font-weight: 700; margin-bottom: 12px; }
     /* FAQ */
     .faq-list { display: flex; flex-direction: column; gap: 16px; }
-    .faq-item { background: #12121e; border: 1px solid #2a2a3e; border-radius: 14px; padding: 24px; }
-    .faq-item .q { color: #7c6bff; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem; }
+    .faq-item { background: #ffffff; border: 1px solid #2a2a3e; border-radius: 14px; padding: 24px; }
+    .faq-item .q { color: #6366f1; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem; }
     .faq-item .a { color: #c0c0d8; font-size: 0.9rem; line-height: 1.7; }
     /* Policy/Notes */
-    .policy-box { background: #12121e; border: 1px solid #2a2a3e; border-radius: 14px; padding: 28px 32px; }
+    .policy-box { background: #ffffff; border: 1px solid #2a2a3e; border-radius: 14px; padding: 28px 32px; }
     .policy-box ul { list-style: none; color: #c0c0d8; font-size: 0.9rem; line-height: 2; }
-    .policy-box ul li::before { content: "・"; color: #7c6bff; }
+    .policy-box ul li::before { content: "・"; color: #6366f1; }
     .notes-box { background: #1a1220; border: 1px solid #3a2a5e; border-radius: 14px; padding: 28px 32px; }
     .notes-box ul { list-style: none; color: #c0c0d8; font-size: 0.9rem; line-height: 2; }
     .notes-box ul li::before { content: "⚠ "; color: #ffaa44; }
     /* CTA */
     .cta-section { text-align: center; padding: 60px 24px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); border-radius: 20px; }
-    .cta-section p { color: #8888aa; margin-bottom: 24px; }
-    .cta-btn { display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; transition: opacity 0.2s; }
+    .cta-section p { color: #64748b; margin-bottom: 24px; }
+    .cta-btn { display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, #6366f1, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; transition: opacity 0.2s; }
     .cta-btn:hover { opacity: 0.85; }
-    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
-    footer a { color: #7c6bff; text-decoration: none; }
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #e2e8f0; }
+    footer a { color: #6366f1; text-decoration: none; }
     @media (max-width: 700px) {
       header { padding: 16px 16px; flex-direction: column; gap: 12px; }
       nav a { margin-left: 12px; font-size: 0.8rem; }
@@ -79,9 +79,36 @@
     .dot.red { background: #ff5f57; }
     .dot.yellow { background: #febc2e; }
     .dot.green { background: #28c840; }
-    .browser-url { background: #12121e; border-radius: 6px; padding: 4px 16px; font-size: 0.8rem; color: #8888aa; flex: 1; margin-left: 8px; }
+    .browser-url { background: #ffffff; border-radius: 6px; padding: 4px 16px; font-size: 0.8rem; color: #64748b; flex: 1; margin-left: 8px; }
     .browser-content { padding: 24px; }
-  </style>
+  
+    /* === Light Theme === */
+    :root { --accent: #37474f; }
+    body { background: #f8faff !important; color: #1a202c !important; }
+    .hero, .service-hero { background: linear-gradient(135deg, #fafafa, #eceff1) !important; color: #1a202c !important; }
+    .hero h1, .service-hero h1 { color: #1a202c !important; }
+    .hero p, .service-hero p { color: #2d3748 !important; }
+    .price-card { background: #fff !important; border: 1px solid #e2e8f0 !important; box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important; }
+    .price-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important; transform: translateY(-4px); }
+    .price-card.featured { border: 2px solid #37474f !important; }
+    .faq-item { background: #fff !important; border: 1px solid #e2e8f0 !important; }
+    section h2 { color: #1a202c !important; border-left-color: #37474f !important; }
+    .plan-price { color: #37474f !important; }
+    .btn, .cta-btn, button[type=submit], .apply-btn { background: #37474f !important; border-color: #37474f !important; color: #fff !important; }
+    nav, header { background: rgba(255,255,255,0.95) !important; backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0 !important; }
+    nav a, header a { color: #1a202c !important; }
+    .logo, .nav-logo { color: #37474f !important; }
+    footer { background: linear-gradient(135deg, #1e1b4b, #312e81) !important; color: #e0e7ff !important; }
+    footer a { color: #c7d2fe !important; }
+
+    /* Tooltip styles */
+    .tooltip { position: relative; border-bottom: 1px dotted #6366f1; cursor: help; }
+    .tooltip::after { content: attr(data-tip); position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background: #1a202c; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 0.78rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 100; }
+    .tooltip:hover::after { opacity: 1; }
+    @media(max-width:600px){ .tooltip::after { white-space: normal; width: 200px; left: 0; transform: none; } }
+
+
+    </style>
 </head>
 <body>
 
@@ -190,16 +217,16 @@
 <li>ページ構成設計</li>
 <li>操作マニュアル</li>
 <li>納品：最短12時間</li></ul>
-<a href="demo/notion-basic.html" target="_blank" style="display:block;margin-top:16px;background:#7c6bff22;border:1px solid #7c6bff;color:#7c6bff;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+<a href="demo/notion-basic.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
 
-<div class="demo-thumb" onclick="window.open('demo/notion-basic.html','_blank')" style="cursor:pointer;margin-top:12px;background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;overflow:hidden;">
+<div class="demo-thumb" onclick="window.open('demo/notion-basic.html','_blank')" style="cursor:pointer;margin-top:12px;background:#f8faff;border:1px solid #2a2a3e;border-radius:8px;overflow:hidden;">
   <div style="background:#0d0d1a;padding:6px 10px;display:flex;gap:5px;align-items:center;">
     <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
     <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
     <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:inline-block;"></span>
-    <span style="font-size:0.7rem;color:#8888aa;margin-left:4px;">デモを見る</span>
+    <span style="font-size:0.7rem;color:#64748b;margin-left:4px;">デモを見る</span>
   </div>
-  <div style="padding:12px;font-size:0.75rem;color:#8888aa;text-align:center;">
+  <div style="padding:12px;font-size:0.75rem;color:#64748b;text-align:center;">
     👆 クリックしてデモを確認
   </div>
 </div>
@@ -213,16 +240,16 @@
 <li>チームプロジェクト管理</li>
 <li>ビュー最適化</li>
 <li>1ヶ月サポート</li></ul>
-<a href="demo/notion-standard.html" target="_blank" style="display:block;margin-top:16px;background:#7c6bff22;border:1px solid #7c6bff;color:#7c6bff;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+<a href="demo/notion-standard.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
 
-<div class="demo-thumb" onclick="window.open('demo/notion-standard.html','_blank')" style="cursor:pointer;margin-top:12px;background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;overflow:hidden;">
+<div class="demo-thumb" onclick="window.open('demo/notion-standard.html','_blank')" style="cursor:pointer;margin-top:12px;background:#f8faff;border:1px solid #2a2a3e;border-radius:8px;overflow:hidden;">
   <div style="background:#0d0d1a;padding:6px 10px;display:flex;gap:5px;align-items:center;">
     <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
     <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
     <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:inline-block;"></span>
-    <span style="font-size:0.7rem;color:#8888aa;margin-left:4px;">デモを見る</span>
+    <span style="font-size:0.7rem;color:#64748b;margin-left:4px;">デモを見る</span>
   </div>
-  <div style="padding:12px;font-size:0.75rem;color:#8888aa;text-align:center;">
+  <div style="padding:12px;font-size:0.75rem;color:#64748b;text-align:center;">
     👆 クリックしてデモを確認
   </div>
 </div>
@@ -236,16 +263,16 @@
 <li>高度な自動化</li>
 <li>AI機能活用</li>
 <li>3ヶ月サポート</li></ul>
-<a href="demo/notion-premium.html" target="_blank" style="display:block;margin-top:16px;background:#7c6bff22;border:1px solid #7c6bff;color:#7c6bff;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+<a href="demo/notion-premium.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
 
-<div class="demo-thumb" onclick="window.open('demo/notion-premium.html','_blank')" style="cursor:pointer;margin-top:12px;background:#0a0e1a;border:1px solid #2a2a3e;border-radius:8px;overflow:hidden;">
+<div class="demo-thumb" onclick="window.open('demo/notion-premium.html','_blank')" style="cursor:pointer;margin-top:12px;background:#f8faff;border:1px solid #2a2a3e;border-radius:8px;overflow:hidden;">
   <div style="background:#0d0d1a;padding:6px 10px;display:flex;gap:5px;align-items:center;">
     <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
     <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
     <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:inline-block;"></span>
-    <span style="font-size:0.7rem;color:#8888aa;margin-left:4px;">デモを見る</span>
+    <span style="font-size:0.7rem;color:#64748b;margin-left:4px;">デモを見る</span>
   </div>
-  <div style="padding:12px;font-size:0.75rem;color:#8888aa;text-align:center;">
+  <div style="padding:12px;font-size:0.75rem;color:#64748b;text-align:center;">
     👆 クリックしてデモを確認
   </div>
 </div>
@@ -277,13 +304,13 @@
     </div>
   </section>
 
-  <section class="refund-section" style="background:#12121e;border:1px solid #2a2a3e;border-radius:20px;padding:32px;margin:60px 0;">
+  <section class="refund-section" style="background:#ffffff;border:1px solid #2a2a3e;border-radius:20px;padding:32px;margin:60px 0;">
   <h2>💳 返金ポリシー</h2>
   <ul style="list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:12px;">
-    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#28c840;font-size:1.1rem;">✅</span><div><strong>着手前キャンセル：全額返金</strong><br><span style="color:#8888aa;font-size:0.88rem;">作業開始前のキャンセルは100%返金いたします。</span></div></li>
-    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#febc2e;font-size:1.1rem;">⚠️</span><div><strong>着手後〜納品前キャンセル：進捗に応じて返金</strong><br><span style="color:#8888aa;font-size:0.88rem;">作業進捗50%未満は50%返金、50%以上は返金なし。</span></div></li>
-    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#7c6bff;font-size:1.1rem;">🛡️</span><div><strong>納品後7日以内の重大不具合：無料修正または全額返金</strong><br><span style="color:#8888aa;font-size:0.88rem;">仕様と著しく異なる場合は無料修正または全額返金対応します。</span></div></li>
-    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#00d4ff;font-size:1.1rem;">💳</span><div><strong>返金方法：Stripe経由のカード返金のみ</strong><br><span style="color:#8888aa;font-size:0.88rem;">決済いただいたカードへ3〜5営業日以内に返金します。返金申請：<a href="mailto:info@aiworkstage.com" style="color:#7c6bff;">info@aiworkstage.com</a></span></div></li>
+    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#28c840;font-size:1.1rem;">✅</span><div><strong>着手前キャンセル：全額返金</strong><br><span style="color:#64748b;font-size:0.88rem;">作業開始前のキャンセルは100%返金いたします。</span></div></li>
+    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#febc2e;font-size:1.1rem;">⚠️</span><div><strong>着手後〜納品前キャンセル：進捗に応じて返金</strong><br><span style="color:#64748b;font-size:0.88rem;">作業進捗50%未満は50%返金、50%以上は返金なし。</span></div></li>
+    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#6366f1;font-size:1.1rem;">🛡️</span><div><strong>納品後7日以内の重大不具合：無料修正または全額返金</strong><br><span style="color:#64748b;font-size:0.88rem;">仕様と著しく異なる場合は無料修正または全額返金対応します。</span></div></li>
+    <li style="display:flex;gap:12px;align-items:flex-start;"><span style="color:#00d4ff;font-size:1.1rem;">💳</span><div><strong>返金方法：Stripe経由のカード返金のみ</strong><br><span style="color:#64748b;font-size:0.88rem;">決済いただいたカードへ3〜5営業日以内に返金します。返金申請：<a href="mailto:info@aiworkstage.com" style="color:#6366f1;">info@aiworkstage.com</a></span></div></li>
   </ul>
 </section>
 
