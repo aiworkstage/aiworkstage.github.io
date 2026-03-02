@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNSリンクページ作成 | AI Work Stage</title>
+  <meta name="description" content="Instagram・X・YouTube・TikTokなどをまとめたリンクページをオリジナルデザインで制作。¥2,500〜、最短6時間で納品。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0a0e1a; color: #e0e0ff; line-height: 1.7; }
+    header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e1e2e; background: #0a0e1a; }
+    .logo { font-size: 1.4rem; font-weight: 700; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    nav a { color: #8888aa; text-decoration: none; margin-left: 24px; font-size: 0.9rem; transition: color 0.2s; }
+    nav a:hover { color: #e0e0ff; }
+    .container { max-width: 960px; margin: 0 auto; padding: 60px 24px; }
+    h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #7c6bff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 24px; color: #e0e0ff; }
+    h3 { font-size: 1.1rem; font-weight: 700; color: #e0e0ff; }
+    section { margin-bottom: 64px; }
+    .icon-large { font-size: 4rem; margin-bottom: 16px; display: block; }
+    .desc { color: #c0c0d8; font-size: 1rem; max-width: 700px; line-height: 1.8; }
+    /* Visual diagram */
+    .diagram { background: #12121e; border: 1px solid #2a2a3e; border-radius: 20px; padding: 36px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .diagram-item { background: #1a1a2e; border: 1px solid #3a3a5e; border-radius: 14px; padding: 20px 24px; text-align: center; min-width: 140px; }
+    .diagram-item .di-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+    .diagram-item .di-label { font-size: 0.85rem; color: #c0c0d8; }
+    .diagram-arrow { display: flex; align-items: center; font-size: 1.5rem; color: #7c6bff; }
+    /* Flow */
+    .flow-list { display: flex; flex-direction: column; gap: 0; }
+    .flow-step { display: flex; align-items: flex-start; gap: 20px; }
+    .flow-step-line { display: flex; flex-direction: column; align-items: center; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #7c6bff, #00d4ff); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; color: #fff; flex-shrink: 0; }
+    .step-connector { width: 2px; height: 32px; background: linear-gradient(to bottom, #7c6bff, transparent); margin: 0 auto; }
+    .flow-step-body { background: #12121e; border: 1px solid #2a2a3e; border-radius: 14px; padding: 20px 24px; flex: 1; margin-bottom: 8px; }
+    .flow-step-body h3 { margin-bottom: 6px; }
+    .flow-step-body p { color: #8888aa; font-size: 0.9rem; }
+    /* Pricing */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .price-card { background: #12121e; border: 1px solid #2a2a3e; border-radius: 20px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+    .price-card:hover { border-color: #7c6bff; transform: translateY(-4px); }
+    .price-card.featured { border-color: #7c6bff; background: linear-gradient(135deg, rgba(124,107,255,0.08), #12121e); }
+    .price-card .plan-name { font-size: 1rem; font-weight: 700; color: #8888aa; margin-bottom: 12px; }
+    .price-card .plan-price { font-size: 2rem; font-weight: 800; color: #7c6bff; margin-bottom: 16px; }
+    .price-card .plan-price span { font-size: 1rem; color: #8888aa; }
+    .price-card ul { list-style: none; text-align: left; font-size: 0.88rem; color: #c0c0d8; line-height: 2; }
+    .price-card ul li::before { content: "✓ "; color: #7c6bff; font-weight: 700; }
+    .badge { display: inline-block; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; font-weight: 700; margin-bottom: 12px; }
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 16px; }
+    .faq-item { background: #12121e; border: 1px solid #2a2a3e; border-radius: 14px; padding: 24px; }
+    .faq-item .q { color: #7c6bff; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem; }
+    .faq-item .a { color: #c0c0d8; font-size: 0.9rem; line-height: 1.7; }
+    /* Policy/Notes */
+    .policy-box { background: #12121e; border: 1px solid #2a2a3e; border-radius: 14px; padding: 28px 32px; }
+    .policy-box ul { list-style: none; color: #c0c0d8; font-size: 0.9rem; line-height: 2; }
+    .policy-box ul li::before { content: "・"; color: #7c6bff; }
+    .notes-box { background: #1a1220; border: 1px solid #3a2a5e; border-radius: 14px; padding: 28px 32px; }
+    .notes-box ul { list-style: none; color: #c0c0d8; font-size: 0.9rem; line-height: 2; }
+    .notes-box ul li::before { content: "⚠ "; color: #ffaa44; }
+    /* CTA */
+    .cta-section { text-align: center; padding: 60px 24px; background: radial-gradient(ellipse at 50% 0%, rgba(124,107,255,0.15) 0%, transparent 60%); border-radius: 20px; }
+    .cta-section p { color: #8888aa; margin-bottom: 24px; }
+    .cta-btn { display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, #7c6bff, #00d4ff); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+    footer { text-align: center; padding: 30px; color: #444466; font-size: 0.8rem; border-top: 1px solid #1e1e2e; }
+    footer a { color: #7c6bff; text-decoration: none; }
+    @media (max-width: 700px) {
+      header { padding: 16px 16px; flex-direction: column; gap: 12px; }
+      nav a { margin-left: 12px; font-size: 0.8rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.8rem; }
+      .diagram { flex-direction: column; }
+      .diagram-arrow { transform: rotate(90deg); }
+    }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">⚡ AI Work Stage</a>
+  <nav>
+    <a href="index.html">ホーム</a>
+    <a href="index.html#services">サービス</a>
+    <a href="about.html">チームについて</a>
+    <a href="blog.html">ブログ</a>
+    <a href="uranai.html">AI占い</a>
+    <a href="index.html#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <section>
+    <span class="icon-large">🔗</span>
+    <h1>SNSリンクページ作成</h1>
+    <p class="desc">Instagram・X・YouTube・TikTokなどをまとめたリンクページをオリジナルデザインで制作。¥2,500〜、最短6時間で納品。</p>
+  </section>
+
+  <section>
+    <h2>🎯 このサービスでできること</h2>
+    <div class="diagram">
+      <div class="diagram-item"><span class="di-icon">📱</span><div class="di-label">SNSアカウント情報</div></div>
+<div class="diagram-arrow">→</div>
+<div class="diagram-item"><span class="di-icon">🎨</span><div class="di-label">デザイン設計</div></div>
+<div class="diagram-arrow">→</div>
+<div class="diagram-item"><span class="di-icon">💻</span><div class="di-label">ページ制作</div></div>
+<div class="diagram-arrow">→</div>
+<div class="diagram-item"><span class="di-icon">🔗</span><div class="di-label">リンク設定</div></div>
+<div class="diagram-arrow">→</div>
+<div class="diagram-item"><span class="di-icon">🚀</span><div class="di-label">公開</div></div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>🔄 サービスの流れ</h2>
+    <div class="flow-list">
+      <div class="flow-step">
+          <div class="flow-step-line">
+            <div class="step-num">1</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-body">
+            <h3>SNS情報のご提供</h3>
+            <p>掲載するSNSのURL・アカウント名・プロフィール画像などをお知らせください。</p>
+          </div>
+        </div>
+<div class="flow-step">
+          <div class="flow-step-line">
+            <div class="step-num">2</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-body">
+            <h3>デザイン方向性の確認</h3>
+            <p>カラー・フォント・雰囲気などご希望をお聞きします。参考サイトがあればご共有ください。</p>
+          </div>
+        </div>
+<div class="flow-step">
+          <div class="flow-step-line">
+            <div class="step-num">3</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-body">
+            <h3>ご確認・お支払い</h3>
+            <p>内容にご同意いただければ着手いたします。</p>
+          </div>
+        </div>
+<div class="flow-step">
+          <div class="flow-step-line">
+            <div class="step-num">4</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-body">
+            <h3>制作</h3>
+            <p>AIがオリジナルデザインのリンクページを制作。最短6時間で初稿をご提示します。</p>
+          </div>
+        </div>
+<div class="flow-step">
+          <div class="flow-step-line">
+            <div class="step-num">5</div>
+            
+          </div>
+          <div class="flow-step-body">
+            <h3>修正・公開サポート</h3>
+            <p>デザインを確認後、公開設定のサポートを行います。</p>
+          </div>
+        </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>💰 料金プラン</h2>
+    <div class="pricing-grid">
+      <div class="price-card ">
+          
+          <div class="plan-name">ベーシック</div>
+          <div class="plan-price">¥2,500〜<span>/件</span></div>
+          <ul><li>SNSリンク最大5件</li>
+<li>プロフィール表示</li>
+<li>スマホ対応</li>
+<li>シンプルデザイン</li>
+<li>納品：最短6時間</li></ul>
+        </div>
+<div class="price-card featured">
+          <div class="badge">人気</div><br>
+          <div class="plan-name">スタンダード</div>
+          <div class="plan-price">¥5,000〜<span>/件</span></div>
+          <ul><li>SNSリンク無制限</li>
+<li>アニメーション</li>
+<li>カスタムデザイン</li>
+<li>独自ドメイン対応</li>
+<li>アクセス解析</li></ul>
+        </div>
+<div class="price-card ">
+          
+          <div class="plan-name">プレミアム</div>
+          <div class="plan-price">¥10,000〜<span>/件</span></div>
+          <ul><li>完全カスタムデザイン</li>
+<li>ショップ機能追加</li>
+<li>メルマガ登録フォーム</li>
+<li>多言語対応</li>
+<li>保守1ヶ月</li></ul>
+        </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>❓ よくある質問</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+          <div class="q">Q. LinkTreeのような感じですか？</div>
+          <div class="a">A. はい、LinktreeやBioLink風のページですが、完全オリジナルデザインで制作します。</div>
+        </div>
+<div class="faq-item">
+          <div class="q">Q. 既存のリンクページをリニューアルしてもらえますか？</div>
+          <div class="a">A. はい。現在のリンクページの改善も承ります。</div>
+        </div>
+<div class="faq-item">
+          <div class="q">Q. ドメインはどこに設置しますか？</div>
+          <div class="a">A. GitHub Pagesを使った無料設置から、独自ドメインへの設置まで対応しています。</div>
+        </div>
+<div class="faq-item">
+          <div class="q">Q. SNSが増えたときに追加できますか？</div>
+          <div class="a">A. はい。追加・変更は¥1,000〜で承ります。</div>
+        </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>🛡️ 返金保証について</h2>
+    <div class="policy-box">
+      <ul>
+      <li>着手前のキャンセルは全額返金</li>
+      <li>着手後〜納品前のキャンセルは作業進捗に応じた返金（50〜100%）</li>
+      <li>納品後7日以内に重大な不具合があった場合は無料修正または全額返金</li>
+      <li>返金方法：銀行振込またはStripe返金（3〜5営業日以内）</li>
+      <li>返金申請先：info@aiworkstage.com</li>
+    </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>⚠️ 注意事項</h2>
+    <div class="notes-box">
+      <ul>
+        <li>最終成果物の著作権はお客様に帰属します</li>
+      <li>納品後の軽微な修正は1回まで無料で対応します</li>
+      <li>制作に必要な素材・情報はお客様にご提供いただきます</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cta-section">
+    <h2>まずは無料見積もりから</h2>
+    <p>お気軽にご相談ください。24時間以内に返信いたします。</p>
+    <a href="index.html#contact" class="cta-btn">無料見積もりを依頼する →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 AI Work Stage | <a href="terms.html">利用規約</a> | <a href="security.html">プライバシーポリシー</a></p>
+  <p>お問い合わせ: info@aiworkstage.com</p>
+</footer>
+
+</body>
+</html>
