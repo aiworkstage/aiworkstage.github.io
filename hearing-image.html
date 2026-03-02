@@ -51,7 +51,35 @@
     <input type="hidden" name="_next" value="https://aiworkstage.com/thanks.html">
     <input type="hidden" name="_autoresponse" value="お問い合わせいただきありがとうございます。&#10;&#10;AI Work Stage担当者がご確認の上、最短数時間以内にご返信いたします。&#10;しばらくお待ちくださいませ。&#10;&#10;━━━━━━━━━━━━━━━━&#10;AI Work Stage&#10;https://aiworkstage.com&#10;お問い合わせ: info@aiworkstage.com&#10;━━━━━━━━━━━━━━━━&#10;※本メールは自動送信です。">
     <input type="hidden" name="_subject" value="【AI Work Stage】お問い合わせを受け付けました">
-    <input type="hidden" name="service" value="画像・ロゴ・アイコン生成">
+    <div class="form-group" style="margin-bottom:16px;">
+      <label style="display:block;font-weight:700;margin-bottom:6px;color:#1a202c;">お問い合わせのサービス<span style="color:#ef4444;"> *</span></label>
+      <select name="service" required style="width:100%;padding:14px 18px;border:1px solid #e2e8f0;border-radius:10px;font-size:0.95rem;color:#1a202c;background:#fff;">
+        <option value="ホームページ制作">ホームページ制作</option>
+        <option value="LP制作">LP制作</option>
+        <option value="AIエージェント構築">AIエージェント構築</option>
+        <option value="AI機能追加">AI機能追加</option>
+        <option value="ブログ記事作成">ブログ記事作成</option>
+        <option value="チャットボット構築">チャットボット構築</option>
+        <option value="Excel・スプレッドシート自動化">Excel・スプレッドシート自動化</option>
+        <option value="画像・デザイン制作" selected>画像・デザイン制作</option>
+        <option value="LINE公式アカウント構築">LINE公式アカウント構築</option>
+        <option value="議事録・文章自動化">議事録・文章自動化</option>
+        <option value="Notion構築">Notion構築</option>
+        <option value="SNSリンクページ制作">SNSリンクページ制作</option>
+        <option value="HP診断・修正">HP診断・修正</option>
+        <option value="AIによる無料相談">AIによる無料相談</option>
+        <option value="その他・相談">その他・相談</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin-bottom:16px;">
+      <label style="display:block;font-weight:700;margin-bottom:6px;color:#1a202c;">ご希望のプラン</label>
+      <select name="plan" style="width:100%;padding:14px 18px;border:1px solid #e2e8f0;border-radius:10px;font-size:0.95rem;color:#1a202c;background:#fff;">
+        <option value="">-- 未定・相談したい --</option>
+        <option value="ベーシック">ベーシック（最安値・シンプル）</option>
+        <option value="スタンダード">スタンダード（人気・バランス型）</option>
+        <option value="プレミアム">プレミアム（フル機能・最上位）</option>
+      </select>
+    </div>
     <div><label>お名前 <span style="color:#ff6b6b">*</span></label><input type="text" name="name" placeholder="お名前" required></div>
     <div><label>メールアドレス <span style="color:#ff6b6b">*</span></label><input type="email" name="email" placeholder="メールアドレス" required></div>
     <div><label>作成したい画像の種類（例：ロゴ / バナー / アイコン / 背景画像） <span style="color:#ff6b6b">*</span></label><input type="text" name="image_type" placeholder="作成したい画像の種類（例：ロゴ / バナー / アイコン / 背景画像）" required></div>
