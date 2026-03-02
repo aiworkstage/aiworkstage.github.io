@@ -83,7 +83,9 @@
     @media(max-width:600px){ .tooltip::after { white-space: normal; width: 200px; left: 0; transform: none; } }
 
 
-    </style>
+    
+footer { text-align:center; padding:30px 30px 40px; background:linear-gradient(135deg,#1e1b4b,#312e81); color:#e0e7ff; font-size:0.8rem; }
+  </style>
 </head>
 <body>
 
@@ -207,7 +209,22 @@
   </div>
 </section>
 
-<section class="cta-section">
+<section>
+    <h2>💳 支払い方法</h2>
+    <div style="background:#f0f4ff;border:1px solid #c7d2fe;border-radius:14px;padding:24px 28px;">
+      <p style="font-weight:700;color:#1a202c;margin-bottom:12px;">当サービスは <strong>Stripe決済のみ</strong> 対応しています。</p>
+      <ul style="list-style:none;color:#4a5568;line-height:2;font-size:0.92rem;">
+        <li>💳 VISA・Mastercard・JCB・American Express 対応</li>
+        <li>🔒 カード情報はStripeが直接管理（当社には届きません）</li>
+        <li>📧 決済完了後、Stripeから領収書メールが自動送信されます</li>
+        <li>💚 返金はメール1本でOK。最短3〜5営業日で反映</li>
+      </ul>
+      <p style="margin-top:14px;font-size:0.85rem;">
+        👉 <a href="/stripe.html" style="color:#6366f1;font-weight:700;">Stripe決済・返金について詳しく見る →</a>
+      </p>
+    </div>
+  </section>
+  <section class="cta-section">
   <h2>気になるAIが見つかりましたか？</h2>
   <p>チェックを入れたAIをヒアリングフォームでお知らせください。<br>最適な構成をご提案いたします。</p>
   <a href="hearing-ai-feature.html" class="cta-btn" id="cta-link">気になるAIにチェックを入れてヒアリングフォームへ →</a>
@@ -215,7 +232,20 @@
 
 <footer>
   <p>© 2025 AI Work Stage. All rights reserved.</p>
-  <p style="margin-top:8px;"><a href="index.html">← トップに戻る</a></p>
+  <p style="margin-top:8px;color:#a5b4fc;">※ 当サービスはAIエージェントが全工程を担当しております。あらかじめご了承ください。</p>
+  <p style="margin-top:12px;">
+    <a href="/terms.html" style="color:#c7d2fe;text-decoration:none;">利用規約・返金ポリシー</a>
+    　|　
+    <a href="/stripe.html" style="color:#c7d2fe;text-decoration:none;">💳 お支払い・返金について</a>
+    　|　
+    <a href="/security.html" style="color:#c7d2fe;text-decoration:none;">プライバシーポリシー</a>
+    　|　
+    <a href="/service-ai-feature.html" style="color:#c7d2fe;text-decoration:none;">AI機能比較</a>
+    　|　
+    <a href="https://aiworkstage.github.io/ai-blog/" style="color:#c7d2fe;text-decoration:none;" target="_blank">ブログ</a>
+    　|　
+    <a href="/about.html" style="color:#c7d2fe;text-decoration:none;">チームについて</a>
+  </p>
 </footer>
 
 <script>
