@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIチャット プレミアムデモ | 株式会社サクラビジネス</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:system-ui,sans-serif;background:#0a0e1a;color:#e0e0ff;}
+.demo-banner{background:#7c6bff;color:#fff;padding:8px;text-align:center;font-size:0.85rem;}
+.demo-banner a{color:#fff;}
+.dashboard{display:grid;grid-template-columns:240px 1fr 300px;height:calc(100vh - 36px);}
+.sidebar{background:#12121e;border-right:1px solid #2a2a3e;padding:20px;}
+.sidebar h3{font-size:0.8rem;color:#8888aa;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.nav-item{padding:10px 14px;border-radius:8px;cursor:pointer;font-size:0.88rem;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.nav-item.active{background:#7c6bff22;color:#7c6bff;}
+.nav-item:hover{background:#1e1e2e;}
+.main{display:flex;flex-direction:column;}
+.chat-header{background:#12121e;border-bottom:1px solid #2a2a3e;padding:16px 24px;display:flex;align-items:center;gap:12px;}
+.lang-selector{background:#1e1e2e;border:1px solid #2a2a3e;border-radius:8px;padding:6px 12px;color:#e0e0ff;font-size:0.82rem;}
+.chat-area{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px;}
+.msg{display:flex;gap:12px;max-width:70%;}
+.msg.user{align-self:flex-end;flex-direction:row-reverse;}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;}
+.bot-avatar{background:#7c6bff;}
+.user-avatar{background:#00d4ff;color:#000;}
+.bubble{background:#1e1e2e;border-radius:12px;padding:12px 16px;font-size:0.88rem;line-height:1.6;}
+.msg.user .bubble{background:#7c6bff22;border:1px solid #7c6bff44;}
+.sentiment{font-size:0.75rem;margin-top:6px;color:#8888aa;}
+.escalate-btn{background:#ff6b35;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:0.8rem;margin-top:8px;}
+.input-area{border-top:1px solid #2a2a3e;padding:16px 24px;display:flex;gap:12px;}
+.input-area input{flex:1;background:#12121e;border:1px solid #2a2a3e;border-radius:10px;padding:12px 16px;color:#e0e0ff;font-size:0.9rem;}
+.send-btn{background:#7c6bff;color:#fff;border:none;border-radius:10px;padding:12px 20px;cursor:pointer;}
+.analytics{background:#12121e;border-left:1px solid #2a2a3e;padding:20px;overflow-y:auto;}
+.stat-card{background:#1e1e2e;border-radius:10px;padding:14px;margin-bottom:12px;}
+.stat-card .label{font-size:0.75rem;color:#8888aa;margin-bottom:4px;}
+.stat-card .value{font-size:1.4rem;font-weight:800;color:#7c6bff;}
+.bar{height:6px;background:#2a2a3e;border-radius:3px;margin-top:8px;}
+.bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#7c6bff,#00d4ff);}
+</style></head>
+<body>
+<div class="demo-banner">🎨 これはデモサイトです（プレミアム） | <a href="../service-chatbot.html">← サービス詳細に戻る</a></div>
+<div class="dashboard">
+  <div class="sidebar">
+    <div style="font-weight:800;margin-bottom:24px;">🤖 AI Chat Pro</div>
+    <h3>メニュー</h3>
+    <div class="nav-item active">💬 チャット</div>
+    <div class="nav-item">📊 分析</div>
+    <div class="nav-item">🌐 多言語設定</div>
+    <div class="nav-item">🔔 エスカレーション</div>
+    <div class="nav-item">⚙️ 設定</div>
+    <div style="margin-top:24px;padding:12px;background:#28c84022;border-radius:8px;border:1px solid #28c840;">
+      <div style="color:#28c840;font-size:0.8rem;font-weight:700;">● オンライン</div>
+      <div style="color:#8888aa;font-size:0.75rem;margin-top:4px;">現在の対応言語: 日本語・英語・中国語</div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="chat-header">
+      <div style="flex:1;"><div style="font-weight:700;">サクラビジネス AIサポート</div><div style="font-size:0.8rem;color:#28c840;">● 応答中</div></div>
+      <select class="lang-selector"><option>🇯🇵 日本語</option><option>🇺🇸 English</option><option>🇨🇳 中文</option></select>
+    </div>
+    <div class="chat-area">
+      <div class="msg">
+        <div class="avatar bot-avatar">🤖</div>
+        <div>
+          <div class="bubble">こんにちは！株式会社サクラビジネスのAIサポートです。どのようなご用件でしょうか？</div>
+          <div class="sentiment">😊 感情スコア: ニュートラル</div>
+        </div>
+      </div>
+      <div class="msg user">
+        <div class="avatar user-avatar">👤</div>
+        <div><div class="bubble">料金について聞きたいのですが...</div></div>
+      </div>
+      <div class="msg">
+        <div class="avatar bot-avatar">🤖</div>
+        <div>
+          <div class="bubble">ご質問ありがとうございます！料金はベーシック¥7,500〜、スタンダード¥15,000〜、プレミアム¥25,000〜となっております。詳しくはこちらをご覧ください。</div>
+          <div class="sentiment">😊 感情スコア: ポジティブ</div>
+          <button class="escalate-btn">👨‍💼 有人対応に切り替え</button>
+        </div>
+      </div>
+    </div>
+    <div class="input-area">
+      <input type="text" placeholder="メッセージを入力（日本語・英語・中国語対応）...">
+      <button class="send-btn">送信</button>
+    </div>
+  </div>
+  <div class="analytics">
+    <div style="font-weight:700;margin-bottom:16px;">📊 リアルタイム分析</div>
+    <div class="stat-card"><div class="label">本日の対応件数</div><div class="value">142</div><div class="bar"><div class="bar-fill" style="width:72%;"></div></div></div>
+    <div class="stat-card"><div class="label">自動解決率</div><div class="value">87%</div><div class="bar"><div class="bar-fill" style="width:87%;"></div></div></div>
+    <div class="stat-card"><div class="label">平均応答時間</div><div class="value">0.3秒</div></div>
+    <div class="stat-card"><div class="label">顧客満足度</div><div class="value">4.8 ⭐</div><div class="bar"><div class="bar-fill" style="width:96%;"></div></div></div>
+    <div style="font-size:0.78rem;color:#8888aa;margin-top:8px;">言語別対応</div>
+    <div style="font-size:0.82rem;margin-top:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>🇯🇵 日本語</span><span>68%</span></div><div class="bar"><div class="bar-fill" style="width:68%;"></div></div></div>
+    <div style="font-size:0.82rem;margin-top:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>🇺🇸 英語</span><span>24%</span></div><div class="bar"><div class="bar-fill" style="width:24%;"></div></div></div>
+    <div style="font-size:0.82rem;margin-top:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>🇨🇳 中国語</span><span>8%</span></div><div class="bar"><div class="bar-fill" style="width:8%;"></div></div></div>
+  </div>
+</div>
+</body></html>
