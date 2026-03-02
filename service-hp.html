@@ -21,7 +21,7 @@
     .desc { color: #4a5568; font-size: 1rem; max-width: 700px; line-height: 1.8; }
     /* Visual diagram */
     .diagram { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 36px; display: flex; flex-wrap: nowrap; gap: 8px; justify-content: center; align-items: center; overflow-x: auto; }
-    .diagram-item { background: linear-gradient(135deg, #6366f1, #818cf8); border: none; border-radius: 14px; padding: 20px 12px; text-align: center; min-width: 90px; max-width: 110px; flex-shrink: 0; }
+    .diagram-item { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); min-width: 90px; max-width: 110px; flex-shrink: 0; }
     .diagram-item .di-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
     .diagram-item .di-label { font-size: 0.85rem; color: #4a5568; }
     .diagram-arrow { display: flex; align-items: center; font-size: 1.5rem; color: #6366f1; }
@@ -218,32 +218,65 @@
 <li>お問い合わせフォーム</li>
 <li>納品：最短24時間</li></ul>
 <a href="demo/hp-basic.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+<div class="demo-thumb" onclick="window.open('demo/hp-basic.html','_blank')" style="cursor:pointer;margin-top:12px;background:#f8faff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+  <div style="background:#1e1b4b;padding:6px 10px;display:flex;gap:5px;align-items:center;">
+    <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+    <span style="font-size:0.7rem;color:#94a3b8;margin-left:4px;">デモを見る</span>
+  </div>
+  <div style="padding:12px;font-size:0.75rem;color:#64748b;text-align:center;">
+    👆 クリックしてデモを確認
+  </div>
+</div>
 
         </div>
 <div class="price-card featured">
           <div class="badge">人気</div><br>
           <div class="plan-name">スタンダード</div>
           <div class="plan-price">¥15,000〜<span>/サイト</span></div>
-          <ul><li>3〜5ページ構成</li>
+          <ul><li style="color:#6366f1;font-weight:700;">✨ ベーシックに加えて：</li><li>3〜5ページ構成</li>
 <li>スマホ対応</li>
 <li><span class="tooltip" data-tip="Search Engine Optimization：Googleなどで検索上位に表示されるよう最適化すること">SEO</span>最適化</li>
 <li><span class="tooltip" data-tip="Googleの無料アクセス解析ツール。訪問者数・行動を把握できる">Google Analytics</span>設置</li>
 <li>ブログ機能</li>
 <li>納品：最短3日</li></ul>
 <a href="demo/hp-standard.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+<div class="demo-thumb" onclick="window.open('demo/hp-standard.html','_blank')" style="cursor:pointer;margin-top:12px;background:#f8faff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+  <div style="background:#1e1b4b;padding:6px 10px;display:flex;gap:5px;align-items:center;">
+    <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+    <span style="font-size:0.7rem;color:#94a3b8;margin-left:4px;">デモを見る</span>
+  </div>
+  <div style="padding:12px;font-size:0.75rem;color:#64748b;text-align:center;">
+    👆 クリックしてデモを確認
+  </div>
+</div>
 
         </div>
 <div class="price-card ">
           
           <div class="plan-name">プレミアム</div>
           <div class="plan-price">¥30,000〜<span>/サイト</span></div>
-          <ul><li>10ページ以上</li>
+          <ul><li style="color:#6366f1;font-weight:700;">💎 スタンダードに加えて：</li><li>10ページ以上</li>
 <li>カスタムデザイン</li>
 <li>高度な<span class="tooltip" data-tip="Googleなどの検索エンジンで上位表示されるための施策"><span class="tooltip" data-tip="Search Engine Optimization：Googleなどで検索上位に表示されるよう最適化すること">SEO</span>対策</span></li>
 <li>予約・決済機能</li>
 <li>AIチャット追加</li>
 <li>保守サポート1ヶ月</li></ul>
 <a href="demo/hp-premium.html" target="_blank" style="display:block;margin-top:16px;background:#6366f122;border:1px solid #6366f1;color:#6366f1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:0.85rem;font-weight:700;">🖥️ デモサイトを見る →</a>
+<div class="demo-thumb" onclick="window.open('demo/hp-premium.html','_blank')" style="cursor:pointer;margin-top:12px;background:#f8faff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+  <div style="background:#1e1b4b;padding:6px 10px;display:flex;gap:5px;align-items:center;">
+    <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+    <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+    <span style="font-size:0.7rem;color:#94a3b8;margin-left:4px;">デモを見る</span>
+  </div>
+  <div style="padding:12px;font-size:0.75rem;color:#64748b;text-align:center;">
+    👆 クリックしてデモを確認
+  </div>
+</div>
 
         </div>
 
