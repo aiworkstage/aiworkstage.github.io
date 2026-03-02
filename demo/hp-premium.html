@@ -712,10 +712,11 @@ footer {
 (function(){
   const container = document.getElementById('particles');
   const colors = ['#ffd700','#f0c040','#c9a84c','#b8860b','#fff8dc'];
+  // 丸い粒（大きめ）
   for(let i=0;i<60;i++){
     const p = document.createElement('div');
     p.className='particle';
-    const size = Math.random()*3+1;
+    const size = Math.random()*8+4;
     const color = colors[Math.floor(Math.random()*colors.length)];
     p.style.cssText=`
       width:${size}px;height:${size}px;
@@ -726,6 +727,24 @@ footer {
       animation-delay:${Math.random()*10}s;
     `;
     container.appendChild(p);
+  }
+  // ダイヤモンド絵文字 60個
+  for(let i=0;i<60;i++){
+    const d = document.createElement('div');
+    const size = Math.random()*16+10;
+    d.style.cssText=`
+      position:absolute;
+      font-size:${size}px;
+      left:${Math.random()*100}%;
+      opacity:0;
+      pointer-events:none;
+      animation:float linear infinite;
+      animation-duration:${Math.random()*18+10}s;
+      animation-delay:${Math.random()*12}s;
+      filter:drop-shadow(0 0 6px #ffd700);
+    `;
+    d.textContent='💎';
+    container.appendChild(d);
   }
 })();
 
