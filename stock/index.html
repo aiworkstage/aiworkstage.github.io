@@ -1,405 +1,480 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>STOCK | AI投資判断</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html,body{height:100%;overscroll-behavior:none}
-    body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;background:#f0f2f7;color:#1a202c;padding-bottom:env(safe-area-inset-bottom)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>STOCK | AI投資判断</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:-apple-system,'SF Pro JP','Hiragino Sans','Helvetica Neue',Arial,sans-serif}
+html,body{height:100%;background:#0a0e1a;color:#e2e8f0;overscroll-behavior:none}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;color:inherit;font-family:inherit}
 
-    /* ── Header ── */
-    .hd{height:52px;background:#fff;border-bottom:1px solid #e8eaf0;display:flex;align-items:center;padding:0 16px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.06)}
-    .logo{font-size:1.45rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:3px}
-    .hd-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-    .live-pill{display:flex;align-items:center;gap:4px;font-size:.7rem;font-weight:700;color:#16a34a}
-    .ldot{width:6px;height:6px;background:#16a34a;border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-    .set-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;padding:6px;border-radius:8px;color:#64748b;line-height:1}
+/* Header */
+.hd{height:50px;background:#0f1424;border-bottom:1px solid #1a2138;display:flex;align-items:center;padding:0 14px;position:sticky;top:0;z-index:100;gap:10px}
+.logo{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:3px;cursor:pointer}
+.live{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:.7rem;color:#10b981;font-weight:700}
+.ldot{width:6px;height:6px;background:#10b981;border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.settings{font-size:1.15rem;padding:5px 8px;border-radius:8px;color:#94a3b8}
+.settings:active{background:#1a2138}
 
-    /* ── Search ── */
-    .search-bar{background:#fff;padding:10px 14px;border-bottom:1px solid #e8eaf0;position:relative}
-    .si-wrap{position:relative}
-    .si{width:100%;padding:9px 14px 9px 38px;border-radius:22px;border:1.5px solid #e2e8f0;font-size:.88rem;background:#f8faff;outline:none;transition:border-color .2s}
-    .si:focus{border-color:#6366f1;background:#fff}
-    .si-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:.95rem;pointer-events:none}
-    .sr-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:14px;border:1px solid #e2e8f0;box-shadow:0 8px 28px rgba(0,0,0,.13);z-index:300;max-height:300px;overflow-y:auto;display:none}
-    .sr-item{padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;border-bottom:1px solid #f1f5f9}
-    .sr-item:last-child{border:none}
-    .sr-item:active{background:#f8faff}
-    .sr-sym{font-size:.72rem;font-weight:700;color:#6366f1;background:#eef2ff;padding:2px 8px;border-radius:4px;white-space:nowrap;font-family:monospace}
-    .sr-name{font-size:.86rem;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:55vw}
-    .sr-type{font-size:.72rem;color:#94a3b8;margin-left:auto;white-space:nowrap}
+/* Search */
+.sb{background:#0f1424;padding:8px 12px 12px;border-bottom:1px solid #1a2138;position:sticky;top:50px;z-index:99}
+.sb-wrap{position:relative}
+.si{width:100%;padding:11px 14px 11px 38px;border-radius:12px;border:1.5px solid #1a2138;background:#0a0e1a;color:#e2e8f0;font-size:.9rem;outline:none;transition:border-color .2s}
+.si:focus{border-color:#6366f1}
+.si::placeholder{color:#475569}
+.si-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#475569;font-size:.95rem;pointer-events:none}
+.srd{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#1a2138;border-radius:12px;border:1px solid #334155;box-shadow:0 12px 36px rgba(0,0,0,.5);z-index:200;max-height:60vh;overflow-y:auto;display:none}
+.sri{padding:11px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #243044;cursor:pointer}
+.sri:last-child{border:none}
+.sri:active{background:#243044}
+.sri-s{font-size:.7rem;font-weight:700;color:#06b6d4;background:#082f3d;padding:2px 8px;border-radius:4px;font-family:monospace;white-space:nowrap}
+.sri-n{font-size:.85rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.sri-t{font-size:.7rem;color:#64748b;margin-left:auto;white-space:nowrap}
 
-    /* ── Category scroll tabs ── */
-    .cat-scroll{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;background:#fff;border-bottom:1px solid #e8eaf0;scrollbar-width:none;-ms-overflow-style:none}
-    .cat-scroll::-webkit-scrollbar{display:none}
-    .ctab{flex-shrink:0;padding:6px 15px;border-radius:20px;border:1.5px solid #e2e8f0;background:#fff;font-size:.81rem;font-weight:700;color:#64748b;cursor:pointer;transition:all .15s;white-space:nowrap}
-    .ctab.on{background:#6366f1;border-color:#6366f1;color:#fff}
+/* Swipe panes */
+.swipe{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;height:calc(100vh - 50px - 56px - 60px - env(safe-area-inset-bottom));scrollbar-width:none}
+.swipe::-webkit-scrollbar{display:none}
+.pane{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;overflow-y:auto;overflow-x:hidden;padding:10px 12px 24px;-webkit-overflow-scrolling:touch}
+.pane::-webkit-scrollbar{display:none}
 
-    /* ── Content ── */
-    .content{padding:12px 12px 80px;max-width:840px;margin:0 auto}
+/* Section */
+.sec{margin-top:18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sec:first-child{margin-top:6px}
+.sec-t{font-size:.92rem;font-weight:800;color:#cbd5e1;display:flex;align-items:center;gap:7px}
+.sec-t::before{content:'';width:3px;height:14px;background:linear-gradient(180deg,#6366f1,#06b6d4);border-radius:2px}
+.sec-c{font-size:.7rem;color:#64748b}
 
-    /* ── Section header ── */
-    .sec{margin-top:18px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
-    .sec-t{font-size:.88rem;font-weight:800;color:#334155;display:flex;align-items:center;gap:6px}
-    .sec-t::before{content:'';width:3px;height:13px;background:#6366f1;border-radius:2px;flex-shrink:0}
-    .sec-n{font-size:.75rem;color:#94a3b8;background:#f1f5f9;padding:2px 9px;border-radius:12px}
+/* Card grids */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:480px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:720px){.grid{grid-template-columns:repeat(4,1fr)}}
 
-    /* ── Grid ── */
-    .sg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-    @media(min-width:460px){.sg{grid-template-columns:repeat(3,1fr)}}
-    @media(min-width:640px){.sg{grid-template-columns:repeat(4,1fr)}}
+.row-list{display:flex;flex-direction:column;gap:6px}
+.row{background:#0f1424;border:1px solid #1a2138;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:transform .12s}
+.row:active{transform:scale(.98);background:#161e30}
+.row-rank{font-size:.7rem;font-weight:800;color:#475569;width:22px;text-align:center}
+.row-mid{flex:1;min-width:0}
+.row-name{font-size:.85rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-sub{font-size:.68rem;color:#64748b;margin-top:1px;font-family:monospace}
+.row-right{text-align:right;flex-shrink:0}
+.row-price{font-size:.85rem;font-weight:700}
+.row-chg{font-size:.72rem;font-weight:700;margin-top:2px}
 
-    /* ── Stock card ── */
-    .sc{background:#fff;border:1px solid #e8eaf0;border-radius:13px;padding:13px 11px;text-decoration:none;color:inherit;display:block;transition:transform .14s,box-shadow .14s}
-    .sc:active{transform:scale(.96)}
-    .sc:hover{box-shadow:0 4px 18px rgba(99,102,241,.14);border-color:#c7d2fe}
-    .sc-sym{font-size:.68rem;color:#94a3b8;font-family:monospace;font-weight:700;margin-bottom:5px}
-    .sc-name{font-size:.85rem;font-weight:700;line-height:1.3;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .sc-sec{font-size:.7rem;color:#94a3b8;margin-bottom:9px}
-    .sc-bt{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f1f5f9;padding-top:8px}
-    .sc-price{font-size:.85rem;font-weight:700}
-    .sc-chg{font-size:.73rem;font-weight:700}
-    .up{color:#16a34a}.dn{color:#dc2626}.fl{color:#94a3b8}
-    .rb{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:10px}
-    .rb-b{background:#dcfce7;color:#15803d}
-    .rb-h{background:#fef9c3;color:#a16207}
-    .rb-s{background:#fee2e2;color:#dc2626}
+.card{background:#0f1424;border:1px solid #1a2138;border-radius:12px;padding:12px 11px;cursor:pointer;display:block;transition:transform .12s}
+.card:active{transform:scale(.96);background:#161e30}
+.card-sym{font-size:.65rem;color:#64748b;font-family:monospace;font-weight:700;margin-bottom:4px}
+.card-name{font-size:.83rem;font-weight:700;line-height:1.3;margin-bottom:3px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.card-sec{font-size:.65rem;color:#64748b;margin-bottom:9px}
+.card-bt{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #1a2138;padding-top:7px}
+.card-price{font-size:.85rem;font-weight:700}
+.card-chg{font-size:.72rem;font-weight:700}
 
-    /* ── Empty ── */
-    .empty{text-align:center;padding:50px 20px;color:#94a3b8}
-    .empty-icon{font-size:2.8rem;margin-bottom:10px}
-    .empty-t{font-weight:700;margin-bottom:6px}
-    .empty-s{font-size:.83rem}
+.up{color:#10b981}.dn{color:#ef4444}.fl{color:#64748b}
 
-    /* ── API banner ── */
-    .api-banner{background:#eef2ff;border:1px solid #c7d2fe;border-radius:11px;padding:11px 13px;margin-bottom:12px;font-size:.8rem;color:#4338ca;display:flex;align-items:center;gap:8px}
-    .api-banner-t{flex:1;line-height:1.4}
-    .ab-set{background:#6366f1;color:#fff;border:none;border-radius:8px;padding:5px 11px;font-size:.76rem;font-weight:700;cursor:pointer;white-space:nowrap}
-    .ab-close{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:1rem;padding:0 2px}
+/* Empty / loading */
+.empty{text-align:center;padding:40px 20px;color:#475569}
+.empty-i{font-size:2.5rem;margin-bottom:10px}
+.empty-t{font-weight:700;color:#94a3b8;margin-bottom:4px}
+.empty-s{font-size:.78rem}
+.skel{height:50px;background:linear-gradient(90deg,#0f1424 25%,#1a2138 50%,#0f1424 75%);background-size:200% 100%;border-radius:10px;animation:shimmer 1.5s infinite}
+@keyframes shimmer{to{background-position:-200% 0}}
 
-    /* ── Bottom nav ── */
-    .bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#fff;border-top:1px solid #e8eaf0;display:flex;box-shadow:0 -2px 12px rgba(0,0,0,.07);z-index:100;padding-bottom:env(safe-area-inset-bottom)}
-    .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;color:#94a3b8;font-size:.62rem;font-weight:700;transition:color .15s}
-    .bi.on{color:#6366f1}
-    .bi-icon{font-size:1.15rem;line-height:1}
+/* Bottom nav */
+.bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1424;border-top:1px solid #1a2138;display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#475569;font-size:.62rem;font-weight:700;transition:color .15s}
+.bi.on{color:#06b6d4}
+.bi.on .bi-icon{transform:translateY(-2px)}
+.bi-icon{font-size:1.15rem;transition:transform .15s}
 
-    /* ── Settings sheet ── */
-    .sheet-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:flex-end}
-    .sheet-bg.open{display:flex}
-    .sheet{background:#fff;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-height:80vh;overflow-y:auto;position:relative}
-    .sheet-t{font-size:1.05rem;font-weight:800;margin-bottom:7px}
-    .sheet-s{font-size:.82rem;color:#64748b;margin-bottom:16px;line-height:1.55}
-    .sheet-inp{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid #e2e8f0;font-size:.88rem;outline:none;font-family:monospace;margin-bottom:11px}
-    .sheet-inp:focus{border-color:#6366f1}
-    .sheet-save{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#00d4ff);color:#fff;font-weight:700;font-size:.93rem;border:none;cursor:pointer}
-    .sheet-close{position:absolute;top:14px;right:14px;background:#f1f5f9;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
-    .sheet-bg{align-items:flex-end}
-  </style>
+/* Settings sheet */
+.sheet-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:flex-end}
+.sheet-bg.open{display:flex}
+.sheet{background:#0f1424;border-radius:18px 18px 0 0;padding:20px 18px 36px;width:100%;max-height:80vh;overflow-y:auto;position:relative;border-top:1px solid #1a2138}
+.sheet-t{font-size:1.05rem;font-weight:800;margin-bottom:8px}
+.sheet-s{font-size:.82rem;color:#94a3b8;margin-bottom:14px;line-height:1.55}
+.sheet-s a{color:#06b6d4;font-weight:700}
+.sheet-inp{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid #243044;background:#0a0e1a;color:#e2e8f0;font-size:.88rem;outline:none;font-family:monospace;margin-bottom:11px}
+.sheet-inp:focus{border-color:#6366f1}
+.sheet-save{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:800;font-size:.93rem}
+.sheet-x{position:absolute;top:13px;right:13px;background:#1a2138;border-radius:50%;width:30px;height:30px;font-size:.95rem;display:flex;align-items:center;justify-content:center}
+
+/* AI banner */
+.banner{background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(6,182,212,.12));border:1px solid #243044;border-radius:11px;padding:11px 13px;margin-bottom:14px;font-size:.78rem;color:#cbd5e1;display:flex;align-items:center;gap:8px}
+.banner-t{flex:1;line-height:1.4}
+.banner-b{background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border-radius:8px;padding:5px 11px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.banner-x{color:#475569;font-size:1rem;padding:0 2px}
+</style>
 </head>
 <body>
 
 <header class="hd">
-  <a href="/stock/" class="logo">STOCK</a>
-  <div class="hd-right">
-    <span class="live-pill"><span class="ldot"></span>ライブ</span>
-    <button class="set-btn" onclick="openSheet()">⚙️</button>
-  </div>
+  <span class="logo" id="logo">STOCK</span>
+  <span class="live"><span class="ldot"></span>LIVE</span>
+  <button class="settings" onclick="openSheet()">⚙️</button>
 </header>
 
-<div class="search-bar">
-  <div class="si-wrap">
+<div class="sb">
+  <div class="sb-wrap">
     <span class="si-icon">🔍</span>
-    <input class="si" id="si" type="text" placeholder="銘柄名・コード・投資信託を検索…" autocomplete="off" spellcheck="false">
-    <div class="sr-drop" id="srd"></div>
+    <input id="si" class="si" type="text" placeholder="任意の銘柄・ティッカーを検索（例：トヨタ、AAPL、BTC）" autocomplete="off" spellcheck="false">
+    <div class="srd" id="srd"></div>
   </div>
 </div>
 
-<div class="cat-scroll" id="cats">
-  <button class="ctab on" data-c="popular">人気</button>
-  <button class="ctab" data-c="JP">日本株</button>
-  <button class="ctab" data-c="US">米国株</button>
-  <button class="ctab" data-c="ETF">ETF</button>
-  <button class="ctab" data-c="FUND">投資信託</button>
-  <button class="ctab" data-c="CRYPTO">仮想通貨</button>
+<div class="swipe" id="swipe">
+  <!-- 0: Home -->
+  <section class="pane" id="p0">
+    <div id="ai-banner"></div>
+    <div class="sec"><div class="sec-t">主要指数</div></div>
+    <div class="row-list" id="indices"></div>
+    <div class="sec"><div class="sec-t">為替・コモディティ</div></div>
+    <div class="row-list" id="fx"></div>
+    <div class="sec"><div class="sec-t">仮想通貨</div></div>
+    <div class="row-list" id="crypto"></div>
+    <div class="sec"><div class="sec-t">注目銘柄</div></div>
+    <div class="grid" id="featured"></div>
+  </section>
+  <!-- 1: JP -->
+  <section class="pane" id="p1">
+    <div class="sec"><div class="sec-t">🇯🇵 値上がり率TOP</div><span class="sec-c" id="jp-up-ts"></span></div>
+    <div class="row-list" id="jp-up"></div>
+    <div class="sec"><div class="sec-t">🇯🇵 値下がり率TOP</div></div>
+    <div class="row-list" id="jp-dn"></div>
+    <div class="sec"><div class="sec-t">🇯🇵 出来高TOP</div></div>
+    <div class="row-list" id="jp-vol"></div>
+  </section>
+  <!-- 2: US -->
+  <section class="pane" id="p2">
+    <div class="sec"><div class="sec-t">🇺🇸 Top Gainers</div><span class="sec-c" id="us-up-ts"></span></div>
+    <div class="row-list" id="us-up"></div>
+    <div class="sec"><div class="sec-t">🇺🇸 Top Losers</div></div>
+    <div class="row-list" id="us-dn"></div>
+    <div class="sec"><div class="sec-t">🇺🇸 Most Active</div></div>
+    <div class="row-list" id="us-vol"></div>
+  </section>
+  <!-- 3: Fav -->
+  <section class="pane" id="p3">
+    <div class="sec"><div class="sec-t">⭐ お気に入り</div><span class="sec-c" id="fav-c"></span></div>
+    <div id="fav"></div>
+  </section>
 </div>
 
-<div class="content" id="ct"></div>
-
 <nav class="bnav">
-  <button class="bi on" id="bn-home" onclick="navTo('home',this)"><span class="bi-icon">🏠</span>ホーム</button>
-  <button class="bi" id="bn-search" onclick="navTo('search',this)"><span class="bi-icon">🔍</span>検索</button>
-  <button class="bi" id="bn-fav" onclick="navTo('fav',this)"><span class="bi-icon">⭐</span>お気に入り</button>
-  <button class="bi" id="bn-set" onclick="openSheet()"><span class="bi-icon">⚙️</span>設定</button>
+  <button class="bi on" data-i="0"><span class="bi-icon">🏠</span>ホーム</button>
+  <button class="bi" data-i="1"><span class="bi-icon">🇯🇵</span>日本株</button>
+  <button class="bi" data-i="2"><span class="bi-icon">🇺🇸</span>米国株</button>
+  <button class="bi" data-i="3"><span class="bi-icon">⭐</span>お気に入り</button>
 </nav>
 
-<!-- Settings sheet -->
 <div class="sheet-bg" id="sheet" onclick="if(event.target===this)closeSheet()">
   <div class="sheet">
-    <button class="sheet-close" onclick="closeSheet()">✕</button>
-    <div class="sheet-t">⚙️ 設定</div>
+    <button class="sheet-x" onclick="closeSheet()">✕</button>
+    <div class="sheet-t">⚙️ Gemini APIキー設定</div>
     <div class="sheet-s">
-      <strong>Gemini APIキー</strong>を設定すると、日本株・米国株・ETF・投資信託を問わず<strong>全ての銘柄</strong>でAI投資判断が利用できます。<br>
-      <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#6366f1;font-weight:600">▶ Google AI Studioで無料取得</a>
+      キーを設定すると<strong>全ての銘柄・ETF・投資信託・仮想通貨</strong>でAI投資判断が利用できます。<br>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank">▶ Google AI Studioで無料取得</a>
     </div>
-    <input class="sheet-inp" type="password" id="akInput" placeholder="AIzaSy...">
+    <input class="sheet-inp" type="password" id="ak" placeholder="AIzaSy...">
     <button class="sheet-save" onclick="saveKey()">保存する</button>
   </div>
 </div>
 
 <script>
-/* ── Data ─────────────────────────────────────────────── */
-const POPULAR=[
-  {s:'8035.T',n:'東京エレクトロン',sec:'半導体装置',m:'JP',r:'BUY'},
-  {s:'9984.T',n:'ソフトバンクG',sec:'IT持株',m:'JP',r:'HOLD'},
-  {s:'6758.T',n:'ソニーグループ',sec:'電機',m:'JP',r:'BUY'},
-  {s:'7203.T',n:'トヨタ自動車',sec:'自動車',m:'JP',r:'HOLD'},
-  {s:'8306.T',n:'三菱UFJ',sec:'銀行',m:'JP',r:'BUY'},
-  {s:'6861.T',n:'キーエンス',sec:'FA/センサー',m:'JP',r:'BUY'},
-  {s:'NVDA',  n:'NVIDIA',sec:'AI半導体',m:'US',r:'BUY'},
-  {s:'AAPL',  n:'Apple',sec:'テクノロジー',m:'US',r:'HOLD'},
-  {s:'MSFT',  n:'Microsoft',sec:'クラウド/AI',m:'US',r:'BUY'},
-  {s:'TSLA',  n:'Tesla',sec:'EV',m:'US',r:'SELL'},
-  {s:'META',  n:'Meta',sec:'SNS/AI',m:'US',r:'BUY'},
-  {s:'AMZN',  n:'Amazon',sec:'EC/Cloud',m:'US',r:'BUY'},
-];
-const JP=[
-  {s:'7203.T',n:'トヨタ自動車',sec:'自動車',r:'HOLD'},
-  {s:'6758.T',n:'ソニーグループ',sec:'電機',r:'BUY'},
-  {s:'8035.T',n:'東京エレクトロン',sec:'半導体装置',r:'BUY'},
-  {s:'9984.T',n:'ソフトバンクG',sec:'IT持株',r:'HOLD'},
-  {s:'6861.T',n:'キーエンス',sec:'FA/センサー',r:'BUY'},
-  {s:'7974.T',n:'任天堂',sec:'ゲーム',r:'HOLD'},
-  {s:'9432.T',n:'NTT',sec:'通信',r:'HOLD'},
-  {s:'8306.T',n:'三菱UFJ',sec:'銀行',r:'BUY'},
-  {s:'9983.T',n:'ファストリ',sec:'アパレル',r:'BUY'},
-  {s:'4063.T',n:'信越化学',sec:'半導体材料',r:'BUY'},
-  {s:'6501.T',n:'日立製作所',sec:'IT/インフラ',r:'BUY'},
-  {s:'8031.T',n:'三井物産',sec:'総合商社',r:'BUY'},
-  {s:'8001.T',n:'伊藤忠商事',sec:'総合商社',r:'BUY'},
-  {s:'8058.T',n:'三菱商事',sec:'総合商社',r:'BUY'},
-  {s:'8316.T',n:'三井住友FG',sec:'銀行',r:'BUY'},
-  {s:'6857.T',n:'アドバンテスト',sec:'半導体検査',r:'BUY'},
-  {s:'4502.T',n:'武田薬品',sec:'製薬',r:'HOLD'},
-  {s:'6098.T',n:'リクルート',sec:'HR/メディア',r:'BUY'},
-  {s:'9433.T',n:'KDDI',sec:'通信',r:'HOLD'},
-  {s:'6367.T',n:'ダイキン工業',sec:'HVAC',r:'HOLD'},
-  {s:'7267.T',n:'本田技研',sec:'自動車',r:'HOLD'},
-  {s:'4755.T',n:'楽天グループ',sec:'EC/通信',r:'SELL'},
-  {s:'4385.T',n:'メルカリ',sec:'フリマ/EC',r:'HOLD'},
-  {s:'4661.T',n:'オリランド',sec:'テーマパーク',r:'HOLD'},
-  {s:'6594.T',n:'ニデック',sec:'精密モーター',r:'HOLD'},
-].map(x=>({...x,m:'JP'}));
-const US=[
-  {s:'AAPL', n:'Apple',     sec:'テクノロジー',r:'HOLD'},
-  {s:'MSFT', n:'Microsoft', sec:'クラウド/AI',r:'BUY'},
-  {s:'NVDA', n:'NVIDIA',    sec:'AI半導体',r:'BUY'},
-  {s:'AMZN', n:'Amazon',    sec:'EC/Cloud',r:'BUY'},
-  {s:'GOOGL',n:'Alphabet',  sec:'広告/AI',r:'BUY'},
-  {s:'TSLA', n:'Tesla',     sec:'EV',r:'SELL'},
-  {s:'META', n:'Meta',      sec:'SNS/AI',r:'BUY'},
-  {s:'NFLX', n:'Netflix',   sec:'動画配信',r:'HOLD'},
-  {s:'JPM',  n:'JPMorgan',  sec:'金融/銀行',r:'BUY'},
-  {s:'V',    n:'Visa',      sec:'決済',r:'BUY'},
-  {s:'AMD',  n:'AMD',       sec:'AI半導体',r:'BUY'},
-  {s:'INTC', n:'Intel',     sec:'半導体',r:'SELL'},
-  {s:'ORCL', n:'Oracle',    sec:'クラウド/DB',r:'BUY'},
-  {s:'PLTR', n:'Palantir',  sec:'AI/防衛',r:'HOLD'},
-  {s:'CRM',  n:'Salesforce',sec:'SaaS/CRM',r:'HOLD'},
-].map(x=>({...x,m:'US'}));
-const ETF=[
-  {s:'1306.T',n:'TOPIX連動型ETF',sec:'国内株式',r:'HOLD',m:'ETF'},
-  {s:'1321.T',n:'日経225 ETF',sec:'国内株式',r:'HOLD',m:'ETF'},
-  {s:'1545.T',n:'NASDAQ100 ETF(国内)',sec:'米国株式',r:'BUY',m:'ETF'},
-  {s:'1547.T',n:'S&P500 ETF(国内)',sec:'米国株式',r:'BUY',m:'ETF'},
-  {s:'2558.T',n:'S&P500 ETF(ヘッジ)',sec:'米国株式',r:'HOLD',m:'ETF'},
-  {s:'SPY',   n:'SPDR S&P500 ETF',sec:'米国株式',r:'BUY',m:'ETF'},
-  {s:'QQQ',   n:'Invesco QQQ',sec:'NASDAQ',r:'BUY',m:'ETF'},
-  {s:'VTI',   n:'Vanguard 全米株式',sec:'全米株式',r:'BUY',m:'ETF'},
-  {s:'VOO',   n:'Vanguard S&P500',sec:'米国株式',r:'BUY',m:'ETF'},
-  {s:'GLD',   n:'SPDR ゴールド',sec:'金',r:'HOLD',m:'ETF'},
-  {s:'TLT',   n:'iShares 米国債20年+',sec:'米国債',r:'HOLD',m:'ETF'},
-  {s:'VWO',   n:'Vanguard 新興国株式',sec:'新興国株式',r:'HOLD',m:'ETF'},
-];
-const FUND=[
-  {s:'0131103C',n:'eMAXIS Slim 全世界株式(オルカン)',sec:'全世界株式インデックス',r:'BUY',m:'FUND'},
-  {s:'0331418A',n:'eMAXIS Slim 米国株式(S&P500)',sec:'米国株式インデックス',r:'BUY',m:'FUND'},
-  {s:'2931113C',n:'ひふみプラス',sec:'国内株式アクティブ',r:'HOLD',m:'FUND'},
-  {s:'9I311179',n:'楽天・全世界株式インデックス',sec:'全世界株式インデックス',r:'BUY',m:'FUND'},
-  {s:'9I312179',n:'楽天・米国株式インデックス',sec:'米国株式インデックス',r:'BUY',m:'FUND'},
-  {s:'0331117A',n:'eMAXIS Slim 先進国株式',sec:'先進国株式インデックス',r:'BUY',m:'FUND'},
-  {s:'2931216C',n:'ひふみワールド',sec:'海外株式アクティブ',r:'HOLD',m:'FUND'},
-  {s:'0331418A',n:'SBI・V・S&P500インデックス',sec:'米国株式インデックス',r:'BUY',m:'FUND'},
-];
-const CRYPTO=[
-  {s:'BTC-USD',n:'Bitcoin',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
-  {s:'ETH-USD',n:'Ethereum',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
-  {s:'SOL-USD',n:'Solana',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
-  {s:'BNB-USD',n:'BNB',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
-  {s:'XRP-USD',n:'XRP',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
-];
+/* ── Universe (used as candidate set; live sorted by API) ── */
+const JP_UNIVERSE = ['7203.T','6758.T','8035.T','9984.T','6861.T','7974.T','9432.T','8306.T','9983.T','4502.T','6098.T','9433.T','4063.T','6501.T','6367.T','7267.T','8031.T','8001.T','8058.T','8316.T','6857.T','4503.T','4568.T','4523.T','7741','6981.T','6301.T','6954.T','5108.T','4452.T','9020.T','9022.T','9201.T','9202.T','9064.T','3382.T','8267.T','2651.T','2914.T','4385.T','4755.T','4751.T','6701.T','6702.T','6752.T','7751.T','7733.T','2413.T','6326.T','6645.T','2503.T','2502.T','2587.T','4911.T','8113.T','8830.T','8802.T','8801.T','1605.T','5020.T','9501.T','9503.T','8053.T','8002.T','8015.T','8729.T','8591.T','8601.T','8604.T','7741.T','8411.T','6146.T','6723.T','6594.T','8766.T','7270.T','9613.T','5401.T','5411.T','5713.T','3402.T','3407.T','5301.T','7201.T','7261.T','7269.T','7272.T','5101.T','7269.T','9007.T','9009.T','9101.T','9104.T','4543.T','7270.T','6902.T','6976.T','7012.T','7011.T','5802.T','5803.T','5713.T','5938.T','3436.T','5631.T','5707.T','7211.T','7259.T','9684.T','9697.T','3659.T','3765.T','2371.T','3092.T','3769.T','4307.T','4324.T','4661.T','4666.T','9697.T','3088.T','3092.T','9202.T','9201.T'];
 
-const ALL=[...JP,...US,...ETF,...FUND,...CRYPTO];
-const RJ={BUY:'買い',HOLD:'中立',SELL:'売り'};
-const RC={BUY:'rb-b',HOLD:'rb-h',SELL:'rb-s'};
+const US_UNIVERSE = ['AAPL','MSFT','GOOGL','GOOG','AMZN','NVDA','META','TSLA','BRK-B','JPM','V','JNJ','WMT','MA','PG','UNH','HD','BAC','XOM','ABBV','AVGO','CVX','KO','PFE','LLY','COST','MRK','PEP','TMO','MCD','CSCO','ABT','CRM','DIS','ACN','NFLX','ADBE','WFC','AMD','CMCSA','TXN','INTC','NEE','DHR','RTX','NKE','BMY','PM','T','UNP','UPS','ORCL','AMGN','COP','IBM','LIN','HON','QCOM','LOW','INTU','CAT','SCHW','GS','BA','AXP','BLK','ELV','MS','GE','MDT','ISRG','SBUX','ADP','BKNG','GILD','AMT','NOW','MMC','DE','ZTS','SYK','MO','REGN','PLTR','F','GM','UBER','PYPL','SHOP','SNOW','COIN','HOOD','RBLX','U','BABA','TSM','TM','NIO','SOFI','RIVN','LCID','MARA','RIOT','SQ','SPOT','ABNB','DDOG','CRWD','NET','MDB','ZM','DOCU','OKTA','TWLO','ROKU','PINS','SNAP','LYFT','DASH'];
 
-let prices={};
-let curCat='popular';
-let favs=JSON.parse(localStorage.getItem('sfav')||'[]');
+const INDICES = ['^N225','^TPX','^GSPC','^IXIC','^DJI','^FTSE','^HSI','^STOXX50E'];
+const FX = ['JPY=X','EURJPY=X','GBPJPY=X','EURUSD=X','GBPUSD=X','GC=F','CL=F'];
+const CRYPTO = ['BTC-USD','ETH-USD','SOL-USD','BNB-USD','XRP-USD','DOGE-USD'];
+const FEATURED = ['8035.T','7203.T','6758.T','9984.T','NVDA','AAPL','TSLA','BTC-USD'];
 
-/* ── Format ─────────────────────────────────────────────── */
-function fp(p,s){
-  if(p==null)return null;
-  const jpy=s&&s.endsWith('.T');
-  if(jpy)return '¥'+Math.round(p).toLocaleString();
-  if(p<1)return '$'+p.toFixed(4);
-  if(p<100)return '$'+p.toFixed(2);
-  return '$'+Math.round(p).toLocaleString();
+const NAMES = {
+  '^N225':'日経平均','^TPX':'TOPIX','^GSPC':'S&P 500','^IXIC':'NASDAQ総合','^DJI':'NYダウ','^FTSE':'FTSE 100','^HSI':'香港ハンセン','^STOXX50E':'ユーロストックス50',
+  'JPY=X':'米ドル/円','EURJPY=X':'ユーロ/円','GBPJPY=X':'ポンド/円','EURUSD=X':'EUR/USD','GBPUSD=X':'GBP/USD','GC=F':'金 先物','CL=F':'WTI原油先物',
+  'BTC-USD':'Bitcoin','ETH-USD':'Ethereum','SOL-USD':'Solana','BNB-USD':'BNB','XRP-USD':'XRP','DOGE-USD':'Dogecoin',
+};
+
+let cache = {};
+let favs = JSON.parse(localStorage.getItem('sfav')||'[]');
+
+/* ── Format ── */
+function fmtPrice(p,sym,cur){
+  if(p==null)return '—';
+  cur = cur || '';
+  if(cur==='JPY'||(sym&&sym.endsWith('.T')))return '¥'+(p>=100?Math.round(p):p.toFixed(2)).toLocaleString();
+  if(sym&&(sym.startsWith('^')||sym.endsWith('=X')||sym.endsWith('=F'))){
+    return p.toLocaleString(undefined,{maximumFractionDigits:p<10?4:2});
+  }
+  if(cur==='USD'||!cur){
+    if(p<1)return '$'+p.toFixed(4);
+    if(p<100)return '$'+p.toFixed(2);
+    return '$'+Math.round(p).toLocaleString();
+  }
+  return p.toLocaleString();
 }
-function fc(pct){
-  if(pct==null)return{str:'—',cls:'fl'};
-  return{str:(pct>=0?'+':'')+pct.toFixed(2)+'%',cls:pct>=0?'up':'dn'};
+function fmtChg(pct){
+  if(pct==null)return{s:'—',c:'fl'};
+  return{s:(pct>=0?'+':'')+pct.toFixed(2)+'%',c:pct>=0?'up':'dn'};
+}
+function fmtVol(v){
+  if(!v)return '';
+  if(v>=1e9)return (v/1e9).toFixed(1)+'B';
+  if(v>=1e6)return (v/1e6).toFixed(1)+'M';
+  if(v>=1e3)return (v/1e3).toFixed(0)+'K';
+  return v.toString();
 }
 
-/* ── Card ─────────────────────────────────────────────────── */
-function card(st){
-  const pd=prices[st.s];
-  const chg=pd?fc(pd.pct):null;
-  return `<a class="sc" href="./detail.html?s=${encodeURIComponent(st.s)}&n=${encodeURIComponent(st.n)}">
-    <div class="sc-sym">${st.s}</div>
-    <div class="sc-name">${st.n}</div>
-    <div class="sc-sec">${st.sec}</div>
-    <div class="sc-bt">
-      <span class="sc-price">${pd&&pd.price?pd.price:'—'}</span>
-      ${chg&&pd.price
-        ?`<span class="sc-chg ${chg.cls}">${chg.str}</span>`
-        :`<span class="rb ${RC[st.r]}">${RJ[st.r]}</span>`}
-    </div>
+/* ── Yahoo fetch with proxy fallback ── */
+async function yfetch(url){
+  for(const src of[url,'https://corsproxy.io/?'+encodeURIComponent(url),'https://api.allorigins.win/raw?url='+encodeURIComponent(url)]){
+    try{
+      const r = await fetch(src,{signal:AbortSignal.timeout(8000)});
+      if(!r.ok)continue;
+      return await r.json();
+    }catch(_){}
+  }
+  return null;
+}
+
+async function fetchQuotes(symbols){
+  if(!symbols.length)return [];
+  const url = 'https://query1.finance.yahoo.com/v7/finance/quote?symbols='+symbols.join(',');
+  const data = await yfetch(url);
+  const results = data?.quoteResponse?.result || [];
+  results.forEach(q => cache[q.symbol] = q);
+  return results;
+}
+
+async function fetchAllInBatches(symbols, batch=40){
+  const all = [];
+  for(let i=0;i<symbols.length;i+=batch){
+    const part = await fetchQuotes(symbols.slice(i,i+batch));
+    all.push(...part);
+  }
+  return all;
+}
+
+/* ── Renderers ── */
+function rowHTML(q,i,opts={}){
+  const sym = q.symbol;
+  const name = NAMES[sym] || q.shortName || q.longName || sym;
+  const price = fmtPrice(q.regularMarketPrice,sym,q.currency);
+  const pct = q.regularMarketChangePercent;
+  const chg = fmtChg(pct);
+  const sub = opts.showVol ? fmtVol(q.regularMarketVolume)+' 株' : sym;
+  const rank = (typeof i==='number') ? `<div class="row-rank">${i+1}</div>` : '';
+  return `<a class="row" href="./detail.html?s=${encodeURIComponent(sym)}&n=${encodeURIComponent(name)}">
+    ${rank}
+    <div class="row-mid"><div class="row-name">${name}</div><div class="row-sub">${sub}</div></div>
+    <div class="row-right"><div class="row-price">${price}</div><div class="row-chg ${chg.c}">${chg.s}</div></div>
   </a>`;
 }
 
-/* ── Render ─────────────────────────────────────────────── */
-function render(cat){
-  curCat=cat||curCat;
-  const el=document.getElementById('ct');
-  let list=[],title='';
-  switch(curCat){
-    case'popular':list=POPULAR;title='人気銘柄';break;
-    case'JP':list=JP;title='日本株（東証）';break;
-    case'US':list=US;title='米国株';break;
-    case'ETF':list=ETF;title='ETF';break;
-    case'FUND':list=FUND;title='投資信託';break;
-    case'CRYPTO':list=CRYPTO;title='仮想通貨';break;
-    case'fav':
-      list=ALL.filter(s=>favs.includes(s.s));
-      title='お気に入り';break;
-  }
-  if(!list.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">⭐</div><div class="empty-t">お気に入りがありません</div><div class="empty-s">銘柄詳細ページから追加できます</div></div>`;
+function cardHTML(q){
+  const sym = q.symbol;
+  const name = NAMES[sym] || q.shortName || q.longName || sym;
+  const price = fmtPrice(q.regularMarketPrice,sym,q.currency);
+  const chg = fmtChg(q.regularMarketChangePercent);
+  return `<a class="card" href="./detail.html?s=${encodeURIComponent(sym)}&n=${encodeURIComponent(name)}">
+    <div class="card-sym">${sym}</div>
+    <div class="card-name">${name}</div>
+    <div class="card-sec">${q.fullExchangeName||q.exchange||''}</div>
+    <div class="card-bt"><span class="card-price">${price}</span><span class="card-chg ${chg.c}">${chg.s}</span></div>
+  </a>`;
+}
+
+function renderRowList(elId, results, opts={}){
+  const el = document.getElementById(elId);
+  if(!el)return;
+  if(!results.length){el.innerHTML = `<div class="empty"><div class="empty-s">データを取得できませんでした</div></div>`;return;}
+  el.innerHTML = results.map((q,i)=>rowHTML(q,i,opts)).join('');
+}
+
+function renderGrid(elId, results){
+  const el = document.getElementById(elId);
+  if(!el)return;
+  if(!results.length){el.innerHTML = '<div class="empty"><div class="empty-s">読み込み中…</div></div>';return;}
+  el.innerHTML = results.map(cardHTML).join('');
+}
+
+function showSkeletons(elId,count=5){
+  document.getElementById(elId).innerHTML = Array(count).fill('<div class="skel"></div>').join('');
+}
+
+/* ── Load home ── */
+async function loadHome(){
+  ['indices','fx','crypto'].forEach(id=>showSkeletons(id,id==='indices'?6:6));
+  showSkeletons('featured',8);
+
+  const [idx, fx, cry, feat] = await Promise.all([
+    fetchQuotes(INDICES),
+    fetchQuotes(FX),
+    fetchQuotes(CRYPTO),
+    fetchQuotes(FEATURED),
+  ]);
+  renderRowList('indices', idx);
+  renderRowList('fx', fx);
+  renderRowList('crypto', cry);
+  renderGrid('featured', feat);
+}
+
+/* ── Load JP/US movers ── */
+async function loadMarket(market){
+  const universe = market==='jp' ? JP_UNIVERSE : US_UNIVERSE;
+  const prefix = market==='jp' ? 'jp' : 'us';
+  ['-up','-dn','-vol'].forEach(s=>showSkeletons(prefix+s,5));
+
+  const all = await fetchAllInBatches(universe, 40);
+  const valid = all.filter(q => q.regularMarketPrice != null && q.regularMarketChangePercent != null);
+
+  const upSorted = [...valid].sort((a,b)=>(b.regularMarketChangePercent||0)-(a.regularMarketChangePercent||0)).slice(0,15);
+  const dnSorted = [...valid].sort((a,b)=>(a.regularMarketChangePercent||0)-(b.regularMarketChangePercent||0)).slice(0,15);
+  const volSorted = [...valid].sort((a,b)=>(b.regularMarketVolume||0)-(a.regularMarketVolume||0)).slice(0,15);
+
+  renderRowList(prefix+'-up', upSorted);
+  renderRowList(prefix+'-dn', dnSorted);
+  renderRowList(prefix+'-vol', volSorted, {showVol:true});
+
+  const ts = new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+  const tsEl = document.getElementById(prefix+'-up-ts');
+  if(tsEl) tsEl.textContent = '更新 '+ts;
+}
+
+/* ── Load favorites ── */
+async function loadFav(){
+  document.getElementById('fav-c').textContent = favs.length+'件';
+  if(!favs.length){
+    document.getElementById('fav').innerHTML = `<div class="empty"><div class="empty-i">⭐</div><div class="empty-t">お気に入りはまだありません</div><div class="empty-s">銘柄詳細ページの☆ボタンから追加できます</div></div>`;
     return;
   }
-  el.innerHTML=`<div class="sec"><div class="sec-t">${title}</div><span class="sec-n">${list.length}銘柄</span></div><div class="sg">${list.map(card).join('')}</div>`;
-  loadPrices(list.map(s=>s.s));
+  showSkeletons('fav',favs.length);
+  const results = await fetchQuotes(favs);
+  document.getElementById('fav').innerHTML = `<div class="row-list">${results.map(q=>rowHTML(q)).join('')}</div>`;
 }
 
-/* ── Price fetch ─────────────────────────────────────────── */
-async function fetchBatch(syms){
-  const url='https://query1.finance.yahoo.com/v7/finance/quote?symbols='+syms.join(',');
-  for(const src of[url,'https://corsproxy.io/?'+encodeURIComponent(url),'https://api.allorigins.win/raw?url='+encodeURIComponent(url)]){
-    try{
-      const r=await fetch(src,{signal:AbortSignal.timeout(7000)});
-      if(!r.ok)continue;
-      const d=await r.json();
-      const rs=d?.quoteResponse?.result||[];
-      if(!rs.length)continue;
-      rs.forEach(q=>{prices[q.symbol]={price:fp(q.regularMarketPrice,q.symbol),pct:q.regularMarketChangePercent??null}});
-      return true;
-    }catch(_){}
-  }
-  return false;
-}
-async function loadPrices(syms){
-  const valid=syms.filter(s=>!/^[0-9]{7}[A-Z0-9]$/.test(s));
-  for(let i=0;i<valid.length;i+=10){
-    await fetchBatch(valid.slice(i,i+10));
-    render();
-  }
-}
-
-/* ── Tabs ─────────────────────────────────────────────────── */
-document.getElementById('cats').addEventListener('click',e=>{
-  const b=e.target.closest('.ctab');
-  if(!b)return;
-  document.querySelectorAll('.ctab').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on');
-  render(b.dataset.c);
-});
-
-/* ── Search ─────────────────────────────────────────────── */
-const si=document.getElementById('si');
-const srd=document.getElementById('srd');
-let st;
+/* ── Search ── */
+const si = document.getElementById('si');
+const srd = document.getElementById('srd');
+let searchTimer;
 si.addEventListener('input',()=>{
-  clearTimeout(st);
-  const q=si.value.trim();
+  clearTimeout(searchTimer);
+  const q = si.value.trim();
   if(!q){srd.style.display='none';return;}
-  st=setTimeout(()=>search(q),280);
+  searchTimer = setTimeout(()=>doSearch(q), 280);
 });
-si.addEventListener('blur',()=>setTimeout(()=>srd.style.display='none',180));
+si.addEventListener('blur',()=>setTimeout(()=>srd.style.display='none',200));
 
-async function search(q){
-  const local=ALL.filter(s=>s.n.includes(q)||s.s.toLowerCase().includes(q.toLowerCase())).slice(0,4);
-  showResults(local);
-  try{
-    const url='https://query1.finance.yahoo.com/v1/finance/search?q='+encodeURIComponent(q)+'&newsCount=0&quotesCount=8&enableFuzzyQuery=true';
-    const r=await fetch('https://corsproxy.io/?'+encodeURIComponent(url),{signal:AbortSignal.timeout(5000)});
-    const d=await r.json();
-    const remote=(d?.quotes||[]).map(x=>({s:x.symbol,n:x.longname||x.shortname||x.symbol,sec:x.typeDisp||'株式',remote:true})).filter(x=>!local.find(l=>l.s===x.s)).slice(0,6);
-    showResults([...local,...remote]);
-  }catch(_){}
-}
-
-function showResults(hits){
-  if(!hits.length){srd.innerHTML=`<div style="padding:14px;text-align:center;color:#94a3b8;font-size:.83rem">該当なし</div>`;srd.style.display='block';return;}
-  srd.innerHTML=hits.map(h=>`<div class="sr-item" onclick="location.href='./detail.html?s=${encodeURIComponent(h.s)}&n=${encodeURIComponent(h.n||h.name||h.s)}'"><span class="sr-sym">${h.s}</span><span class="sr-name">${h.n||h.name||h.s}</span><span class="sr-type">${h.sec||h.sector||'株式'}</span></div>`).join('');
+async function doSearch(q){
+  const url = 'https://query1.finance.yahoo.com/v1/finance/search?q='+encodeURIComponent(q)+'&newsCount=0&quotesCount=15&enableFuzzyQuery=true&lang=ja-JP&region=JP';
+  const data = await yfetch(url);
+  const hits = (data?.quotes || []).filter(x=>x.symbol).slice(0,12);
+  if(!hits.length){
+    srd.innerHTML = `<div style="padding:14px;text-align:center;color:#475569;font-size:.83rem">該当なし</div>`;
+  }else{
+    srd.innerHTML = hits.map(h=>{
+      const name = h.longname || h.shortname || h.symbol;
+      const type = h.typeDisp || h.quoteType || '';
+      const exch = h.exchDisp || '';
+      return `<div class="sri" onclick="location.href='./detail.html?s=${encodeURIComponent(h.symbol)}&n=${encodeURIComponent(name)}'">
+        <span class="sri-s">${h.symbol}</span>
+        <span class="sri-n">${name}</span>
+        <span class="sri-t">${type}${exch?' · '+exch:''}</span>
+      </div>`;
+    }).join('');
+  }
   srd.style.display='block';
 }
 
-/* ── Nav ─────────────────────────────────────────────────── */
-function navTo(t,el){
-  document.querySelectorAll('.bi').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  if(t==='search'){si.focus();}
-  else if(t==='fav'){render('fav');}
-  else{
-    document.querySelectorAll('.ctab').forEach(b=>{b.classList.remove('on');if(b.dataset.c==='popular')b.classList.add('on');});
-    render('popular');
-  }
+/* ── Swipe nav ── */
+const swipe = document.getElementById('swipe');
+const navBtns = document.querySelectorAll('.bi');
+const panes = document.querySelectorAll('.pane');
+
+navBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const i = +btn.dataset.i;
+    panes[i].scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});
+    setActiveNav(i);
+    triggerLoad(i);
+  });
+});
+
+function setActiveNav(i){
+  navBtns.forEach((b,j)=>b.classList.toggle('on',i===j));
 }
 
-/* ── Settings ─────────────────────────────────────────────── */
-function openSheet(){document.getElementById('sheet').classList.add('open');document.getElementById('akInput').value=localStorage.getItem('gemini_api_key')||'';}
-function closeSheet(){document.getElementById('sheet').classList.remove('open');}
+const loaded = {0:false,1:false,2:false,3:true};
+function triggerLoad(i){
+  if(loaded[i]) {
+    if(i===3) loadFav();
+    return;
+  }
+  loaded[i] = true;
+  if(i===0) loadHome();
+  else if(i===1) loadMarket('jp');
+  else if(i===2) loadMarket('us');
+  else if(i===3) loadFav();
+}
+
+/* Sync nav from scroll position */
+let scrollSyncTimer;
+swipe.addEventListener('scroll',()=>{
+  clearTimeout(scrollSyncTimer);
+  scrollSyncTimer = setTimeout(()=>{
+    const w = swipe.clientWidth;
+    const i = Math.round(swipe.scrollLeft / w);
+    if(i>=0 && i<panes.length){
+      setActiveNav(i);
+      triggerLoad(i);
+    }
+  }, 80);
+});
+
+/* ── Logo click ── */
+document.getElementById('logo').addEventListener('click',()=>{
+  panes[0].scrollIntoView({behavior:'smooth',inline:'start'});
+  setActiveNav(0);
+});
+
+/* ── Settings ── */
+function openSheet(){
+  document.getElementById('sheet').classList.add('open');
+  document.getElementById('ak').value = localStorage.getItem('gemini_api_key')||'';
+}
+function closeSheet(){
+  document.getElementById('sheet').classList.remove('open');
+}
 function saveKey(){
-  const k=document.getElementById('akInput').value.trim();
-  if(k)localStorage.setItem('gemini_api_key',k);
+  const k = document.getElementById('ak').value.trim();
+  if(k) localStorage.setItem('gemini_api_key',k);
   else localStorage.removeItem('gemini_api_key');
   closeSheet();
+  renderBanner();
 }
 
-/* ── Init ─────────────────────────────────────────────────── */
-render('popular');
-
-if(!localStorage.getItem('gemini_api_key')&&!localStorage.getItem('gkd')){
-  setTimeout(()=>{
-    const b=document.createElement('div');
-    b.className='api-banner';
-    b.innerHTML=`<span style="font-size:1.3rem">🤖</span><span class="api-banner-t">Gemini APIキーを設定すると<strong>全銘柄</strong>のAI分析が使えます</span><button class="ab-set" onclick="openSheet();this.closest('.api-banner').remove()">設定</button><button class="ab-close" onclick="localStorage.setItem('gkd',1);this.closest('.api-banner').remove()">✕</button>`;
-    document.getElementById('ct').prepend(b);
-  },800);
+/* ── AI banner ── */
+function renderBanner(){
+  const el = document.getElementById('ai-banner');
+  if(localStorage.getItem('gemini_api_key') || localStorage.getItem('gkd')){
+    el.innerHTML='';
+    return;
+  }
+  el.innerHTML = `<div class="banner">
+    <span style="font-size:1.3rem">🤖</span>
+    <span class="banner-t">Gemini APIキーを設定すると<strong>全銘柄</strong>でAI投資判断が使えます</span>
+    <button class="banner-b" onclick="openSheet();this.closest('.banner').remove()">設定</button>
+    <button class="banner-x" onclick="localStorage.setItem('gkd',1);this.closest('.banner').remove()">✕</button>
+  </div>`;
 }
+
+/* ── Init ── */
+renderBanner();
+loadHome();
 </script>
 </body>
 </html>
