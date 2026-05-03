@@ -45,8 +45,13 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
 .sri-n{font-size:.85rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 .sri-t{font-size:.7rem;color:#64748b;margin-left:auto;white-space:nowrap}
 
+/* Pane indicator dots */
+.pane-dots{display:flex;justify-content:center;align-items:center;gap:6px;padding:5px 0 6px;background:#0a0f1f;border-bottom:1px solid #1a2138}
+.pdot{width:6px;height:6px;border-radius:50%;background:#243044;transition:all .25s}
+.pdot.on{background:#06b6d4;width:18px;border-radius:3px;box-shadow:0 0 8px rgba(6,182,212,.5)}
+
 /* Pane container */
-.swipe{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;height:calc(100vh - 28px - 48px - 54px - 56px - env(safe-area-inset-bottom));scrollbar-width:none}
+.swipe{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;height:calc(100vh - 28px - 48px - 54px - 24px - 56px - env(safe-area-inset-bottom));scrollbar-width:none}
 .swipe::-webkit-scrollbar{display:none}
 .pane{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;overflow-y:auto;overflow-x:hidden;padding:10px 10px 24px}
 .pane::-webkit-scrollbar{display:none}
@@ -162,6 +167,15 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
   <button class="settings" onclick="openSheet()">⚙️</button>
 </header>
 
+<!-- Sliding tab indicator -->
+<div class="pane-dots" id="paneDots">
+  <span class="pdot on" data-i="0"></span>
+  <span class="pdot" data-i="1"></span>
+  <span class="pdot" data-i="2"></span>
+  <span class="pdot" data-i="3"></span>
+  <span class="pdot" data-i="4"></span>
+</div>
+
 <div class="sb">
   <div class="sb-wrap">
     <span class="si-icon">🔍</span>
@@ -188,11 +202,11 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
 
   <!-- 1: Japan -->
   <section class="pane" id="p1">
-    <div class="sec"><div class="sec-t">🇯🇵 値上がり率TOP20 <span style="color:#10b981;font-size:.7rem;margin-left:5px">[東証のみ]</span></div><span class="sec-c" id="jp-up-ts"></span></div>
+    <div class="sec"><div class="sec-t">🇯🇵 値上がり率TOP50 <span style="color:#10b981;font-size:.7rem;margin-left:5px">[東証のみ]</span></div><span class="sec-c" id="jp-up-ts"></span></div>
     <div class="row-list" id="jp-up"></div>
-    <div class="sec"><div class="sec-t">🇯🇵 値下がり率TOP20</div></div>
+    <div class="sec"><div class="sec-t">🇯🇵 値下がり率TOP50</div></div>
     <div class="row-list" id="jp-dn"></div>
-    <div class="sec"><div class="sec-t">🇯🇵 出来高TOP20</div></div>
+    <div class="sec"><div class="sec-t">🇯🇵 出来高TOP50</div></div>
     <div class="row-list" id="jp-vol"></div>
   </section>
 
@@ -248,13 +262,13 @@ const JP_UNIVERSE = ['7203.T','6758.T','8035.T','9984.T','6861.T','7974.T','9432
 
 const US_UNIVERSE = ['AAPL','MSFT','GOOGL','GOOG','AMZN','NVDA','META','TSLA','BRK-B','JPM','V','JNJ','WMT','MA','PG','UNH','HD','BAC','XOM','ABBV','AVGO','CVX','KO','PFE','LLY','COST','MRK','PEP','TMO','MCD','CSCO','ABT','CRM','DIS','ACN','NFLX','ADBE','WFC','AMD','CMCSA','TXN','INTC','NEE','DHR','RTX','NKE','BMY','PM','T','UNP','UPS','ORCL','AMGN','COP','IBM','LIN','HON','QCOM','LOW','INTU','CAT','SCHW','GS','BA','AXP','BLK','ELV','MS','GE','MDT','ISRG','SBUX','ADP','BKNG','GILD','AMT','NOW','MMC','DE','ZTS','SYK','MO','REGN','PLTR','F','GM','UBER','PYPL','SHOP','SNOW','COIN','HOOD','RBLX','U','BABA','TSM','TM','NIO','SOFI','RIVN','LCID','MARA','RIOT','SQ','SPOT','ABNB','DDOG','CRWD','NET','MDB','ZM','DOCU','OKTA','TWLO','ROKU','PINS','SNAP','LYFT','DASH','PANW','FTNT','SMCI','DELL','HPQ','HPE','VMW','WDAY','TEAM','SNPS','CDNS','KLAC','LRCX','MU','MCHP','ADI','NXPI','ON','MRVL','SWKS','QRVO','TER','CDW','GLW','ANET','JNPR','ZBRA','TYL','PAYX','PAYC','BSX','BAX','BDX','EW','DXCM','ALGN','IDXX','HOLX','VRTX','BIIB','ILMN','MRNA','BNTX','PFE','LLY','GSK','AZN','NVO','TAK','SNY','MRK','BMY','MMM','EMR','ETN','IR','PH','ROK','DOV','XYL','ITW','PCAR','GD','LMT','NOC','LHX','HII','TDG','HEI','TXT','BRK-A','TRV','CB','AIG','PGR','ALL','PRU','MET','AFL','HIG','MMC','AON','BRO','CINF','CNA','CMA','FITB','MTB','RF','TFC','USB','ZION','HBAN','KEY','PNC','STT','BK','NTRS','BLK','AMP','TROW','BEN','IVZ','SCHW','HOOD','RJF','LPLA','CG','APO','BX','KKR','OWL','NLY','AGNC','STAG','REXR','PSA','EXR','LSI','CUBE','VICI','GLPI','MGM','LVS','WYNN','CZR','PENN','DKNG','BYD','EXPE','BKNG','ABNB','MAR','HLT','H','IHG','CHH','RCL','CCL','NCLH','LUV','DAL','UAL','AAL','ALK','JBLU','SAVE','BA','LMT','RTX','NOC','GD','HII','LHX','TDG','HEI','TXT','HXL','MOG','ALK','ZG','RDFN','OPEN','COMP','EXPI','RKT','UWMC','HD','LOW','BLDR','TOL','LEN','DHI','PHM','KBH','MTH','TPH','LGIH','CCS','MHO','BZH','HOV','TPC','EME','MTZ','PWR','J','ACM','TTC','BLDR','EXP','MLM','VMC','SUM','ASH','RPM','SHW','PPG','AXTA','HUN','ALB','LIN','APD','ECL','DD','EMN','LYB','OLN','CE','WLK','EVA','CMP','MOS','CF','NTR','SQM','SOX','XLE','XLF','XLK','XLV','XLI','XLP','XLY','XLB','XLU','XLRE','XLC','SPY','VOO','IVV','QQQ','VTI','VEA','VWO','VTV','VUG','VYM','SCHX','SCHD','SCHA','IWM','IWB','IWD','IWF'];
 
-const INDICES = ['^N225','1306.T','^GSPC','^IXIC','^DJI','^SOX','^VIX','^FTSE','^HSI','^GDAXI'];
+const INDICES = ['^N225','^TPX','^GSPC','^IXIC','^DJI','^SOX','^VIX','^RUT','^FTSE','^HSI','^GDAXI','000001.SS'];
 const FX = ['JPY=X','EURJPY=X','GBPJPY=X','EURUSD=X','GBPUSD=X','GC=F','SI=F','CL=F','NG=F'];
 const CRYPTO = ['BTC-USD','ETH-USD','SOL-USD','BNB-USD','XRP-USD','DOGE-USD','ADA-USD','AVAX-USD'];
 const FEATURED = ['8035.T','7203.T','6758.T','9984.T','6861.T','9983.T','NVDA','AAPL','MSFT','TSLA','META','BTC-USD'];
 
 const NAMES = {
-  '^N225':'日経225','1306.T':'TOPIX(ETF)','^GSPC':'S&P500','^IXIC':'NASDAQ','^DJI':'NYダウ','^SOX':'SOX指数','^VIX':'VIX恐怖','^FTSE':'FTSE100','^HSI':'香港H','^GDAXI':'独DAX','^STOXX50E':'EU50',
+  '^N225':'日経平均','^TPX':'TOPIX','^GSPC':'S&P500','^IXIC':'NASDAQ','^DJI':'NYダウ','^SOX':'SOX指数','^VIX':'VIX','^RUT':'Russell2000','^FTSE':'FTSE100','^HSI':'香港H','^GDAXI':'独DAX','000001.SS':'上海総合','^STOXX50E':'EU50',
   'JPY=X':'米ドル/円','EURJPY=X':'EUR/JPY','GBPJPY=X':'GBP/JPY','EURUSD=X':'EUR/USD','GBPUSD=X':'GBP/USD','GC=F':'金','SI=F':'銀','CL=F':'WTI原油','NG=F':'天然ガス',
   'BTC-USD':'Bitcoin','ETH-USD':'Ethereum','SOL-USD':'Solana','BNB-USD':'BNB','XRP-USD':'XRP','DOGE-USD':'Doge','ADA-USD':'Cardano','AVAX-USD':'Avalanche',
 };
@@ -466,9 +480,9 @@ async function loadMarket(market){
     if(market === 'jp') return q.symbol.endsWith('.T') || q.fullExchangeName?.includes('Tokyo');
     return !q.symbol.endsWith('.T') && !q.symbol.includes('=') && !q.symbol.startsWith('^');
   });
-  const upSorted = [...filtered].filter(q=>q.regularMarketChangePercent!=null).sort((a,b)=>(b.regularMarketChangePercent)-(a.regularMarketChangePercent)).slice(0,20);
-  const dnSorted = [...filtered].filter(q=>q.regularMarketChangePercent!=null).sort((a,b)=>(a.regularMarketChangePercent)-(b.regularMarketChangePercent)).slice(0,20);
-  const volSorted = [...filtered].filter(q=>q.regularMarketVolume!=null).sort((a,b)=>(b.regularMarketVolume)-(a.regularMarketVolume)).slice(0,20);
+  const upSorted = [...filtered].filter(q=>q.regularMarketChangePercent!=null).sort((a,b)=>(b.regularMarketChangePercent)-(a.regularMarketChangePercent)).slice(0,50);
+  const dnSorted = [...filtered].filter(q=>q.regularMarketChangePercent!=null).sort((a,b)=>(a.regularMarketChangePercent)-(b.regularMarketChangePercent)).slice(0,50);
+  const volSorted = [...filtered].filter(q=>q.regularMarketVolume!=null).sort((a,b)=>(b.regularMarketVolume)-(a.regularMarketVolume)).slice(0,50);
   renderRowList(prefix+'-up', upSorted);
   renderRowList(prefix+'-dn', dnSorted);
   renderRowList(prefix+'-vol', volSorted, {showVol: true});
@@ -552,6 +566,7 @@ navBtns.forEach(btn=>{
 
 function setActiveNav(i){
   navBtns.forEach((b,j)=>b.classList.toggle('on', i===j));
+  document.querySelectorAll('.pdot').forEach((d,j)=>d.classList.toggle('on', i===j));
   curPaneIdx = i;
 }
 
@@ -580,11 +595,22 @@ swipe.addEventListener('scroll',()=>{
 });
 
 /* ── Logo: always reset to home top ── */
-document.getElementById('logo').addEventListener('click',(e)=>{
-  e.preventDefault();
-  panes[0].scrollTop = 0;
+function gotoHome(){
+  panes.forEach(p=>p.scrollTop = 0);
   swipe.scrollTo({left:0, behavior:'smooth'});
   setActiveNav(0);
+  triggerLoad(0);
+}
+document.getElementById('logo').addEventListener('click',(e)=>{e.preventDefault();gotoHome();});
+document.getElementById('logo').style.cursor = 'pointer';
+// Also pane dot click
+document.querySelectorAll('.pdot').forEach(d=>{
+  d.addEventListener('click',()=>{
+    const i = +d.dataset.i;
+    panes[i].scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});
+    setActiveNav(i);
+    triggerLoad(i);
+  });
 });
 
 /* ── Auto-refresh ── */
