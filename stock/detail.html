@@ -5,41 +5,48 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>STOCK</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:-apple-system,'SF Pro JP','Hiragino Sans','Helvetica Neue',Arial,sans-serif}
-html,body{height:100%;background:#0a0e1a;color:#e2e8f0;overscroll-behavior:none}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:-apple-system,'SF Pro Display','SF Pro JP','Hiragino Sans','Helvetica Neue',Arial,sans-serif;font-feature-settings:"tnum"}
+html,body{height:100%;background:#070b15;color:#e2e8f0;overscroll-behavior:none;font-size:14px}
 a{color:inherit;text-decoration:none}
-button{cursor:pointer;border:none;background:none;color:inherit;font-family:inherit}
+button{cursor:pointer;border:none;background:none;color:inherit;font-family:inherit;font-size:inherit}
 
-/* Header */
-.hd{height:50px;background:#0f1424;border-bottom:1px solid #1a2138;display:flex;align-items:center;padding:0 12px;position:sticky;top:0;z-index:100;gap:8px}
+.hd{height:48px;background:#0a0f1f;border-bottom:1px solid #1a2138;display:flex;align-items:center;padding:0 12px;position:sticky;top:0;z-index:100;gap:8px}
 .back{font-size:1.3rem;padding:4px 8px;color:#94a3b8;border-radius:8px}
 .back:active{background:#1a2138}
-.hd-name{font-size:.95rem;font-weight:800;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.logo{font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;cursor:pointer}
+.hd-name{font-size:.92rem;font-weight:800;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.logo{font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;cursor:pointer}
 .fav{font-size:1.3rem;padding:4px 8px;border-radius:8px;color:#fbbf24}
-.fav:active{background:#1a2138}
 
 /* Price hero */
-.ph{background:#0f1424;padding:14px 16px 12px;border-bottom:1px solid #1a2138}
-.ph-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.ph{background:#0a0f1f;padding:12px 14px 10px;border-bottom:1px solid #1a2138}
+.ph-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
 .ph-info{flex:1;min-width:0}
-.ph-name{font-size:1.05rem;font-weight:800;line-height:1.3;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ph-sym{font-size:.72rem;color:#64748b;font-family:monospace;font-weight:600}
+.ph-name{font-size:1rem;font-weight:800;line-height:1.2;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph-sym{font-size:.7rem;color:#64748b;font-family:monospace;font-weight:600;display:flex;align-items:center;gap:5px}
 .ph-right{text-align:right;flex-shrink:0}
-.ph-price{font-size:1.85rem;font-weight:800;letter-spacing:-.5px;line-height:1}
-.ph-chg{font-size:.86rem;font-weight:700;margin-top:4px;white-space:nowrap}
+.ph-price{font-size:1.85rem;font-weight:800;letter-spacing:-.5px;line-height:1;font-variant-numeric:tabular-nums}
+.ph-chg{font-size:.84rem;font-weight:700;margin-top:3px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .up{color:#10b981}.dn{color:#ef4444}.fl{color:#64748b}
-.ph-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid #1a2138;padding-top:10px}
-.ph-stat{text-align:center}
-.ph-stat-l{font-size:.62rem;color:#64748b;margin-bottom:2px}
-.ph-stat-v{font-size:.74rem;font-weight:700}
-.ldot{width:6px;height:6px;background:#10b981;border-radius:50%;display:inline-block;animation:pulse 1.5s ease-in-out infinite;margin-right:4px}
+.ldot{width:6px;height:6px;background:#10b981;border-radius:50%;display:inline-block;animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
+/* Day range bar */
+.range-bar{margin-top:10px;padding-top:8px;border-top:1px solid #1a2138}
+.range-labels{display:flex;justify-content:space-between;font-size:.62rem;color:#64748b;margin-bottom:4px}
+.range-labels span{font-variant-numeric:tabular-nums;font-weight:600;color:#94a3b8}
+.range-track{position:relative;height:5px;background:#1a2138;border-radius:3px;overflow:hidden}
+.range-fill{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#ef4444,#fbbf24,#10b981);border-radius:3px}
+.range-marker{position:absolute;top:-3px;width:2px;height:11px;background:#fff;border-radius:1px;box-shadow:0 0 6px rgba(255,255,255,.5)}
+
+.ph-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.ph-stat{background:#0f1424;border:1px solid #1a2138;border-radius:6px;padding:6px 4px;text-align:center}
+.ph-stat-l{font-size:.58rem;color:#64748b;margin-bottom:2px;font-weight:600}
+.ph-stat-v{font-size:.72rem;font-weight:700;font-variant-numeric:tabular-nums}
+
 /* Period tabs */
-.ptabs{background:#0f1424;display:flex;border-bottom:1px solid #1a2138;overflow-x:auto;scrollbar-width:none}
+.ptabs{background:#0a0f1f;display:flex;border-bottom:1px solid #1a2138;overflow-x:auto;scrollbar-width:none}
 .ptabs::-webkit-scrollbar{display:none}
-.ptab{flex:1;min-width:48px;padding:10px 4px;text-align:center;font-size:.76rem;font-weight:700;color:#64748b;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.ptab{flex:1;min-width:46px;padding:9px 4px;text-align:center;font-size:.74rem;font-weight:700;color:#64748b;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
 .ptab.on{color:#06b6d4;border-color:#06b6d4}
 
 /* TradingView */
@@ -47,74 +54,93 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
 @media(min-width:640px){.chart-wrap{height:420px}}
 #tv{height:100%}
 
-/* Tab strip */
-.tabs{display:flex;background:#0f1424;border-bottom:2px solid #1a2138;position:sticky;top:50px;z-index:90}
-.tab{flex:1;padding:12px 4px;text-align:center;font-size:.82rem;font-weight:700;color:#64748b;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap}
+/* Tabs */
+.tabs{display:flex;background:#0a0f1f;border-bottom:1px solid #1a2138;position:sticky;top:48px;z-index:90;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;min-width:80px;padding:11px 4px;text-align:center;font-size:.78rem;font-weight:700;color:#64748b;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
 .tab.on{color:#06b6d4;border-color:#06b6d4}
 
-/* Tab content (swipeable) */
 .tab-wrap{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tab-wrap::-webkit-scrollbar{display:none}
-.tab-pane{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;overflow-y:auto;overflow-x:hidden;padding:14px 14px 90px;-webkit-overflow-scrolling:touch;min-height:50vh}
+.tab-pane{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;overflow-y:auto;overflow-x:hidden;padding:12px 12px 80px;-webkit-overflow-scrolling:touch;min-height:55vh}
 
-/* AI section */
-.ai-load{text-align:center;padding:50px 20px;color:#64748b}
-.spin{display:inline-block;width:32px;height:32px;border:3px solid #1a2138;border-top-color:#06b6d4;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:14px}
+/* Common */
+.spin{display:inline-block;width:28px;height:28px;border:3px solid #1a2138;border-top-color:#06b6d4;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ai-load-t{font-weight:700;color:#cbd5e1;margin-bottom:6px}
-.ai-load-s{font-size:.82rem;line-height:1.5}
+.ai-load{text-align:center;padding:40px 20px;color:#64748b}
+.ai-load-t{font-weight:700;color:#cbd5e1;margin:10px 0 4px}
+.ai-load-s{font-size:.78rem}
 
-.verdict{border-radius:14px;padding:18px 16px;margin-bottom:14px;border:1px solid}
+.sec-card{background:#0f1424;border:1px solid #1a2138;border-radius:10px;padding:12px;margin-bottom:8px}
+.sec-h{font-size:.76rem;font-weight:800;color:#cbd5e1;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.sec-h::before{content:'';width:3px;height:12px;background:#06b6d4;border-radius:2px}
+
+/* AI verdict */
+.verdict{border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid}
 .v-buy{background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,182,212,.05));border-color:#10b981}
 .v-hold{background:linear-gradient(135deg,rgba(202,138,4,.1),rgba(217,119,6,.05));border-color:#ca8a04}
 .v-sell{background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(220,38,38,.05));border-color:#ef4444}
-.v-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
-.v-rating{font-size:1.85rem;font-weight:900;letter-spacing:1px}
+.v-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:10px}
+.v-rating{font-size:1.65rem;font-weight:900;letter-spacing:1px}
 .r-buy{color:#10b981}.r-hold{color:#ca8a04}.r-sell{color:#ef4444}
 .v-score-box{text-align:right;flex-shrink:0}
-.v-score-l{font-size:.66rem;color:#94a3b8;margin-bottom:2px}
-.v-score{font-size:1.4rem;font-weight:800;color:#fff}
-.v-score sub{font-size:.78rem;font-weight:600;color:#64748b}
-.v-bar{height:5px;background:#1a2138;border-radius:3px;margin-top:5px;overflow:hidden;width:80px;margin-left:auto}
+.v-score-l{font-size:.62rem;color:#94a3b8;margin-bottom:1px}
+.v-score{font-size:1.25rem;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.v-score sub{font-size:.7rem;font-weight:600;color:#64748b}
+.v-bar{height:5px;background:#1a2138;border-radius:3px;margin-top:4px;overflow:hidden;width:80px;margin-left:auto}
 .v-bar-fill{height:100%;border-radius:3px;transition:width .6s}
-.v-verdict{font-size:.95rem;font-weight:700;margin-bottom:4px;color:#fff}
-.v-horizon{font-size:.74rem;color:#94a3b8}
+.v-verdict{font-size:.9rem;font-weight:700;margin-bottom:3px;color:#fff}
+.v-horizon{font-size:.7rem;color:#94a3b8}
 
-.sec-card{background:#0f1424;border:1px solid #1a2138;border-radius:12px;padding:14px;margin-bottom:10px}
-.sec-h{font-size:.78rem;font-weight:800;color:#cbd5e1;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.sec-h::before{content:'';width:3px;height:12px;background:#06b6d4;border-radius:2px}
-.point-list{display:flex;flex-direction:column;gap:7px}
-.point{font-size:.84rem;line-height:1.45;display:flex;gap:8px;color:#cbd5e1}
+.point-list{display:flex;flex-direction:column;gap:6px}
+.point{font-size:.82rem;line-height:1.45;display:flex;gap:8px;color:#cbd5e1}
 .point-i{flex-shrink:0}
-.analysis-text{font-size:.86rem;line-height:1.7;color:#cbd5e1}
+.analysis-text{font-size:.84rem;line-height:1.7;color:#cbd5e1}
 
-.ai-no{text-align:center;padding:38px 20px}
-.no-i{font-size:2.5rem;margin-bottom:12px}
-.no-t{font-weight:800;font-size:1rem;margin-bottom:8px;color:#cbd5e1}
-.no-s{font-size:.83rem;color:#94a3b8;line-height:1.55;margin-bottom:18px}
-.no-b{background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border-radius:12px;padding:11px 22px;font-weight:700;font-size:.9rem}
+.ai-no{text-align:center;padding:30px 20px}
+.no-i{font-size:2.3rem;margin-bottom:10px;opacity:.7}
+.no-t{font-weight:800;font-size:.95rem;margin-bottom:8px;color:#cbd5e1}
+.no-s{font-size:.8rem;color:#94a3b8;line-height:1.55;margin-bottom:14px}
+.no-b{background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;border-radius:10px;padding:10px 20px;font-weight:700;font-size:.86rem}
 
-/* Info table */
-.info-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #1a2138;font-size:.83rem}
-.info-row:last-child{border:none}
-.info-l{color:#94a3b8}
-.info-v{font-weight:700;text-align:right;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Info table - dense Bloomberg style */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#1a2138;border-radius:8px;overflow:hidden;border:1px solid #1a2138}
+.info-cell{background:#0f1424;padding:8px 10px}
+.info-l{font-size:.62rem;color:#64748b;font-weight:600;margin-bottom:2px}
+.info-v{font-size:.82rem;font-weight:700;font-variant-numeric:tabular-nums}
 
-.summary{font-size:.82rem;line-height:1.7;color:#cbd5e1}
+.summary{font-size:.82rem;line-height:1.7;color:#cbd5e1;white-space:pre-wrap}
+
+/* Analyst gauge */
+.gauge{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.gauge-track{flex:1;height:8px;background:#1a2138;border-radius:4px;overflow:hidden;position:relative}
+.gauge-fill{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg,#10b981,#fbbf24,#ef4444);border-radius:4px}
+.gauge-marker{position:absolute;top:-3px;width:3px;height:14px;background:#fff;border-radius:2px}
+.gauge-label{font-size:.74rem;font-weight:800;min-width:80px;text-align:right}
 
 /* News */
-.news-item{display:block;background:#0f1424;border:1px solid #1a2138;border-radius:10px;padding:12px;margin-bottom:8px;transition:transform .12s}
-.news-item:active{transform:scale(.98);background:#161e30}
-.news-title{font-size:.86rem;font-weight:700;line-height:1.4;margin-bottom:4px;color:#e2e8f0}
-.news-meta{font-size:.7rem;color:#64748b;display:flex;justify-content:space-between}
+.news-item{display:block;background:#0f1424;border:1px solid #1a2138;border-radius:8px;padding:10px 12px;margin-bottom:6px}
+.news-item:active{background:#161e30}
+.news-title{font-size:.82rem;font-weight:600;line-height:1.4;margin-bottom:3px;color:#e2e8f0}
+.news-meta{font-size:.66rem;color:#64748b;display:flex;justify-content:space-between}
+
+/* Related stocks */
+.rel-list{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.rel-card{background:#0f1424;border:1px solid #1a2138;border-radius:8px;padding:9px 10px;cursor:pointer}
+.rel-card:active{background:#161e30}
+.rel-sym{font-size:.62rem;color:#64748b;font-family:monospace;font-weight:700}
+.rel-name{font-size:.74rem;font-weight:700;line-height:1.2;margin-top:2px;-webkit-line-clamp:1;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.rel-bot{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px}
+.rel-price{font-size:.74rem;font-weight:700;font-variant-numeric:tabular-nums}
+.rel-chg{font-size:.65rem;font-weight:700;font-variant-numeric:tabular-nums}
 
 /* Bottom nav */
-.bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0f1424;border-top:1px solid #1a2138;display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
-.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#475569;font-size:.62rem;font-weight:700}
-.bi-icon{font-size:1.15rem}
+.bnav{position:fixed;bottom:0;left:0;right:0;height:56px;background:rgba(10,15,31,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #1a2138;display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#475569;font-size:.6rem;font-weight:700}
+.bi-icon{font-size:1.05rem}
 
 /* Sheet */
-.sheet-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:flex-end}
+.sheet-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:flex-end;backdrop-filter:blur(4px)}
 .sheet-bg.open{display:flex}
 .sheet{background:#0f1424;border-radius:18px 18px 0 0;padding:20px 18px 36px;width:100%;max-height:80vh;overflow-y:auto;position:relative;border-top:1px solid #1a2138}
 .sheet-t{font-size:1.05rem;font-weight:800;margin-bottom:8px}
@@ -124,7 +150,13 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
 .sheet-inp:focus{border-color:#6366f1}
 .sheet-save{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:800;font-size:.93rem}
 .sheet-x{position:absolute;top:13px;right:13px;background:#1a2138;border-radius:50%;width:30px;height:30px;font-size:.95rem;display:flex;align-items:center;justify-content:center}
-.disclaimer{font-size:.7rem;color:#475569;line-height:1.5;padding:14px 0;text-align:center}
+.disclaimer{font-size:.66rem;color:#475569;line-height:1.5;padding:10px 0;text-align:center}
+
+/* Flash */
+.flash-up{animation:fu .8s}
+.flash-dn{animation:fd .8s}
+@keyframes fu{0%{color:#10b981}100%{color:inherit}}
+@keyframes fd{0%{color:#ef4444}100%{color:inherit}}
 </style>
 </head>
 <body>
@@ -140,23 +172,31 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
   <div class="ph-top">
     <div class="ph-info">
       <div class="ph-name" id="phName">—</div>
-      <div class="ph-sym"><span class="ldot"></span><span id="phSym">—</span></div>
+      <div class="ph-sym"><span class="ldot"></span><span id="phSym">—</span><span style="color:#475569" id="phExch"></span></div>
     </div>
     <div class="ph-right">
       <div class="ph-price" id="phPrice">—</div>
       <div class="ph-chg fl" id="phChg">—</div>
     </div>
   </div>
+  <div class="range-bar" id="rangeBar" style="display:none">
+    <div class="range-labels"><span id="rangeLow">—</span><span style="color:#64748b;font-weight:500">本日値幅</span><span id="rangeHigh">—</span></div>
+    <div class="range-track">
+      <div class="range-fill" id="rangeFill"></div>
+      <div class="range-marker" id="rangeMarker"></div>
+    </div>
+  </div>
   <div class="ph-stats">
-    <div class="ph-stat"><div class="ph-stat-l">本日高値</div><div class="ph-stat-v" id="phHigh">—</div></div>
-    <div class="ph-stat"><div class="ph-stat-l">本日安値</div><div class="ph-stat-v" id="phLow">—</div></div>
-    <div class="ph-stat"><div class="ph-stat-l">52週高</div><div class="ph-stat-v" id="ph52h">—</div></div>
-    <div class="ph-stat"><div class="ph-stat-l">52週安</div><div class="ph-stat-v" id="ph52l">—</div></div>
+    <div class="ph-stat"><div class="ph-stat-l">出来高</div><div class="ph-stat-v" id="phVol">—</div></div>
+    <div class="ph-stat"><div class="ph-stat-l">時価総額</div><div class="ph-stat-v" id="phCap">—</div></div>
+    <div class="ph-stat"><div class="ph-stat-l">PER</div><div class="ph-stat-v" id="phPE">—</div></div>
+    <div class="ph-stat"><div class="ph-stat-l">配当</div><div class="ph-stat-v" id="phDiv">—</div></div>
   </div>
 </div>
 
 <div class="ptabs" id="ptabs">
-  <div class="ptab" data-r="1D" data-i="5">1分</div>
+  <div class="ptab" data-r="1D" data-i="1">1分</div>
+  <div class="ptab" data-r="1D" data-i="5">5分</div>
   <div class="ptab" data-r="5D" data-i="15">15分</div>
   <div class="ptab" data-r="1M" data-i="60">1時間</div>
   <div class="ptab on" data-r="3M" data-i="D">日足</div>
@@ -170,12 +210,13 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
   <div class="tab on" data-i="0">AI判断</div>
   <div class="tab" data-i="1">詳細</div>
   <div class="tab" data-i="2">ニュース</div>
+  <div class="tab" data-i="3">関連</div>
 </div>
 
 <div class="tab-wrap" id="tabWrap">
   <div class="tab-pane" id="tp0">
     <div id="ai">
-      <div class="ai-load"><div class="spin"></div><div class="ai-load-t">準備中…</div><div class="ai-load-s">株価データを取得中</div></div>
+      <div class="ai-load"><div class="spin"></div><div class="ai-load-t">準備中…</div></div>
     </div>
   </div>
   <div class="tab-pane" id="tp1">
@@ -184,12 +225,15 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
   <div class="tab-pane" id="tp2">
     <div id="news"><div class="ai-load"><div class="spin"></div></div></div>
   </div>
+  <div class="tab-pane" id="tp3">
+    <div id="related"><div class="ai-load"><div class="spin"></div></div></div>
+  </div>
 </div>
 
 <nav class="bnav">
-  <button class="bi" onclick="location.href='/stock/'"><span class="bi-icon">🏠</span>ホーム</button>
+  <button class="bi" onclick="location.href='/stock/'"><span class="bi-icon">🏠</span>マーケット</button>
   <button class="bi" onclick="location.href='/stock/'"><span class="bi-icon">🔍</span>検索</button>
-  <button class="bi" id="bnFav" onclick="toggleFav()"><span class="bi-icon">☆</span>お気に入り</button>
+  <button class="bi" id="bnFav" onclick="toggleFav()"><span class="bi-icon">☆</span>Watch</button>
   <button class="bi" onclick="openSheet()"><span class="bi-icon">⚙️</span>設定</button>
 </nav>
 
@@ -197,10 +241,7 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
   <div class="sheet">
     <button class="sheet-x" onclick="closeSheet()">✕</button>
     <div class="sheet-t">⚙️ Gemini APIキー設定</div>
-    <div class="sheet-s">
-      キーを設定すると<strong>全ての銘柄</strong>でAI投資判断が利用できます。<br>
-      <a href="https://aistudio.google.com/app/apikey" target="_blank">▶ Google AI Studioで無料取得</a>
-    </div>
+    <div class="sheet-s">キーを設定すると<strong>全銘柄</strong>でAI投資判断が利用できます。<br><a href="https://aistudio.google.com/app/apikey" target="_blank">▶ Google AI Studioで無料取得</a></div>
     <input class="sheet-inp" type="password" id="ak" placeholder="AIzaSy...">
     <button class="sheet-save" onclick="saveKey()">保存する</button>
   </div>
@@ -211,10 +252,10 @@ button{cursor:pointer;border:none;background:none;color:inherit;font-family:inhe
 /* ── Param ── */
 const params = new URLSearchParams(location.search);
 const SYM = params.get('s');
-if(!SYM){ location.replace('/stock/'); }
+if(!SYM){ location.replace('/stock/'); throw new Error('no symbol'); }
 const URL_NAME = params.get('n') || SYM;
 
-document.title = SYM+' | STOCK';
+document.title = SYM + ' | STOCK';
 document.getElementById('hdName').textContent = URL_NAME;
 document.getElementById('phName').textContent = URL_NAME;
 document.getElementById('phSym').textContent = SYM;
@@ -224,12 +265,12 @@ function goBack(){
   else location.href = '/stock/';
 }
 
-/* ── Favorites ── */
+/* Favorites */
 let favs = JSON.parse(localStorage.getItem('sfav')||'[]');
 function refreshFav(){
   const on = favs.includes(SYM);
   document.getElementById('favBtn').textContent = on ? '★' : '☆';
-  document.getElementById('bnFav').innerHTML = '<span class="bi-icon">'+(on?'★':'☆')+'</span>お気に入り';
+  document.getElementById('bnFav').innerHTML = '<span class="bi-icon">'+(on?'★':'☆')+'</span>Watch';
 }
 function toggleFav(){
   if(favs.includes(SYM)) favs = favs.filter(x=>x!==SYM);
@@ -239,53 +280,64 @@ function toggleFav(){
 }
 refreshFav();
 
-/* ── Currency-aware formatter ── */
-function fmtPrice(p, currency){
-  if(p==null) return '—';
-  const cur = currency || (SYM.endsWith('.T')?'JPY':'USD');
-  if(cur==='JPY') return '¥' + (p>=100?Math.round(p):p.toFixed(2)).toLocaleString();
-  if(SYM.startsWith('^')||SYM.endsWith('=X')||SYM.endsWith('=F')) return p.toLocaleString(undefined,{maximumFractionDigits:p<10?4:2});
-  if(cur==='USD'){
+/* Format */
+function fmtPrice(p, cur){
+  if(p == null) return '—';
+  cur = cur || (SYM.endsWith('.T') ? 'JPY' : 'USD');
+  if(SYM.startsWith('^') || SYM.endsWith('=X') || SYM.endsWith('=F'))
+    return p.toLocaleString(undefined, {maximumFractionDigits: p<10?4:2, minimumFractionDigits: p<10?2:2});
+  if(cur === 'JPY') return '¥' + (p>=100 ? Math.round(p) : Math.round(p*100)/100).toLocaleString();
+  if(cur === 'USD'){
     if(p<1) return '$'+p.toFixed(4);
     if(p<100) return '$'+p.toFixed(2);
     return '$'+Math.round(p).toLocaleString();
   }
   return p.toLocaleString();
 }
-function fmtCap(v, currency){
+function fmtCap(v, cur){
   if(!v) return '—';
-  const sym = currency==='JPY' ? '¥' : '$';
-  if(v>=1e12) return sym+(v/1e12).toFixed(2)+'T';
-  if(v>=1e9) return sym+(v/1e9).toFixed(2)+'B';
-  if(v>=1e6) return sym+(v/1e6).toFixed(2)+'M';
-  return sym+v.toLocaleString();
+  const sym = cur==='JPY' ? '¥' : '$';
+  if(v >= 1e12) return sym + (v/1e12).toFixed(2) + 'T';
+  if(v >= 1e9)  return sym + (v/1e9).toFixed(2)  + 'B';
+  if(v >= 1e6)  return sym + (v/1e6).toFixed(2)  + 'M';
+  return sym + v.toLocaleString();
+}
+function fmtVol(v){
+  if(!v) return '—';
+  if(v >= 1e9) return (v/1e9).toFixed(2) + 'B';
+  if(v >= 1e6) return (v/1e6).toFixed(2) + 'M';
+  if(v >= 1e3) return (v/1e3).toFixed(0) + 'K';
+  return v.toLocaleString();
 }
 
-/* ── TradingView symbol mapping ── */
+/* TradingView symbol mapping */
 function toTV(s){
   if(s.endsWith('.T')) return 'TSE:' + s.replace('.T','');
   if(s.endsWith('-USD')) return 'BINANCE:' + s.replace('-','');
-  if(s.endsWith('=X')) return 'FX:' + s.replace('=X','').replace('JPY','USDJPY').replace('USDUSDJPY','USDJPY');
+  if(s.endsWith('=X')){
+    const base = s.replace('=X','');
+    if(base === 'JPY') return 'FX:USDJPY';
+    return 'FX:' + base;
+  }
   if(s.endsWith('=F')){
-    if(s==='GC=F') return 'TVC:GOLD';
-    if(s==='CL=F') return 'TVC:USOIL';
-    return 'TVC:'+s.replace('=F','');
+    const map = {'GC=F':'TVC:GOLD','SI=F':'TVC:SILVER','CL=F':'TVC:USOIL','NG=F':'TVC:NATURALGAS'};
+    return map[s] || 'TVC:' + s.replace('=F','');
   }
   if(s.startsWith('^')){
-    const map = {'^N225':'TVC:NI225','^TPX':'TVC:TOPIX','^GSPC':'SP:SPX','^IXIC':'NASDAQ:IXIC','^DJI':'DJ:DJI','^FTSE':'TVC:UKX','^HSI':'HSI:HSI','^STOXX50E':'TVC:SX5E'};
+    const map = {'^N225':'TVC:NI225','^TPX':'TVC:TOPIX','^GSPC':'SP:SPX','^IXIC':'NASDAQ:IXIC','^DJI':'DJ:DJI','^FTSE':'TVC:UKX','^HSI':'HSI:HSI','^GDAXI':'XETR:DAX','^SOX':'NASDAQ:SOX','^VIX':'TVC:VIX'};
     return map[s] || s;
   }
-  return s; // TradingView auto-resolves ticker
+  return s;
 }
 
-/* ── Chart ── */
+/* TradingView */
 let tvW = null;
 function buildChart(range, interval){
   const el = document.getElementById('tv');
   el.innerHTML = '';
   try{
     tvW = new TradingView.widget({
-      container_id:'tv',
+      container_id: 'tv',
       symbol: toTV(SYM),
       interval: interval,
       range: range,
@@ -299,19 +351,18 @@ function buildChart(range, interval){
       enable_publishing: false,
       allow_symbol_change: false,
       hide_top_toolbar: false,
-      hide_side_toolbar: window.innerWidth < 640,
+      hide_side_toolbar: window.innerWidth < 720,
+      hide_legend: false,
       withdateranges: false,
       details: false,
-      hotlist: false,
-      calendar: false,
       save_image: false,
-      studies: [],
+      studies: ['Volume@tv-basicstudies'],
     });
   }catch(e){
-    el.innerHTML = '<div style="padding:40px;text-align:center;color:#475569">チャートを読み込めません</div>';
+    el.innerHTML = '<div style="padding:40px;text-align:center;color:#475569;font-size:.85rem">チャートを読み込めませんでした</div>';
   }
 }
-buildChart('3M','D');
+buildChart('3M', 'D');
 
 document.getElementById('ptabs').addEventListener('click', e=>{
   const t = e.target.closest('.ptab');
@@ -321,17 +372,15 @@ document.getElementById('ptabs').addEventListener('click', e=>{
   buildChart(t.dataset.r, t.dataset.i);
 });
 
-/* ── Tab swipe ── */
+/* Tab swipe */
 const tabWrap = document.getElementById('tabWrap');
 const tabs = document.querySelectorAll('.tab');
 const panes = document.querySelectorAll('.tab-pane');
-
 tabs.forEach((t,i)=>{
   t.addEventListener('click',()=>{
     panes[i].scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});
   });
 });
-
 let tabSyncTimer;
 tabWrap.addEventListener('scroll',()=>{
   clearTimeout(tabSyncTimer);
@@ -341,7 +390,7 @@ tabWrap.addEventListener('scroll',()=>{
   }, 80);
 });
 
-/* ── Yahoo fetch with CORS proxies ── */
+/* Yahoo fetch */
 async function yfetch(url){
   for(const src of [url, 'https://corsproxy.io/?'+encodeURIComponent(url), 'https://api.allorigins.win/raw?url='+encodeURIComponent(url)]){
     try{
@@ -353,16 +402,14 @@ async function yfetch(url){
   return null;
 }
 
-/* ── Load price ── */
+/* Price */
 let stockData = null;
+let prevPrice = null;
 async function loadPrice(){
   const url = 'https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + encodeURIComponent(SYM);
   const data = await yfetch(url);
   const q = data?.quoteResponse?.result?.[0];
-  if(!q){
-    document.getElementById('phPrice').textContent = '—';
-    return null;
-  }
+  if(!q) return null;
   stockData = q;
   renderPriceHero(q);
   renderInfo(q);
@@ -372,60 +419,110 @@ async function loadPrice(){
 function renderPriceHero(q){
   const cur = q.currency;
   document.getElementById('phName').textContent = q.longName || q.shortName || URL_NAME;
-  document.getElementById('phPrice').textContent = fmtPrice(q.regularMarketPrice, cur);
+  document.getElementById('phExch').textContent = q.fullExchangeName ? ' · ' + q.fullExchangeName : '';
+  const priceEl = document.getElementById('phPrice');
+  const newPrice = q.regularMarketPrice;
+  priceEl.textContent = fmtPrice(newPrice, cur);
+  if(prevPrice != null && prevPrice !== newPrice){
+    priceEl.classList.remove('flash-up','flash-dn');
+    void priceEl.offsetWidth;
+    priceEl.classList.add(newPrice > prevPrice ? 'flash-up' : 'flash-dn');
+  }
+  prevPrice = newPrice;
   const pct = q.regularMarketChangePercent ?? 0;
   const chg = q.regularMarketChange ?? 0;
   const cls = pct>=0?'up':pct<0?'dn':'fl';
   document.getElementById('phChg').className = 'ph-chg '+cls;
   document.getElementById('phChg').textContent = (pct>=0?'+':'') + chg.toFixed(cur==='JPY'?(Math.abs(chg)>=10?0:2):2) + ' (' + (pct>=0?'+':'') + pct.toFixed(2) + '%)';
-  document.getElementById('phHigh').textContent = fmtPrice(q.regularMarketDayHigh, cur);
-  document.getElementById('phLow').textContent = fmtPrice(q.regularMarketDayLow, cur);
-  document.getElementById('ph52h').textContent = fmtPrice(q.fiftyTwoWeekHigh, cur);
-  document.getElementById('ph52l').textContent = fmtPrice(q.fiftyTwoWeekLow, cur);
+
+  // Range bar
+  const lo = q.regularMarketDayLow, hi = q.regularMarketDayHigh, p = q.regularMarketPrice;
+  if(lo != null && hi != null && p != null && hi > lo){
+    document.getElementById('rangeBar').style.display = 'block';
+    document.getElementById('rangeLow').textContent = fmtPrice(lo, cur);
+    document.getElementById('rangeHigh').textContent = fmtPrice(hi, cur);
+    const pct2 = ((p - lo) / (hi - lo)) * 100;
+    document.getElementById('rangeFill').style.width = pct2 + '%';
+    document.getElementById('rangeMarker').style.left = pct2 + '%';
+  }
+
+  document.getElementById('phVol').textContent = fmtVol(q.regularMarketVolume);
+  document.getElementById('phCap').textContent = fmtCap(q.marketCap, cur);
+  document.getElementById('phPE').textContent = q.trailingPE ? q.trailingPE.toFixed(1) : '—';
+  document.getElementById('phDiv').textContent = q.dividendYield ? (q.dividendYield*100).toFixed(2)+'%' : (q.trailingAnnualDividendYield?(q.trailingAnnualDividendYield*100).toFixed(2)+'%':'—');
 }
 
 function renderInfo(q){
   const cur = q.currency;
-  const rows = [
+  const cells = [
     ['銘柄名', q.longName || q.shortName || URL_NAME],
     ['ティッカー', q.symbol],
     ['取引所', q.fullExchangeName || q.exchange || '—'],
     ['通貨', cur || '—'],
+    ['業種', q.sector || '—'],
+    ['業界', q.industry || '—'],
     ['現在値', fmtPrice(q.regularMarketPrice, cur)],
     ['前日終値', fmtPrice(q.regularMarketPreviousClose, cur)],
     ['始値', fmtPrice(q.regularMarketOpen, cur)],
     ['本日高値', fmtPrice(q.regularMarketDayHigh, cur)],
     ['本日安値', fmtPrice(q.regularMarketDayLow, cur)],
-    ['52週高値', fmtPrice(q.fiftyTwoWeekHigh, cur)],
-    ['52週安値', fmtPrice(q.fiftyTwoWeekLow, cur)],
+    ['Bid', q.bid ? fmtPrice(q.bid, cur) + (q.bidSize?` ×${q.bidSize}`:'') : '—'],
+    ['Ask', q.ask ? fmtPrice(q.ask, cur) + (q.askSize?` ×${q.askSize}`:'') : '—'],
     ['出来高', q.regularMarketVolume ? q.regularMarketVolume.toLocaleString() : '—'],
     ['平均出来高', q.averageDailyVolume3Month ? q.averageDailyVolume3Month.toLocaleString() : '—'],
+    ['52週高値', fmtPrice(q.fiftyTwoWeekHigh, cur)],
+    ['52週安値', fmtPrice(q.fiftyTwoWeekLow, cur)],
     ['時価総額', fmtCap(q.marketCap, cur)],
-    ['PER(実績)', q.trailingPE ? q.trailingPE.toFixed(2)+'倍' : '—'],
-    ['PER(予想)', q.forwardPE ? q.forwardPE.toFixed(2)+'倍' : '—'],
-    ['EPS', q.epsTrailingTwelveMonths ? q.epsTrailingTwelveMonths.toFixed(2) : '—'],
-    ['配当利回り', q.dividendYield ? (q.dividendYield*100).toFixed(2)+'%' : (q.trailingAnnualDividendYield?(q.trailingAnnualDividendYield*100).toFixed(2)+'%':'—')],
+    ['PER(実績)', q.trailingPE ? q.trailingPE.toFixed(2) + '倍' : '—'],
+    ['PER(予想)', q.forwardPE ? q.forwardPE.toFixed(2) + '倍' : '—'],
+    ['EPS(実績)', q.epsTrailingTwelveMonths ? q.epsTrailingTwelveMonths.toFixed(2) : '—'],
+    ['EPS(予想)', q.epsForward ? q.epsForward.toFixed(2) : '—'],
+    ['PBR', q.priceToBook ? q.priceToBook.toFixed(2) + '倍' : '—'],
+    ['配当利回り', q.dividendYield ? (q.dividendYield*100).toFixed(2) + '%' : (q.trailingAnnualDividendYield?(q.trailingAnnualDividendYield*100).toFixed(2)+'%':'—')],
     ['β値', q.beta ? q.beta.toFixed(2) : '—'],
-    ['発行済株式数', q.sharesOutstanding ? fmtCap(q.sharesOutstanding,'').replace('$','') : '—'],
+    ['発行済株式', q.sharesOutstanding ? fmtVol(q.sharesOutstanding) : '—'],
+    ['浮動株', q.floatShares ? fmtVol(q.floatShares) : '—'],
+    ['アナリスト評価', q.averageAnalystRating ? q.averageAnalystRating : '—'],
+    ['目標株価', q.targetMeanPrice ? fmtPrice(q.targetMeanPrice, cur) : '—'],
+    ['決算日', q.earningsTimestamp ? new Date(q.earningsTimestamp*1000).toLocaleDateString('ja-JP') : '—'],
   ];
-  document.getElementById('info').innerHTML = `
-    <div class="sec-card">
-      <div class="sec-h">基本情報・ファンダメンタルズ</div>
-      ${rows.map(([l,v])=>`<div class="info-row"><span class="info-l">${l}</span><span class="info-v">${v||'—'}</span></div>`).join('')}
-    </div>`;
+
+  let html = '';
+  // Analyst gauge if available
+  if(q.averageAnalystRating){
+    const m = q.averageAnalystRating.match(/^([\d.]+)/);
+    const score = m ? parseFloat(m[1]) : null;
+    if(score){
+      const pos = ((5 - score) / 4) * 100;
+      const label = q.averageAnalystRating;
+      html += `<div class="sec-card"><div class="sec-h">アナリスト評価 (Wall St.)</div>
+        <div class="gauge"><div class="gauge-track"><div class="gauge-fill"></div><div class="gauge-marker" style="left:${pos}%"></div></div><div class="gauge-label">${label}</div></div>
+        ${q.targetMeanPrice ? `<div style="font-size:.78rem;color:#94a3b8">目標株価平均: <strong style="color:#e2e8f0">${fmtPrice(q.targetMeanPrice,cur)}</strong> (現在比 ${(((q.targetMeanPrice-q.regularMarketPrice)/q.regularMarketPrice)*100).toFixed(1)}%)</div>` : ''}
+      </div>`;
+    }
+  }
+
+  html += `<div class="sec-card"><div class="sec-h">基本情報・ファンダメンタルズ</div>
+    <div class="info-grid">${cells.map(([l,v])=>`<div class="info-cell"><div class="info-l">${l}</div><div class="info-v">${v||'—'}</div></div>`).join('')}</div>
+  </div>`;
+
+  if(q.longBusinessSummary){
+    html += `<div class="sec-card"><div class="sec-h">企業概要</div><div class="summary">${q.longBusinessSummary}</div></div>`;
+  }
+  document.getElementById('info').innerHTML = html;
 }
 
-/* ── News ── */
+/* News */
 async function loadNews(){
-  const url = 'https://query1.finance.yahoo.com/v1/finance/search?q=' + encodeURIComponent(SYM) + '&newsCount=10&quotesCount=0&lang=ja-JP&region=JP';
+  const url = 'https://query1.finance.yahoo.com/v1/finance/search?q=' + encodeURIComponent(SYM) + '&newsCount=12&quotesCount=0&lang=ja-JP&region=JP';
   const data = await yfetch(url);
   const news = data?.news || [];
   if(!news.length){
-    document.getElementById('news').innerHTML = `<div class="empty" style="text-align:center;color:#475569;padding:40px"><div style="font-size:2.5rem;margin-bottom:10px">📰</div><div style="font-weight:700;margin-bottom:4px">関連ニュースが見つかりません</div></div>`;
+    document.getElementById('news').innerHTML = '<div class="ai-load"><div style="font-size:2.5rem;opacity:.5;margin-bottom:8px">📰</div><div class="ai-load-t">関連ニュースが見つかりません</div></div>';
     return;
   }
   document.getElementById('news').innerHTML = news.map(n=>{
-    const date = n.providerPublishTime ? new Date(n.providerPublishTime*1000).toLocaleDateString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+    const date = n.providerPublishTime ? new Date(n.providerPublishTime*1000).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
     return `<a class="news-item" href="${n.link}" target="_blank" rel="noopener">
       <div class="news-title">${n.title}</div>
       <div class="news-meta"><span>${n.publisher||''}</span><span>${date}</span></div>
@@ -433,7 +530,35 @@ async function loadNews(){
   }).join('');
 }
 
-/* ── AI ── */
+/* Related stocks */
+async function loadRelated(){
+  const url = 'https://query1.finance.yahoo.com/v6/finance/recommendationsbysymbol/' + encodeURIComponent(SYM);
+  const data = await yfetch(url);
+  const rec = data?.finance?.result?.[0]?.recommendedSymbols || [];
+  if(!rec.length){
+    document.getElementById('related').innerHTML = '<div class="ai-load"><div style="font-size:2.5rem;opacity:.5;margin-bottom:8px">🔗</div><div class="ai-load-t">関連銘柄データなし</div></div>';
+    return;
+  }
+  const symbols = rec.slice(0,8).map(r=>r.symbol);
+  const qData = await yfetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + symbols.join(','));
+  const quotes = qData?.quoteResponse?.result || [];
+  if(!quotes.length){
+    document.getElementById('related').innerHTML = '<div class="ai-load"><div class="ai-load-t">関連銘柄取得失敗</div></div>';
+    return;
+  }
+  document.getElementById('related').innerHTML = `<div class="rel-list">${quotes.map(q=>{
+    const cur = q.currency;
+    const chg = q.regularMarketChangePercent ?? 0;
+    const cls = chg >= 0 ? 'up' : 'dn';
+    return `<a class="rel-card" href="./detail.html?s=${encodeURIComponent(q.symbol)}&n=${encodeURIComponent(q.shortName||q.symbol)}">
+      <div class="rel-sym">${q.symbol}</div>
+      <div class="rel-name">${q.shortName||q.longName||q.symbol}</div>
+      <div class="rel-bot"><span class="rel-price">${fmtPrice(q.regularMarketPrice, cur)}</span><span class="rel-chg ${cls}">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div>
+    </a>`;
+  }).join('')}</div>`;
+}
+
+/* AI */
 async function runAI(q){
   const key = localStorage.getItem('gemini_api_key');
   if(!key){
@@ -441,12 +566,12 @@ async function runAI(q){
       <div class="ai-no">
         <div class="no-i">🤖</div>
         <div class="no-t">AI投資判断を有効にする</div>
-        <div class="no-s">Gemini APIキーを設定すると、<strong>${URL_NAME}</strong>を含む全ての銘柄の投資判断が利用できます。<br>キーは無料で取得可能。</div>
-        <button class="no-b" onclick="openSheet()">APIキーを設定</button>
+        <div class="no-s">Gemini APIキーを設定すると、<strong>${URL_NAME}</strong>の投資判断（BUY/HOLD/SELL + スコア + 強み・リスク・分析）が利用できます。<br>キーは無料で取得可能。</div>
+        <button class="no-b" onclick="openSheet()">APIキーを設定する</button>
       </div>`;
     return;
   }
-  document.getElementById('ai').innerHTML = `<div class="ai-load"><div class="spin"></div><div class="ai-load-t">AIが分析中…</div><div class="ai-load-s">Gemini が ${URL_NAME} の投資判断を生成しています</div></div>`;
+  document.getElementById('ai').innerHTML = `<div class="ai-load"><div class="spin"></div><div class="ai-load-t">AIが分析中…</div><div class="ai-load-s">Geminiが ${URL_NAME} の投資判断を生成しています</div></div>`;
 
   const cur = q?.currency;
   const price = q ? fmtPrice(q.regularMarketPrice, cur) : '不明';
@@ -454,29 +579,35 @@ async function runAI(q){
   const high52 = q ? fmtPrice(q.fiftyTwoWeekHigh, cur) : '不明';
   const low52 = q ? fmtPrice(q.fiftyTwoWeekLow, cur) : '不明';
   const pe = q?.trailingPE ? q.trailingPE.toFixed(1)+'倍' : '不明';
+  const pbr = q?.priceToBook ? q.priceToBook.toFixed(2)+'倍' : '不明';
   const div = q?.dividendYield ? (q.dividendYield*100).toFixed(2)+'%' : '不明';
   const cap = q ? fmtCap(q.marketCap, cur) : '不明';
-  const sector = q?.sector || q?.industry || (q?.quoteType==='ETF'?'ETF':q?.quoteType==='CRYPTOCURRENCY'?'仮想通貨':q?.quoteType==='INDEX'?'指数':'株式');
+  const sector = q?.sector || (q?.quoteType==='ETF'?'ETF':q?.quoteType==='CRYPTOCURRENCY'?'仮想通貨':q?.quoteType==='INDEX'?'指数':'株式');
+  const industry = q?.industry || '';
+  const beta = q?.beta ? q.beta.toFixed(2) : '不明';
+  const target = q?.targetMeanPrice ? fmtPrice(q.targetMeanPrice, cur) : '不明';
+  const analyst = q?.averageAnalystRating || '不明';
 
   const prompt = `あなたは経験豊富な投資アナリストです。以下の銘柄について日本語で投資判断を提供してください。
-回答は必ずJSON形式のみとし、JSON以外の文字列を一切含めないでください。
+回答は必ずJSON形式のみ。
 
-銘柄名: ${q?.longName || q?.shortName || URL_NAME}
-ティッカー: ${SYM}
-種別/セクター: ${sector}
+銘柄: ${q?.longName || q?.shortName || URL_NAME} (${SYM})
+セクター: ${sector}${industry?' / '+industry:''}
 現在価格: ${price}
 本日変動: ${pct}
-52週高値: ${high52}
-52週安値: ${low52}
+52週レンジ: ${low52} - ${high52}
 時価総額: ${cap}
-PER(実績): ${pe}
+PER: ${pe} / PBR: ${pbr}
 配当利回り: ${div}
+β値: ${beta}
+アナリスト評価平均: ${analyst}
+目標株価平均: ${target}
 
 以下のJSONフォーマットのみで回答:
 {
   "rating": "BUY" または "HOLD" または "SELL",
   "score": 0から100の整数,
-  "verdict": "20文字以内の判断コメント",
+  "verdict": "20文字以内の判断",
   "strengths": ["強み1（30字以内）", "強み2（30字以内）", "強み3（30字以内）"],
   "risks": ["リスク1（30字以内）", "リスク2（30字以内）"],
   "analysis": "詳細投資分析（200文字程度）",
@@ -526,7 +657,7 @@ function renderAI(ai){
       <div class="v-top">
         <div class="v-rating ${rTC[ai.rating]||'r-hold'}">${rT[ai.rating]||ai.rating}</div>
         <div class="v-score-box">
-          <div class="v-score-l">投資魅力度</div>
+          <div class="v-score-l">魅力度</div>
           <div class="v-score">${score}<sub>/100</sub></div>
           <div class="v-bar"><div class="v-bar-fill" style="width:${score}%;background:${bColor[ai.rating]||'#06b6d4'}"></div></div>
         </div>
@@ -540,7 +671,7 @@ function renderAI(ai){
     <div class="disclaimer">※ Gemini AIによる自動生成です。投資判断は自己責任でお願いします。</div>`;
 }
 
-/* ── Settings ── */
+/* Settings */
 function openSheet(){document.getElementById('sheet').classList.add('open');document.getElementById('ak').value=localStorage.getItem('gemini_api_key')||'';}
 function closeSheet(){document.getElementById('sheet').classList.remove('open');}
 function saveKey(){
@@ -551,12 +682,18 @@ function saveKey(){
   if(stockData) runAI(stockData);
 }
 
-/* ── Init ── */
+/* Init */
 async function init(){
   const q = await loadPrice();
-  await Promise.all([runAI(q), loadNews()]);
+  await Promise.all([runAI(q), loadNews(), loadRelated()]);
 }
 init();
+
+/* Auto-refresh price every 15s */
+setInterval(()=>{
+  if(!document.hidden) loadPrice();
+}, 15000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden) loadPrice();});
 </script>
 </body>
 </html>
