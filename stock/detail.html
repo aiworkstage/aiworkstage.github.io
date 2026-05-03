@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>STOCK</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%;overscroll-behavior:none}
+    body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;background:#f0f2f7;color:#1a202c;padding-bottom:env(safe-area-inset-bottom)}
+
+    /* ── Header ── */
+    .hd{height:52px;background:#fff;border-bottom:1px solid #e8eaf0;display:flex;align-items:center;padding:0 14px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.06);gap:10px}
+    .back{background:none;border:none;cursor:pointer;font-size:1.1rem;padding:6px;color:#64748b;border-radius:8px;line-height:1;flex-shrink:0}
+    .hd-name{font-size:.95rem;font-weight:800;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1}
+    .logo{font-size:1.3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:2px;flex-shrink:0}
+    .fav-btn{background:none;border:none;cursor:pointer;font-size:1.2rem;padding:6px;border-radius:8px;flex-shrink:0}
+
+    /* ── Price hero ── */
+    .price-hero{background:#fff;padding:16px 16px 12px;border-bottom:1px solid #f0f2f7}
+    .ph-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+    .ph-name{font-size:1.1rem;font-weight:800;line-height:1.3;margin-bottom:2px}
+    .ph-sym{font-size:.75rem;color:#94a3b8;font-family:monospace;font-weight:600}
+    .ph-right{text-align:right}
+    .ph-price{font-size:1.9rem;font-weight:800;letter-spacing:-.5px;line-height:1}
+    .ph-chg{font-size:.9rem;font-weight:700;margin-top:4px}
+    .up{color:#16a34a}.dn{color:#dc2626}.fl{color:#94a3b8}
+    .ph-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.76rem;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:8px}
+    .ph-meta span{display:flex;align-items:center;gap:3px}
+    .ldot{width:6px;height:6px;background:#16a34a;border-radius:50%;animation:pulse 1.5s ease-in-out infinite;flex-shrink:0}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+    /* ── Period tabs ── */
+    .period-wrap{background:#fff;border-bottom:1px solid #e8eaf0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+    .period-wrap::-webkit-scrollbar{display:none}
+    .periods{display:flex;padding:0 10px}
+    .ptab{flex:1;min-width:44px;padding:10px 6px;text-align:center;font-size:.78rem;font-weight:700;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+    .ptab.on{color:#6366f1;border-color:#6366f1}
+
+    /* ── Chart ── */
+    .chart-wrap{background:#fff;overflow:hidden}
+    #tv-widget{height:300px}
+    @media(min-width:640px){#tv-widget{height:380px}}
+
+    /* ── Tab strip ── */
+    .tabs{display:flex;background:#fff;border-bottom:2px solid #e8eaf0;position:sticky;top:52px;z-index:90}
+    .tab{flex:1;padding:12px 8px;text-align:center;font-size:.82rem;font-weight:700;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap}
+    .tab.on{color:#6366f1;border-color:#6366f1}
+
+    /* ── Panes ── */
+    .panes{overflow-x:hidden;touch-action:pan-y}
+    .pane{display:none;padding:14px 14px 80px}
+    .pane.on{display:block}
+
+    /* ── AI pane ── */
+    .ai-loading{text-align:center;padding:48px 20px;color:#94a3b8}
+    .spin{display:inline-block;width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:#6366f1;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:14px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .ai-loading-t{font-weight:700;color:#334155;margin-bottom:6px}
+    .ai-loading-s{font-size:.82rem;line-height:1.5}
+
+    .verdict-box{border-radius:16px;padding:20px 18px;margin-bottom:14px}
+    .vb-buy{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac}
+    .vb-hold{background:linear-gradient(135deg,#fefce8,#fef9c3);border:1.5px solid #fde047}
+    .vb-sell{background:linear-gradient(135deg,#fff1f2,#fee2e2);border:1.5px solid #fca5a5}
+    .v-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .v-rating{font-size:2rem;font-weight:900;letter-spacing:1px}
+    .vr-buy{color:#15803d}.vr-hold{color:#a16207}.vr-sell{color:#dc2626}
+    .v-score-wrap{text-align:right}
+    .v-score-label{font-size:.7rem;color:#64748b;margin-bottom:3px}
+    .v-score{font-size:1.6rem;font-weight:800}
+    .score-bar-wrap{height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;margin-top:6px;width:80px;margin-left:auto}
+    .score-bar{height:100%;border-radius:3px;transition:width .6s ease}
+    .v-verdict{font-size:.95rem;font-weight:700;color:#334155;margin-bottom:4px}
+    .v-horizon{font-size:.75rem;color:#64748b}
+
+    .ai-section{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px}
+    .ai-sec-t{font-size:.82rem;font-weight:800;color:#334155;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+    .ai-sec-t::before{content:'';width:3px;height:12px;background:#6366f1;border-radius:2px}
+    .point-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+    .point-item{font-size:.84rem;display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+    .point-icon{flex-shrink:0;margin-top:.1em}
+    .analysis-text{font-size:.86rem;line-height:1.7;color:#334155}
+
+    .ai-no-key{text-align:center;padding:40px 20px}
+    .ank-icon{font-size:2.5rem;margin-bottom:12px}
+    .ank-t{font-weight:800;font-size:1rem;margin-bottom:8px}
+    .ank-s{font-size:.83rem;color:#64748b;line-height:1.55;margin-bottom:18px}
+    .ank-btn{background:linear-gradient(135deg,#6366f1,#00d4ff);color:#fff;border:none;border-radius:12px;padding:12px 24px;font-weight:700;font-size:.9rem;cursor:pointer}
+
+    /* ── Info pane ── */
+    .info-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px}
+    .info-t{font-size:.82rem;font-weight:800;color:#334155;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+    .info-t::before{content:'';width:3px;height:12px;background:#6366f1;border-radius:2px}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f1f5f9;font-size:.84rem}
+    .info-row:last-child{border:none}
+    .ir-label{color:#64748b}
+    .ir-val{font-weight:700;text-align:right;max-width:55%}
+    .no-data{color:#94a3b8;font-size:.8rem}
+
+    /* ── Bottom nav ── */
+    .bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#fff;border-top:1px solid #e8eaf0;display:flex;box-shadow:0 -2px 12px rgba(0,0,0,.07);z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+    .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;color:#94a3b8;font-size:.62rem;font-weight:700}
+    .bi.on{color:#6366f1}
+    .bi-icon{font-size:1.15rem;line-height:1}
+
+    /* ── Sheet ── */
+    .sheet-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:flex-end}
+    .sheet-bg.open{display:flex}
+    .sheet{background:#fff;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-height:80vh;overflow-y:auto;position:relative}
+    .sheet-t{font-size:1.05rem;font-weight:800;margin-bottom:7px}
+    .sheet-s{font-size:.82rem;color:#64748b;margin-bottom:16px;line-height:1.55}
+    .sheet-inp{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid #e2e8f0;font-size:.88rem;outline:none;font-family:monospace;margin-bottom:11px}
+    .sheet-inp:focus{border-color:#6366f1}
+    .sheet-save{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#00d4ff);color:#fff;font-weight:700;font-size:.93rem;border:none;cursor:pointer}
+    .sheet-close{position:absolute;top:14px;right:14px;background:#f1f5f9;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+
+    @media(min-width:640px){
+      .pane{max-width:700px;margin:0 auto}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="hd">
+  <button class="back" onclick="history.length>1?history.back():location.href='/stock/'">←</button>
+  <span class="hd-name" id="hdName">読み込み中…</span>
+  <a href="/stock/" class="logo">STOCK</a>
+  <button class="fav-btn" id="favBtn" onclick="toggleFav()" title="お気に入り">☆</button>
+</header>
+
+<!-- Price hero -->
+<div class="price-hero">
+  <div class="ph-top">
+    <div>
+      <div class="ph-name" id="phName">—</div>
+      <div class="ph-sym" id="phSym">—</div>
+    </div>
+    <div class="ph-right">
+      <div class="ph-price" id="phPrice">—</div>
+      <div class="ph-chg fl" id="phChg">—</div>
+    </div>
+  </div>
+  <div class="ph-meta" id="phMeta">
+    <span><span class="ldot"></span>リアルタイム</span>
+  </div>
+</div>
+
+<!-- Period tabs -->
+<div class="period-wrap">
+  <div class="periods" id="periods">
+    <div class="ptab on" data-r="1D" data-i="5">1日</div>
+    <div class="ptab" data-r="5D" data-i="30">1週</div>
+    <div class="ptab" data-r="1M" data-i="D">1ヶ月</div>
+    <div class="ptab" data-r="3M" data-i="D">3ヶ月</div>
+    <div class="ptab" data-r="12M" data-i="W">1年</div>
+    <div class="ptab" data-r="60M" data-i="M">5年</div>
+  </div>
+</div>
+
+<!-- TradingView chart -->
+<div class="chart-wrap">
+  <div id="tv-widget"></div>
+</div>
+
+<!-- Tab strip -->
+<div class="tabs">
+  <div class="tab on" data-p="ai">AI判断</div>
+  <div class="tab" data-p="info">基本情報</div>
+</div>
+
+<!-- Panes -->
+<div class="panes">
+  <div class="pane on" id="pane-ai">
+    <div id="ai-content">
+      <div class="ai-loading">
+        <div class="spin"></div>
+        <div class="ai-loading-t">AI分析を準備中…</div>
+        <div class="ai-loading-s">株価データを取得しています</div>
+      </div>
+    </div>
+  </div>
+  <div class="pane" id="pane-info">
+    <div id="info-content">
+      <div class="ai-loading"><div class="spin"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom nav -->
+<nav class="bnav">
+  <button class="bi" onclick="location.href='/stock/'"><span class="bi-icon">🏠</span>ホーム</button>
+  <button class="bi" onclick="location.href='/stock/'"><span class="bi-icon">🔍</span>検索</button>
+  <button class="bi" id="bnFav" onclick="toggleFav()"><span class="bi-icon">☆</span>お気に入り</button>
+  <button class="bi" onclick="openSheet()"><span class="bi-icon">⚙️</span>設定</button>
+</nav>
+
+<!-- Settings sheet -->
+<div class="sheet-bg" id="sheet" onclick="if(event.target===this)closeSheet()">
+  <div class="sheet">
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+    <div class="sheet-t">⚙️ Gemini APIキー設定</div>
+    <div class="sheet-s">
+      APIキーを設定すると<strong>全ての銘柄</strong>でAI投資判断を生成できます。<br>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#6366f1;font-weight:600">▶ Google AI Studioで無料取得</a>
+    </div>
+    <input class="sheet-inp" type="password" id="akInput" placeholder="AIzaSy...">
+    <button class="sheet-save" onclick="saveKey()">保存する</button>
+  </div>
+</div>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+/* ── URL params ─────────────────────────────────────────── */
+const params=new URLSearchParams(location.search);
+const SYM=params.get('s')||'8035.T';
+const DISPLAY_NAME=params.get('n')||SYM;
+
+document.title='STOCK | '+DISPLAY_NAME;
+document.getElementById('hdName').textContent=DISPLAY_NAME;
+document.getElementById('phName').textContent=DISPLAY_NAME;
+document.getElementById('phSym').textContent=SYM;
+
+/* ── Favourites ─────────────────────────────────────────── */
+let favs=JSON.parse(localStorage.getItem('sfav')||'[]');
+function refreshFavUI(){
+  const on=favs.includes(SYM);
+  document.getElementById('favBtn').textContent=on?'★':'☆';
+  document.getElementById('bnFav').innerHTML='<span class="bi-icon">'+(on?'★':'☆')+'</span>お気に入り';
+  document.getElementById('bnFav').classList.toggle('on',on);
+}
+function toggleFav(){
+  if(favs.includes(SYM))favs=favs.filter(x=>x!==SYM);
+  else favs.push(SYM);
+  localStorage.setItem('sfav',JSON.stringify(favs));
+  refreshFavUI();
+}
+refreshFavUI();
+
+/* ── TradingView symbol mapping ─────────────────────────── */
+function toTV(s){
+  if(s.endsWith('.T'))return'TSE:'+s.replace('.T','');
+  if(s.endsWith('-USD'))return s.replace('-USD','')+'USD';
+  const nasdaq=['AAPL','MSFT','NVDA','AMZN','GOOGL','TSLA','META','NFLX','AMD','INTC','ORCL','PLTR','CRM','NFLX'];
+  if(nasdaq.includes(s))return'NASDAQ:'+s;
+  return'NYSE:'+s;
+}
+
+/* ── TradingView widget ─────────────────────────────────── */
+let tvWidget=null;
+function buildChart(range,interval){
+  const el=document.getElementById('tv-widget');
+  el.innerHTML='';
+  try{
+    tvWidget=new TradingView.widget({
+      container_id:'tv-widget',
+      symbol:toTV(SYM),
+      interval:interval,
+      range:range,
+      width:'100%',
+      height:el.closest('.chart-wrap').offsetHeight||300,
+      timezone:'Asia/Tokyo',
+      theme:'light',
+      style:'1',
+      locale:'ja',
+      toolbar_bg:'#fff',
+      enable_publishing:false,
+      allow_symbol_change:false,
+      hide_top_toolbar:false,
+      hide_side_toolbar:true,
+      save_image:false,
+      studies:[],
+    });
+  }catch(e){
+    el.innerHTML='<div style="padding:40px;text-align:center;color:#94a3b8;font-size:.85rem">チャートを読み込めませんでした</div>';
+  }
+}
+buildChart('1D','5');
+
+/* ── Period tabs ─────────────────────────────────────────── */
+document.getElementById('periods').addEventListener('click',e=>{
+  const t=e.target.closest('.ptab');
+  if(!t)return;
+  document.querySelectorAll('.ptab').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');
+  buildChart(t.dataset.r,t.dataset.i);
+});
+
+/* ── Content tabs ─────────────────────────────────────────── */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    document.getElementById('pane-'+t.dataset.p).classList.add('on');
+  });
+});
+
+/* ── Live price ─────────────────────────────────────────── */
+let stockData={};
+async function fetchPrice(){
+  const url='https://query1.finance.yahoo.com/v7/finance/quote?symbols='+encodeURIComponent(SYM)+'&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketVolume,regularMarketDayHigh,regularMarketDayLow,fiftyTwoWeekHigh,fiftyTwoWeekLow,marketCap,trailingPE,dividendYield,currency,longName,shortName,exchangeTimezoneName,regularMarketTime';
+  for(const src of[url,'https://corsproxy.io/?'+encodeURIComponent(url),'https://api.allorigins.win/raw?url='+encodeURIComponent(url)]){
+    try{
+      const r=await fetch(src,{signal:AbortSignal.timeout(8000)});
+      if(!r.ok)continue;
+      const d=await r.json();
+      const q=(d?.quoteResponse?.result||[])[0];
+      if(!q)continue;
+      stockData=q;
+      renderPrice(q);
+      renderInfo(q);
+      return q;
+    }catch(_){}
+  }
+  return null;
+}
+
+function fp(p,s){
+  if(p==null)return'—';
+  const jpy=s&&s.endsWith('.T');
+  if(jpy)return'¥'+Math.round(p).toLocaleString();
+  if(p<1)return'$'+p.toFixed(4);
+  if(p<100)return'$'+p.toFixed(2);
+  return'$'+Math.round(p).toLocaleString();
+}
+function fmtCap(v){
+  if(!v)return'—';
+  if(v>=1e12)return(v/1e12).toFixed(2)+'兆';
+  if(v>=1e8)return(v/1e8).toFixed(0)+'億';
+  return v.toLocaleString();
+}
+
+function renderPrice(q){
+  const jpy=SYM.endsWith('.T');
+  const price=fp(q.regularMarketPrice,SYM);
+  const pct=q.regularMarketChangePercent??0;
+  const chgAbs=q.regularMarketChange??0;
+  const chgStr=(pct>=0?'+':'')+chgAbs.toFixed(jpy?0:2)+(jpy?'円':'')+' ('+(pct>=0?'+':'')+pct.toFixed(2)+'%)';
+  const cls=pct>=0?'up':'dn';
+  document.getElementById('phPrice').textContent=price;
+  document.getElementById('phChg').textContent=chgStr;
+  document.getElementById('phChg').className='ph-chg '+cls;
+  const now=new Date();
+  document.getElementById('phMeta').innerHTML=`<span><span class="ldot"></span>ライブ</span><span>更新 ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}</span>${q.exchangeTimezoneName?'<span>'+q.exchangeTimezoneName+'</span>':''}`;
+}
+
+function renderInfo(q){
+  const jpy=SYM.endsWith('.T');
+  const rows=[
+    ['銘柄名',q.longName||q.shortName||DISPLAY_NAME],
+    ['ティッカー',SYM],
+    ['取引所',q.fullExchangeName||q.exchange||'—'],
+    ['現在値',fp(q.regularMarketPrice,SYM)],
+    ['本日高値',fp(q.regularMarketDayHigh,SYM)],
+    ['本日安値',fp(q.regularMarketDayLow,SYM)],
+    ['52週高値',fp(q.fiftyTwoWeekHigh,SYM)],
+    ['52週安値',fp(q.fiftyTwoWeekLow,SYM)],
+    ['時価総額',fmtCap(q.marketCap)+(jpy?'円':'USD')],
+    ['PER(実績)',(q.trailingPE??'—').toString().replace(/\./,'.').substring(0,6)+'倍'],
+    ['配当利回り',q.dividendYield?((q.dividendYield*100).toFixed(2)+'%'):'—'],
+    ['出来高',q.regularMarketVolume?q.regularMarketVolume.toLocaleString():'—'],
+  ];
+  document.getElementById('info-content').innerHTML=`
+    <div class="info-card">
+      <div class="info-t">基本情報</div>
+      ${rows.map(([l,v])=>`<div class="info-row"><span class="ir-label">${l}</span><span class="ir-val">${v||'—'}</span></div>`).join('')}
+    </div>`;
+}
+
+/* ── Gemini AI Analysis ─────────────────────────────────── */
+async function runAI(q){
+  const key=localStorage.getItem('gemini_api_key');
+  if(!key){
+    document.getElementById('ai-content').innerHTML=`
+      <div class="ai-no-key">
+        <div class="ank-icon">🤖</div>
+        <div class="ank-t">AI分析を使用するには</div>
+        <div class="ank-s">Gemini APIキーを設定すると、<strong>${DISPLAY_NAME}</strong>を含む全ての銘柄・投資信託のAI投資判断が利用できます。<br>APIキーは無料で取得できます。</div>
+        <button class="ank-btn" onclick="openSheet()">APIキーを設定する</button>
+      </div>`;
+    return;
+  }
+
+  document.getElementById('ai-content').innerHTML=`
+    <div class="ai-loading">
+      <div class="spin"></div>
+      <div class="ai-loading-t">AIが分析中…</div>
+      <div class="ai-loading-s">Geminiが投資判断を生成しています<br>数秒お待ちください</div>
+    </div>`;
+
+  const jpy=SYM.endsWith('.T');
+  const price=q?fp(q.regularMarketPrice,SYM):'不明';
+  const pct=q?(((q.regularMarketChangePercent??0)>=0?'+':'')+((q.regularMarketChangePercent??0).toFixed(2))+'%'):'不明';
+  const high52=q?fp(q.fiftyTwoWeekHigh,SYM):'不明';
+  const low52=q?fp(q.fiftyTwoWeekLow,SYM):'不明';
+  const pe=q&&q.trailingPE?q.trailingPE.toFixed(1)+'倍':'不明';
+  const div=q&&q.dividendYield?((q.dividendYield*100).toFixed(2)+'%'):'不明';
+  const cap=q?fmtCap(q.marketCap):'不明';
+
+  const isFund=SYM.length===9&&/[A-Z]$/.test(SYM);
+  const isETF=q?.quoteType==='ETF'||['1306.T','1321.T','1545.T','1547.T','2558.T','SPY','QQQ','VTI','VOO','GLD','TLT','VWO'].includes(SYM);
+
+  const assetType=isFund?'投資信託':isETF?'ETF':'株式';
+
+  const prompt=`あなたはプロの投資アナリストです。以下の${assetType}について日本語で投資判断を提供してください。必ずJSON形式のみで回答し、余計な文字列は一切含めないでください。
+
+銘柄: ${DISPLAY_NAME} (${SYM})
+種別: ${assetType}
+現在価格: ${price}
+本日変動: ${pct}
+52週高値: ${high52}
+52週安値: ${low52}
+時価総額: ${cap}
+PER: ${pe}
+配当利回り: ${div}
+
+回答フォーマット（このJSONのみ出力）:
+{
+  "rating": "BUY" または "HOLD" または "SELL",
+  "score": 0から100の整数,
+  "verdict": "20字以内の一言判断",
+  "strengths": ["強み1（25字以内）", "強み2（25字以内）", "強み3（25字以内）"],
+  "risks": ["リスク1（25字以内）", "リスク2（25字以内）"],
+  "analysis": "投資分析コメント（150字前後）",
+  "horizon": "短期" または "中期" または "長期"
+}`;
+
+  try{
+    const apiRes=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${key}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{parts:[{text:prompt}]}],
+        generationConfig:{temperature:.3,maxOutputTokens:800}
+      }),
+      signal:AbortSignal.timeout(20000)
+    });
+    if(!apiRes.ok){
+      const err=await apiRes.json().catch(()=>({}));
+      throw new Error(err?.error?.message||'API error '+apiRes.status);
+    }
+    const rd=await apiRes.json();
+    const text=rd?.candidates?.[0]?.content?.parts?.[0]?.text||'';
+    const jsonMatch=text.match(/\{[\s\S]*\}/);
+    if(!jsonMatch)throw new Error('JSON not found in response');
+    const ai=JSON.parse(jsonMatch[0]);
+    renderAI(ai);
+  }catch(e){
+    document.getElementById('ai-content').innerHTML=`
+      <div class="ai-no-key">
+        <div class="ank-icon">⚠️</div>
+        <div class="ank-t">分析に失敗しました</div>
+        <div class="ank-s">${e.message.includes('API_KEY_INVALID')||e.message.includes('400')?'APIキーが無効です。正しいGemini APIキーを設定してください。':'一時的なエラーが発生しました。しばらくしてから再試行してください。'}<br><br>エラー: ${e.message}</div>
+        <button class="ank-btn" onclick="${e.message.includes('API_KEY_INVALID')||e.message.includes('400')?'openSheet()':'location.reload()'}">
+          ${e.message.includes('API_KEY_INVALID')||e.message.includes('400')?'APIキーを確認する':'再試行する'}
+        </button>
+      </div>`;
+  }
+}
+
+function renderAI(ai){
+  const rClass={BUY:'vb-buy',HOLD:'vb-hold',SELL:'vb-sell'};
+  const rText={BUY:'BUY　買い',HOLD:'HOLD　中立',SELL:'SELL　売り'};
+  const rTxt={BUY:'vr-buy',HOLD:'vr-hold',SELL:'vr-sell'};
+  const barColor={BUY:'#16a34a',HOLD:'#ca8a04',SELL:'#dc2626'};
+  const score=Math.max(0,Math.min(100,ai.score||50));
+
+  document.getElementById('ai-content').innerHTML=`
+    <div class="verdict-box ${rClass[ai.rating]||'vb-hold'}">
+      <div class="v-top">
+        <div class="v-rating ${rTxt[ai.rating]||'vr-hold'}">${rText[ai.rating]||ai.rating}</div>
+        <div class="v-score-wrap">
+          <div class="v-score-label">魅力度スコア</div>
+          <div class="v-score">${score}<span style="font-size:.9rem;font-weight:600;color:#64748b">/100</span></div>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:${score}%;background:${barColor[ai.rating]||'#6366f1'}"></div></div>
+        </div>
+      </div>
+      <div class="v-verdict">${ai.verdict||''}</div>
+      <div class="v-horizon">推奨投資期間：${ai.horizon||'中期'}</div>
+    </div>
+
+    <div class="ai-section">
+      <div class="ai-sec-t">強み</div>
+      <ul class="point-list">
+        ${(ai.strengths||[]).map(s=>`<li class="point-item"><span class="point-icon">✅</span><span>${s}</span></li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="ai-section">
+      <div class="ai-sec-t">リスク</div>
+      <ul class="point-list">
+        ${(ai.risks||[]).map(r=>`<li class="point-item"><span class="point-icon">⚠️</span><span>${r}</span></li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="ai-section">
+      <div class="ai-sec-t">総合分析</div>
+      <div class="analysis-text">${ai.analysis||''}</div>
+    </div>
+
+    <div style="font-size:.72rem;color:#94a3b8;line-height:1.5;padding:12px 0">
+      ※ この分析はGemini AIによって自動生成されました。投資判断は自己責任でお願いします。情報は参考目的のみです。
+    </div>`;
+}
+
+/* ── Settings ─────────────────────────────────────────────── */
+function openSheet(){
+  document.getElementById('sheet').classList.add('open');
+  document.getElementById('akInput').value=localStorage.getItem('gemini_api_key')||'';
+}
+function closeSheet(){document.getElementById('sheet').classList.remove('open');}
+function saveKey(){
+  const k=document.getElementById('akInput').value.trim();
+  if(k)localStorage.setItem('gemini_api_key',k);
+  else localStorage.removeItem('gemini_api_key');
+  closeSheet();
+  // re-run AI
+  init();
+}
+
+/* ── Init ─────────────────────────────────────────────────── */
+async function init(){
+  const q=await fetchPrice();
+  await runAI(q);
+}
+init();
+</script>
+</body>
+</html>

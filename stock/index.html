@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>STOCK | AI投資判断</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%;overscroll-behavior:none}
+    body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;background:#f0f2f7;color:#1a202c;padding-bottom:env(safe-area-inset-bottom)}
+
+    /* ── Header ── */
+    .hd{height:52px;background:#fff;border-bottom:1px solid #e8eaf0;display:flex;align-items:center;padding:0 16px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+    .logo{font-size:1.45rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:3px}
+    .hd-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .live-pill{display:flex;align-items:center;gap:4px;font-size:.7rem;font-weight:700;color:#16a34a}
+    .ldot{width:6px;height:6px;background:#16a34a;border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .set-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;padding:6px;border-radius:8px;color:#64748b;line-height:1}
+
+    /* ── Search ── */
+    .search-bar{background:#fff;padding:10px 14px;border-bottom:1px solid #e8eaf0;position:relative}
+    .si-wrap{position:relative}
+    .si{width:100%;padding:9px 14px 9px 38px;border-radius:22px;border:1.5px solid #e2e8f0;font-size:.88rem;background:#f8faff;outline:none;transition:border-color .2s}
+    .si:focus{border-color:#6366f1;background:#fff}
+    .si-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:.95rem;pointer-events:none}
+    .sr-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:14px;border:1px solid #e2e8f0;box-shadow:0 8px 28px rgba(0,0,0,.13);z-index:300;max-height:300px;overflow-y:auto;display:none}
+    .sr-item{padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;border-bottom:1px solid #f1f5f9}
+    .sr-item:last-child{border:none}
+    .sr-item:active{background:#f8faff}
+    .sr-sym{font-size:.72rem;font-weight:700;color:#6366f1;background:#eef2ff;padding:2px 8px;border-radius:4px;white-space:nowrap;font-family:monospace}
+    .sr-name{font-size:.86rem;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:55vw}
+    .sr-type{font-size:.72rem;color:#94a3b8;margin-left:auto;white-space:nowrap}
+
+    /* ── Category scroll tabs ── */
+    .cat-scroll{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;background:#fff;border-bottom:1px solid #e8eaf0;scrollbar-width:none;-ms-overflow-style:none}
+    .cat-scroll::-webkit-scrollbar{display:none}
+    .ctab{flex-shrink:0;padding:6px 15px;border-radius:20px;border:1.5px solid #e2e8f0;background:#fff;font-size:.81rem;font-weight:700;color:#64748b;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .ctab.on{background:#6366f1;border-color:#6366f1;color:#fff}
+
+    /* ── Content ── */
+    .content{padding:12px 12px 80px;max-width:840px;margin:0 auto}
+
+    /* ── Section header ── */
+    .sec{margin-top:18px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+    .sec-t{font-size:.88rem;font-weight:800;color:#334155;display:flex;align-items:center;gap:6px}
+    .sec-t::before{content:'';width:3px;height:13px;background:#6366f1;border-radius:2px;flex-shrink:0}
+    .sec-n{font-size:.75rem;color:#94a3b8;background:#f1f5f9;padding:2px 9px;border-radius:12px}
+
+    /* ── Grid ── */
+    .sg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media(min-width:460px){.sg{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:640px){.sg{grid-template-columns:repeat(4,1fr)}}
+
+    /* ── Stock card ── */
+    .sc{background:#fff;border:1px solid #e8eaf0;border-radius:13px;padding:13px 11px;text-decoration:none;color:inherit;display:block;transition:transform .14s,box-shadow .14s}
+    .sc:active{transform:scale(.96)}
+    .sc:hover{box-shadow:0 4px 18px rgba(99,102,241,.14);border-color:#c7d2fe}
+    .sc-sym{font-size:.68rem;color:#94a3b8;font-family:monospace;font-weight:700;margin-bottom:5px}
+    .sc-name{font-size:.85rem;font-weight:700;line-height:1.3;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .sc-sec{font-size:.7rem;color:#94a3b8;margin-bottom:9px}
+    .sc-bt{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f1f5f9;padding-top:8px}
+    .sc-price{font-size:.85rem;font-weight:700}
+    .sc-chg{font-size:.73rem;font-weight:700}
+    .up{color:#16a34a}.dn{color:#dc2626}.fl{color:#94a3b8}
+    .rb{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:10px}
+    .rb-b{background:#dcfce7;color:#15803d}
+    .rb-h{background:#fef9c3;color:#a16207}
+    .rb-s{background:#fee2e2;color:#dc2626}
+
+    /* ── Empty ── */
+    .empty{text-align:center;padding:50px 20px;color:#94a3b8}
+    .empty-icon{font-size:2.8rem;margin-bottom:10px}
+    .empty-t{font-weight:700;margin-bottom:6px}
+    .empty-s{font-size:.83rem}
+
+    /* ── API banner ── */
+    .api-banner{background:#eef2ff;border:1px solid #c7d2fe;border-radius:11px;padding:11px 13px;margin-bottom:12px;font-size:.8rem;color:#4338ca;display:flex;align-items:center;gap:8px}
+    .api-banner-t{flex:1;line-height:1.4}
+    .ab-set{background:#6366f1;color:#fff;border:none;border-radius:8px;padding:5px 11px;font-size:.76rem;font-weight:700;cursor:pointer;white-space:nowrap}
+    .ab-close{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:1rem;padding:0 2px}
+
+    /* ── Bottom nav ── */
+    .bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:#fff;border-top:1px solid #e8eaf0;display:flex;box-shadow:0 -2px 12px rgba(0,0,0,.07);z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+    .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;color:#94a3b8;font-size:.62rem;font-weight:700;transition:color .15s}
+    .bi.on{color:#6366f1}
+    .bi-icon{font-size:1.15rem;line-height:1}
+
+    /* ── Settings sheet ── */
+    .sheet-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:flex-end}
+    .sheet-bg.open{display:flex}
+    .sheet{background:#fff;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-height:80vh;overflow-y:auto;position:relative}
+    .sheet-t{font-size:1.05rem;font-weight:800;margin-bottom:7px}
+    .sheet-s{font-size:.82rem;color:#64748b;margin-bottom:16px;line-height:1.55}
+    .sheet-inp{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid #e2e8f0;font-size:.88rem;outline:none;font-family:monospace;margin-bottom:11px}
+    .sheet-inp:focus{border-color:#6366f1}
+    .sheet-save{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#00d4ff);color:#fff;font-weight:700;font-size:.93rem;border:none;cursor:pointer}
+    .sheet-close{position:absolute;top:14px;right:14px;background:#f1f5f9;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+    .sheet-bg{align-items:flex-end}
+  </style>
+</head>
+<body>
+
+<header class="hd">
+  <a href="/stock/" class="logo">STOCK</a>
+  <div class="hd-right">
+    <span class="live-pill"><span class="ldot"></span>ライブ</span>
+    <button class="set-btn" onclick="openSheet()">⚙️</button>
+  </div>
+</header>
+
+<div class="search-bar">
+  <div class="si-wrap">
+    <span class="si-icon">🔍</span>
+    <input class="si" id="si" type="text" placeholder="銘柄名・コード・投資信託を検索…" autocomplete="off" spellcheck="false">
+    <div class="sr-drop" id="srd"></div>
+  </div>
+</div>
+
+<div class="cat-scroll" id="cats">
+  <button class="ctab on" data-c="popular">人気</button>
+  <button class="ctab" data-c="JP">日本株</button>
+  <button class="ctab" data-c="US">米国株</button>
+  <button class="ctab" data-c="ETF">ETF</button>
+  <button class="ctab" data-c="FUND">投資信託</button>
+  <button class="ctab" data-c="CRYPTO">仮想通貨</button>
+</div>
+
+<div class="content" id="ct"></div>
+
+<nav class="bnav">
+  <button class="bi on" id="bn-home" onclick="navTo('home',this)"><span class="bi-icon">🏠</span>ホーム</button>
+  <button class="bi" id="bn-search" onclick="navTo('search',this)"><span class="bi-icon">🔍</span>検索</button>
+  <button class="bi" id="bn-fav" onclick="navTo('fav',this)"><span class="bi-icon">⭐</span>お気に入り</button>
+  <button class="bi" id="bn-set" onclick="openSheet()"><span class="bi-icon">⚙️</span>設定</button>
+</nav>
+
+<!-- Settings sheet -->
+<div class="sheet-bg" id="sheet" onclick="if(event.target===this)closeSheet()">
+  <div class="sheet">
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+    <div class="sheet-t">⚙️ 設定</div>
+    <div class="sheet-s">
+      <strong>Gemini APIキー</strong>を設定すると、日本株・米国株・ETF・投資信託を問わず<strong>全ての銘柄</strong>でAI投資判断が利用できます。<br>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#6366f1;font-weight:600">▶ Google AI Studioで無料取得</a>
+    </div>
+    <input class="sheet-inp" type="password" id="akInput" placeholder="AIzaSy...">
+    <button class="sheet-save" onclick="saveKey()">保存する</button>
+  </div>
+</div>
+
+<script>
+/* ── Data ─────────────────────────────────────────────── */
+const POPULAR=[
+  {s:'8035.T',n:'東京エレクトロン',sec:'半導体装置',m:'JP',r:'BUY'},
+  {s:'9984.T',n:'ソフトバンクG',sec:'IT持株',m:'JP',r:'HOLD'},
+  {s:'6758.T',n:'ソニーグループ',sec:'電機',m:'JP',r:'BUY'},
+  {s:'7203.T',n:'トヨタ自動車',sec:'自動車',m:'JP',r:'HOLD'},
+  {s:'8306.T',n:'三菱UFJ',sec:'銀行',m:'JP',r:'BUY'},
+  {s:'6861.T',n:'キーエンス',sec:'FA/センサー',m:'JP',r:'BUY'},
+  {s:'NVDA',  n:'NVIDIA',sec:'AI半導体',m:'US',r:'BUY'},
+  {s:'AAPL',  n:'Apple',sec:'テクノロジー',m:'US',r:'HOLD'},
+  {s:'MSFT',  n:'Microsoft',sec:'クラウド/AI',m:'US',r:'BUY'},
+  {s:'TSLA',  n:'Tesla',sec:'EV',m:'US',r:'SELL'},
+  {s:'META',  n:'Meta',sec:'SNS/AI',m:'US',r:'BUY'},
+  {s:'AMZN',  n:'Amazon',sec:'EC/Cloud',m:'US',r:'BUY'},
+];
+const JP=[
+  {s:'7203.T',n:'トヨタ自動車',sec:'自動車',r:'HOLD'},
+  {s:'6758.T',n:'ソニーグループ',sec:'電機',r:'BUY'},
+  {s:'8035.T',n:'東京エレクトロン',sec:'半導体装置',r:'BUY'},
+  {s:'9984.T',n:'ソフトバンクG',sec:'IT持株',r:'HOLD'},
+  {s:'6861.T',n:'キーエンス',sec:'FA/センサー',r:'BUY'},
+  {s:'7974.T',n:'任天堂',sec:'ゲーム',r:'HOLD'},
+  {s:'9432.T',n:'NTT',sec:'通信',r:'HOLD'},
+  {s:'8306.T',n:'三菱UFJ',sec:'銀行',r:'BUY'},
+  {s:'9983.T',n:'ファストリ',sec:'アパレル',r:'BUY'},
+  {s:'4063.T',n:'信越化学',sec:'半導体材料',r:'BUY'},
+  {s:'6501.T',n:'日立製作所',sec:'IT/インフラ',r:'BUY'},
+  {s:'8031.T',n:'三井物産',sec:'総合商社',r:'BUY'},
+  {s:'8001.T',n:'伊藤忠商事',sec:'総合商社',r:'BUY'},
+  {s:'8058.T',n:'三菱商事',sec:'総合商社',r:'BUY'},
+  {s:'8316.T',n:'三井住友FG',sec:'銀行',r:'BUY'},
+  {s:'6857.T',n:'アドバンテスト',sec:'半導体検査',r:'BUY'},
+  {s:'4502.T',n:'武田薬品',sec:'製薬',r:'HOLD'},
+  {s:'6098.T',n:'リクルート',sec:'HR/メディア',r:'BUY'},
+  {s:'9433.T',n:'KDDI',sec:'通信',r:'HOLD'},
+  {s:'6367.T',n:'ダイキン工業',sec:'HVAC',r:'HOLD'},
+  {s:'7267.T',n:'本田技研',sec:'自動車',r:'HOLD'},
+  {s:'4755.T',n:'楽天グループ',sec:'EC/通信',r:'SELL'},
+  {s:'4385.T',n:'メルカリ',sec:'フリマ/EC',r:'HOLD'},
+  {s:'4661.T',n:'オリランド',sec:'テーマパーク',r:'HOLD'},
+  {s:'6594.T',n:'ニデック',sec:'精密モーター',r:'HOLD'},
+].map(x=>({...x,m:'JP'}));
+const US=[
+  {s:'AAPL', n:'Apple',     sec:'テクノロジー',r:'HOLD'},
+  {s:'MSFT', n:'Microsoft', sec:'クラウド/AI',r:'BUY'},
+  {s:'NVDA', n:'NVIDIA',    sec:'AI半導体',r:'BUY'},
+  {s:'AMZN', n:'Amazon',    sec:'EC/Cloud',r:'BUY'},
+  {s:'GOOGL',n:'Alphabet',  sec:'広告/AI',r:'BUY'},
+  {s:'TSLA', n:'Tesla',     sec:'EV',r:'SELL'},
+  {s:'META', n:'Meta',      sec:'SNS/AI',r:'BUY'},
+  {s:'NFLX', n:'Netflix',   sec:'動画配信',r:'HOLD'},
+  {s:'JPM',  n:'JPMorgan',  sec:'金融/銀行',r:'BUY'},
+  {s:'V',    n:'Visa',      sec:'決済',r:'BUY'},
+  {s:'AMD',  n:'AMD',       sec:'AI半導体',r:'BUY'},
+  {s:'INTC', n:'Intel',     sec:'半導体',r:'SELL'},
+  {s:'ORCL', n:'Oracle',    sec:'クラウド/DB',r:'BUY'},
+  {s:'PLTR', n:'Palantir',  sec:'AI/防衛',r:'HOLD'},
+  {s:'CRM',  n:'Salesforce',sec:'SaaS/CRM',r:'HOLD'},
+].map(x=>({...x,m:'US'}));
+const ETF=[
+  {s:'1306.T',n:'TOPIX連動型ETF',sec:'国内株式',r:'HOLD',m:'ETF'},
+  {s:'1321.T',n:'日経225 ETF',sec:'国内株式',r:'HOLD',m:'ETF'},
+  {s:'1545.T',n:'NASDAQ100 ETF(国内)',sec:'米国株式',r:'BUY',m:'ETF'},
+  {s:'1547.T',n:'S&P500 ETF(国内)',sec:'米国株式',r:'BUY',m:'ETF'},
+  {s:'2558.T',n:'S&P500 ETF(ヘッジ)',sec:'米国株式',r:'HOLD',m:'ETF'},
+  {s:'SPY',   n:'SPDR S&P500 ETF',sec:'米国株式',r:'BUY',m:'ETF'},
+  {s:'QQQ',   n:'Invesco QQQ',sec:'NASDAQ',r:'BUY',m:'ETF'},
+  {s:'VTI',   n:'Vanguard 全米株式',sec:'全米株式',r:'BUY',m:'ETF'},
+  {s:'VOO',   n:'Vanguard S&P500',sec:'米国株式',r:'BUY',m:'ETF'},
+  {s:'GLD',   n:'SPDR ゴールド',sec:'金',r:'HOLD',m:'ETF'},
+  {s:'TLT',   n:'iShares 米国債20年+',sec:'米国債',r:'HOLD',m:'ETF'},
+  {s:'VWO',   n:'Vanguard 新興国株式',sec:'新興国株式',r:'HOLD',m:'ETF'},
+];
+const FUND=[
+  {s:'0131103C',n:'eMAXIS Slim 全世界株式(オルカン)',sec:'全世界株式インデックス',r:'BUY',m:'FUND'},
+  {s:'0331418A',n:'eMAXIS Slim 米国株式(S&P500)',sec:'米国株式インデックス',r:'BUY',m:'FUND'},
+  {s:'2931113C',n:'ひふみプラス',sec:'国内株式アクティブ',r:'HOLD',m:'FUND'},
+  {s:'9I311179',n:'楽天・全世界株式インデックス',sec:'全世界株式インデックス',r:'BUY',m:'FUND'},
+  {s:'9I312179',n:'楽天・米国株式インデックス',sec:'米国株式インデックス',r:'BUY',m:'FUND'},
+  {s:'0331117A',n:'eMAXIS Slim 先進国株式',sec:'先進国株式インデックス',r:'BUY',m:'FUND'},
+  {s:'2931216C',n:'ひふみワールド',sec:'海外株式アクティブ',r:'HOLD',m:'FUND'},
+  {s:'0331418A',n:'SBI・V・S&P500インデックス',sec:'米国株式インデックス',r:'BUY',m:'FUND'},
+];
+const CRYPTO=[
+  {s:'BTC-USD',n:'Bitcoin',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
+  {s:'ETH-USD',n:'Ethereum',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
+  {s:'SOL-USD',n:'Solana',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
+  {s:'BNB-USD',n:'BNB',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
+  {s:'XRP-USD',n:'XRP',sec:'暗号資産',r:'HOLD',m:'CRYPTO'},
+];
+
+const ALL=[...JP,...US,...ETF,...FUND,...CRYPTO];
+const RJ={BUY:'買い',HOLD:'中立',SELL:'売り'};
+const RC={BUY:'rb-b',HOLD:'rb-h',SELL:'rb-s'};
+
+let prices={};
+let curCat='popular';
+let favs=JSON.parse(localStorage.getItem('sfav')||'[]');
+
+/* ── Format ─────────────────────────────────────────────── */
+function fp(p,s){
+  if(p==null)return null;
+  const jpy=s&&s.endsWith('.T');
+  if(jpy)return '¥'+Math.round(p).toLocaleString();
+  if(p<1)return '$'+p.toFixed(4);
+  if(p<100)return '$'+p.toFixed(2);
+  return '$'+Math.round(p).toLocaleString();
+}
+function fc(pct){
+  if(pct==null)return{str:'—',cls:'fl'};
+  return{str:(pct>=0?'+':'')+pct.toFixed(2)+'%',cls:pct>=0?'up':'dn'};
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+function card(st){
+  const pd=prices[st.s];
+  const chg=pd?fc(pd.pct):null;
+  return `<a class="sc" href="./detail.html?s=${encodeURIComponent(st.s)}&n=${encodeURIComponent(st.n)}">
+    <div class="sc-sym">${st.s}</div>
+    <div class="sc-name">${st.n}</div>
+    <div class="sc-sec">${st.sec}</div>
+    <div class="sc-bt">
+      <span class="sc-price">${pd&&pd.price?pd.price:'—'}</span>
+      ${chg&&pd.price
+        ?`<span class="sc-chg ${chg.cls}">${chg.str}</span>`
+        :`<span class="rb ${RC[st.r]}">${RJ[st.r]}</span>`}
+    </div>
+  </a>`;
+}
+
+/* ── Render ─────────────────────────────────────────────── */
+function render(cat){
+  curCat=cat||curCat;
+  const el=document.getElementById('ct');
+  let list=[],title='';
+  switch(curCat){
+    case'popular':list=POPULAR;title='人気銘柄';break;
+    case'JP':list=JP;title='日本株（東証）';break;
+    case'US':list=US;title='米国株';break;
+    case'ETF':list=ETF;title='ETF';break;
+    case'FUND':list=FUND;title='投資信託';break;
+    case'CRYPTO':list=CRYPTO;title='仮想通貨';break;
+    case'fav':
+      list=ALL.filter(s=>favs.includes(s.s));
+      title='お気に入り';break;
+  }
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">⭐</div><div class="empty-t">お気に入りがありません</div><div class="empty-s">銘柄詳細ページから追加できます</div></div>`;
+    return;
+  }
+  el.innerHTML=`<div class="sec"><div class="sec-t">${title}</div><span class="sec-n">${list.length}銘柄</span></div><div class="sg">${list.map(card).join('')}</div>`;
+  loadPrices(list.map(s=>s.s));
+}
+
+/* ── Price fetch ─────────────────────────────────────────── */
+async function fetchBatch(syms){
+  const url='https://query1.finance.yahoo.com/v7/finance/quote?symbols='+syms.join(',');
+  for(const src of[url,'https://corsproxy.io/?'+encodeURIComponent(url),'https://api.allorigins.win/raw?url='+encodeURIComponent(url)]){
+    try{
+      const r=await fetch(src,{signal:AbortSignal.timeout(7000)});
+      if(!r.ok)continue;
+      const d=await r.json();
+      const rs=d?.quoteResponse?.result||[];
+      if(!rs.length)continue;
+      rs.forEach(q=>{prices[q.symbol]={price:fp(q.regularMarketPrice,q.symbol),pct:q.regularMarketChangePercent??null}});
+      return true;
+    }catch(_){}
+  }
+  return false;
+}
+async function loadPrices(syms){
+  const valid=syms.filter(s=>!/^[0-9]{7}[A-Z0-9]$/.test(s));
+  for(let i=0;i<valid.length;i+=10){
+    await fetchBatch(valid.slice(i,i+10));
+    render();
+  }
+}
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+document.getElementById('cats').addEventListener('click',e=>{
+  const b=e.target.closest('.ctab');
+  if(!b)return;
+  document.querySelectorAll('.ctab').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  render(b.dataset.c);
+});
+
+/* ── Search ─────────────────────────────────────────────── */
+const si=document.getElementById('si');
+const srd=document.getElementById('srd');
+let st;
+si.addEventListener('input',()=>{
+  clearTimeout(st);
+  const q=si.value.trim();
+  if(!q){srd.style.display='none';return;}
+  st=setTimeout(()=>search(q),280);
+});
+si.addEventListener('blur',()=>setTimeout(()=>srd.style.display='none',180));
+
+async function search(q){
+  const local=ALL.filter(s=>s.n.includes(q)||s.s.toLowerCase().includes(q.toLowerCase())).slice(0,4);
+  showResults(local);
+  try{
+    const url='https://query1.finance.yahoo.com/v1/finance/search?q='+encodeURIComponent(q)+'&newsCount=0&quotesCount=8&enableFuzzyQuery=true';
+    const r=await fetch('https://corsproxy.io/?'+encodeURIComponent(url),{signal:AbortSignal.timeout(5000)});
+    const d=await r.json();
+    const remote=(d?.quotes||[]).map(x=>({s:x.symbol,n:x.longname||x.shortname||x.symbol,sec:x.typeDisp||'株式',remote:true})).filter(x=>!local.find(l=>l.s===x.s)).slice(0,6);
+    showResults([...local,...remote]);
+  }catch(_){}
+}
+
+function showResults(hits){
+  if(!hits.length){srd.innerHTML=`<div style="padding:14px;text-align:center;color:#94a3b8;font-size:.83rem">該当なし</div>`;srd.style.display='block';return;}
+  srd.innerHTML=hits.map(h=>`<div class="sr-item" onclick="location.href='./detail.html?s=${encodeURIComponent(h.s)}&n=${encodeURIComponent(h.n||h.name||h.s)}'"><span class="sr-sym">${h.s}</span><span class="sr-name">${h.n||h.name||h.s}</span><span class="sr-type">${h.sec||h.sector||'株式'}</span></div>`).join('');
+  srd.style.display='block';
+}
+
+/* ── Nav ─────────────────────────────────────────────────── */
+function navTo(t,el){
+  document.querySelectorAll('.bi').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  if(t==='search'){si.focus();}
+  else if(t==='fav'){render('fav');}
+  else{
+    document.querySelectorAll('.ctab').forEach(b=>{b.classList.remove('on');if(b.dataset.c==='popular')b.classList.add('on');});
+    render('popular');
+  }
+}
+
+/* ── Settings ─────────────────────────────────────────────── */
+function openSheet(){document.getElementById('sheet').classList.add('open');document.getElementById('akInput').value=localStorage.getItem('gemini_api_key')||'';}
+function closeSheet(){document.getElementById('sheet').classList.remove('open');}
+function saveKey(){
+  const k=document.getElementById('akInput').value.trim();
+  if(k)localStorage.setItem('gemini_api_key',k);
+  else localStorage.removeItem('gemini_api_key');
+  closeSheet();
+}
+
+/* ── Init ─────────────────────────────────────────────────── */
+render('popular');
+
+if(!localStorage.getItem('gemini_api_key')&&!localStorage.getItem('gkd')){
+  setTimeout(()=>{
+    const b=document.createElement('div');
+    b.className='api-banner';
+    b.innerHTML=`<span style="font-size:1.3rem">🤖</span><span class="api-banner-t">Gemini APIキーを設定すると<strong>全銘柄</strong>のAI分析が使えます</span><button class="ab-set" onclick="openSheet();this.closest('.api-banner').remove()">設定</button><button class="ab-close" onclick="localStorage.setItem('gkd',1);this.closest('.api-banner').remove()">✕</button>`;
+    document.getElementById('ct').prepend(b);
+  },800);
+}
+</script>
+</body>
+</html>
