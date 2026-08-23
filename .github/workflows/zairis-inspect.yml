@@ -8,48 +8,33 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Probe ZAIRIS split revalidation
+      - name: Retry ZAIRIS exact revalidation
         shell: bash
         run: |
           python3 - <<'PY'
           import json,time,urllib.request,urllib.error
-          base='https://news.zairis.workers.dev/api/news'
-          queries=[
-            'revalidate=1&limit=1',
-            'revalidate=1&max=1',
-            'revalidate=1&batch=1',
-            'revalidate=1&batchSize=1',
-            'revalidate=1&offset=0&limit=1',
-            'revalidate=1&source=MarketWatch',
-            'revalidate=1&source=marketwatch',
-            'revalidate=1&only=MarketWatch',
-            'revalidate=1&sources=1',
-            'revalidate=1&mode=fast',
-            'revalidate=1&light=1',
-            'revalidate=1&skipDetails=1',
-            'revalidate=1&skipEnrich=1',
-            'revalidate=0',
-          ]
-          def s(body):
+          trigger='https://news.zairis.workers.dev/api/news?revalidate=1'
+          read='https://news.zairis.workers.dev/api/news'
+          def summary(body):
               try:
                   d=json.loads(body.decode('utf-8','replace'))
-                  out={k:d.get(k) for k in ('updatedAt','sourcesOnline','totalSources','success','ok','error','message') if k in d}
-                  it=d.get('items') if isinstance(d,dict) else None
-                  if isinstance(it,list) and it: out['firstPublishedAt']=it[0].get('publishedAt');out['firstSource']=it[0].get('source')
-                  return json.dumps(out,ensure_ascii=False)
-              except: return body[:160].decode('utf-8','replace').replace('\n',' ')
-          for q in queries:
-              url=base+'?'+q
-              t=time.time(); req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'})
+                  it=d.get('items',[]) if isinstance(d,dict) else []
+                  return {'updatedAt':d.get('updatedAt'),'sourcesOnline':d.get('sourcesOnline'),'totalSources':d.get('totalSources'),'firstPublishedAt':it[0].get('publishedAt') if it else None,'firstSource':it[0].get('source') if it else None}
+              except Exception: return {'body':body[:120].decode('utf-8','replace').replace('\n',' ')}
+          for i in range(1,13):
+              t=time.time(); req=urllib.request.Request(trigger,headers={'User-Agent':f'ZAIRIS-recovery/{i}','Cache-Control':'no-cache','Pragma':'no-cache'})
               try:
                   with urllib.request.urlopen(req,timeout=45) as r:
-                      b=r.read(); print('TEST',q,'STATUS',r.status,'SECONDS',round(time.time()-t,3),'BODY',s(b))
+                      b=r.read(); print('ATTEMPT',i,'STATUS',r.status,'SECONDS',round(time.time()-t,3),'RESULT',json.dumps(summary(b),ensure_ascii=False))
               except urllib.error.HTTPError as e:
-                  b=e.read(); print('TEST',q,'STATUS',e.code,'SECONDS',round(time.time()-t,3),'ERRTYPE',e.headers.get('cf-error-type'),'BODY',s(b))
-              except Exception as e:
-                  print('TEST',q,'ERROR',repr(e),'SECONDS',round(time.time()-t,3))
-              time.sleep(.5)
-          req=urllib.request.Request(base+'?final='+str(time.time()),headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'})
-          with urllib.request.urlopen(req,timeout=30) as r: print('FINAL',s(r.read()))
+                  b=e.read(); print('ATTEMPT',i,'STATUS',e.code,'SECONDS',round(time.time()-t,3),'CF_ERROR',e.headers.get('cf-error-type'),'BODY',b[:100].decode('utf-8','replace').replace('\n',' '))
+              except Exception as e: print('ATTEMPT',i,'ERROR',repr(e),'SECONDS',round(time.time()-t,3))
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(read+'?check='+str(time.time()),headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'}),timeout=30) as r:
+                      cur=summary(r.read()); print('CHECK',i,json.dumps(cur,ensure_ascii=False))
+                      if cur.get('updatedAt') and cur.get('updatedAt')!='2026-08-22T20:20:39.848Z':
+                          print('RECOVERED=YES'); break
+              except Exception as e: print('CHECK_ERROR',repr(e))
+              time.sleep(2)
           PY
           exit 1
