@@ -8,46 +8,40 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect ZAIRIS source maps
+      - name: Probe ZAIRIS refresh window and headers
         shell: bash
         run: |
           python3 - <<'PY'
-          import json, urllib.request, urllib.error, re
-          base='https://news.zairis.workers.dev'
-          assets=[
-            '/_next/static/chunks/home-client-BXI0_c_e.js',
-            '/_next/static/chunks/index-CdOnCZU8.js',
+          import json,time,urllib.request,urllib.error
+          urls=[
+            ('NORMAL','https://news.zairis.workers.dev/api/news'),
+            ('REVALIDATE','https://news.zairis.workers.dev/api/news?revalidate=1'),
+            ('AFTER','https://news.zairis.workers.dev/api/news?after='+str(time.time())),
           ]
-          for p in assets:
-              print('\nASSET',p)
-              req=urllib.request.Request(base+p,headers={'User-Agent':'Mozilla/5.0'})
-              text=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
-              m=re.search(r'sourceMappingURL=([^\s*]+)',text)
-              candidates=[]
-              if m:
-                  sm=m.group(1).strip(); candidates.append(sm if sm.startswith('/') else p.rsplit('/',1)[0]+'/'+sm)
-              candidates.append(p+'.map')
-              seen=set()
-              for mp in candidates:
-                  if mp in seen: continue
-                  seen.add(mp)
-                  try:
-                      r=urllib.request.urlopen(urllib.request.Request(base+mp,headers={'User-Agent':'Mozilla/5.0'}),timeout=30)
-                      body=r.read(); print('MAP',mp,'STATUS',r.status,'LEN',len(body))
+          for label,url in urls:
+              print('\n===',label,'===')
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache','Pragma':'no-cache'})
+              t=time.time()
+              try:
+                  with urllib.request.urlopen(req,timeout=45) as r:
+                      body=r.read()
+                      print('STATUS',r.status,'SECONDS',round(time.time()-t,3))
+                      for k,v in r.headers.items():
+                          lk=k.lower()
+                          if lk in {'date','server','cache-control','age','etag','vary','cf-cache-status','cf-ray','server-timing','allow','content-type'} or lk.startswith('x-') or lk.startswith('cf-'):
+                              print('HDR',k+':',v)
                       try:
-                          d=json.loads(body.decode('utf-8','replace'))
-                          print('SOURCES',json.dumps(d.get('sources',[])[:100],ensure_ascii=False))
-                          sc=d.get('sourcesContent') or []
-                          for idx,c in enumerate(sc[:100]):
-                              if c and any(k in c for k in ['/api/news','revalidate','updatedAt','RSS','feeds']):
-                                  print('SOURCE_CONTENT_INDEX',idx,'NAME',d.get('sources',[None]*len(sc))[idx] if idx<len(d.get('sources',[])) else None)
-                                  for kw in ['/api/news','revalidate','updatedAt']:
-                                      pos=c.find(kw)
-                                      if pos>=0: print(c[max(0,pos-500):pos+1000].replace('\n',' ')[:1800])
-                      except Exception:
-                          print('MAP_HEAD',body[:300].decode('utf-8','replace').replace('\n',' '))
-                  except urllib.error.HTTPError as e:
-                      print('MAP',mp,'STATUS',e.code)
-                  except Exception as e: print('MAP',mp,'ERROR',repr(e))
+                          d=json.loads(body.decode('utf-8','replace')); it=d.get('items',[])
+                          print('DATA',json.dumps({'updatedAt':d.get('updatedAt'),'sourcesOnline':d.get('sourcesOnline'),'totalSources':d.get('totalSources'),'firstPublishedAt':it[0].get('publishedAt') if it else None,'firstSource':it[0].get('source') if it else None},ensure_ascii=False))
+                      except Exception: print('BODY',body[:200].decode('utf-8','replace').replace('\n',' '))
+              except urllib.error.HTTPError as e:
+                  body=e.read(); print('STATUS',e.code,'SECONDS',round(time.time()-t,3))
+                  for k,v in e.headers.items():
+                      lk=k.lower()
+                      if lk in {'date','server','cache-control','age','etag','vary','cf-cache-status','cf-ray','server-timing','allow','content-type'} or lk.startswith('x-') or lk.startswith('cf-'):
+                          print('HDR',k+':',v)
+                  print('BODY',body[:300].decode('utf-8','replace').replace('\n',' '))
+              except Exception as e: print('ERROR',repr(e),'SECONDS',round(time.time()-t,3))
+              time.sleep(1)
           PY
           exit 1
