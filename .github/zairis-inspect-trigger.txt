@@ -1,1 +1,2 @@
 Trigger ZAIRIS public endpoint inspection.
+Synchronize 2.
