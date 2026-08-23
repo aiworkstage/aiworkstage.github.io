@@ -1,0 +1,34 @@
+name: ZAIRIS inspect
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect public ZAIRIS worker
+        shell: bash
+        run: |
+          set -u
+          BASE='https://news.zairis.workers.dev'
+          echo '=== ROOT HEADERS ==='
+          curl -sS -D /tmp/headers.txt -o /tmp/site.html --max-time 30 "$BASE/" || true
+          cat /tmp/headers.txt || true
+          echo '=== ROOT SIZE ==='
+          wc -c /tmp/site.html || true
+          echo '=== HTML FIRST 400 LINES ==='
+          sed -n '1,400p' /tmp/site.html || true
+          echo '=== DISCOVERED URL/PATH TOKENS ==='
+          grep -Eo '(https?://[^"'"' <>]+|/[A-Za-z0-9_./?=&%:-]{2,})' /tmp/site.html | sort -u | head -300 || true
+          echo '=== FETCH/AJAX/FORM/SCRIPT HINTS ==='
+          grep -Ein 'fetch\(|axios|XMLHttpRequest|action=|href=|src=|refresh|update|sync|cron|scheduled|api|rss|feed|json|kv|d1' /tmp/site.html | head -300 || true
+          echo '=== COMMON ENDPOINT STATUS ==='
+          for p in health status api api/news api/refresh refresh update sync fetch cron scheduled trigger rss feed.json data.json news.json; do
+            code=$(curl -sS -o /tmp/body -w '%{http_code}' --max-time 15 "$BASE/$p" || echo ERR)
+            printf '%-24s %s ' "/$p" "$code"
+            head -c 180 /tmp/body 2>/dev/null | tr '\n' ' ' || true
+            echo
+          done
+          exit 1
