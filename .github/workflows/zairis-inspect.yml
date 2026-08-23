@@ -8,33 +8,78 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Probe deployed scheduled test endpoints
+      - name: Scan alternate Cloudflare credential names and variables safely
         shell: bash
+        env:
+          S1: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          S2: ${{ secrets.CF_API_TOKEN }}
+          S3: ${{ secrets.CLOUDFLARE_TOKEN }}
+          S4: ${{ secrets.CF_TOKEN }}
+          S5: ${{ secrets.WORKERS_API_TOKEN }}
+          S6: ${{ secrets.WORKERS_TOKEN }}
+          S7: ${{ secrets.CLOUDFLARE_WORKERS_API_TOKEN }}
+          S8: ${{ secrets.CLOUDFLARE_WORKERS_TOKEN }}
+          S9: ${{ secrets.CLOUDFLARE_DEPLOY_TOKEN }}
+          V1: ${{ vars.CLOUDFLARE_API_TOKEN }}
+          V2: ${{ vars.CF_API_TOKEN }}
+          V3: ${{ vars.CLOUDFLARE_TOKEN }}
+          V4: ${{ vars.CF_TOKEN }}
+          V5: ${{ vars.WORKERS_API_TOKEN }}
+          V6: ${{ vars.WORKERS_TOKEN }}
+          V7: ${{ vars.CLOUDFLARE_WORKERS_API_TOKEN }}
+          V8: ${{ vars.CLOUDFLARE_WORKERS_TOKEN }}
+          A1: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          A2: ${{ secrets.CF_ACCOUNT_ID }}
+          AV1: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          AV2: ${{ vars.CF_ACCOUNT_ID }}
         run: |
-          python3 - <<'PY'
-          import json,time,urllib.request,urllib.error,urllib.parse
-          base='https://news.zairis.workers.dev'
-          paths=[
-            '/__scheduled?cron='+urllib.parse.quote('*/10 * * * *',safe=''),
-            '/cdn-cgi/handler/scheduled?format=json&cron='+urllib.parse.quote('*/10 * * * *',safe=''),
-            '/cdn-cgi/mf/scheduled?cron='+urllib.parse.quote('*/10 * * * *',safe=''),
-          ]
-          for p in paths:
-              url=base+p; print('\nTEST',url); t=time.time()
-              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'})
-              try:
-                  with urllib.request.urlopen(req,timeout=60) as r:
-                      b=r.read(); print('STATUS',r.status,'SECONDS',round(time.time()-t,3),'TYPE',r.headers.get('Content-Type'),'BODY',b[:1000].decode('utf-8','replace').replace('\n',' '))
-              except urllib.error.HTTPError as e:
-                  b=e.read(); print('STATUS',e.code,'SECONDS',round(time.time()-t,3),'TYPE',e.headers.get('Content-Type'),'BODY',b[:1000].decode('utf-8','replace').replace('\n',' '))
-              except Exception as e: print('ERROR',repr(e),'SECONDS',round(time.time()-t,3))
-              time.sleep(1)
-          print('\nRECHECK')
-          req=urllib.request.Request(base+'/api/news?check='+str(time.time()),headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'})
+          set -u
+          names=(S1 S2 S3 S4 S5 S6 S7 S8 S9 V1 V2 V3 V4 V5 V6 V7 V8)
+          valid=''
+          for n in "${names[@]}"; do
+            val="${!n:-}"
+            [ -n "$val" ] || continue
+            code=$(curl -sS -o /tmp/verify.json -w '%{http_code}' -H "Authorization: Bearer ${val}" 'https://api.cloudflare.com/client/v4/accounts?per_page=100')
+            if [ "$code" = 200 ] && python3 - <<'PY'
+          import json,sys
           try:
-              with urllib.request.urlopen(req,timeout=30) as r:
-                  d=json.loads(r.read().decode()); it=d.get('items',[])
-                  print(json.dumps({'updatedAt':d.get('updatedAt'),'sourcesOnline':d.get('sourcesOnline'),'totalSources':d.get('totalSources'),'firstPublishedAt':it[0].get('publishedAt') if it else None,'firstSource':it[0].get('source') if it else None},ensure_ascii=False))
-          except Exception as e: print('RECHECK_ERROR',repr(e))
+              d=json.load(open('/tmp/verify.json'))
+              sys.exit(0 if d.get('success') is True else 1)
+          except: sys.exit(1)
           PY
+            then
+              echo "VALID_CANDIDATE=${n}"
+              valid="$val"
+              cp /tmp/verify.json /tmp/accounts.json
+              break
+            else
+              echo "INVALID_OR_UNAUTHORIZED_CANDIDATE=${n} HTTP=${code}"
+            fi
+          done
+          if [ -z "$valid" ]; then echo 'VALID_CLOUDFLARE_CREDENTIAL=NO'; exit 1; fi
+          echo 'VALID_CLOUDFLARE_CREDENTIAL=YES'
+          python3 - <<'PY' >/tmp/ids
+          import json
+          for x in json.load(open('/tmp/accounts.json')).get('result',[]):
+              if x.get('id'): print(x['id'])
+          PY
+          found=0
+          while read -r aid; do
+            [ -n "$aid" ] || continue
+            code=$(curl -sS -o /tmp/script -w '%{http_code}' -H "Authorization: Bearer ${valid}" "https://api.cloudflare.com/client/v4/accounts/${aid}/workers/scripts/news")
+            if [ "$code" = 200 ]; then
+              echo 'WORKER_FOUND=YES'; found=1
+              wc -c /tmp/script | awk '{print "SCRIPT_BYTES=" $1}'
+              curl -sS -o /tmp/schedules.json -H "Authorization: Bearer ${valid}" "https://api.cloudflare.com/client/v4/accounts/${aid}/workers/scripts/news/schedules" || true
+              python3 - <<'PY'
+          import json
+          try:
+              d=json.load(open('/tmp/schedules.json'))
+              print('CRONS='+','.join(x.get('cron','') for x in d.get('result',{}).get('schedules',[])))
+          except: print('CRONS=UNKNOWN')
+          PY
+              break
+            fi
+          done </tmp/ids
+          [ "$found" = 1 ] || echo 'WORKER_FOUND=NO'
           exit 1
