@@ -1,6 +1,8 @@
 name: ZAIRIS inspect
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -21,7 +23,7 @@ jobs:
           echo '=== HTML FIRST 400 LINES ==='
           sed -n '1,400p' /tmp/site.html || true
           echo '=== DISCOVERED URL/PATH TOKENS ==='
-          grep -Eo '(https?://[^"'"' <>]+|/[A-Za-z0-9_./?=&%:-]{2,})' /tmp/site.html | sort -u | head -300 || true
+          grep -Eo '(https?://[^" <>]+|/[A-Za-z0-9_./?=&%:-]{2,})' /tmp/site.html | sort -u | head -300 || true
           echo '=== FETCH/AJAX/FORM/SCRIPT HINTS ==='
           grep -Ein 'fetch\(|axios|XMLHttpRequest|action=|href=|src=|refresh|update|sync|cron|scheduled|api|rss|feed|json|kv|d1' /tmp/site.html | head -300 || true
           echo '=== COMMON ENDPOINT STATUS ==='
