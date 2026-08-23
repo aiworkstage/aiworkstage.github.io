@@ -8,46 +8,47 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Recursively inspect public ZAIRIS JavaScript chunks
+      - name: Extract ZAIRIS stored source inventory
         shell: bash
         run: |
           python3 - <<'PY'
-          import re,urllib.request,urllib.error,collections
+          import json,urllib.request,urllib.parse,collections
           base='https://news.zairis.workers.dev'
-          req=urllib.request.Request(base+'/',headers={'User-Agent':'Mozilla/5.0'})
-          html=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
-          paths=set(re.findall(r'''(?:src|href)=["']([^"']+\.js[^"']*)["']''',html))
-          q=collections.deque(p.split('?',1)[0] for p in paths if p.startswith('/'))
-          seen=set(); blobs={}
-          while q and len(seen)<120:
-              p=q.popleft()
-              if p in seen: continue
-              seen.add(p)
+          req=urllib.request.Request(base+'/api/news?inventory=1',headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'})
+          data=json.loads(urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace'))
+          items=data.get('items',[])
+          c=collections.Counter(x.get('source','') for x in items if x.get('source'))
+          print('UPDATED_AT',data.get('updatedAt'))
+          print('CURRENT_ITEMS',len(items),'DISTINCT_SOURCES',len(c))
+          for src,n in c.most_common():
+              domains=collections.Counter()
+              examples=[]
+              for x in items:
+                  if x.get('source')!=src: continue
+                  link=x.get('link') or x.get('url') or ''
+                  if link:
+                      try: domains[urllib.parse.urlsplit(link).netloc]+=1
+                      except: pass
+                      if len(examples)<2: examples.append(link)
+              print('SOURCE',json.dumps(src,ensure_ascii=False),'COUNT',n,'DOMAINS',json.dumps(domains.most_common(5),ensure_ascii=False),'EXAMPLES',json.dumps(examples,ensure_ascii=False))
+          print('\nITEM_KEYS',sorted({k for x in items for k in x.keys()}))
+          if items:
+              safe={k:v for k,v in items[0].items() if k not in {'summary','content','description'}}
+              print('FIRST_ITEM',json.dumps(safe,ensure_ascii=False)[:3000])
+          # pull archive pages to discover sources not present in current top 60
+          allc=collections.Counter(c)
+          for page in range(1,9):
+              u=base+'/api/archive?'+urllib.parse.urlencode({'page':page,'pageSize':100,'category':'すべて','q':''})
               try:
-                  txt=urllib.request.urlopen(urllib.request.Request(base+p,headers={'User-Agent':'Mozilla/5.0'}),timeout=30).read().decode('utf-8','replace')
+                  d=json.loads(urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'}),timeout=30).read().decode())
               except Exception as e:
-                  print('FETCH_FAIL',p,repr(e)); continue
-              blobs[p]=txt
-              print('FETCHED',p,'SIZE',len(txt))
-              for x in re.findall(r'''["'](/_next/static/chunks/[^"']+\.js)["']''',txt):
-                  if x not in seen: q.append(x)
-          print('\nTOTAL_CHUNKS',len(blobs))
-          keys=['marketwatch','reuters','rss','feed','scheduled','updatedAt','sourcesOnline','api/news','xml','kv','d1','cache.put','cache.get','waitUntil','cron','fetch(']
-          for p,txt in blobs.items():
-              low=txt.lower()
-              hits=[]
-              for k in keys:
-                  idx=low.find(k.lower())
-                  if idx>=0: hits.append((k,idx))
-              if hits:
-                  print('\n=== HITFILE',p,'===')
-                  for k,idx in hits[:30]:
-                      print('KEY',k,'AT',idx)
-                      print(txt[max(0,idx-450):min(len(txt),idx+1100)].replace('\n',' ')[:1800])
-              urls=sorted(set(re.findall(r'''https?://[^"'`\s)<>]+''',txt)))
-              interesting=[u for u in urls if any(x in u.lower() for x in ['rss','feed','reuters','marketwatch','finance','news','xml'])]
-              if interesting:
-                  print('URLS',p)
-                  for u in interesting[:100]: print(u[:500])
+                  print('ARCHIVE_ERR',page,repr(e)); break
+              arr=d.get('items',[])
+              print('ARCHIVE_PAGE',page,'ITEMS',len(arr),'TOTAL',d.get('total'))
+              for x in arr:
+                  if x.get('source'): allc[x['source']]+=1
+              if not arr: break
+          print('\nALL_DISCOVERED_SOURCES',len(allc))
+          for src,n in allc.most_common(): print('ALL_SOURCE',json.dumps(src,ensure_ascii=False),'COUNT',n)
           PY
           exit 1
