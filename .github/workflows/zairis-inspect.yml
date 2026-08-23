@@ -8,33 +8,46 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Retry ZAIRIS exact revalidation
+      - name: Inspect ZAIRIS source maps
         shell: bash
         run: |
           python3 - <<'PY'
-          import json,time,urllib.request,urllib.error
-          trigger='https://news.zairis.workers.dev/api/news?revalidate=1'
-          read='https://news.zairis.workers.dev/api/news'
-          def summary(body):
-              try:
-                  d=json.loads(body.decode('utf-8','replace'))
-                  it=d.get('items',[]) if isinstance(d,dict) else []
-                  return {'updatedAt':d.get('updatedAt'),'sourcesOnline':d.get('sourcesOnline'),'totalSources':d.get('totalSources'),'firstPublishedAt':it[0].get('publishedAt') if it else None,'firstSource':it[0].get('source') if it else None}
-              except Exception: return {'body':body[:120].decode('utf-8','replace').replace('\n',' ')}
-          for i in range(1,13):
-              t=time.time(); req=urllib.request.Request(trigger,headers={'User-Agent':f'ZAIRIS-recovery/{i}','Cache-Control':'no-cache','Pragma':'no-cache'})
-              try:
-                  with urllib.request.urlopen(req,timeout=45) as r:
-                      b=r.read(); print('ATTEMPT',i,'STATUS',r.status,'SECONDS',round(time.time()-t,3),'RESULT',json.dumps(summary(b),ensure_ascii=False))
-              except urllib.error.HTTPError as e:
-                  b=e.read(); print('ATTEMPT',i,'STATUS',e.code,'SECONDS',round(time.time()-t,3),'CF_ERROR',e.headers.get('cf-error-type'),'BODY',b[:100].decode('utf-8','replace').replace('\n',' '))
-              except Exception as e: print('ATTEMPT',i,'ERROR',repr(e),'SECONDS',round(time.time()-t,3))
-              try:
-                  with urllib.request.urlopen(urllib.request.Request(read+'?check='+str(time.time()),headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'}),timeout=30) as r:
-                      cur=summary(r.read()); print('CHECK',i,json.dumps(cur,ensure_ascii=False))
-                      if cur.get('updatedAt') and cur.get('updatedAt')!='2026-08-22T20:20:39.848Z':
-                          print('RECOVERED=YES'); break
-              except Exception as e: print('CHECK_ERROR',repr(e))
-              time.sleep(2)
+          import json, urllib.request, urllib.error, re
+          base='https://news.zairis.workers.dev'
+          assets=[
+            '/_next/static/chunks/home-client-BXI0_c_e.js',
+            '/_next/static/chunks/index-CdOnCZU8.js',
+          ]
+          for p in assets:
+              print('\nASSET',p)
+              req=urllib.request.Request(base+p,headers={'User-Agent':'Mozilla/5.0'})
+              text=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
+              m=re.search(r'sourceMappingURL=([^\s*]+)',text)
+              candidates=[]
+              if m:
+                  sm=m.group(1).strip(); candidates.append(sm if sm.startswith('/') else p.rsplit('/',1)[0]+'/'+sm)
+              candidates.append(p+'.map')
+              seen=set()
+              for mp in candidates:
+                  if mp in seen: continue
+                  seen.add(mp)
+                  try:
+                      r=urllib.request.urlopen(urllib.request.Request(base+mp,headers={'User-Agent':'Mozilla/5.0'}),timeout=30)
+                      body=r.read(); print('MAP',mp,'STATUS',r.status,'LEN',len(body))
+                      try:
+                          d=json.loads(body.decode('utf-8','replace'))
+                          print('SOURCES',json.dumps(d.get('sources',[])[:100],ensure_ascii=False))
+                          sc=d.get('sourcesContent') or []
+                          for idx,c in enumerate(sc[:100]):
+                              if c and any(k in c for k in ['/api/news','revalidate','updatedAt','RSS','feeds']):
+                                  print('SOURCE_CONTENT_INDEX',idx,'NAME',d.get('sources',[None]*len(sc))[idx] if idx<len(d.get('sources',[])) else None)
+                                  for kw in ['/api/news','revalidate','updatedAt']:
+                                      pos=c.find(kw)
+                                      if pos>=0: print(c[max(0,pos-500):pos+1000].replace('\n',' ')[:1800])
+                      except Exception:
+                          print('MAP_HEAD',body[:300].decode('utf-8','replace').replace('\n',' '))
+                  except urllib.error.HTTPError as e:
+                      print('MAP',mp,'STATUS',e.code)
+                  except Exception as e: print('MAP',mp,'ERROR',repr(e))
           PY
           exit 1
