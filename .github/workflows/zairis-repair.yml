@@ -3,7 +3,7 @@ name: ZAIRIS repair
 on:
   push:
     branches:
-      - chatgpt/zairis-repair-20260823
+      - main
   pull_request:
     branches:
       - main
