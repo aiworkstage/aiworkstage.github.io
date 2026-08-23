@@ -1,2 +1,2 @@
 Trigger ZAIRIS public endpoint inspection.
-Synchronize 3.
+Synchronize 4 - API probe.
