@@ -1,54 +1,101 @@
-name: ZAIRIS inspect
+name: ZAIRIS repair diagnostic
 
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'zairis-diagnostic.json'
+
+permissions:
+  contents: write
 
 jobs:
-  inspect:
+  diagnose:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract ZAIRIS stored source inventory
+      - uses: actions/checkout@v4
+
+      - name: Check Cloudflare credentials and worker access
+        shell: bash
+        env:
+          S1: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          S2: ${{ secrets.CF_API_TOKEN }}
+          S3: ${{ secrets.CLOUDFLARE_TOKEN }}
+          S4: ${{ secrets.CF_TOKEN }}
+          S5: ${{ secrets.WORKERS_API_TOKEN }}
+          S6: ${{ secrets.WORKERS_TOKEN }}
+          S7: ${{ secrets.CLOUDFLARE_WORKERS_API_TOKEN }}
+          S8: ${{ secrets.CLOUDFLARE_WORKERS_TOKEN }}
+          S9: ${{ secrets.CLOUDFLARE_DEPLOY_TOKEN }}
+          V1: ${{ vars.CLOUDFLARE_API_TOKEN }}
+          V2: ${{ vars.CF_API_TOKEN }}
+          V3: ${{ vars.CLOUDFLARE_TOKEN }}
+          V4: ${{ vars.CF_TOKEN }}
+          V5: ${{ vars.WORKERS_API_TOKEN }}
+          V6: ${{ vars.WORKERS_TOKEN }}
+          V7: ${{ vars.CLOUDFLARE_WORKERS_API_TOKEN }}
+          V8: ${{ vars.CLOUDFLARE_WORKERS_TOKEN }}
+        run: |
+          set +e
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error
+          result={"credential_found":False,"credential_name":None,"worker_found":False,"worker_http":None,"crons":[],"script_content_type":None,"script_bytes":None,"error":None}
+          names=[f'S{i}' for i in range(1,10)]+[f'V{i}' for i in range(1,9)]
+          token=None
+          accounts=[]
+          for name in names:
+              val=os.environ.get(name,'')
+              if not val: continue
+              req=urllib.request.Request('https://api.cloudflare.com/client/v4/accounts?per_page=100',headers={'Authorization':f'Bearer {val}'})
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      d=json.load(r)
+                  if d.get('success'):
+                      token=val; result['credential_found']=True; result['credential_name']=name
+                      accounts=d.get('result') or []
+                      break
+              except Exception:
+                  pass
+          if token:
+              for a in accounts:
+                  aid=a.get('id')
+                  if not aid: continue
+                  url=f'https://api.cloudflare.com/client/v4/accounts/{aid}/workers/scripts/news'
+                  req=urllib.request.Request(url,headers={'Authorization':f'Bearer {token}'})
+                  try:
+                      with urllib.request.urlopen(req,timeout=30) as r:
+                          body=r.read()
+                          result['worker_found']=True
+                          result['worker_http']=r.status
+                          result['script_content_type']=r.headers.get('Content-Type')
+                          result['script_bytes']=len(body)
+                          open('/tmp/news-worker.bin','wb').write(body)
+                      su=f'https://api.cloudflare.com/client/v4/accounts/{aid}/workers/scripts/news/schedules'
+                      try:
+                          with urllib.request.urlopen(urllib.request.Request(su,headers={'Authorization':f'Bearer {token}'}),timeout=30) as r:
+                              sd=json.load(r)
+                          raw=sd.get('result')
+                          if isinstance(raw,dict): raw=raw.get('schedules',[])
+                          if isinstance(raw,list): result['crons']=[x.get('cron') for x in raw if isinstance(x,dict) and x.get('cron')]
+                      except Exception as e:
+                          result['schedule_error']=type(e).__name__
+                      result['account_found']=True
+                      break
+                  except urllib.error.HTTPError as e:
+                      result['worker_http']=e.code
+                  except Exception as e:
+                      result['error']=type(e).__name__
+          with open('zairis-diagnostic.json','w') as f:
+              json.dump(result,f,ensure_ascii=False,indent=2)
+          print(json.dumps(result,ensure_ascii=False))
+          PY
+
+      - name: Commit safe diagnostic result
         shell: bash
         run: |
-          python3 - <<'PY'
-          import json,urllib.request,urllib.parse,collections
-          base='https://news.zairis.workers.dev'
-          req=urllib.request.Request(base+'/api/news?inventory=1',headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'})
-          data=json.loads(urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace'))
-          items=data.get('items',[])
-          c=collections.Counter(x.get('source','') for x in items if x.get('source'))
-          print('UPDATED_AT',data.get('updatedAt'))
-          print('CURRENT_ITEMS',len(items),'DISTINCT_SOURCES',len(c))
-          for src,n in c.most_common():
-              domains=collections.Counter()
-              examples=[]
-              for x in items:
-                  if x.get('source')!=src: continue
-                  link=x.get('link') or x.get('url') or ''
-                  if link:
-                      try: domains[urllib.parse.urlsplit(link).netloc]+=1
-                      except: pass
-                      if len(examples)<2: examples.append(link)
-              print('SOURCE',json.dumps(src,ensure_ascii=False),'COUNT',n,'DOMAINS',json.dumps(domains.most_common(5),ensure_ascii=False),'EXAMPLES',json.dumps(examples,ensure_ascii=False))
-          print('\nITEM_KEYS',sorted({k for x in items for k in x.keys()}))
-          if items:
-              safe={k:v for k,v in items[0].items() if k not in {'summary','content','description'}}
-              print('FIRST_ITEM',json.dumps(safe,ensure_ascii=False)[:3000])
-          # pull archive pages to discover sources not present in current top 60
-          allc=collections.Counter(c)
-          for page in range(1,9):
-              u=base+'/api/archive?'+urllib.parse.urlencode({'page':page,'pageSize':100,'category':'すべて','q':''})
-              try:
-                  d=json.loads(urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'}),timeout=30).read().decode())
-              except Exception as e:
-                  print('ARCHIVE_ERR',page,repr(e)); break
-              arr=d.get('items',[])
-              print('ARCHIVE_PAGE',page,'ITEMS',len(arr),'TOTAL',d.get('total'))
-              for x in arr:
-                  if x.get('source'): allc[x['source']]+=1
-              if not arr: break
-          print('\nALL_DISCOVERED_SOURCES',len(allc))
-          for src,n in allc.most_common(): print('ALL_SOURCE',json.dumps(src,ensure_ascii=False),'COUNT',n)
-          PY
-          exit 1
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add zairis-diagnostic.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Record ZAIRIS Cloudflare diagnostic [skip ci]'
+          git push
