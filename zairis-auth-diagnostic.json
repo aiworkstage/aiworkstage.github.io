@@ -1,0 +1,13 @@
+{
+  "auth_found": false,
+  "auth_mode": null,
+  "auth_name": null,
+  "accounts": 0,
+  "worker_found": false,
+  "worker_http": null,
+  "crons": [],
+  "script_bytes": null,
+  "script_content_type": null,
+  "markers": {},
+  "error": null
+}
